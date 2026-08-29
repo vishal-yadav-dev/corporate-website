@@ -1,0 +1,252 @@
+@import "tailwindcss";
+
+@theme {
+  /* Dark surfaces — near-black, Accenture-deep */
+  --color-paper: #08090C;
+  --color-paper-tint: #0D0F14;
+  --color-paper-deep: #101318;
+  --color-surface: #0C0E12;
+  --color-surface-2: #13161C;
+  --color-white: #FFFFFF;           /* kept white — used for text on brand/dark chips */
+
+  --color-ink: #F2F4F7;
+  --color-ink-soft: #C4CBD5;
+  --color-graphite: #8B95A3;
+  --color-line: #1C2129;
+  --color-line-blue: #22303F;
+
+  /* Full Noblesoft prism spectrum — the "N" runs red → orange → yellow →
+     green → blue → violet. Primary is the warm red-orange of the wordmark. */
+  --color-brand: #F1531E;
+  --color-brand-deep: #CE3F12;
+  --color-brand-bright: #FF7A45;
+  --color-brand-soft: #2C1710;
+  --color-accent: #2F97DB;        /* prism blue   */
+  --color-accent-deep: #6FC0EC;
+  --color-prism-red: #E5352F;
+  --color-prism-amber: #F5A623;
+  --color-prism-green: #27B36B;
+  --color-prism-blue: #2F97DB;
+  --color-prism-violet: #7E5BE6;
+  --color-accent-2: #E5352F;      /* alias: red   */
+  --color-accent-3: #27B36B;      /* alias: green */
+
+  --font-display: var(--font-space-grotesk);
+  --font-body: var(--font-inter);
+  --font-mono: var(--font-jetbrains);
+}
+
+:root {
+  --background: #050608;
+  --foreground: #F2F4F7;
+  color-scheme: dark;
+}
+
+/* ---- Light theme (toggle sets data-theme="light" on <html>) ---- */
+:root[data-theme="light"] {
+  --color-paper: #FFFFFF;
+  --color-paper-tint: #F1F5F9;
+  --color-paper-deep: #E7EDF3;
+  --color-surface: #FFFFFF;
+  --color-surface-2: #F5F8FB;
+
+  --color-ink: #16202B;
+  --color-ink-soft: #33404D;
+  --color-graphite: #5C6A78;
+  --color-line: #E4E8EC;
+  --color-line-blue: #D3E1EC;
+
+  --color-brand: #E2481B;
+  --color-brand-deep: #BF3A12;
+  --color-brand-bright: #F0623A;
+  --color-brand-soft: #FDEAE2;
+  --color-accent: #1E88C7;
+  --color-accent-deep: #14689E;
+  --color-prism-red: #D62F2A;
+  --color-prism-amber: #E0900A;
+  --color-prism-green: #1E9E5C;
+  --color-prism-blue: #1E88C7;
+  --color-prism-violet: #6B49D6;
+
+  --background: #FFFFFF;
+  --foreground: #16202B;
+  color-scheme: light;
+}
+
+* { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+html { scroll-behavior: smooth; }
+
+body {
+  color: var(--foreground);
+  font-family: var(--font-body), system-ui, sans-serif;
+  overflow-x: hidden;
+  background-color: var(--background);
+  /* Deep prism backdrop: the full spectrum, faint, over near-black. */
+  background-image:
+    radial-gradient(50rem 50rem at 100% -14%, rgba(241, 83, 30, 0.11), transparent 56%),
+    radial-gradient(38rem 38rem at 80% 4%, rgba(245, 166, 35, 0.06), transparent 56%),
+    radial-gradient(44rem 44rem at 2% 20%, rgba(126, 91, 230, 0.08), transparent 56%),
+    radial-gradient(46rem 46rem at -12% 106%, rgba(47, 151, 219, 0.09), transparent 56%),
+    radial-gradient(34rem 34rem at 62% 116%, rgba(39, 179, 107, 0.06), transparent 60%),
+    linear-gradient(180deg, #050608 0%, #06070A 60%, #040507 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+:root[data-theme="light"] body {
+  /* Full Noblesoft prism, very soft, over white. */
+  background-image:
+    radial-gradient(46rem 46rem at 98% -14%, rgba(226, 72, 27, 0.10), transparent 55%),
+    radial-gradient(40rem 40rem at 78% 6%, rgba(245, 166, 35, 0.08), transparent 55%),
+    radial-gradient(44rem 44rem at 2% 22%, rgba(107, 73, 214, 0.07), transparent 56%),
+    radial-gradient(46rem 46rem at -10% 104%, rgba(30, 136, 199, 0.09), transparent 56%),
+    radial-gradient(38rem 38rem at 60% 118%, rgba(30, 158, 92, 0.07), transparent 58%),
+    linear-gradient(180deg, #FFFFFF 0%, #FAFBFE 55%, #F3F6FB 100%);
+}
+
+::selection { background: var(--color-brand); color: #fff; }
+
+.display {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+.mono-label {
+  font-family: var(--font-mono), monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+}
+
+/* ---- Surfaces / depth ---- */
+.surface-card {
+  background: var(--color-surface);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 1px 2px rgba(0, 0, 0, 0.4),
+    0 24px 60px -20px rgba(0, 0, 0, 0.6);
+}
+.surface-tint {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0)),
+    var(--color-paper-tint);
+}
+.glass {
+  background: color-mix(in srgb, var(--color-surface) 62%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid color-mix(in srgb, var(--color-line-blue) 65%, transparent);
+}
+.hairline { border-color: color-mix(in srgb, var(--color-line-blue) 70%, transparent); }
+
+.glow-brand { box-shadow: 0 0 0 1px rgba(242,106,27,0.25), 0 20px 60px -18px rgba(242,106,27,0.45); }
+.text-glow { text-shadow: 0 0 34px rgba(242,106,27,0.35); }
+
+/* Light-theme surface tweaks */
+:root[data-theme="light"] .surface-card {
+  box-shadow: 0 1px 2px rgba(22,32,43,0.05), 0 20px 50px -20px rgba(30,136,199,0.18);
+}
+:root[data-theme="light"] .surface-tint {
+  background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0)), var(--color-paper-tint);
+}
+:root[data-theme="light"] .card-3d:hover {
+  box-shadow: 0 24px 60px -26px rgba(22,32,43,0.28), 0 0 0 1px rgba(30,136,199,0.2);
+}
+:root[data-theme="light"] .text-glow { text-shadow: none; }
+:root[data-theme="light"] .bg-dotgrid {
+  background-image: radial-gradient(circle at 1px 1px, rgba(22,32,43,0.06) 1px, transparent 0);
+}
+:root[data-theme="light"] .grain::before { opacity: 0.015; }
+
+/* ---- 3D scene helpers ---- */
+.scene { perspective: 1200px; perspective-origin: 50% 30%; }
+.preserve-3d { transform-style: preserve-3d; }
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease, border-color 0.3s ease;
+}
+.card-3d:hover {
+  transform: translateY(-6px) rotateX(3deg);
+  box-shadow: 0 30px 70px -24px rgba(0,0,0,0.7), 0 0 0 1px rgba(56,182,240,0.18);
+}
+
+/* ---- Animations ---- */
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee-track { animation: marquee 28s linear infinite; }
+.marquee-track:hover { animation-play-state: paused; }
+
+@keyframes float-y { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+.anim-float { animation: float-y 7s ease-in-out infinite; }
+
+@keyframes spin-3d {
+  0%   { transform: rotateX(18deg) rotateY(0deg); }
+  100% { transform: rotateX(18deg) rotateY(360deg); }
+}
+.anim-spin-3d { animation: spin-3d 26s linear infinite; }
+
+@keyframes spin-z { to { transform: rotateZ(360deg); } }
+.anim-orbit { animation: spin-z 18s linear infinite; }
+
+@keyframes travel-x {
+  0%   { transform: translateX(-7%) translateY(-2%); }
+  50%  { transform: translateX(7%) translateY(2%); }
+  100% { transform: translateX(-7%) translateY(-2%); }
+}
+.anim-travel { animation: travel-x 20s ease-in-out infinite; }
+
+@keyframes drift {
+  0%   { transform: translate3d(0,0,0) scale(1); }
+  50%  { transform: translate3d(3%, -3%, 0) scale(1.08); }
+  100% { transform: translate3d(0,0,0) scale(1); }
+}
+.anim-drift { animation: drift 18s ease-in-out infinite; }
+
+@keyframes grid-pan { from { background-position: 0 0; } to { background-position: 60px 60px; } }
+.anim-grid { animation: grid-pan 12s linear infinite; }
+
+@keyframes pulse-ring {
+  0% { opacity: 0.55; transform: scale(0.85); }
+  70% { opacity: 0; transform: scale(1.6); }
+  100% { opacity: 0; transform: scale(1.6); }
+}
+.anim-pulse-ring { animation: pulse-ring 2.6s ease-out infinite; }
+
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+.anim-blink { animation: blink 1.4s ease-in-out infinite; }
+
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.anim-bob { animation: bob 3.5s ease-in-out infinite; }
+
+/* faint moving starfield / dot grid used behind hero + sections */
+.bg-dotgrid {
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.06) 1px, transparent 0);
+  background-size: 60px 60px;
+}
+
+.grain::before {
+  content: "";
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 1;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+  .marquee-track, .anim-float, .anim-spin-3d, .anim-drift, .anim-grid, .anim-pulse-ring { animation: none; }
+  .card-3d:hover { transform: none; }
+}
+
+a, button { outline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--color-brand); }
+
+/* Native form controls follow the theme (fixes invisible <select> options in dark) */
+select, input, textarea, option { color-scheme: inherit; }
+select option,
+select optgroup {
+  background-color: var(--color-surface);
+  color: var(--color-ink);
+}
+input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.5); }
+:root:not([data-theme="light"]) input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.85); }
