@@ -34,7 +34,7 @@ export default function Nav() {
             <span className="h-8 w-8 grid place-items-center bg-brand text-white font-display font-bold text-lg rounded-[6px] group-hover:rotate-6 transition-transform">
               N
             </span>
-            <span className="display text-ink text-xl tracking-tight">Noblesoft</span>
+            <span className="display text-ink text-xl tracking-tight">Testsoft</span>
           </Link>
 
           <nav className="hidden lg:flex items-center gap-1" onMouseLeave={() => setOpen(null)}>

@@ -4,7 +4,7 @@ import { STAFFING, INDUSTRIES } from "@/lib/data";
 
 /**
  * Public website assistant — Gemini free tier, locked to answering questions
- * about Noblesoft. Off-topic requests get a fixed redirect. Soft per-caller cap.
+ * about Testsoft. Off-topic requests get a fixed redirect. Soft per-caller cap.
  */
 
 const MODEL = "gemini-1.5-flash";
@@ -12,12 +12,12 @@ const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODE
 const MAX_TURNS = 16; // user messages per conversation
 
 const REDIRECT =
-  "I can only help with questions about Noblesoft — our practices, staff augmentation, industries, careers, and how to get in touch. What would you like to know?";
+  "I can only help with questions about Testsoft — our practices, staff augmentation, industries, careers, and how to get in touch. What would you like to know?";
 
 async function knowledge(): Promise<string> {
   const [practices, offices] = await Promise.all([getPractices(), getOffices()]);
   return [
-    "ABOUT: Noblesoft Technologies is an Inc. 500 enterprise-application consulting firm and a certified Minority Business Enterprise. Delivery from the US, nearshore Mexico, and offshore India.",
+    "ABOUT: Testsoft Technologies is an Inc. 500 enterprise-application consulting firm and a certified Minority Business Enterprise. Delivery from the US, nearshore Mexico, and offshore India.",
     "",
     "PRACTICES:",
     ...practices.map((p) => `- ${p.name} (${p.tag}): ${p.body}`),
@@ -35,15 +35,15 @@ async function knowledge(): Promise<string> {
   ].join("\n");
 }
 
-const SYSTEM = (kb: string) => `You are the assistant on the Noblesoft Technologies website.
+const SYSTEM = (kb: string) => `You are the assistant on the Testsoft Technologies website.
 Answer ONLY using the facts below. Be concise (2-4 sentences), friendly, and professional.
-If someone asks something not about Noblesoft (its services, staffing, industries, careers,
+If someone asks something not about Testsoft (its services, staffing, industries, careers,
 offices, or contact), reply with EXACTLY:
 "${REDIRECT}"
 Never write code, essays, or general knowledge. If a fact isn't below, say you're not sure and
 point them to the contact form at /contact.
 
---- NOBLESOFT FACTS ---
+--- TESTSOFT FACTS ---
 ${kb}
 --- END FACTS ---`;
 

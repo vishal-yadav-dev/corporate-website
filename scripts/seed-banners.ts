@@ -82,7 +82,7 @@ const SLIDES = [
     title: "Nearshore & offshore delivery",
     subtitle:
       "Accelerate every release. Certified engineering pods and scalable scrum teams delivered from the US, nearshore Mexico, and offshore India.",
-    cta_text: "About Noblesoft",
+    cta_text: "About Testsoft",
     cta_url: "/company",
     alt: "Layered pale-blue gradient with a warm connection network",
     sort_order: 30,

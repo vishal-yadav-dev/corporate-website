@@ -11,7 +11,7 @@ import { getStaffing } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Noblesoft staff augmentation — contract staffing, direct hire, SOW delivery pods, MSP/VMS program management, and compliant payrolling across all 50 states.",
+    "Testsoft staff augmentation — contract staffing, direct hire, SOW delivery pods, MSP/VMS program management, and compliant payrolling across all 50 states.",
 };
 
 export default async function UsStaffingPage() {

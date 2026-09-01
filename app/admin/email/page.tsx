@@ -56,7 +56,7 @@ function AiAssist({ context, format, threadId, onDraft }: {
             {left !== null && <span className="text-[11px] text-graphite">{left} left</span>}
           </div>
           {msg && <p className="text-xs text-graphite">{msg}</p>}
-          <p className="text-[11px] text-graphite/70">The assistant only drafts Noblesoft emails, max 5 drafts per email.</p>
+          <p className="text-[11px] text-graphite/70">The assistant only drafts Testsoft emails, max 5 drafts per email.</p>
         </div>
       )}
     </div>
@@ -67,9 +67,9 @@ function AiAssist({ context, format, threadId, onDraft }: {
 const STARTERS: { name: string; subject: string; html: string }[] = [
   {
     name: "Company update",
-    subject: "A quick update from Noblesoft",
+    subject: "A quick update from Testsoft",
     html: `<h2 style="font-family:Inter,Arial,sans-serif;color:#17222E">Hello,</h2>
-<p style="font-family:Inter,Arial,sans-serif;color:#17222E;line-height:1.6">We wanted to share a few things happening at Noblesoft this quarter.</p>
+<p style="font-family:Inter,Arial,sans-serif;color:#17222E;line-height:1.6">We wanted to share a few things happening at Testsoft this quarter.</p>
 <ul style="font-family:Inter,Arial,sans-serif;color:#17222E;line-height:1.6">
   <li><strong>New practice:</strong> …</li>
   <li><strong>Client win:</strong> …</li>
@@ -79,7 +79,7 @@ const STARTERS: { name: string; subject: string; html: string }[] = [
   },
   {
     name: "Event / webinar invite",
-    subject: "You're invited: Noblesoft webinar",
+    subject: "You're invited: Testsoft webinar",
     html: `<h2 style="font-family:Inter,Arial,sans-serif;color:#17222E">You're invited</h2>
 <p style="font-family:Inter,Arial,sans-serif;color:#17222E;line-height:1.6">Join us for a live session on <strong>[topic]</strong>.</p>
 <p style="font-family:Inter,Arial,sans-serif;color:#17222E;line-height:1.6"><strong>When:</strong> [date, time]<br/><strong>Where:</strong> [link]</p>
@@ -174,7 +174,7 @@ function Compose() {
 
         <AiAssist context={contentHtml} format="html" threadId={threadId} onDraft={setContentHtml} />
         <textarea className={`${input} min-h-[280px] font-mono text-xs`} value={contentHtml}
-          onChange={(e) => setContentHtml(e.target.value)} placeholder="Email body — HTML allowed. Wrapped in the Noblesoft template on send." />
+          onChange={(e) => setContentHtml(e.target.value)} placeholder="Email body — HTML allowed. Wrapped in the Testsoft template on send." />
 
         <div>
           <label className="mono-label text-graphite block mb-1.5">Attachments</label>

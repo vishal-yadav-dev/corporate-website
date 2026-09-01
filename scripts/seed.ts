@@ -8,9 +8,9 @@ import { cuid } from "../lib/id";
 const hashPassword = (pw: string) => bcrypt.hash(pw, 12);
 
 async function main() {
-  const email = (process.env.SEED_ADMIN_EMAIL || "admin@noblesoft.com").toLowerCase();
+  const email = (process.env.SEED_ADMIN_EMAIL || "admin@testsoft.com").toLowerCase();
   const password = process.env.SEED_ADMIN_PASSWORD || "ChangeMe!2026";
-  const name = process.env.SEED_ADMIN_NAME || "Noblesoft Admin";
+  const name = process.env.SEED_ADMIN_NAME || "Testsoft Admin";
 
   const hash = await hashPassword(password);
   const existing = await one<{ id: string }>("SELECT id FROM admins WHERE email = $1", [email]);

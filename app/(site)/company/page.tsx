@@ -20,7 +20,7 @@ const WHY = [
 
 export const metadata: Metadata = {
   title: "Company",
-  description: "About Noblesoft Technologies — leadership, awards, delivery centers, and corporate responsibility.",
+  description: "About Testsoft Technologies — leadership, awards, delivery centers, and corporate responsibility.",
 };
 
 
@@ -35,7 +35,7 @@ export default async function CompanyPage() {
       <PageHeader
         eyebrow="Company"
         title="People-centric by design."
-        intro="Headquartered in Texas, Noblesoft is an Inc. 500 provider of end-to-end enterprise application consulting — modernizing core business processes across CRM, ERP, and HCM for clients worldwide."
+        intro="Headquartered in Texas, Testsoft is an Inc. 500 provider of end-to-end enterprise application consulting — modernizing core business processes across CRM, ERP, and HCM for clients worldwide."
       />
 
       <section id="about" className="relative z-10 bg-surface/70 pt-16 sm:pt-24 pb-24 scroll-mt-24">
@@ -104,7 +104,7 @@ export default async function CompanyPage() {
         </div>
       </section>
 
-      <div className="bg-paper/55">        <ScrollStory eyebrow="Why Noblesoft" heading="What the awards actually mean." items={WHY} />
+      <div className="bg-paper/55">        <ScrollStory eyebrow="Why Testsoft" heading="What the awards actually mean." items={WHY} />
       </div>
 
       <section id="delivery" className="relative z-10 bg-paper-tint/55 py-24 sm:py-32 scroll-mt-24">

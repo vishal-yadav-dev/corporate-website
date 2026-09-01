@@ -15,7 +15,7 @@
   --color-line: #1C2129;
   --color-line-blue: #22303F;
 
-  /* Full Noblesoft prism spectrum — the "N" runs red → orange → yellow →
+  /* Full Testsoft prism spectrum — the "N" runs red → orange → yellow →
      green → blue → violet. Primary is the warm red-orange of the wordmark. */
   --color-brand: #F1531E;
   --color-brand-deep: #CE3F12;
@@ -97,7 +97,7 @@ body {
 }
 
 :root[data-theme="light"] body {
-  /* Full Noblesoft prism, very soft, over white. */
+  /* Full Testsoft prism, very soft, over white. */
   background-image:
     radial-gradient(46rem 46rem at 98% -14%, rgba(226, 72, 27, 0.10), transparent 55%),
     radial-gradient(40rem 40rem at 78% 6%, rgba(245, 166, 35, 0.08), transparent 55%),

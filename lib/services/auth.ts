@@ -75,7 +75,7 @@ export async function issueToken(adminId: string, purpose: "reset" | "invite") {
     action_url: actionUrl,
     expiry: TTL_LABEL[purpose],
   });
-  const text = `${purpose === "invite" ? "Set your Noblesoft admin password" : "Reset your Noblesoft admin password"}: ${actionUrl}`;
+  const text = `${purpose === "invite" ? "Set your Testsoft admin password" : "Reset your Testsoft admin password"}: ${actionUrl}`;
   const result = await sendMail({ to: [admin.email], subject: tpl.subject, text, html });
 
   return { sent: result.ok, mode: result.mode, actionUrl, email: admin.email };

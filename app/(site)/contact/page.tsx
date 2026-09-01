@@ -7,7 +7,7 @@ import { getOffices } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Start a conversation with Noblesoft Technologies. Offices in Texas, Monterrey, Visakhapatnam, and Noida.",
+  description: "Start a conversation with Testsoft Technologies. Offices in Texas, Monterrey, Visakhapatnam, and Noida.",
 };
 
 export default async function ContactPage() {

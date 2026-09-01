@@ -152,7 +152,7 @@ export const LEADERSHIP = [
   { name: "Devon Hartley", role: "Sr Product Manager", linkedin: "https://www.linkedin.com/in/placeholder-devon-hartley",
     bio: "Owns the product lifecycle, leveraging market trends and modern methodologies to deliver robust, scalable software solutions." },
   { name: "Rowan Vance", role: "Founder", linkedin: "https://www.linkedin.com/in/placeholder-rowan-vance",
-    bio: "Founded Noblesoft with a vision to provide premier enterprise application consulting and to build an Inc. 500-recognized organization." },
+    bio: "Founded Testsoft with a vision to provide premier enterprise application consulting and to build an Inc. 500-recognized organization." },
 ];
 
 export const CLIENTS = [
@@ -178,13 +178,13 @@ export const PARTNERS = [
 ];
 
 export const LOCATIONS = [
-  { region: "Texas — USA", role: "Headquarters", address: "2601 Network Blvd, Ste 450, Frisco TX 75034, USA", tel: "+1 (972) 845 8400" },
-  { region: "Monterrey — México", role: "Nearshore Delivery", address: "Planificadores #2802, Office 108, Empleados SFEO, Monterrey NL 64909, México", tel: "+1 (972) 845 8400" },
-  { region: "Visakhapatnam — India", role: "Offshore Delivery", address: "1st Lane, Dwaraka Nagar, Visakhapatnam 530016, India", tel: "+1 (972) 845 8400" },
-  { region: "Noida — India", role: "Offshore Delivery", address: "411 Block B, Plot A, 40, Sector 62, Noida 201309, India", tel: "+1 (972) 845 8400" },
+  { region: "Texas — USA", role: "Headquarters", address: "Texas, USA", tel: "+1 (972) 845 8400" },
+  { region: "Monterrey — México", role: "Nearshore Delivery", address: "Nuevo León, México", tel: "+1 (972) 845 8400" },
+  { region: "Visakhapatnam — India", role: "Offshore Delivery", address: "Andhra Pradesh, India", tel: "+1 (972) 845 8400" },
+  { region: "Noida — India", role: "Offshore Delivery", address: "Uttar Pradesh, India", tel: "+1 (972) 845 8400" },
 ];
 
-/** Cycle the Noblesoft prism spectrum for stat numbers, chips, etc. */
+/** Cycle the Testsoft prism spectrum for stat numbers, chips, etc. */
 export const PRISM_TEXT = [
   "text-prism-red", "text-brand", "text-prism-amber",
   "text-prism-green", "text-prism-blue", "text-prism-violet",

@@ -7,14 +7,14 @@ const inter = localFont({ src: "./fonts/Inter.ttf", variable: "--font-inter", di
 const jetbrains = localFont({ src: "./fonts/JetBrainsMono.ttf", variable: "--font-jetbrains", display: "swap", weight: "100 800" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.noblesoft.com"),
+  metadataBase: new URL("https://www.testsoft.com"),
   title: {
-    default: "Noblesoft Technologies — Enterprise Application Consulting",
-    template: "%s · Noblesoft Technologies",
+    default: "Testsoft Technologies — Enterprise Application Consulting",
+    template: "%s · Testsoft Technologies",
   },
-  description: "Noblesoft is an Inc. 500 enterprise application partner delivering Salesforce, SAP, Oracle, Infor, and Workday transformations across the US, Mexico, and India.",
-  keywords: ["Noblesoft","Enterprise Applications","Salesforce","SAP","Oracle","Infor","Workday","MuleSoft","ERP","CRM","HCM","Digital Transformation"],
-  openGraph: { title: "Noblesoft Technologies — Enterprise Application Consulting", description: "Inc. 500 enterprise application partner for Salesforce, SAP, Oracle, Infor, and Workday.", type: "website" },
+  description: "Testsoft is an Inc. 500 enterprise application partner delivering Salesforce, SAP, Oracle, Infor, and Workday transformations across the US, Mexico, and India.",
+  keywords: ["Testsoft","Enterprise Applications","Salesforce","SAP","Oracle","Infor","Workday","MuleSoft","ERP","CRM","HCM","Digital Transformation"],
+  openGraph: { title: "Testsoft Technologies — Enterprise Application Consulting", description: "Inc. 500 enterprise application partner for Salesforce, SAP, Oracle, Infor, and Workday.", type: "website" },
 };
 
 const themeScript = `(function(){try{

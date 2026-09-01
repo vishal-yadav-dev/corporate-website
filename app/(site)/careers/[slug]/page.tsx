@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!job) return { title: "Role not found" };
   return {
     title: job.title,
-    description: job.summary || `Apply for ${job.title} at Noblesoft Technologies.`,
+    description: job.summary || `Apply for ${job.title} at Testsoft Technologies.`,
   };
 }
 

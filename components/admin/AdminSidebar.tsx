@@ -35,7 +35,7 @@ export default function AdminSidebar({ name }: { name: string }) {
         <div className="flex items-center justify-between gap-4">
           <Link href="/admin" className="flex items-center gap-2 shrink-0">
             <span className="h-8 w-8 shrink-0 grid place-items-center bg-brand text-white font-display font-bold rounded-[6px]">N</span>
-            <span className="display text-lg text-ink">Noblesoft</span>
+            <span className="display text-lg text-ink">Testsoft</span>
           </Link>
           <div className="flex items-center gap-3 lg:hidden">
             <Link href="/" className="text-xs text-graphite hover:text-brand whitespace-nowrap">View site →</Link>

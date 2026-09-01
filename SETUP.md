@@ -1,12 +1,12 @@
-# Noblesoft — Setup & Deployment
+# Testsoft — Setup & Deployment
 
-A full-stack Next.js (App Router, TypeScript, Tailwind v4) rebuild of the Noblesoft
+A full-stack Next.js (App Router, TypeScript, Tailwind v4) rebuild of the Testsoft
 site, with a public marketing site and a complete admin panel.
 
 ## What's included
 
 **Public site** (`/`) — Home, Company, Practices, Industries, Services,
-Careers, Contact. Dark, 3D-styled theme on the Noblesoft prism palette with
+Careers, Contact. Dark, 3D-styled theme on the Testsoft prism palette with
 Vanta.js animated backgrounds (light/dark toggle, WebGL disabled on mobile),
 big kinetic type, scroll animations, a scoped AI chatbot, working
 contact/enquiry forms, job listings + apply-with-CV, and newsletter signup.
@@ -52,7 +52,7 @@ Set these in `.env` (see `.env.example` for the full annotated list):
 |---|---|
 | `DATABASE_URL` | Your Neon connection string (pooled URL, keep `?sslmode=require`). **Leave empty for local dev** — the app falls back to an in-process database at `./.pgdata`. |
 | `AUTH_SECRET` | Session-signing secret. Generate: `openssl rand -base64 32` |
-| `NEXT_PUBLIC_SITE_URL` | Public origin (e.g. `https://www.noblesoft.com`) — used for absolute links in emails and job share URLs. |
+| `NEXT_PUBLIC_SITE_URL` | Public origin (e.g. `https://www.testsoft.com`) — used for absolute links in emails and job share URLs. |
 | `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD` / `SEED_ADMIN_NAME` | Your first admin login (used by the seed script). |
 | `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASS` / `SMTP_FROM` / `SMTP_REPLY_TO` | SMTP for onboarding email. **If unset, emails are composed but not sent** (safe for dev). |
 | `GEMINI_API_KEY` | Google Gemini key for AI email drafting + chatbot. **If unset, those features return a friendly 503.** Free key: https://aistudio.google.com/apikey |

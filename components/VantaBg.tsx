@@ -147,7 +147,7 @@ export default function VantaBg({
   );
 }
 
-/* Brand-tuned defaults per effect (Noblesoft prism, per theme).
+/* Brand-tuned defaults per effect (Testsoft prism, per theme).
    Effects keyed on `color`/`color2` are re-tinted by the caller; the ones with
    their own colour vocabulary (fog, clouds, cells) need both palettes here or
    they stay night-coloured on a white page. */

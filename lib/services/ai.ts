@@ -2,7 +2,7 @@ import { bad, HttpError } from "@/lib/http";
 
 /**
  * "Draft with AI" helper — Gemini free tier, locked to writing emails for
- * Noblesoft only. Anything else gets a fixed refusal. Capped per thread to
+ * Testsoft only. Anything else gets a fixed refusal. Capped per thread to
  * protect the free quota.
  */
 
@@ -10,11 +10,11 @@ const MODEL = "gemini-1.5-flash";
 const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 const MAX_DRAFTS_PER_THREAD = 5;
 
-const REFUSAL = "I can only draft emails for Noblesoft. Ask me to write or rework an email and I'll help.";
+const REFUSAL = "I can only draft emails for Testsoft. Ask me to write or rework an email and I'll help.";
 
-const SYSTEM = `You are an email-writing assistant for Noblesoft Technologies, an enterprise
+const SYSTEM = `You are an email-writing assistant for Testsoft Technologies, an enterprise
 application consulting company. You ONLY help draft, rewrite, shorten, or adjust the tone of
-business emails and their HTML for Noblesoft (recruiting, onboarding, newsletters, client
+business emails and their HTML for Testsoft (recruiting, onboarding, newsletters, client
 outreach, notifications).
 
 Rules:

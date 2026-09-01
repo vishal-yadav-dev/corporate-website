@@ -18,11 +18,11 @@ export type TemplateDef = {
 
 const shell = (body: string) => `<div style="font-family:Inter,Arial,sans-serif;max-width:560px;margin:0 auto;color:#17222E">
   <div style="background:#E4641E;padding:22px 28px;border-radius:12px 12px 0 0">
-    <span style="color:#fff;font-size:20px;font-weight:800;letter-spacing:-0.02em">Noblesoft</span>
+    <span style="color:#fff;font-size:20px;font-weight:800;letter-spacing:-0.02em">Testsoft</span>
   </div>
   <div style="border:1px solid #E7EAEE;border-top:none;border-radius:0 0 12px 12px;padding:28px">
     ${body}
-    <p style="margin:22px 0 0;color:#5A6572;font-size:13px">— Noblesoft Technologies</p>
+    <p style="margin:22px 0 0;color:#5A6572;font-size:13px">— Testsoft Technologies</p>
   </div>
 </div>`;
 
@@ -33,7 +33,7 @@ export const DEFAULT_TEMPLATES: Record<TemplateSlug, TemplateDef> = {
   "admin-invite": {
     slug: "admin-invite",
     name: "New admin — set your password",
-    subject: "You've been added to the Noblesoft admin",
+    subject: "You've been added to the Testsoft admin",
     vars: {
       name: "recipient's name",
       role: "their role (owner / admin / editor)",
@@ -42,7 +42,7 @@ export const DEFAULT_TEMPLATES: Record<TemplateSlug, TemplateDef> = {
     },
     html: shell(
       `<p style="margin:0 0 14px">Hi {{name}},</p>
-       <p style="margin:0 0 14px">You've been given <strong>{{role}}</strong> access to the Noblesoft admin. Set a password to sign in:</p>
+       <p style="margin:0 0 14px">You've been given <strong>{{role}}</strong> access to the Testsoft admin. Set a password to sign in:</p>
        <p style="margin:0 0 14px">${button("{{action_url}}", "Set my password")}</p>
        <p style="margin:0 0 14px;color:#5A6572;font-size:13px">This link expires in {{expiry}}. If you weren't expecting this, you can ignore this email.</p>`
     ),
@@ -50,7 +50,7 @@ export const DEFAULT_TEMPLATES: Record<TemplateSlug, TemplateDef> = {
   "password-reset": {
     slug: "password-reset",
     name: "Password reset",
-    subject: "Reset your Noblesoft admin password",
+    subject: "Reset your Testsoft admin password",
     vars: {
       name: "recipient's name",
       action_url: "one-time reset link",
@@ -66,7 +66,7 @@ export const DEFAULT_TEMPLATES: Record<TemplateSlug, TemplateDef> = {
   newsletter: {
     slug: "newsletter",
     name: "Newsletter",
-    subject: "News from Noblesoft",
+    subject: "News from Testsoft",
     vars: {
       content: "the newsletter body (your draft is inserted here)",
       unsubscribe_url: "unsubscribe link",

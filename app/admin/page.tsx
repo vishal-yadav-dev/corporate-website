@@ -22,7 +22,7 @@ export default function Dashboard() {
     <div>
       <p className="mono-label text-accent-deep mb-2">Dashboard</p>
       <h1 className="display text-4xl sm:text-5xl text-ink">Welcome back{data ? `, ${data.me.name.split(" ")[0]}` : ""}.</h1>
-      <p className="mt-3 text-graphite">Here&apos;s what&apos;s happening across the Noblesoft site.</p>
+      <p className="mt-3 text-graphite">Here&apos;s what&apos;s happening across the Testsoft site.</p>
 
       <div className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-4">
         {cards.map((c) => (

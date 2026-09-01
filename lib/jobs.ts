@@ -55,7 +55,7 @@ export function slugify(input: string): string {
 }
 
 export function siteUrl(): string {
-  return (process.env.NEXT_PUBLIC_SITE_URL || "https://www.noblesoft.com").replace(/\/+$/, "");
+  return (process.env.NEXT_PUBLIC_SITE_URL || "https://www.testsoft.com").replace(/\/+$/, "");
 }
 
 export function jobPublicUrl(slug: string): string {
@@ -88,7 +88,7 @@ export function jobPostText(job: Job): string {
   };
 
   return [
-    `${job.title} — Noblesoft Technologies`,
+    `${job.title} — Testsoft Technologies`,
     meta,
     "",
     job.summary,

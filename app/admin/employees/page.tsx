@@ -113,7 +113,7 @@ export default function EmployeesPage() {
       {/* Add form */}
       <form onSubmit={addEmployee} className="mt-8 bg-surface border border-line rounded-2xl p-6 grid sm:grid-cols-2 gap-4">
         <div><label className="mono-label text-graphite block mb-2">Name</label><input className={field} value={form.name} onChange={(e) => set("name", e.target.value)} placeholder="Aisha Khan" /></div>
-        <div><label className="mono-label text-graphite block mb-2">Email</label><input className={field} type="email" value={form.email} onChange={(e) => set("email", e.target.value)} placeholder="aisha@noblesoft.com" /></div>
+        <div><label className="mono-label text-graphite block mb-2">Email</label><input className={field} type="email" value={form.email} onChange={(e) => set("email", e.target.value)} placeholder="aisha@testsoft.com" /></div>
         <div><label className="mono-label text-graphite block mb-2">Title</label><input className={field} value={form.title} onChange={(e) => set("title", e.target.value)} placeholder="Workday Analyst" /></div>
         <div><label className="mono-label text-graphite block mb-2">Department</label><input className={field} value={form.department} onChange={(e) => set("department", e.target.value)} placeholder="HCM Practice" /></div>
         <div><label className="mono-label text-graphite block mb-2">Location</label><input className={field} value={form.location} onChange={(e) => set("location", e.target.value)} placeholder="Noida, India" /></div>

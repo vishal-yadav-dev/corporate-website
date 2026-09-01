@@ -7,7 +7,7 @@ type Msg = { role: "user" | "model"; text: string };
 
 const GREETING: Msg = {
   role: "model",
-  text: "Hi! I'm the Noblesoft assistant. Ask me about our practices, staff augmentation, industries, or how to get in touch.",
+  text: "Hi! I'm the Testsoft assistant. Ask me about our practices, staff augmentation, industries, or how to get in touch.",
 };
 
 export default function ChatWidget() {
@@ -101,8 +101,8 @@ export default function ChatWidget() {
             <div className="flex items-center gap-3 px-4 py-3.5 border-b border-line bg-surface-2">
               <span className="h-8 w-8 grid place-items-center rounded-lg bg-brand text-white font-display font-bold text-sm">N</span>
               <div className="min-w-0">
-                <p className="text-sm font-medium text-ink leading-tight">Noblesoft assistant</p>
-                <p className="text-[11px] text-graphite">Answers about Noblesoft only</p>
+                <p className="text-sm font-medium text-ink leading-tight">Testsoft assistant</p>
+                <p className="text-[11px] text-graphite">Answers about Testsoft only</p>
               </div>
             </div>
 
@@ -140,7 +140,7 @@ export default function ChatWidget() {
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask about Noblesoft…"
+                placeholder="Ask about Testsoft…"
                 className="flex-1 bg-surface-2 border border-line rounded-full px-4 py-2.5 text-sm text-ink placeholder:text-graphite/60 focus:border-brand focus:outline-none"
               />
               <button

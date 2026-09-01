@@ -7,8 +7,8 @@ export async function GET() {
   if (guard instanceof Response) return guard;
 
   const rows = [
-    { name: "Aisha Khan", email: "aisha.khan@noblesoft.com", title: "Workday Analyst", department: "HCM Practice", location: "Noida, India", start_date: "2026-09-01" },
-    { name: "John Carter", email: "john.carter@noblesoft.com", title: "SAP Consultant", department: "SAP Practice", location: "Frisco, TX", start_date: "2026-09-15" },
+    { name: "Aisha Khan", email: "aisha.khan@testsoft.com", title: "Workday Analyst", department: "HCM Practice", location: "Noida, India", start_date: "2026-09-01" },
+    { name: "John Carter", email: "john.carter@testsoft.com", title: "SAP Consultant", department: "SAP Practice", location: "Frisco, TX", start_date: "2026-09-15" },
   ];
 
   const ws = XLSX.utils.json_to_sheet(rows, {
@@ -22,7 +22,7 @@ export async function GET() {
   return new Response(new Uint8Array(buf), {
     headers: {
       "Content-Type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-      "Content-Disposition": 'attachment; filename="noblesoft-employee-import-template.xlsx"',
+      "Content-Disposition": 'attachment; filename="testsoft-employee-import-template.xlsx"',
     },
   });
 }

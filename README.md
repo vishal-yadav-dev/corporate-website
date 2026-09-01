@@ -1,7 +1,7 @@
-# Noblesoft — corporate website
+# Testsoft — corporate website
 
 Full-stack **Next.js 16** (App Router, TypeScript, Tailwind v4) rebuild of the
-Noblesoft Technologies site: a dark, 3D-styled public marketing site with
+Testsoft Technologies site: a dark, 3D-styled public marketing site with
 Vanta.js animated backgrounds, plus a complete CMS/admin panel.
 
 - **Public site** — Home, Company, Practices, Industries, Services, Careers,

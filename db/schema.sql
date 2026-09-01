@@ -1,4 +1,4 @@
--- Noblesoft admin schema (Postgres / Neon compatible)
+-- Testsoft admin schema (Postgres / Neon compatible)
 
 CREATE TABLE IF NOT EXISTS admins (
   id          TEXT PRIMARY KEY,

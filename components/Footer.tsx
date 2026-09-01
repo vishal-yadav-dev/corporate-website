@@ -10,10 +10,10 @@ const LEGAL = [
   { label: "Sitemap", href: "/sitemap" },
 ];
 const SOCIAL = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/noblesoftusa" },
-  { label: "YouTube", href: "https://www.youtube.com/@noblesoftusa" },
-  { label: "Twitter", href: "https://twitter.com/noblesoftusa" },
-  { label: "Facebook", href: "https://www.facebook.com/noblesoftusa" },
+  { label: "LinkedIn", href: "https://www.linkedin.com" },
+  { label: "YouTube", href: "https://www.youtube.com" },
+  { label: "Twitter", href: "https://twitter.com" },
+  { label: "Facebook", href: "https://www.facebook.com" },
 ];
 
 export default async function Footer() {
@@ -69,7 +69,7 @@ export default async function Footer() {
         <div className="mt-14 pt-8 border-t border-line flex flex-col md:flex-row gap-6 md:items-center md:justify-between">
           <div className="flex items-center gap-2">
             <span className="h-7 w-7 grid place-items-center bg-brand text-white font-display font-bold rounded-[5px]">N</span>
-            <span className="display text-lg text-ink">Noblesoft</span>
+            <span className="display text-lg text-ink">Testsoft</span>
           </div>
           <div className="flex flex-wrap gap-x-5 gap-y-2">
             {SOCIAL.map((s) => (
@@ -79,7 +79,7 @@ export default async function Footer() {
         </div>
 
         <div className="mt-8 flex flex-col md:flex-row gap-4 md:items-center md:justify-between text-xs text-graphite">
-          <p>© {new Date().getFullYear()} Noblesoft Technologies Inc. All Rights Reserved.</p>
+          <p>© {new Date().getFullYear()} Testsoft Technologies Inc. All Rights Reserved.</p>
           <div className="flex flex-wrap gap-x-4 gap-y-1">
             {LEGAL.map((l) => (<Link key={l.label} href={l.href} className="hover:text-brand transition-colors">{l.label}</Link>))}
           </div>

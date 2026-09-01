@@ -80,7 +80,7 @@ export default function TeamPage() {
 
       <form onSubmit={add} className="mt-8 bg-surface border border-line rounded-2xl p-6 grid sm:grid-cols-2 gap-4">
         <div><label className="mono-label text-graphite block mb-2">Name</label><input className={field} value={form.name} onChange={(e) => set("name", e.target.value)} placeholder="Jordan Lee" /></div>
-        <div><label className="mono-label text-graphite block mb-2">Email</label><input className={field} type="email" value={form.email} onChange={(e) => set("email", e.target.value)} placeholder="jordan@noblesoft.com" /></div>
+        <div><label className="mono-label text-graphite block mb-2">Email</label><input className={field} type="email" value={form.email} onChange={(e) => set("email", e.target.value)} placeholder="jordan@testsoft.com" /></div>
         <div>
           <label className="mono-label text-graphite block mb-2">Sign-in setup</label>
           <label className="flex items-center gap-2 py-2.5 cursor-pointer select-none">

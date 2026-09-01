@@ -39,15 +39,15 @@ export default function LoginForm() {
       <div className="w-full max-w-sm">
         <div className="flex items-center gap-2 mb-8 justify-center">
           <span className="h-9 w-9 grid place-items-center bg-brand text-white font-display font-bold text-lg rounded-[6px]">N</span>
-          <span className="display text-2xl text-ink">Noblesoft</span>
+          <span className="display text-2xl text-ink">Testsoft</span>
         </div>
         <div className="bg-surface border border-line rounded-3xl p-8 shadow-xl shadow-brand/5">
           <h1 className="display text-2xl text-ink mb-1">Admin sign in</h1>
-          <p className="text-sm text-graphite mb-6">Access the Noblesoft control panel.</p>
+          <p className="text-sm text-graphite mb-6">Access the Testsoft control panel.</p>
           <form onSubmit={submit} className="space-y-4">
             <div>
               <label className="mono-label text-graphite block mb-2">Email</label>
-              <input className={field} type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="admin@noblesoft.com" autoFocus />
+              <input className={field} type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="admin@testsoft.com" autoFocus />
             </div>
             <div>
               <label className="mono-label text-graphite block mb-2">Password</label>
@@ -62,7 +62,7 @@ export default function LoginForm() {
             <Link href="/admin/forgot-password" className="text-brand hover:underline">Forgot your password?</Link>
           </p>
         </div>
-        <p className="text-center text-xs text-graphite mt-6">Noblesoft Technologies · Internal use only</p>
+        <p className="text-center text-xs text-graphite mt-6">Testsoft Technologies · Internal use only</p>
       </div>
     </div>
   );
