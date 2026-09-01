@@ -5,7 +5,7 @@ site, with a public marketing site and a complete admin panel.
 
 ## What's included
 
-**Public site** (`/`) — Home, Company, Practices, Industries, Augmentation,
+**Public site** (`/`) — Home, Company, Practices, Industries, Services,
 Careers, Contact. Dark, 3D-styled theme on the Noblesoft prism palette with
 Vanta.js animated backgrounds (light/dark toggle, WebGL disabled on mobile),
 big kinetic type, scroll animations, a scoped AI chatbot, working
@@ -21,7 +21,7 @@ contact/enquiry forms, job listings + apply-with-CV, and newsletter signup.
 - **Jobs & Applications** — post roles with full JD + LinkedIn/Naukri share packs;
   candidate applications with CV download and CSV export.
 - **Leadership** — CMS-managed leaders (photo, bio, order).
-- **Site content** — partners, offices, practices, Augmentation services, awards,
+- **Site content** — partners, offices, practices, Services blocks, awards,
   About copy, hero banners (per-banner Vanta effect), and key site copy.
 - **Images** — upload / delete images (stored in Postgres), assign a "slot".
 - **Email** — send announcements/newsletters with attachments + CC/BCC, AI draft

@@ -33,7 +33,7 @@ export const NAV = [
     ],
   },
   {
-    label: "Augmentation",
+    label: "Services",
     href: "/us-staffing",
     children: [
       { label: "Contract Staffing", href: "/us-staffing#contract" },
@@ -137,21 +137,21 @@ export const INDUSTRIES = [
 ];
 
 export const LEADERSHIP = [
-  { name: "Prasad Peetha", role: "Chief Executive Officer", linkedin: "https://www.linkedin.com/in/prasad-peetha-5bb39a98/",
-    bio: "Technology entrepreneur and business strategist focused on building and scaling people-centric technology businesses. Prasad drives growth through strategic vision, business development, and long-term partnerships — building a culture where people and the business grow together." },
-  { name: "Phani Gaddamanugu", role: "Engagement Manager, Projects & Delivery", linkedin: "https://www.linkedin.com/in/phanigaddamanugu/",
-    bio: "Leads software project delivery and client engagement, aligning business objectives with technical execution. A Certified Scrum Master, Phani pairs staffing expertise with agile methodology to strengthen project outcomes and organizational growth." },
-  { name: "Rahul Agarwal", role: "Business Unit Head, SI", linkedin: "https://www.linkedin.com/in/rahul-agarwal-4364ba7a/",
-    bio: "Staffing leader with deep expertise in client engagement, delivery operations, and recruitment. Rahul builds efficient, process-driven delivery models that consistently deliver compliant, on-time talent for enterprise clients." },
-  { name: "Gyan Pandey", role: "Business Unit Head — Delivery & Operations", linkedin: "https://www.linkedin.com/in/gyanendu-pandey/",
-    bio: "Delivery and operations leader who turns people, process, and partnerships into measurable results. Gyan drives delivery excellence, builds high-performing teams, and cultivates lasting client relationships." },
-  { name: "Sonali Khanduri", role: "HR Manager", linkedin: "https://www.linkedin.com/in/sonali-khanduri-895b0421b/",
+  { name: "Avery Sinclair", role: "Chief Executive Officer", linkedin: "https://www.linkedin.com/in/placeholder-avery-sinclair",
+    bio: "Technology entrepreneur and business strategist focused on building and scaling people-centric technology businesses. Avery drives growth through strategic vision, business development, and long-term partnerships — building a culture where people and the business grow together." },
+  { name: "Jordan Whitfield", role: "Engagement Manager, Projects & Delivery", linkedin: "https://www.linkedin.com/in/placeholder-jordan-whitfield",
+    bio: "Leads software project delivery and client engagement, aligning business objectives with technical execution. A Certified Scrum Master, Jordan pairs staffing expertise with agile methodology to strengthen project outcomes and organizational growth." },
+  { name: "Priya Raman", role: "Business Unit Head, SI", linkedin: "https://www.linkedin.com/in/placeholder-priya-raman",
+    bio: "Staffing leader with deep expertise in client engagement, delivery operations, and recruitment. Priya builds efficient, process-driven delivery models that consistently deliver compliant, on-time talent for enterprise clients." },
+  { name: "Marcus Ellery", role: "Business Unit Head — Delivery & Operations", linkedin: "https://www.linkedin.com/in/placeholder-marcus-ellery",
+    bio: "Delivery and operations leader who turns people, process, and partnerships into measurable results. Marcus drives delivery excellence, builds high-performing teams, and cultivates lasting client relationships." },
+  { name: "Nadia Brooks", role: "HR Manager", linkedin: "https://www.linkedin.com/in/placeholder-nadia-brooks",
     bio: "Human resources leader driving organizational performance through strategic, people-centric leadership — talent strategy, workforce transformation, employee engagement, and HR governance built to scale." },
-  { name: "Anuj Singh Sarkari", role: "Sr Sales Manager — Projects", linkedin: "https://www.linkedin.com/",
+  { name: "Caleb Ortiz", role: "Sr Sales Manager — Projects", linkedin: "https://www.linkedin.com/in/placeholder-caleb-ortiz",
     bio: "Drives client acquisition, strategic partnerships, and business growth — connecting clients with premier talent and technology while navigating complex RFPs, RFIs, and ITQs." },
-  { name: "James Liley", role: "Sr Product Manager", linkedin: "https://www.linkedin.com/",
+  { name: "Devon Hartley", role: "Sr Product Manager", linkedin: "https://www.linkedin.com/in/placeholder-devon-hartley",
     bio: "Owns the product lifecycle, leveraging market trends and modern methodologies to deliver robust, scalable software solutions." },
-  { name: "Venkat Yerubandi", role: "Founder", linkedin: "https://www.linkedin.com/in/vyerubandi",
+  { name: "Rowan Vance", role: "Founder", linkedin: "https://www.linkedin.com/in/placeholder-rowan-vance",
     bio: "Founded Noblesoft with a vision to provide premier enterprise application consulting and to build an Inc. 500-recognized organization." },
 ];
 

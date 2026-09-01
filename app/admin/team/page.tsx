@@ -140,8 +140,8 @@ export default function TeamPage() {
       </div>
 
       {editing && (
-        <div className="fixed inset-0 z-50 bg-ink/40 backdrop-blur-sm grid place-items-center p-4">
-          <div className="bg-surface rounded-3xl border border-line w-full max-w-lg p-6 sm:p-8">
+        <div className="fixed inset-0 z-50 bg-ink/40 backdrop-blur-sm grid place-items-center p-4 overflow-y-auto">
+          <div className="bg-surface rounded-3xl border border-line w-full max-w-lg p-6 sm:p-8 my-8 max-h-[90vh] overflow-y-auto">
             <div className="flex items-start justify-between">
               <h2 className="display text-2xl text-ink">{editing.name}</h2>
               <button onClick={() => setEditing(null)} className="text-graphite hover:text-ink text-xl">✕</button>

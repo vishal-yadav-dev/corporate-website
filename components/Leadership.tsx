@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { LEADERSHIP } from "@/lib/data";
 
@@ -35,7 +36,12 @@ function LeaderModal({ leader, onClose }: { leader: Leader; onClose: () => void 
   }, [onClose]);
 
   const src = photoSrc(leader);
-  return (
+  if (typeof document === "undefined") return null;
+
+  /* Portalled to <body>: the section this lives in is `relative z-10`, so an
+     in-place overlay would be trapped in that stacking context and painted
+     over by later sections. */
+  return createPortal(
     <motion.div
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       className="fixed inset-0 z-[60] bg-black/75 backdrop-blur-md grid place-items-center p-4"
@@ -80,7 +86,8 @@ function LeaderModal({ leader, onClose }: { leader: Leader; onClose: () => void 
           )}
         </div>
       </motion.div>
-    </motion.div>
+    </motion.div>,
+    document.body
   );
 }
 

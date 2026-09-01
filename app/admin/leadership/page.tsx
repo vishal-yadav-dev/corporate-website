@@ -141,7 +141,7 @@ export default function LeadershipAdminPage() {
 
         <div>
           <label className="mono-label text-graphite block mb-2">Full name</label>
-          <input className={field} value={form.name} onChange={(e) => set("name", e.target.value)} placeholder="Venkat Yerubandi" />
+          <input className={field} value={form.name} onChange={(e) => set("name", e.target.value)} placeholder="Rowan Vance" />
         </div>
         <div>
           <label className="mono-label text-graphite block mb-2">Designation / title</label>

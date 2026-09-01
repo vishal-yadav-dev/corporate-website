@@ -90,7 +90,7 @@ const STAFFING_FIELDS: EditorField[] = [
   { key: "body", label: "Description", type: "textarea" },
   { key: "points", label: "Highlights", type: "textarea", full: true, help: "One per line" },
   { key: "sort_order", label: "Sort order", type: "number" },
-  { key: "is_active", label: "Visible", type: "checkbox", help: "Show on Augmentation page" },
+  { key: "is_active", label: "Visible", type: "checkbox", help: "Show on Services page" },
 ];
 
 function StaffingPreview(it: Record<string, unknown>) {
@@ -138,7 +138,7 @@ function AwardPreview(it: Record<string, unknown>) {
   );
 }
 
-const TABS = ["Partners & clients", "Offices", "Practices", "Augmentation", "Awards", "About Us"] as const;
+const TABS = ["Partners & clients", "Offices", "Practices", "Services", "Awards", "About Us"] as const;
 
 function AboutEditor() {
   const [values, setValues] = useState<Record<string, string>>({});
@@ -229,10 +229,10 @@ export default function SiteContentPage() {
           renderPreview={PracticePreview}
         />
       )}
-      {tab === "Augmentation" && (
+      {tab === "Services" && (
         <CollectionEditor
-          type="staffing" title="Augmentation services"
-          description="The service blocks shown on the Augmentation page."
+          type="staffing" title="Services"
+          description="The service blocks shown on the Services page."
           fields={STAFFING_FIELDS}
           defaults={{ name: "", line: "", body: "", points: "", sort_order: 0, is_active: true }}
           renderPreview={StaffingPreview}

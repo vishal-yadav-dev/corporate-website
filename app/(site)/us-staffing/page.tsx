@@ -9,7 +9,7 @@ import { STAFFING_STATS, PRISM_TEXT } from "@/lib/data";
 import { getStaffing } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Augmentation",
+  title: "Services",
   description:
     "Noblesoft staff augmentation — contract staffing, direct hire, SOW delivery pods, MSP/VMS program management, and compliant payrolling across all 50 states.",
 };
@@ -19,7 +19,7 @@ export default async function UsStaffingPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Augmentation"
+        eyebrow="Services"
         vanta="fog"
         art="orbit"
         title="Talent, on demand."

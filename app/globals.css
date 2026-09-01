@@ -80,6 +80,9 @@ body {
   color: var(--foreground);
   font-family: var(--font-body), system-ui, sans-serif;
   overflow-x: hidden;
+  /* Emails, URLs and long IDs wrap inside their card instead of pushing out of
+     it. Inherited, and only takes effect when a word genuinely cannot fit. */
+  overflow-wrap: break-word;
   background-color: var(--background);
   /* Deep prism backdrop: the full spectrum, faint, over near-black. */
   background-image:
@@ -232,11 +235,28 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* ---- Mobile / touch: cost control ----
+   Phones were repainting, every scroll frame, a fixed-attachment gradient stack,
+   a full-viewport animated dot grid, and up to five 140-160px-blurred circles
+   drifting under `anim-drift`. The visuals stay; only the per-frame work goes.
+   Breakpoint matches the one VantaBg already opts out at. */
+@media (max-width: 899px), (pointer: coarse) {
+  body { background-attachment: scroll; }
+  .anim-grid, .anim-drift, .anim-float, .anim-travel, .anim-orbit, .anim-spin-3d {
+    animation: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
   .marquee-track, .anim-float, .anim-spin-3d, .anim-drift, .anim-grid, .anim-pulse-ring { animation: none; }
   .card-3d:hover { transform: none; }
 }
+
+/* Theme-toggle glyphs: driven by the root attribute (set pre-paint by the
+   inline script) so the icon is correct on first paint, in every instance. */
+:root[data-theme="light"] .theme-icon-moon { display: none; }
+:root:not([data-theme="light"]) .theme-icon-sun { display: none; }
 
 a, button { outline-offset: 3px; }
 a:focus-visible, button:focus-visible { outline: 2px solid var(--color-brand); }

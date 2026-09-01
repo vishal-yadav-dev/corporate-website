@@ -29,13 +29,21 @@ export default function AdminSidebar({ name }: { name: string }) {
 
   return (
     <aside className="w-full lg:w-[260px] lg:min-h-screen border-b lg:border-b-0 lg:border-r border-line bg-surface/90 backdrop-blur lg:fixed lg:inset-y-0 lg:left-0 flex lg:flex-col z-20">
-      <div className="p-5 lg:p-6 flex lg:flex-col gap-4 w-full">
-        <Link href="/admin" className="flex items-center gap-2">
-          <span className="h-8 w-8 grid place-items-center bg-brand text-white font-display font-bold rounded-[6px]">N</span>
-          <span className="display text-lg text-ink">Noblesoft</span>
-        </Link>
+      <div className="p-5 lg:p-6 flex flex-col gap-4 w-full">
+        {/* Mobile: the brand gets its own row so the section links below get the
+            full width instead of a ~130px strip. Desktop is unchanged. */}
+        <div className="flex items-center justify-between gap-4">
+          <Link href="/admin" className="flex items-center gap-2 shrink-0">
+            <span className="h-8 w-8 shrink-0 grid place-items-center bg-brand text-white font-display font-bold rounded-[6px]">N</span>
+            <span className="display text-lg text-ink">Noblesoft</span>
+          </Link>
+          <div className="flex items-center gap-3 lg:hidden">
+            <Link href="/" className="text-xs text-graphite hover:text-brand whitespace-nowrap">View site →</Link>
+            <button onClick={logout} className="text-xs text-accent-deep whitespace-nowrap">Sign out</button>
+          </div>
+        </div>
 
-        <nav className="flex lg:flex-col gap-1 lg:mt-6 flex-1 overflow-x-auto">
+        <nav className="flex lg:flex-col gap-1 lg:mt-6 flex-1 min-w-0 overflow-x-auto -mx-5 px-5 lg:mx-0 lg:px-0">
           {links.map((l) => {
             const active = l.href === "/admin" ? pathname === l.href : pathname.startsWith(l.href);
             return (
@@ -60,8 +68,6 @@ export default function AdminSidebar({ name }: { name: string }) {
           <button onClick={logout} className="mt-3 text-xs text-accent-deep hover:underline">Sign out</button>
           <Link href="/" className="mt-2 block text-xs text-graphite hover:text-brand">View site →</Link>
         </div>
-
-        <button onClick={logout} className="lg:hidden text-xs text-accent-deep whitespace-nowrap self-center">Sign out</button>
       </div>
     </aside>
   );

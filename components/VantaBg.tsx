@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useTheme } from "@/lib/use-theme";
 
 type Effect =
   | "waves" | "rings" | "net" | "globe" | "fog" | "halo" | "dots" | "cells" | "birds"
@@ -43,6 +44,8 @@ export default function VantaBg({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const optKey = JSON.stringify(options);
+  // Colours are baked in at init, so a theme flip has to rebuild the scene.
+  const theme = useTheme();
   // Skip WebGL/p5 entirely on phones & low-power / reduced-motion devices.
   const [enabled, setEnabled] = useState(false);
 
@@ -100,7 +103,7 @@ export default function VantaBg({
       if (usesP5) w.p5 = w.p5 ?? engine;
       else w.THREE = w.THREE ?? engine;
 
-      const light = document.documentElement.getAttribute("data-theme") === "light";
+      const light = theme === "light";
 
       vanta = factory({
         el,
@@ -112,7 +115,7 @@ export default function VantaBg({
         minWidth: 200,
         scale: 1,
         scaleMobile: 1,
-        ...defaults(effect),
+        ...defaults(effect, light),
         // match the page background so the canvas blends instead of forming a band
         backgroundColor: light ? 0xffffff : 0x050608,
         ...(light ? { color: 0xe2481b, color2: 0x1e88c7 } : {}),
@@ -124,7 +127,7 @@ export default function VantaBg({
       cancelled = true;
       try { vanta?.destroy(); } catch {}
     };
-  }, [effect, optKey, enabled, near]);
+  }, [effect, optKey, enabled, near, theme]);
 
   // Lightweight CSS fallback on mobile / reduced-motion — a soft prism wash.
   return (
@@ -144,11 +147,14 @@ export default function VantaBg({
   );
 }
 
-/* Brand-tuned defaults per effect (Noblesoft prism on near-black) */
-function defaults(effect: Effect): Record<string, unknown> {
+/* Brand-tuned defaults per effect (Noblesoft prism, per theme).
+   Effects keyed on `color`/`color2` are re-tinted by the caller; the ones with
+   their own colour vocabulary (fog, clouds, cells) need both palettes here or
+   they stay night-coloured on a white page. */
+function defaults(effect: Effect, light: boolean): Record<string, unknown> {
   switch (effect as string) {
     case "waves":
-      return { color: 0x141a24, shininess: 24, waveHeight: 13, waveSpeed: 0.8, zoom: 0.9 };
+      return { color: light ? 0xd7e3ef : 0x141a24, shininess: 24, waveHeight: 13, waveSpeed: 0.8, zoom: 0.9 };
     case "rings":
       return { backgroundColor: 0x050608, color: 0xf1531e };
     case "net":
@@ -156,18 +162,26 @@ function defaults(effect: Effect): Record<string, unknown> {
     case "globe":
       return { backgroundColor: 0x050608, color: 0xf1531e, color2: 0x2f97db, size: 0.9 };
     case "fog":
-      return { highlightColor: 0xf1531e, midtoneColor: 0x7e5be6, lowlightColor: 0x2f97db, baseColor: 0x050608, blurFactor: 0.6 };
+      return light
+        ? { highlightColor: 0xe2481b, midtoneColor: 0x6b49d6, lowlightColor: 0x1e88c7, baseColor: 0xffffff, blurFactor: 0.6 }
+        : { highlightColor: 0xf1531e, midtoneColor: 0x7e5be6, lowlightColor: 0x2f97db, baseColor: 0x050608, blurFactor: 0.6 };
     case "halo":
       return { backgroundColor: 0x050608, baseColor: 0xf1531e, amplitudeFactor: 1.4, size: 1.3, xOffset: 0.12 };
     case "dots":
       return { backgroundColor: 0x050608, color: 0xf1531e, color2: 0x2f97db, size: 3.4, spacing: 32 };
     case "cells":
-      // dark, desaturated prism so it reads as a subtle texture on the near-black site
-      return { color1: 0x241610, color2: 0x122733, size: 2.2, speed: 0.9 };
+      // dark, desaturated prism so it reads as a subtle texture either way
+      return light
+        ? { color1: 0xf7e0d6, color2: 0xdceaf5, size: 2.2, speed: 0.9 }
+        : { color1: 0x241610, color2: 0x122733, size: 2.2, speed: 0.9 };
     case "clouds":
-      return { skyColor: 0x0b1220, cloudColor: 0x22303f, cloudShadowColor: 0x050608, sunColor: 0xf1531e, sunGlareColor: 0xf5a623, sunlightColor: 0xff9a4a, speed: 0.7 };
+      return light
+        ? { skyColor: 0xdcecfb, cloudColor: 0xf3f7fb, cloudShadowColor: 0xc3d3e2, sunColor: 0xe2481b, sunGlareColor: 0xe0900a, sunlightColor: 0xffb27a, speed: 0.7 }
+        : { skyColor: 0x0b1220, cloudColor: 0x22303f, cloudShadowColor: 0x050608, sunColor: 0xf1531e, sunGlareColor: 0xf5a623, sunlightColor: 0xff9a4a, speed: 0.7 };
     case "clouds2":
-      return { backgroundColor: 0x050608, skyColor: 0x0b1220, cloudColor: 0x243040, lightColor: 0xf1531e, speed: 0.7, texturePath: "/vanta-noise.png" };
+      return light
+        ? { backgroundColor: 0xffffff, skyColor: 0xdcecfb, cloudColor: 0xeff4f9, lightColor: 0xe2481b, speed: 0.7, texturePath: "/vanta-noise.png" }
+        : { backgroundColor: 0x050608, skyColor: 0x0b1220, cloudColor: 0x243040, lightColor: 0xf1531e, speed: 0.7, texturePath: "/vanta-noise.png" };
     case "birds":
       return { backgroundColor: 0x050608, color1: 0xf1531e, color2: 0x2f97db, birdSize: 1.2, wingSpan: 24, speedLimit: 5, separation: 40, alignment: 40, cohesion: 40, quantity: 3 };
     case "topology":

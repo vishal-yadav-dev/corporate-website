@@ -9,11 +9,13 @@ async function main() {
   console.log("Seeding leadership team…");
   let i = 0;
   for (const p of LEADERSHIP) {
-    const existing = await one<{ id: string }>("SELECT id FROM leaders WHERE name = $1", [p.name]);
+    /* Matched on sort_order, not name: the seed owns the ordering, and matching
+       on name would insert a duplicate whenever a leader is renamed here. */
+    const existing = await one<{ id: string }>("SELECT id FROM leaders WHERE sort_order = $1", [i * 10]);
     if (existing) {
       await q(
-        "UPDATE leaders SET title=$2, bio=$3, linkedin_url=$4, sort_order=$5, updated_at=now() WHERE id=$1",
-        [existing.id, p.role, p.bio, p.linkedin, i * 10]
+        "UPDATE leaders SET name=$2, title=$3, bio=$4, linkedin_url=$5, updated_at=now() WHERE id=$1",
+        [existing.id, p.name, p.role, p.bio, p.linkedin]
       );
       console.log(`↻ ${p.name}`);
     } else {

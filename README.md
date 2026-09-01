@@ -4,7 +4,7 @@ Full-stack **Next.js 16** (App Router, TypeScript, Tailwind v4) rebuild of the
 Noblesoft Technologies site: a dark, 3D-styled public marketing site with
 Vanta.js animated backgrounds, plus a complete CMS/admin panel.
 
-- **Public site** — Home, Company, Practices, Industries, Augmentation, Careers,
+- **Public site** — Home, Company, Practices, Industries, Services, Careers,
   Contact. Light/dark toggle, scoped AI chatbot, contact/enquiry forms, job
   listings with apply-and-upload-CV, newsletter signup.
 - **Admin** (`/admin`) — leads, employees + onboarding email, subscribers, jobs &
