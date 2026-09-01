@@ -68,7 +68,7 @@ const OFFICE_FIELDS: EditorField[] = [
   { key: "region", label: "Region", type: "text", placeholder: "Texas — USA" },
   { key: "role", label: "Role", type: "text", placeholder: "Headquarters" },
   { key: "address", label: "Address", type: "textarea", placeholder: "Full postal address (used for the map)" },
-  { key: "tel", label: "Phone", type: "text", placeholder: "+1 (972) 845 8400" },
+  { key: "tel", label: "Phone", type: "text", placeholder: "+1 555 000 0000" },
   { key: "sort_order", label: "Sort order", type: "number" },
   { key: "is_active", label: "Visible", type: "checkbox", help: "Show on Contact + footer" },
 ];

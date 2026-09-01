@@ -178,10 +178,10 @@ export const PARTNERS = [
 ];
 
 export const LOCATIONS = [
-  { region: "Texas — USA", role: "Headquarters", address: "Texas, USA", tel: "+1 (972) 845 8400" },
-  { region: "Monterrey — México", role: "Nearshore Delivery", address: "Nuevo León, México", tel: "+1 (972) 845 8400" },
-  { region: "Visakhapatnam — India", role: "Offshore Delivery", address: "Andhra Pradesh, India", tel: "+1 (972) 845 8400" },
-  { region: "Noida — India", role: "Offshore Delivery", address: "Uttar Pradesh, India", tel: "+1 (972) 845 8400" },
+  { region: "Texas — USA", role: "Headquarters", address: "Texas, USA", tel: "+1 555 000 0101" },
+  { region: "Monterrey — México", role: "Nearshore Delivery", address: "Nuevo León, México", tel: "+52 555 000 0102" },
+  { region: "Visakhapatnam — India", role: "Offshore Delivery", address: "Andhra Pradesh, India", tel: "+91 555 000 0103" },
+  { region: "Noida — India", role: "Offshore Delivery", address: "Uttar Pradesh, India", tel: "+91 555 000 0104" },
 ];
 
 /** Cycle the Testsoft prism spectrum for stat numbers, chips, etc. */

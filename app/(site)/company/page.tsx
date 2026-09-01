@@ -138,7 +138,7 @@ export default async function CompanyPage() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
             <Reveal>
               <p className="mono-label text-accent-deep mb-4">Corporate Social Responsibility</p>
-              <h2 className="display text-5xl sm:text-6xl text-ink">Atmiya USA</h2>
+              <h2 className="display text-5xl sm:text-6xl text-ink">NGO USA</h2>
               <p className="mt-6 text-graphite leading-relaxed">To educate, enrich, empower, and elevate members of the community into a flourishing relationship of fraternity — inspiring mutual help and cooperation toward positive economic, social, and cultural growth.</p>
               <Link href="/contact" className="mt-8 inline-flex items-center gap-2 text-brand hover:gap-3 transition-all">Get involved →</Link>
             </Reveal>
