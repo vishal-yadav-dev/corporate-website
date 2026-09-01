@@ -8,11 +8,15 @@ import { METRICS, INDUSTRIES, PRISM_TEXT } from "@/lib/data";
 import { getBanners, getPractices } from "@/lib/site";
 
 const DELIVERY = [
-  { kicker: "Discover", title: "Discover & architect", body: "We map your processes, data, and constraints, then design the target architecture — no build starts without a blueprint everyone signs off on." },
-  { kicker: "Build", title: "Build & configure", body: "Certified consultants configure and extend the platform in tight iterations, with code review, automated tests, and demos every sprint." },
-  { kicker: "Connect", title: "Integrate", body: "API-led connectivity ties the new platform to your ERP, CRM, and bespoke systems so data moves in real time — not overnight batches." },
-  { kicker: "Run", title: "Adopt & run", body: "Hypercare, enablement, and managed services turn go-live into lasting adoption, with SLAs and a roadmap for what's next." },
+  { kicker: "Discover", title: "Discover & architect", image: "/delivery/discover.jpg", body: "We map your processes, data, and constraints, then design the target architecture — no build starts without a blueprint everyone signs off on." },
+  { kicker: "Build", title: "Build & configure", image: "/delivery/build.jpg", body: "Certified consultants configure and extend the platform in tight iterations, with code review, automated tests, and demos every sprint." },
+  { kicker: "Connect", title: "Integrate", image: "/delivery/integrate.jpg", body: "API-led connectivity ties the new platform to your ERP, CRM, and bespoke systems so data moves in real time — not overnight batches." },
+  { kicker: "Run", title: "Adopt & run", image: "/delivery/run.jpg", body: "Hypercare, enablement, and managed services turn go-live into lasting adoption, with SLAs and a roadmap for what's next." },
 ];
+
+/* ISR: the page is still delivered as static HTML, but regenerates at most once
+   a minute so banner/practice edits made in /admin appear without a redeploy. */
+export const revalidate = 60;
 
 export default async function Home() {
   const [PRACTICES, BANNERS] = await Promise.all([getPractices(), getBanners()]);

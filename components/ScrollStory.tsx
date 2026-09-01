@@ -113,14 +113,22 @@ export default function ScrollStory({
                   className="absolute inset-0 rounded-3xl overflow-hidden border border-line surface-card preserve-3d"
                 >
                   {current.image ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={current.image} alt={current.title} className="h-full w-full object-cover" />
+                    <>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={current.image} alt={current.title} loading="lazy" decoding="async" className="h-full w-full object-cover" />
+                      {/* The caption sits on the photo, so it cannot use `text-ink`
+                          — that flips to near-black in light mode and disappears
+                          against a dark image. Scrim + fixed light type instead. */}
+                      <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
+                    </>
                   ) : (
                     <StoryArt index={active} />
                   )}
                   <div className="absolute left-6 bottom-6 right-6">
-                    {current.kicker && <p className="mono-label text-accent-deep">{current.kicker}</p>}
-                    <p className="display text-2xl text-ink mt-1">{current.title}</p>
+                    {current.kicker && (
+                      <p className={`mono-label ${current.image ? "text-brand-bright" : "text-accent-deep"}`}>{current.kicker}</p>
+                    )}
+                    <p className={`display text-2xl mt-1 ${current.image ? "text-white" : "text-ink"}`}>{current.title}</p>
                   </div>
                 </motion.div>
               </AnimatePresence>
@@ -149,7 +157,7 @@ export default function ScrollStory({
                 <div className="lg:hidden mb-6 rounded-2xl overflow-hidden border border-line aspect-[4/3] relative">
                   {it.image ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={it.image} alt={it.title} className="h-full w-full object-cover" />
+                    <img src={it.image} alt={it.title} loading="lazy" decoding="async" className="h-full w-full object-cover" />
                   ) : (
                     <StoryArt index={i} />
                   )}
