@@ -136,15 +136,20 @@ function StoryCard({ p, i, onOpen }: { p: Leader; i: number; onOpen: () => void 
 }
 
 /* ---------------- Section ---------------- */
-export default function Leadership() {
-  const [leaders, setLeaders] = useState<Leader[]>(fallback);
+export default function Leadership({ initialLeaders }: { initialLeaders?: Leader[] }) {
+  const [leaders, setLeaders] = useState<Leader[]>(initialLeaders?.length ? initialLeaders : fallback);
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
 
   useEffect(() => {
+    // Server-rendered leaders need no client fetch — and no flash of the
+    // bundled placeholder names before the real ones arrive.
+    if (initialLeaders?.length) return;
     fetch("/api/leaders")
       .then((r) => r.json())
       .then((d) => { if (Array.isArray(d.leaders) && d.leaders.length) setLeaders(d.leaders); })
       .catch(() => {});
+    // initialLeaders is a server-rendered prop; it does not change client-side.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -7,7 +7,7 @@ import Leadership from "@/components/Leadership";
 import ScrollStory from "@/components/ScrollStory";
 import VantaBg from "@/components/VantaBg";
 import { LOCATIONS, METRICS, PRISM_TEXT } from "@/lib/data";
-import { getAwards } from "@/lib/site";
+import { getAwards, getLeaders } from "@/lib/site";
 
 const PRISM_BG = ["bg-prism-red", "bg-brand", "bg-prism-amber", "bg-prism-green", "bg-prism-blue", "bg-prism-violet"];
 
@@ -24,8 +24,12 @@ export const metadata: Metadata = {
 };
 
 
+/* ISR: matches the homepage — leadership and award edits made in /admin appear
+   within a minute instead of waiting for a redeploy. */
+export const revalidate = 60;
+
 export default async function CompanyPage() {
-  const AWARDS = await getAwards();
+  const [AWARDS, LEADERS] = await Promise.all([getAwards(), getLeaders()]);
   return (
     <div className="relative">
       {/* Full-page topology, pinned to the viewport, theme-matched */}
@@ -70,7 +74,7 @@ export default async function CompanyPage() {
             <p className="mono-label text-accent-deep mb-4">Leadership</p>
             <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">The people steering delivery.</h2>
           </Reveal>
-          <Leadership />
+          <Leadership initialLeaders={LEADERS} />
         </div>
       </section>
 

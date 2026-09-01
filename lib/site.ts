@@ -1,6 +1,6 @@
 import "server-only";
 import { q } from "@/lib/db";
-import { PARTNERS as PARTNERS_FALLBACK, LOCATIONS, PRACTICES as PRACTICES_FALLBACK, PRACTICE_LOGOS, STAFFING as STAFFING_FALLBACK, AWARDS as AWARDS_FALLBACK } from "@/lib/data";
+import { PARTNERS as PARTNERS_FALLBACK, LOCATIONS, PRACTICES as PRACTICES_FALLBACK, PRACTICE_LOGOS, STAFFING as STAFFING_FALLBACK, AWARDS as AWARDS_FALLBACK, LEADERSHIP as LEADERSHIP_FALLBACK } from "@/lib/data";
 
 /* ------------------------------------------------------------------ *
  * Editable-collection registry — used by the admin CRUD API and the
@@ -213,6 +213,31 @@ export async function getBanners(): Promise<BannerView[]> {
     `);
   } catch { /* table missing → hero falls back to its static copy */ }
   return [];
+}
+
+export type LeaderView = {
+  id: string;
+  name: string;
+  title: string;
+  bio: string;
+  linkedin_url: string;
+  photo_id: string | null;
+  photo_url: string;
+};
+
+/** Leadership team, server-side. Rendering the hardcoded fallback first and
+    swapping after a client fetch flashed placeholder people at visitors. */
+export async function getLeaders(): Promise<LeaderView[]> {
+  try {
+    const rows = await q<LeaderView>(
+      "SELECT id, name, title, bio, linkedin_url, photo_id, photo_url FROM leaders WHERE is_active = true ORDER BY sort_order ASC, created_at ASC"
+    );
+    if (rows.length) return rows;
+  } catch { /* table missing → fall back to the bundled list */ }
+  return LEADERSHIP_FALLBACK.map((p, i) => ({
+    id: String(i), name: p.name, title: p.role, bio: p.bio,
+    linkedin_url: p.linkedin, photo_id: null, photo_url: "",
+  }));
 }
 
 /** Simple key/value copy (About Us etc.), with defaults. */
