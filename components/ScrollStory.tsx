@@ -33,8 +33,11 @@ function StoryArt({ index }: { index: number }) {
         <g transform={`rotate(${index * 22} 200 200)`}>
           {[0, 72, 144, 216, 288].map((deg, i) => {
             const rad = (deg * Math.PI) / 180;
-            const x = 200 + Math.cos(rad) * 130;
-            const y = 200 + Math.sin(rad) * 130;
+            /* Rounded: Node and the browser disagree on the last float digit of
+               cos/sin, and the mismatch makes React throw away the server HTML
+               and re-render the whole tree on hydration. */
+            const x = +(200 + Math.cos(rad) * 130).toFixed(3);
+            const y = +(200 + Math.sin(rad) * 130).toFixed(3);
             return (
               <g key={deg}>
                 <line x1="200" y1="200" x2={x} y2={y} stroke={c} strokeOpacity="0.35" strokeWidth="1.5" />
@@ -101,7 +104,9 @@ export default function ScrollStory({
               <AnimatePresence mode="popLayout">
                 <motion.div
                   key={active}
-                  initial={{ opacity: 0, x: 60, rotateY: 8 }}
+                  /* The first panel is server-rendered — paint it rather than
+                     animating it in from nothing. */
+                  initial={active === 0 ? false : { opacity: 0, x: 60, rotateY: 8 }}
                   animate={{ opacity: 1, x: 0, rotateY: 0 }}
                   exit={{ opacity: 0, x: -60, rotateY: -8 }}
                   transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}

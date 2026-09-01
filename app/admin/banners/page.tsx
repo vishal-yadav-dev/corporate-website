@@ -53,6 +53,8 @@ const emptyForm = {
 
 export default function BannersPage() {
   const [banners, setBanners] = useState<Banner[]>([]);
+  // Distinguishes "not fetched yet" from "fetched and genuinely empty".
+  const [loaded, setLoaded] = useState(false);
   const [mediaItems, setMediaItems] = useState<MediaItem[]>([]);
   const [form, setForm] = useState(emptyForm);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -62,7 +64,9 @@ export default function BannersPage() {
   const loadBanners = useCallback(() => {
     fetch("/api/admin/banners")
       .then((r) => r.json())
-      .then((d) => setBanners(d.banners || []));
+      .then((d) => setBanners(d.banners || []))
+      .catch(() => {})
+      .finally(() => setLoaded(true));
   }, []);
 
   const loadMedia = useCallback(() => {
@@ -305,11 +309,13 @@ export default function BannersPage() {
       {/* Banner List */}
       <h2 className="display text-2xl text-ink mt-12 mb-6">Current Banners</h2>
       <div className="space-y-4 max-w-4xl">
-        {banners.length === 0 && (
+        {!loaded ? (
+          <div className="bg-surface border border-line rounded-2xl p-8 text-center text-graphite">Loading…</div>
+        ) : banners.length === 0 ? (
           <div className="bg-surface border border-line rounded-2xl p-8 text-center text-graphite">
             No banners created yet. Create one above to customize the homepage slider!
           </div>
-        )}
+        ) : null}
         {banners.map((b) => {
           const isVideo = b.media_mime_type?.startsWith("video/");
           return (

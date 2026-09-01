@@ -6,13 +6,15 @@ type Lead = { id: string; source: string; name: string; email: string; company: 
 
 export default function LeadsPage() {
   const [leads, setLeads] = useState<Lead[]>([]);
+  // Distinguishes "not fetched yet" from "fetched and genuinely empty".
+  const [loaded, setLoaded] = useState(false);
   const [source, setSource] = useState("all");
   const [status, setStatus] = useState("all");
   const [open, setOpen] = useState<string | null>(null);
 
   const load = useCallback(() => {
     const p = new URLSearchParams({ source, status });
-    fetch(`/api/admin/leads?${p}`).then((r) => r.json()).then((d) => setLeads(d.leads || []));
+    fetch(`/api/admin/leads?${p}`).then((r) => r.json()).then((d) => setLeads(d.leads || [])).catch(() => {}).finally(() => setLoaded(true));
   }, [source, status]);
   useEffect(() => { load(); }, [load]);
 
@@ -51,7 +53,7 @@ export default function LeadsPage() {
       </div>
 
       <div className="bg-surface border border-line rounded-2xl overflow-hidden">
-        {leads.length === 0 && <p className="p-8 text-center text-graphite">No leads yet.</p>}
+        {!loaded ? <p className="p-8 text-center text-graphite">Loading…</p> : leads.length === 0 ? <p className="p-8 text-center text-graphite">No leads yet.</p> : null}
         {leads.map((l) => (
           <div key={l.id} className="border-b border-line last:border-0">
             <button onClick={() => setOpen(open === l.id ? null : l.id)} className="w-full text-left px-5 py-4 hover:bg-paper-tint transition-colors grid grid-cols-[1fr_auto] gap-3 items-center">

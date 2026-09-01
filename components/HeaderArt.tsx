@@ -25,11 +25,16 @@ export default function HeaderArt({
 }
 
 const PRISM = ["#E5352F", "#F1531E", "#F5A623", "#27B36B", "#2F97DB", "#7E5BE6"];
-// deterministic pseudo-random so SSR and client match
+/* Deterministic pseudo-random. Note: "deterministic" is not enough on its own —
+   Math.sin is not required to be correctly rounded, so Node and Safari can
+   differ in the last digit. Every value that reaches the markup is rounded
+   (see `fx`) or React discards the server HTML and re-renders on hydration. */
 const rng = (seed: number) => {
   const x = Math.sin(seed * 12.9898) * 43758.5453;
   return x - Math.floor(x);
 };
+/** Round to a precision both engines agree on. */
+const fx = (n: number) => +n.toFixed(3);
 
 /* ---- Points: a dense, tightly-packed rotating 3D particle cloud ---- */
 function Points() {
@@ -41,10 +46,10 @@ function Points() {
     const theta = 2 * Math.PI * u;
     const phi = Math.acos(2 * v - 1);
     return {
-      x: r * Math.sin(phi) * Math.cos(theta),
-      y: r * Math.sin(phi) * Math.sin(theta),
-      z: r * Math.cos(phi),
-      s: 1.6 + rng(i + 271) * 2.6,
+      x: fx(r * Math.sin(phi) * Math.cos(theta)),
+      y: fx(r * Math.sin(phi) * Math.sin(theta)),
+      z: fx(r * Math.cos(phi)),
+      s: fx(1.6 + rng(i + 271) * 2.6),
       c: PRISM[i % PRISM.length],
     };
   });
@@ -82,8 +87,8 @@ function Helix() {
     const t = (i / N) * Math.PI * 4;
     const y = (i / N - 0.5) * 380;
     return [
-      { x: Math.cos(t) * 90, z: Math.sin(t) * 90, y, c: PRISM[i % 6] },
-      { x: Math.cos(t + Math.PI) * 90, z: Math.sin(t + Math.PI) * 90, y, c: PRISM[(i + 3) % 6] },
+      { x: fx(Math.cos(t) * 90), z: fx(Math.sin(t) * 90), y: fx(y), c: PRISM[i % 6] },
+      { x: fx(Math.cos(t + Math.PI) * 90), z: fx(Math.sin(t + Math.PI) * 90), y: fx(y), c: PRISM[(i + 3) % 6] },
     ];
   }).flat();
   return (

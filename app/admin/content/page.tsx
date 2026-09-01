@@ -10,6 +10,9 @@ const DEFAULTS = [
 
 export default function ContentPage() {
   const [values, setValues] = useState<Record<string, string>>({});
+  /* Until the current copy has loaded, `values` is empty — saving then would
+     write blanks over the live site text. Gate the form on it. */
+  const [loaded, setLoaded] = useState(false);
   const [saved, setSaved] = useState(false); const [busy, setBusy] = useState(false);
 
   useEffect(() => {
@@ -19,10 +22,11 @@ export default function ContentPage() {
       const merged: Record<string, string> = {};
       for (const f of DEFAULTS) merged[f.key] = map[f.key] ?? f.value;
       setValues(merged);
-    });
+    }).catch(() => {}).finally(() => setLoaded(true));
   }, []);
 
   async function save() {
+    if (!loaded) return;
     setBusy(true); setSaved(false);
     const entries = DEFAULTS.map((f) => ({ key: f.key, value: values[f.key] ?? "" }));
     await fetch("/api/admin/content", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ entries }) });
@@ -39,11 +43,11 @@ export default function ContentPage() {
         {DEFAULTS.map((f) => (
           <div key={f.key}>
             <label className="mono-label text-graphite block mb-2">{f.label}</label>
-            <input className={field} value={values[f.key] ?? ""} onChange={(e) => setValues((v) => ({ ...v, [f.key]: e.target.value }))} />
+            <input className={field} disabled={!loaded} value={values[f.key] ?? ""} onChange={(e) => setValues((v) => ({ ...v, [f.key]: e.target.value }))} />
           </div>
         ))}
         <div className="flex items-center gap-3">
-          <button onClick={save} disabled={busy} className="bg-brand text-white px-6 py-3 rounded-full font-medium hover:bg-brand-deep transition-colors disabled:opacity-50">{busy ? "Saving…" : "Save changes"}</button>
+          <button onClick={save} disabled={busy || !loaded} className="bg-brand text-white px-6 py-3 rounded-full font-medium hover:bg-brand-deep transition-colors disabled:opacity-50">{!loaded ? "Loading…" : busy ? "Saving…" : "Save changes"}</button>
           {saved && <span className="text-sm text-brand">Saved ✓</span>}
         </div>
       </div>

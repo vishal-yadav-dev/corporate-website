@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useReveal } from "@/components/Reveal";
 
 type Item = {
   id: string;
@@ -47,9 +48,10 @@ export default function PlatformStory({
               key={`lat${deg}`}
               className="absolute left-1/2 top-1/2 rounded-full border"
               style={{
-                width: `${Math.cos((deg * Math.PI) / 180) * 100}%`,
-                height: `${Math.cos((deg * Math.PI) / 180) * 100}%`,
-                transform: `translate(-50%,-50%) translateZ(${Math.sin((deg * Math.PI) / 180) * 190}px)`,
+                // Rounded so the server and client strings match exactly.
+                width: `${(Math.cos((deg * Math.PI) / 180) * 100).toFixed(3)}%`,
+                height: `${(Math.cos((deg * Math.PI) / 180) * 100).toFixed(3)}%`,
+                transform: `translate(-50%,-50%) translateZ(${(Math.sin((deg * Math.PI) / 180) * 190).toFixed(3)}px)`,
                 borderColor: i % 2 ? "rgba(47,151,219,0.16)" : "rgba(244,124,32,0.18)",
               }}
             />
@@ -87,14 +89,7 @@ export default function PlatformStory({
       <div className="relative z-10 -mt-[100vh]">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8 pt-[34vh] pb-[14vh] space-y-10 sm:space-y-14 scene" style={{ perspective: 1600 }}>
           {items.map((it, i) => (
-            <motion.div
-              key={it.id}
-              initial={{ opacity: 0, y: 60, rotateX: 10 }}
-              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-              viewport={{ once: true, margin: "-20% 0px -15% 0px" }}
-              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-              className={`lg:w-[66%] ${i % 2 ? "lg:ml-auto" : ""}`}
-            >
+            <PlatformCard key={it.id} even={i % 2 === 0}>
               <Link
                 id={it.id}
                 href={standalone ? `#${it.id}` : `/practices#${it.id}`}
@@ -122,10 +117,27 @@ export default function PlatformStory({
                   </div>
                 </div>
               </Link>
-            </motion.div>
+            </PlatformCard>
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+/* Visible on the server; the rise-in is added on the client only for cards the
+   reader has not reached yet. */
+function PlatformCard({ children, even }: { children: React.ReactNode; even: boolean }) {
+  const { ref, hidden } = useReveal<HTMLDivElement>();
+  return (
+    <motion.div
+      ref={ref}
+      initial={false}
+      animate={hidden ? { opacity: 0, y: 60, rotateX: 10 } : { opacity: 1, y: 0, rotateX: 0 }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      className={`lg:w-[66%] ${even ? "" : "lg:ml-auto"}`}
+    >
+      {children}
+    </motion.div>
   );
 }

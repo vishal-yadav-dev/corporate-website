@@ -35,6 +35,8 @@ export default function CollectionEditor({
   renderPreview: (item: Record<string, unknown>) => React.ReactNode;
 }) {
   const [items, setItems] = useState<Item[]>([]);
+  // "0 entries" before the fetch resolves is a lie; track whether it has.
+  const [loaded, setLoaded] = useState(false);
   const [form, setForm] = useState<Record<string, unknown>>(defaults);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [err, setErr] = useState("");
@@ -42,7 +44,7 @@ export default function CollectionEditor({
   const [uploading, setUploading] = useState("");
 
   const load = useCallback(() => {
-    fetch(`/api/admin/collections/${type}`).then((r) => r.json()).then((d) => setItems(d.items || []));
+    fetch(`/api/admin/collections/${type}`).then((r) => r.json()).then((d) => setItems(d.items || [])).catch(() => {}).finally(() => setLoaded(true));
   }, [type]);
   useEffect(() => { load(); }, [load]);
 
@@ -175,8 +177,11 @@ export default function CollectionEditor({
         </div>
       </div>
 
-      <h2 className="display text-xl text-ink mt-10 mb-4">All entries ({items.length})</h2>
+      <h2 className="display text-xl text-ink mt-10 mb-4">All entries ({loaded ? items.length : "…"})</h2>
       <div className="grid sm:grid-cols-2 gap-3">
+        {!loaded && (
+          <p className="col-span-full text-sm text-graphite">Loading…</p>
+        )}
         {items.map((it) => (
           <div key={it.id} className="bg-surface border border-line rounded-2xl p-3">
             <div className="border border-line/60 rounded-xl p-3 mb-3">{renderPreview(it)}</div>

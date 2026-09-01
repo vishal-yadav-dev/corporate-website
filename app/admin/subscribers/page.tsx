@@ -5,7 +5,9 @@ type Sub = { id: string; email: string; status: string; created_at: string };
 
 export default function SubscribersPage() {
   const [subs, setSubs] = useState<Sub[]>([]);
-  const load = useCallback(() => { fetch("/api/admin/subscribers").then((r) => r.json()).then((d) => setSubs(d.subscribers || [])); }, []);
+  // Distinguishes "not fetched yet" from "fetched and genuinely empty".
+  const [loaded, setLoaded] = useState(false);
+  const load = useCallback(() => { fetch("/api/admin/subscribers").then((r) => r.json()).then((d) => setSubs(d.subscribers || [])).catch(() => {}).finally(() => setLoaded(true)); }, []);
   useEffect(() => { load(); }, [load]);
   async function remove(id: string) { if (!confirm("Remove this subscriber?")) return; await fetch(`/api/admin/subscribers/${id}`, { method: "DELETE" }); load(); }
 
@@ -16,7 +18,7 @@ export default function SubscribersPage() {
         <a href="/api/admin/subscribers?format=csv" className="bg-surface border border-line rounded-full px-5 py-2.5 text-sm hover:border-brand hover:text-brand transition-colors">Export CSV ↓</a>
       </div>
       <div className="bg-surface border border-line rounded-2xl overflow-hidden">
-        {subs.length === 0 && <p className="p-8 text-center text-graphite">No subscribers yet.</p>}
+        {!loaded ? <p className="p-8 text-center text-graphite">Loading…</p> : subs.length === 0 ? <p className="p-8 text-center text-graphite">No subscribers yet.</p> : null}
         {subs.map((s) => (
           <div key={s.id} className="border-b border-line last:border-0 px-5 py-4 flex items-center justify-between gap-3">
             <div><p className="text-ink">{s.email}</p><p className="text-xs text-graphite">{new Date(s.created_at).toLocaleDateString()} · {s.status}</p></div>

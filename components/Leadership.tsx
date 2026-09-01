@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { LEADERSHIP } from "@/lib/data";
+import { useReveal } from "@/components/Reveal";
 
 type Leader = {
   id: string;
@@ -94,12 +95,15 @@ function LeaderModal({ leader, onClose }: { leader: Leader; onClose: () => void 
 /* ---------------- Card: photo on top, name + designation panel below ---------------- */
 function StoryCard({ p, i, onOpen }: { p: Leader; i: number; onOpen: () => void }) {
   const src = photoSrc(p);
+  const { ref, hidden } = useReveal<HTMLButtonElement>();
   return (
     <motion.button
+      ref={ref}
       onClick={onOpen}
-      initial={{ opacity: 0, y: 36 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
+      /* Rendered visible; the rise-in only applies to cards still below the
+         fold on the client. */
+      initial={false}
+      animate={hidden ? { opacity: 0, y: 36 } : { opacity: 1, y: 0 }}
       transition={{ duration: 0.55, delay: (i % 3) * 0.07, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
       className="group text-left w-full rounded-2xl overflow-hidden border border-line bg-surface flex flex-col hover:border-brand/50 transition-colors"

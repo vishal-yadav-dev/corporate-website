@@ -10,6 +10,8 @@ const empty = { name: "", email: "", title: "", department: "", location: "", st
 
 export default function EmployeesPage() {
   const [employees, setEmployees] = useState<Employee[]>([]);
+  // Distinguishes "not fetched yet" from "fetched and genuinely empty".
+  const [loaded, setLoaded] = useState(false);
   const [form, setForm] = useState(empty);
   const [err, setErr] = useState("");
   const [busy, setBusy] = useState(false);
@@ -18,7 +20,7 @@ export default function EmployeesPage() {
   const [importResult, setImportResult] = useState<{ createdCount: number; skippedCount: number; skipped: { row: number; reason: string }[] } | null>(null);
 
   const load = useCallback(() => {
-    fetch("/api/admin/employees").then((r) => r.json()).then((d) => setEmployees(d.employees || []));
+    fetch("/api/admin/employees").then((r) => r.json()).then((d) => setEmployees(d.employees || [])).catch(() => {}).finally(() => setLoaded(true));
   }, []);
   useEffect(() => { load(); }, [load]);
 
@@ -126,7 +128,7 @@ export default function EmployeesPage() {
 
       {/* Employee list */}
       <div className="mt-8 bg-surface border border-line rounded-2xl overflow-hidden">
-        {employees.length === 0 && <p className="p-8 text-center text-graphite">No employees yet.</p>}
+        {!loaded ? <p className="p-8 text-center text-graphite">Loading…</p> : employees.length === 0 ? <p className="p-8 text-center text-graphite">No employees yet.</p> : null}
         {employees.map((emp) => (
           <div key={emp.id} className="border-b border-line last:border-0 px-5 py-4 grid grid-cols-[1fr_auto] gap-3 items-center">
             <div className="min-w-0">

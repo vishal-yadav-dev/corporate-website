@@ -29,6 +29,8 @@ const STATUS_STYLE: Record<string, string> = {
 
 export default function ApplicationsPage() {
   const [apps, setApps] = useState<Application[]>([]);
+  // Distinguishes "not fetched yet" from "fetched and genuinely empty".
+  const [loaded, setLoaded] = useState(false);
   const [jobs, setJobs] = useState<{ id: string; title: string }[]>([]);
   const [jobId, setJobId] = useState("all");
   const [status, setStatus] = useState("all");
@@ -45,7 +47,9 @@ export default function ApplicationsPage() {
     if (status !== "all") qs.set("status", status);
     fetch(`/api/admin/applications?${qs}`)
       .then((r) => r.json())
-      .then((d) => { setApps(d.applications || []); setJobs(d.jobs || []); });
+      .then((d) => { setApps(d.applications || []); setJobs(d.jobs || []); })
+      .catch(() => {})
+      .finally(() => setLoaded(true));
   }, [jobId, status]);
   useEffect(() => { load(); }, [load]);
 
@@ -96,9 +100,11 @@ export default function ApplicationsPage() {
       </div>
 
       <div className="mt-6 space-y-3 max-w-4xl">
-        {apps.length === 0 && (
+        {!loaded ? (
+          <div className="bg-surface border border-line rounded-2xl p-8 text-center text-graphite">Loading…</div>
+        ) : apps.length === 0 ? (
           <div className="bg-surface border border-line rounded-2xl p-8 text-center text-graphite">No applications match this filter.</div>
-        )}
+        ) : null}
         {apps.map((a) => (
           <div key={a.id} className="bg-surface border border-line rounded-2xl p-5">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">

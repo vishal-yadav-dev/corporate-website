@@ -5,7 +5,7 @@ import PartnerStrip from "@/components/PartnerStrip";
 import ScrollStory from "@/components/ScrollStory";
 import PlatformStory from "@/components/PlatformStory";
 import { METRICS, INDUSTRIES, PRISM_TEXT } from "@/lib/data";
-import { getPractices } from "@/lib/site";
+import { getBanners, getPractices } from "@/lib/site";
 
 const DELIVERY = [
   { kicker: "Discover", title: "Discover & architect", body: "We map your processes, data, and constraints, then design the target architecture — no build starts without a blueprint everyone signs off on." },
@@ -15,10 +15,10 @@ const DELIVERY = [
 ];
 
 export default async function Home() {
-  const PRACTICES = await getPractices();
+  const [PRACTICES, BANNERS] = await Promise.all([getPractices(), getBanners()]);
   return (
     <>
-      <Hero />
+      <Hero initialBanners={BANNERS} />
 
       {/* Metrics */}
       <section className="relative z-10 py-20 sm:py-28">

@@ -185,6 +185,36 @@ export async function getAwards(): Promise<AwardView[]> {
   return AWARDS_FALLBACK.map((a) => ({ year: a.year, title: a.title, image: "" }));
 }
 
+export type BannerView = {
+  id: string;
+  title: string;
+  subtitle: string;
+  cta_text: string;
+  cta_url: string;
+  media_id: string | null;
+  sort_order: number;
+  background_fx: string;
+  media_mime_type: string | null;
+  media_alt: string | null;
+};
+
+/** Homepage banners, server-side, so the hero headline ships in the HTML
+    instead of waiting on hydration plus a round trip to the database. */
+export async function getBanners(): Promise<BannerView[]> {
+  try {
+    return await q<BannerView>(`
+      SELECT
+        b.id, b.title, b.subtitle, b.cta_text, b.cta_url, b.media_id, b.sort_order, b.background_fx,
+        i.mime_type as media_mime_type, i.alt as media_alt
+      FROM banners b
+      LEFT JOIN site_images i ON b.media_id = i.id
+      WHERE b.is_active = true
+      ORDER BY b.sort_order ASC, b.created_at DESC
+    `);
+  } catch { /* table missing → hero falls back to its static copy */ }
+  return [];
+}
+
 /** Simple key/value copy (About Us etc.), with defaults. */
 export async function getCopy(defaults: Record<string, string>): Promise<Record<string, string>> {
   const out = { ...defaults };

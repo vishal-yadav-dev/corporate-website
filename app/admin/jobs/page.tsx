@@ -41,6 +41,8 @@ const field =
 
 export default function JobsAdminPage() {
   const [jobs, setJobs] = useState<Job[]>([]);
+  // Distinguishes "not fetched yet" from "fetched and genuinely empty".
+  const [loaded, setLoaded] = useState(false);
   const [form, setForm] = useState(emptyForm);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [err, setErr] = useState("");
@@ -48,7 +50,7 @@ export default function JobsAdminPage() {
   const [note, setNote] = useState("");
 
   const load = useCallback(() => {
-    fetch("/api/admin/jobs").then((r) => r.json()).then((d) => setJobs(d.jobs || []));
+    fetch("/api/admin/jobs").then((r) => r.json()).then((d) => setJobs(d.jobs || [])).catch(() => {}).finally(() => setLoaded(true));
   }, []);
   useEffect(() => { load(); }, [load]);
 
@@ -239,11 +241,13 @@ export default function JobsAdminPage() {
 
       <h2 className="display text-2xl text-ink mt-12 mb-6">All roles</h2>
       <div className="space-y-4 max-w-4xl">
-        {jobs.length === 0 && (
+        {!loaded ? (
+          <div className="bg-surface border border-line rounded-2xl p-8 text-center text-graphite">Loading…</div>
+        ) : jobs.length === 0 ? (
           <div className="bg-surface border border-line rounded-2xl p-8 text-center text-graphite">
             No jobs yet. Create one above.
           </div>
-        )}
+        ) : null}
         {jobs.map((j) => (
           <div key={j.id} className="bg-surface border border-line rounded-2xl p-5">
             <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">

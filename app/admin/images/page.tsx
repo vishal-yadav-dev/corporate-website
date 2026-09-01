@@ -5,10 +5,12 @@ type Img = { id: string; slot: string | null; alt: string; mime_type: string; si
 
 export default function ImagesPage() {
   const [images, setImages] = useState<Img[]>([]);
+  // Distinguishes "not fetched yet" from "fetched and genuinely empty".
+  const [loaded, setLoaded] = useState(false);
   const [slot, setSlot] = useState(""); const [alt, setAlt] = useState("");
   const [busy, setBusy] = useState(false); const [err, setErr] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
-  const load = useCallback(() => { fetch("/api/admin/images").then((r) => r.json()).then((d) => setImages(d.images || [])); }, []);
+  const load = useCallback(() => { fetch("/api/admin/images").then((r) => r.json()).then((d) => setImages(d.images || [])).catch(() => {}).finally(() => setLoaded(true)); }, []);
   useEffect(() => { load(); }, [load]);
 
   async function upload(e: React.FormEvent) {
@@ -44,7 +46,7 @@ export default function ImagesPage() {
       </form>
 
       <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-        {images.length === 0 && <p className="col-span-full text-graphite">No media items yet.</p>}
+        {!loaded ? <p className="col-span-full text-graphite">Loading…</p> : images.length === 0 ? <p className="col-span-full text-graphite">No media items yet.</p> : null}
         {images.map((img) => {
           const isVideo = img.mime_type.startsWith("video/");
           return (

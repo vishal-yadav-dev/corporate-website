@@ -286,10 +286,12 @@ function Templates() {
 /* ---------------- History ---------------- */
 function History() {
   const [rows, setRows] = useState<Newsletter[]>([]);
-  useEffect(() => { fetch("/api/admin/newsletter").then((r) => r.json()).then((d) => setRows(d.newsletters || [])); }, []);
+  // Distinguishes "not fetched yet" from "fetched and genuinely empty".
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => { fetch("/api/admin/newsletter").then((r) => r.json()).then((d) => setRows(d.newsletters || [])).catch(() => {}).finally(() => setLoaded(true)); }, []);
   return (
     <div className="max-w-3xl bg-surface border border-line rounded-2xl overflow-hidden">
-      {rows.length === 0 && <p className="p-8 text-center text-graphite">No emails sent yet.</p>}
+      {!loaded ? <p className="p-8 text-center text-graphite">Loading…</p> : rows.length === 0 ? <p className="p-8 text-center text-graphite">No emails sent yet.</p> : null}
       {rows.map((r) => (
         <div key={r.id} className="border-b border-line last:border-0 px-5 py-4 flex items-center justify-between gap-3">
           <div className="min-w-0">

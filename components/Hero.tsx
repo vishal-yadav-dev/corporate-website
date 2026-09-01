@@ -21,12 +21,15 @@ type Banner = {
   media_alt: string | null;
 };
 
-export default function Hero() {
-  const [banners, setBanners] = useState<Banner[]>([]);
-  const [loading, setLoading] = useState(true);
+export default function Hero({ initialBanners = [] }: { initialBanners?: Banner[] }) {
+  const [banners, setBanners] = useState<Banner[]>(initialBanners);
+  // Banners rendered on the server need no client fetch, so there is nothing to
+  // wait for and no blank hero while we wait for it.
+  const [loading, setLoading] = useState(initialBanners.length === 0);
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
+    if (initialBanners.length) return;
     fetch("/api/banners")
       .then((r) => r.json())
       .then((d) => {
@@ -36,6 +39,8 @@ export default function Hero() {
       .catch(() => {
         setLoading(false);
       });
+    // initialBanners is a server-rendered prop; it does not change client-side.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -95,14 +100,17 @@ export default function Hero() {
           {!loading && banners.length > 0 ? (
             <motion.div
               key={activeIndex}
-              initial={{ opacity: 0 }}
+              /* `false` on the first slide: it is server-rendered, so it must
+                 paint at full opacity even if JS never runs. Later slides still
+                 cross-fade. */
+              initial={activeIndex === 0 ? false : { opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
               className="py-12"
             >
               <motion.p
-                initial={{ opacity: 0, y: 15 }}
+                initial={activeIndex === 0 ? false : { opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1, duration: 0.5 }}
                 className="mono-label text-accent-deep mb-8"
@@ -111,7 +119,7 @@ export default function Hero() {
               </motion.p>
 
               <motion.h1
-                initial={{ opacity: 0, y: 25 }}
+                initial={activeIndex === 0 ? false : { opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
                 className="display text-ink text-[11vw] sm:text-[9vw] lg:text-[7vw] leading-[0.95] max-w-4xl"
@@ -120,7 +128,7 @@ export default function Hero() {
               </motion.h1>
 
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={activeIndex === 0 ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.6 }}
                 className="mt-10 grid lg:grid-cols-[1fr_auto] gap-8 lg:items-end"

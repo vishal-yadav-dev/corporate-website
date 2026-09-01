@@ -28,6 +28,8 @@ function initials(name: string) {
 
 export default function LeadershipAdminPage() {
   const [leaders, setLeaders] = useState<Leader[]>([]);
+  // Distinguishes "not fetched yet" from "fetched and genuinely empty".
+  const [loaded, setLoaded] = useState(false);
   const [form, setForm] = useState(emptyForm);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [err, setErr] = useState("");
@@ -35,7 +37,7 @@ export default function LeadershipAdminPage() {
   const [uploading, setUploading] = useState(false);
 
   const load = useCallback(() => {
-    fetch("/api/admin/leaders").then((r) => r.json()).then((d) => setLeaders(d.leaders || []));
+    fetch("/api/admin/leaders").then((r) => r.json()).then((d) => setLeaders(d.leaders || [])).catch(() => {}).finally(() => setLoaded(true));
   }, []);
   useEffect(() => { load(); }, [load]);
 
@@ -186,11 +188,13 @@ export default function LeadershipAdminPage() {
 
       <h2 className="display text-2xl text-ink mt-12 mb-6 text-center">Current team</h2>
       <div className="space-y-3">
-        {leaders.length === 0 && (
+        {!loaded ? (
+          <div className="bg-surface border border-line rounded-2xl p-8 text-center text-graphite">Loading…</div>
+        ) : leaders.length === 0 ? (
           <div className="bg-surface border border-line rounded-2xl p-8 text-center text-graphite">
             No leaders yet. Add the first one above.
           </div>
-        )}
+        ) : null}
         {leaders.map((l) => {
           const src = l.photo_id ? `/api/images/${l.photo_id}` : l.photo_url;
           return (
