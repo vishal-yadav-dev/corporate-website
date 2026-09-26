@@ -8,7 +8,7 @@ import Leadership from "@/components/Leadership";
 import ScrollStory from "@/components/ScrollStory";
 import VantaBg from "@/components/VantaBg";
 import { LOCATIONS, METRICS, PRISM_TEXT } from "@/lib/data";
-import { getAwards, getLeaders } from "@/lib/site";
+import { getAwards, getLeaders, getCaseStudies, getTestimonials } from "@/lib/site";
 
 const PRISM_BG = ["bg-prism-red", "bg-brand", "bg-prism-amber", "bg-prism-green", "bg-prism-blue", "bg-prism-violet"];
 
@@ -37,7 +37,9 @@ export const metadata: Metadata = {
 export const revalidate = 60;
 
 export default async function CompanyPage() {
-  const [AWARDS, LEADERS] = await Promise.all([getAwards(), getLeaders()]);
+  const [AWARDS, LEADERS, CASES, CLIENT_QUOTES, CANDIDATE_QUOTES] = await Promise.all([
+    getAwards(), getLeaders(), getCaseStudies(), getTestimonials("client"), getTestimonials("candidate"),
+  ]);
   return (
     <div className="relative">
       {/* Full-page topology, pinned to the viewport, theme-matched */}
@@ -182,6 +184,143 @@ export default async function CompanyPage() {
           </div>
         </div>
       </section>
+
+      {/* Client success — case studies, then the two testimonial walls. Each
+          section renders only when there is real material to show. */}
+      {CASES.length > 0 && (
+        <section id="client-success" className="relative z-10 bg-paper py-24 sm:py-32 scroll-mt-24">
+          <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+            <div className="mb-16">
+              <Reveal delay={0.05}><p className="mono-label text-accent-deep mb-4">Client Success</p></Reveal>
+              <Reveal delay={0.12}>
+                <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">
+                  Technology solutions. Real-world <span className="text-brand italic">impact.</span>
+                </h2>
+              </Reveal>
+            </div>
+
+            <div className="space-y-6 scene" style={{ perspective: 1400 }}>
+              {CASES.map((c, i) => (
+                <Reveal key={c.id} delay={0.05}>
+                  <article
+                    id={c.id}
+                    className={`card-3d group scroll-mt-28 relative grid lg:grid-cols-[0.9fr_1.1fr] gap-8 lg:gap-14 bg-surface border border-line rounded-[28px] overflow-hidden hover:border-brand/50 ${i % 2 ? "lg:[&>*:first-child]:order-2" : ""}`}
+                  >
+                    <span aria-hidden className={`pointer-events-none absolute -right-24 -bottom-24 h-72 w-72 rounded-full ${PRISM_BG[i % 6]} opacity-[0.10] blur-[100px] group-hover:opacity-20 transition-opacity duration-500`} />
+                    {c.image ? (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img src={c.image} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover min-h-[220px] transition-transform duration-[900ms] ease-out group-hover:scale-105" />
+                    ) : (
+                      <div className={`${PRISM_BG[i % 6]} min-h-[220px] opacity-20`} />
+                    )}
+                    <div className="relative p-8 sm:p-12">
+                      <div className="flex flex-wrap items-center gap-3">
+                        <span className={`mono-label ${PRISM_TEXT[i % 6]}`}>{c.industry}</span>
+                        {c.client && <span className="mono-label text-graphite">· {c.client}</span>}
+                      </div>
+                      <h3 className="display text-3xl sm:text-4xl text-ink mt-4">{c.title}</h3>
+
+                      <dl className="mt-7 space-y-4 max-w-xl">
+                        {[["Challenge", c.challenge], ["Approach", c.approach], ["Solution", c.solution], ["Outcome", c.outcome]]
+                          .filter(([, v]) => v)
+                          .map(([k, v]) => (
+                            <div key={k}>
+                              <dt className="mono-label text-accent-deep">{k}</dt>
+                              <dd className="mt-1.5 text-sm text-ink/75 leading-relaxed">{v}</dd>
+                            </div>
+                          ))}
+                      </dl>
+
+                      {c.technology.length > 0 && (
+                        <div className="mt-7 flex flex-wrap gap-2">
+                          {c.technology.map((t) => (
+                            <span key={t} className="mono-label text-graphite border border-line-blue rounded-full px-3 py-1.5">{t}</span>
+                          ))}
+                        </div>
+                      )}
+
+                      {c.quote && (
+                        <figure className="mt-8 border-l-2 border-brand/50 pl-5">
+                          <blockquote className="text-lg text-ink/85 leading-relaxed">&ldquo;{c.quote}&rdquo;</blockquote>
+                          {c.quoteBy && <figcaption className="mt-2 text-sm text-graphite">{c.quoteBy}</figcaption>}
+                        </figure>
+                      )}
+
+                      {c.deliveryModel && (
+                        <p className="mt-7 mono-label text-graphite">Delivery model — {c.deliveryModel}</p>
+                      )}
+                    </div>
+                  </article>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {CLIENT_QUOTES.length > 0 && (
+        <section id="client-testimonials" className="relative z-10 bg-surface/70 py-24 sm:py-32 scroll-mt-24">
+          <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+            <div className="mb-14">
+              <Reveal delay={0.05}><p className="mono-label text-accent-deep mb-4">Client Testimonials</p></Reveal>
+              <Reveal delay={0.12}>
+                <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">
+                  What our clients <span className="text-brand italic">say.</span>
+                </h2>
+              </Reveal>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {CLIENT_QUOTES.map((t, i) => (
+                <Reveal key={i} delay={(i % 3) * 0.06}>
+                  <figure className="card-lift h-full bg-paper border border-line rounded-2xl p-7 hover:border-brand/50">
+                    <span aria-hidden className={`block h-px w-10 ${PRISM_BG[i % 6]} mb-5 opacity-70`} />
+                    <blockquote className="text-lg text-ink/85 leading-relaxed">&ldquo;{t.quote}&rdquo;</blockquote>
+                    <figcaption className="mt-6 text-sm">
+                      <span className="text-ink">{t.person}</span>
+                      {t.organization && <span className="text-graphite"> · {t.organization}</span>}
+                      {t.context && <span className="mt-1.5 block mono-label text-accent-deep">{t.context}</span>}
+                    </figcaption>
+                  </figure>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {CANDIDATE_QUOTES.length > 0 && (
+        <section id="candidate-testimonials" className="relative z-10 bg-paper py-24 sm:py-32 scroll-mt-24">
+          <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+            <div className="mb-14">
+              <Reveal delay={0.05}><p className="mono-label text-accent-deep mb-4">Candidate Testimonials</p></Reveal>
+              <Reveal delay={0.12}>
+                <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">
+                  Trusted by technology <span className="text-brand italic">professionals.</span>
+                </h2>
+              </Reveal>
+              <Reveal delay={0.2}>
+                <p className="mt-6 max-w-2xl text-graphite leading-relaxed">
+                  Communication, transparency, interview support, onboarding and ongoing contact — what
+                  technology professionals say about working with us.
+                </p>
+              </Reveal>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {CANDIDATE_QUOTES.map((t, i) => (
+                <Reveal key={i} delay={(i % 4) * 0.06}>
+                  <figure className="card-lift h-full bg-surface border border-line rounded-2xl p-6 hover:border-brand/50">
+                    <blockquote className="text-ink/85 leading-relaxed">&ldquo;{t.quote}&rdquo;</blockquote>
+                    <figcaption className="mt-5 text-sm text-graphite">
+                      {t.person}
+                      {t.context && <span className={`mt-1.5 block mono-label ${PRISM_TEXT[i % 6]}`}>{t.context}</span>}
+                    </figcaption>
+                  </figure>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <div className="bg-surface/70">
         <PartnerStrip heading="Clients & Partners" title="The organizations we build alongside." variant="grid" />

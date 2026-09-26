@@ -138,7 +138,36 @@ function AwardPreview(it: Record<string, unknown>) {
   );
 }
 
-const TABS = ["Partners & clients", "Offices", "Practices", "Services", "Awards", "About Us"] as const;
+const CASE_FIELDS: EditorField[] = [
+  { key: "title", label: "Title", type: "text", placeholder: "One service view for a regional utility" },
+  { key: "client", label: "Client", type: "text", help: "Leave blank where the name cannot be disclosed" },
+  { key: "industry", label: "Industry", type: "text", placeholder: "Utilities" },
+  { key: "challenge", label: "Challenge", type: "textarea" },
+  { key: "approach", label: "Approach", type: "textarea" },
+  { key: "solution", label: "Solution", type: "textarea" },
+  { key: "technology", label: "Technology", type: "text", help: "Comma separated" },
+  { key: "delivery_model", label: "Delivery model", type: "text" },
+  { key: "outcome", label: "Outcome", type: "textarea", help: "Qualitative is fine. Never invent a metric." },
+  { key: "quote", label: "Client quote", type: "textarea" },
+  { key: "quote_by", label: "Quote attribution", type: "text" },
+  { key: "image_url", label: "Image URL", type: "text" },
+  { key: "sort_order", label: "Order", type: "number" },
+  { key: "is_active", label: "Visible", type: "checkbox" },
+];
+
+const TESTIMONIAL_FIELDS: EditorField[] = [
+  { key: "kind", label: "Kind", type: "text", placeholder: "client or candidate" },
+  { key: "quote", label: "Quote", type: "textarea" },
+  { key: "person", label: "Name or role", type: "text" },
+  { key: "title", label: "Job title", type: "text" },
+  { key: "organization", label: "Organization", type: "text" },
+  { key: "context", label: "Context", type: "text", help: "Engagement type, or candidate discipline" },
+  { key: "logo_url", label: "Logo URL", type: "text" },
+  { key: "sort_order", label: "Order", type: "number" },
+  { key: "is_active", label: "Visible", type: "checkbox" },
+];
+
+const TABS = ["Partners & clients", "Offices", "Practices", "Services", "Case studies", "Testimonials", "Awards", "About Us"] as const;
 
 function AboutEditor() {
   const [values, setValues] = useState<Record<string, string>>({});
@@ -238,6 +267,36 @@ export default function SiteContentPage() {
           renderPreview={StaffingPreview}
         />
       )}
+      {tab === "Case studies" && (
+        <CollectionEditor
+          type="case_studies" title="Case studies"
+          description="Shown on /company#client-success. Never invent metrics — if an outcome cannot be quantified publicly, describe it qualitatively."
+          fields={CASE_FIELDS}
+          defaults={{ title: "", client: "", industry: "", challenge: "", approach: "", solution: "", technology: "", delivery_model: "", outcome: "", quote: "", quote_by: "", image_url: "", sort_order: 0, is_active: true }}
+          renderPreview={(it) => (
+            <div>
+              <p className="text-sm text-ink font-medium">{String(it.title || "Untitled")}</p>
+              <p className="text-xs text-graphite mt-0.5">{[it.client, it.industry].filter(Boolean).join(" · ")}</p>
+            </div>
+          )}
+        />
+      )}
+
+      {tab === "Testimonials" && (
+        <CollectionEditor
+          type="testimonials" title="Testimonials"
+          description="Client and candidate quotes. Set kind to 'client' or 'candidate'. Publish only with permission."
+          fields={TESTIMONIAL_FIELDS}
+          defaults={{ kind: "client", quote: "", person: "", title: "", organization: "", context: "", logo_url: "", sort_order: 0, is_active: true }}
+          renderPreview={(it) => (
+            <div>
+              <p className="text-sm text-ink line-clamp-2">{String(it.quote || "")}</p>
+              <p className="text-xs text-graphite mt-1">{[it.person, it.organization, it.kind].filter(Boolean).join(" · ")}</p>
+            </div>
+          )}
+        />
+      )}
+
       {tab === "Awards" && (
         <CollectionEditor
           type="awards" title="Awards & recognition" imageSlot="award"
