@@ -8,10 +8,14 @@ import { METRICS, INDUSTRIES, PRISM_TEXT } from "@/lib/data";
 import { getBanners, getPractices } from "@/lib/site";
 
 const DELIVERY = [
-  { kicker: "Discover", title: "Discover & architect", image: "/delivery/discover.jpg", body: "We map your processes, data, and constraints, then design the target architecture — no build starts without a blueprint everyone signs off on." },
-  { kicker: "Build", title: "Build & configure", image: "/delivery/build.jpg", body: "Certified consultants configure and extend the platform in tight iterations, with code review, automated tests, and demos every sprint." },
-  { kicker: "Connect", title: "Integrate", image: "/delivery/integrate.jpg", body: "API-led connectivity ties the new platform to your ERP, CRM, and bespoke systems so data moves in real time — not overnight batches." },
-  { kicker: "Run", title: "Adopt & run", image: "/delivery/run.jpg", body: "Hypercare, enablement, and managed services turn go-live into lasting adoption, with SLAs and a roadmap for what's next." },
+  { kicker: "Discover", title: "Discover", image: "/delivery/discover.jpg",
+    body: "Current-state assessment, requirements, stakeholder alignment, and opportunity identification — so the work starts from the business problem, not a tool choice." },
+  { kicker: "Design", title: "Design", image: "/delivery/build.jpg",
+    body: "Architecture, solution blueprint, roadmap, governance, and delivery plan. We define the target state and the capabilities required to reach it." },
+  { kicker: "Deliver", title: "Deliver", image: "/delivery/integrate.jpg",
+    body: "Implementation, engineering, integration, testing, project management, and workforce support — building, configuring, and staffing the work with the right specialists." },
+  { kicker: "Optimize", title: "Optimize", image: "/delivery/run.jpg",
+    body: "Hypercare, support, managed services, performance improvement, and continuous enhancement that turn go-live into lasting adoption." },
 ];
 
 /* ISR: the page is still delivered as static HTML, but regenerates at most once
@@ -45,8 +49,8 @@ export default async function Home() {
       <section className="relative z-10 bg-paper-tint py-24 sm:py-32">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
           <Reveal className="mb-16">
-            <p className="mono-label text-accent-deep mb-4">Industries</p>
-            <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">Built for regulated, high-volume operations.</h2>
+            <p className="mono-label text-accent-deep mb-4">Industry Expertise</p>
+            <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">Technology solutions built around your industry.</h2>
           </Reveal>
 
           <div className="space-y-px bg-line-blue border border-line-blue rounded-2xl overflow-hidden">
@@ -68,12 +72,12 @@ export default async function Home() {
 
       {/* How we deliver — sticky scroll narrative */}
       <div className="bg-paper">
-        <ScrollStory eyebrow="How we deliver" heading="Blueprint first. Adoption last." items={DELIVERY} />
+        <ScrollStory eyebrow="How we deliver" heading="From strategy to execution." items={DELIVERY} />
       </div>
 
       {/* Clients & Partners */}
       <div className="bg-surface">
-        <PartnerStrip title="Trusted across enterprise, education, and the public sector." />
+        <PartnerStrip title="Technology expertise across the enterprise." />
       </div>
     </>
   );
