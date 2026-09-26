@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 import PartnerStrip from "@/components/PartnerStrip";
+import CtaBanner from "@/components/CtaBanner";
 import ScrollStory from "@/components/ScrollStory";
 import VantaBg from "@/components/VantaBg";
 import { getPractices } from "@/lib/site";
@@ -10,6 +11,13 @@ export const metadata: Metadata = {
   title: "Practices",
   description: "Salesforce, SAP, Oracle, Infor, Workday, MuleSoft and integration practices — full-lifecycle enterprise application delivery.",
 };
+
+/* The blueprint asks for technology grouped by category. Platforms carry a
+   logo and earn a full-width feature card; engineering and integration
+   practices read better as a capability grid. */
+const PLATFORM_IDS = ["salesforce", "sap", "oracle", "workday", "infor"];
+const ENGINEERING_IDS = ["application-development", "cloud-devops", "data-analytics", "ai-automation", "quality-engineering"];
+const INTEGRATION_IDS = ["mulesoft", "api-integration", "enterprise-integration"];
 
 const INTEGRATIONS = [
   {
@@ -35,7 +43,11 @@ const INTEGRATIONS = [
 ];
 
 export default async function PracticesPage() {
-  const PRACTICES = await getPractices();
+  const ALL = await getPractices();
+  const platforms = PLATFORM_IDS.map((id) => ALL.find((p) => p.id === id)).filter(Boolean) as typeof ALL;
+  const engineering = ENGINEERING_IDS.map((id) => ALL.find((p) => p.id === id)).filter(Boolean) as typeof ALL;
+  const integration = INTEGRATION_IDS.map((id) => ALL.find((p) => p.id === id)).filter(Boolean) as typeof ALL;
+  const PRACTICES = platforms;
   return (
     <>
       <PageHeader
@@ -53,8 +65,8 @@ export default async function PracticesPage() {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-paper to-transparent" />
         <div className="relative mx-auto max-w-[1400px] px-5 sm:px-8 py-20 sm:py-28">
           <Reveal className="mb-14">
-            <p className="mono-label text-accent-deep mb-4">Our practices</p>
-            <h2 className="display text-4xl sm:text-6xl text-ink max-w-2xl">Discover. Design. Build. Integrate. Test. Launch. Optimize.</h2>
+            <p className="mono-label text-accent-deep mb-4">Enterprise Platforms</p>
+            <h2 className="display text-4xl sm:text-6xl text-ink max-w-2xl">The platforms your business runs on.</h2>
           </Reveal>
 
           <div className="space-y-6 scene" style={{ perspective: 1400 }}>
@@ -89,6 +101,58 @@ export default async function PracticesPage() {
         </div>
       </section>
 
+      {/* Digital engineering + integration as capability grids */}
+      <section className="relative z-10 bg-surface/70 py-20 sm:py-28">
+        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+          <Reveal className="mb-12">
+            <p className="mono-label text-accent-deep mb-4">Digital Engineering</p>
+            <h2 className="display text-4xl sm:text-6xl text-ink max-w-3xl">Engineering that moves business forward.</h2>
+            <p className="mt-6 max-w-2xl text-graphite leading-relaxed">
+              Engineering expertise, modern technologies, and industry understanding applied to building, modernizing, and optimizing digital environments.
+            </p>
+          </Reveal>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {engineering.map((p, i) => (
+              <Reveal key={p.id} delay={(i % 3) * 0.05}>
+                <article id={p.id} className="scroll-mt-28 group h-full bg-paper border border-line rounded-2xl p-7 hover:border-brand/50 transition-colors">
+                  <div className="h-px w-10 bg-brand/50 mb-5" />
+                  <h3 className="display text-2xl text-ink group-hover:text-brand transition-colors">{p.name}</h3>
+                  <p className="mt-1.5 mono-label text-accent-deep">{p.tag}</p>
+                  <p className="mt-4 text-sm text-ink/75 leading-relaxed">{p.body}</p>
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {p.stack.map((t) => (
+                      <span key={t} className="mono-label text-graphite border border-line-blue rounded-full px-2.5 py-1">{t}</span>
+                    ))}
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal className="mt-20 mb-12">
+            <p className="mono-label text-accent-deep mb-4">Integration</p>
+            <h2 className="display text-4xl sm:text-6xl text-ink max-w-3xl">Connect applications, data, and experiences.</h2>
+          </Reveal>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {integration.map((p, i) => (
+              <Reveal key={p.id} delay={(i % 3) * 0.05}>
+                <article id={p.id} className="scroll-mt-28 group h-full bg-paper border border-line rounded-2xl p-7 hover:border-brand/50 transition-colors">
+                  <div className="h-px w-10 bg-brand/50 mb-5" />
+                  <h3 className="display text-2xl text-ink group-hover:text-brand transition-colors">{p.name}</h3>
+                  <p className="mt-1.5 mono-label text-accent-deep">{p.tag}</p>
+                  <p className="mt-4 text-sm text-ink/75 leading-relaxed">{p.body}</p>
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {p.stack.map((t) => (
+                      <span key={t} className="mono-label text-graphite border border-line-blue rounded-full px-2.5 py-1">{t}</span>
+                    ))}
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <div className="bg-paper">
         <ScrollStory
           eyebrow="Integration & AI"
@@ -96,6 +160,12 @@ export default async function PracticesPage() {
           items={INTEGRATIONS}
         />
       </div>
+
+      <CtaBanner
+        eyebrow="Practices"
+        heading="Talk to a practice expert."
+        body="Tell us which platform or capability you are working on, and we will bring the people who have done it before."
+      />
 
       <div className="bg-surface">
         <PartnerStrip heading="Platform partners & clients" title="Certified across the platforms we deliver." variant="grid" />

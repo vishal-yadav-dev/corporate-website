@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
+import CtaBanner from "@/components/CtaBanner";
 import Reveal from "@/components/Reveal";
 import { INDUSTRIES, PRISM_TEXT } from "@/lib/data";
 
@@ -48,6 +49,12 @@ export default function IndustriesPage() {
           ))}
         </div>
       </section>
+      <CtaBanner
+        eyebrow="Industries"
+        heading="Discuss your industry technology initiative."
+        body="Every industry has different operating models and constraints. Tell us yours and we will start from the problem, not the tool."
+      />
+
     </>
   );
 }

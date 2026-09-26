@@ -5,6 +5,7 @@ import Reveal from "@/components/Reveal";
 import TiltCard from "@/components/TiltCard";
 import VantaBg from "@/components/VantaBg";
 import PartnerStrip from "@/components/PartnerStrip";
+import CtaBanner from "@/components/CtaBanner";
 import { STAFFING_STATS, PRISM_TEXT } from "@/lib/data";
 import { getStaffing } from "@/lib/site";
 
@@ -98,6 +99,13 @@ export default async function UsStaffingPage() {
       </section>
 
       <div className="bg-surface">
+      <CtaBanner
+        eyebrow="Solutions"
+        heading="Discuss your workforce requirements."
+        body="Roles, skills, locations, engagement model and timeline — tell us what you need and we will map it to the right model."
+        cta="Discuss Workforce Requirements"
+      />
+
         <PartnerStrip heading="Trusted by" title="Staffing partners across enterprise and the public sector." variant="grid" />
       </div>
     </>

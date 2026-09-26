@@ -85,9 +85,9 @@ export const STAFFING = [
 ];
 
 export const STAFFING_STATS = [
-  { value: "48h", label: "Median time to first qualified submittal" },
-  { value: "92%", label: "Contract extension / conversion rate" },
-  { value: "50", label: "States with active payroll & compliance" },
+  { value: "5", label: "Workforce engagement models, from staff augmentation to managed" },
+  { value: "13", label: "Technology practices the talent is drawn from" },
+  { value: "50", label: "States with payroll and compliance coverage" },
   { value: "MBE", label: "Certified Minority Business Enterprise" },
 ];
 
@@ -220,9 +220,9 @@ export const PRISM_TEXT = [
 
 export const METRICS = [
   { value: "Inc.500", label: "Fastest-growing private companies, USA" },
-  { value: "4", label: "Delivery centers across 3 countries" },
-  { value: "8+", label: "Enterprise platforms in practice" },
-  { value: "10+", label: "Regulated markets served" },
+  { value: "13", label: "Technology practices across the enterprise" },
+  { value: "6", label: "Industries with dedicated capability" },
+  { value: "5", label: "Workforce engagement models" },
 ];
 
 export const AWARDS = [
