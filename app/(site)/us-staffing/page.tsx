@@ -24,7 +24,7 @@ export default async function UsStaffingPage() {
         eyebrow="Solutions"
         vanta="fog"
         art="orbit"
-        title="Built around your business."
+        title="Solutions built around outcomes."
         intro="Testsoft combines technology expertise, delivery capabilities, and specialized talent to help organizations solve complex technology challenges — and to scale the teams required to execute them."
       />
 

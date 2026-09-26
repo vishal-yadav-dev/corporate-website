@@ -20,7 +20,7 @@ export default function CareersPage() {
         eyebrow="Careers"
         vanta="waves"
         art="helix"
-        title="Build what’s next."
+        title="Build what comes next."
         intro="Join a team working across technology, digital transformation, enterprise solutions, and workforce delivery — with clients who bring real, complex problems."
       />
       <section id="why" className="relative z-10 bg-surface pb-24 scroll-mt-24">

@@ -5,6 +5,18 @@ import VantaBg from "./VantaBg";
 type VantaEffect = "waves" | "rings" | "net" | "globe" | "fog" | "halo" | "dots" | "cells" | "birds" | "clouds" | "clouds2" | "topology" | "trunk";
 type ArtVariant = "points" | "helix" | "cubes" | "shards" | "orbit";
 
+/** Last word in brand italic — the same signature the homepage hero uses. */
+function renderTitle(title: string) {
+  const words = title.trim().split(/\s+/);
+  if (words.length < 2) return title;
+  const last = words.pop();
+  return (
+    <>
+      {words.join(" ")} <span className="text-brand italic">{last}</span>
+    </>
+  );
+}
+
 export default function PageHeader({
   eyebrow,
   title,
@@ -32,32 +44,11 @@ export default function PageHeader({
       <div className="mx-auto max-w-[1400px] px-5 sm:px-8 relative z-10">
         <Reveal>
           <p className="mono-label text-accent-deep mb-6">{eyebrow}</p>
-          {/* Headlines carry their presence from scale, so the size is set by the
-              longest LINE, not the whole string. Sentences are broken onto their
-              own lines — three short stacked lines read as deliberate, where the
-              same words ragging across five lines read as an accident. */}
-          {(() => {
-            const lines = title
-              .split(/(?<=\.)\s+/)
-              .map((l) => l.trim())
-              .filter(Boolean);
-            const longest = Math.max(...lines.map((l) => l.length));
-            const size =
-              longest <= 26
-                ? "text-6xl sm:text-8xl lg:text-[8rem]"
-                : longest <= 40
-                  ? "text-5xl sm:text-7xl lg:text-8xl"
-                  : "text-[2.75rem] sm:text-6xl lg:text-7xl";
-            return (
-              <h1 className={`display text-ink ${size} max-w-5xl text-balance`}>
-                {lines.map((line, i) => (
-                  <span key={i} className="block">
-                    {line}
-                  </span>
-                ))}
-              </h1>
-            );
-          })()}
+          {/* Same treatment as the homepage carousel: the last word carries the
+              brand colour in italic, at the hero's viewport-relative scale. */}
+          <h1 className="display text-ink text-[11vw] sm:text-[8vw] lg:text-[6.5vw] leading-[0.95] max-w-5xl">
+            {renderTitle(title)}
+          </h1>
           {intro && <p className="mt-8 max-w-2xl text-lg sm:text-xl text-graphite leading-relaxed">{intro}</p>}
         </Reveal>
       </div>

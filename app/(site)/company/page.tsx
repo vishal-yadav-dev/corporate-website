@@ -46,7 +46,7 @@ export default async function CompanyPage() {
       <div className="relative z-10">
       <PageHeader
         eyebrow="Company"
-        title="Technology expertise. Workforce strength. Business results."
+        title="Where expertise meets execution."
         intro="Testsoft Technologies is a technology services and talent solutions company helping organizations solve complex technology challenges and build the teams required to execute them."
       />
 

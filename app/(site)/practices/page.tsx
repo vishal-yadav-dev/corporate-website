@@ -53,7 +53,7 @@ export default async function PracticesPage() {
       <PageHeader
         eyebrow="Practices"
         vanta="globe"
-        title="Platform depth. Delivery discipline."
+        title="Enterprise platforms, mastered."
         intro="Our practices combine platform expertise, engineering capabilities, integration, and delivery discipline to solve complex technology problems."
       />
 
