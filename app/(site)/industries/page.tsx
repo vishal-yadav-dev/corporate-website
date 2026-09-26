@@ -19,7 +19,7 @@ export default function IndustriesPage() {
         eyebrow="Industries"
         vanta="net"
         art="cubes"
-        title="Technology expertise built around your industry."
+        title="Your industry. Understood."
         intro="Every industry has different operating models, regulatory environments, technology challenges, and business priorities. Our solutions are designed around those realities."
       />
       <section className="relative z-10 bg-surface pb-24 sm:pb-32">

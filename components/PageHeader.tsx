@@ -32,18 +32,32 @@ export default function PageHeader({
       <div className="mx-auto max-w-[1400px] px-5 sm:px-8 relative z-10">
         <Reveal>
           <p className="mono-label text-accent-deep mb-6">{eyebrow}</p>
-          {/* The 8rem size only works for a two- or three-word headline. Longer
-              ones step down and get a wider measure, or they stack into a
-              column of text that fills the screen. */}
-          <h1
-            className={`display text-ink ${
-              title.length > 32
-                ? "text-4xl sm:text-6xl lg:text-7xl max-w-5xl"
-                : "text-6xl sm:text-8xl lg:text-[8rem] max-w-4xl"
-            }`}
-          >
-            {title}
-          </h1>
+          {/* Headlines carry their presence from scale, so the size is set by the
+              longest LINE, not the whole string. Sentences are broken onto their
+              own lines — three short stacked lines read as deliberate, where the
+              same words ragging across five lines read as an accident. */}
+          {(() => {
+            const lines = title
+              .split(/(?<=\.)\s+/)
+              .map((l) => l.trim())
+              .filter(Boolean);
+            const longest = Math.max(...lines.map((l) => l.length));
+            const size =
+              longest <= 26
+                ? "text-6xl sm:text-8xl lg:text-[8rem]"
+                : longest <= 40
+                  ? "text-5xl sm:text-7xl lg:text-8xl"
+                  : "text-[2.75rem] sm:text-6xl lg:text-7xl";
+            return (
+              <h1 className={`display text-ink ${size} max-w-5xl text-balance`}>
+                {lines.map((line, i) => (
+                  <span key={i} className="block">
+                    {line}
+                  </span>
+                ))}
+              </h1>
+            );
+          })()}
           {intro && <p className="mt-8 max-w-2xl text-lg sm:text-xl text-graphite leading-relaxed">{intro}</p>}
         </Reveal>
       </div>
