@@ -53,10 +53,27 @@ export default function IndustriesPage() {
                   </Link>
                 </div>
                 <div className="relative lg:justify-self-end">
-                  <div className={`${PRISM_BG[i % 6]} text-white rounded-2xl p-8 sm:p-10 lg:w-[280px] shadow-[0_24px_60px_-24px_rgba(0,0,0,0.6)]`}>
-                    <p className="display text-3xl sm:text-4xl leading-[1.05]">{ind.metric}</p>
-                    <p className="mt-2 text-sm text-white/75">{ind.metricLabel}</p>
-                  </div>
+                  {ind.image ? (
+                    <figure className="relative overflow-hidden rounded-2xl border border-line lg:w-[320px]">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={ind.image}
+                        alt={`${ind.name} technology work`}
+                        loading="lazy"
+                        decoding="async"
+                        className="aspect-[4/3] w-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-105"
+                      />
+                      <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5">
+                        <p className="display text-2xl text-white leading-[1.05]">{ind.metric}</p>
+                        <p className="mt-1 text-xs text-white/75">{ind.metricLabel}</p>
+                      </figcaption>
+                    </figure>
+                  ) : (
+                    <div className={`${PRISM_BG[i % 6]} text-white rounded-2xl p-8 sm:p-10 lg:w-[280px] shadow-[0_24px_60px_-24px_rgba(0,0,0,0.6)]`}>
+                      <p className="display text-3xl sm:text-4xl leading-[1.05]">{ind.metric}</p>
+                      <p className="mt-2 text-sm text-white/75">{ind.metricLabel}</p>
+                    </div>
+                  )}
                 </div>
               </div>
             </Reveal>
