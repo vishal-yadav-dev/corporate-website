@@ -1,5 +1,6 @@
 "use client";
 
+import Wordmark from "@/components/Wordmark";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
@@ -31,10 +32,7 @@ export default function Nav() {
       >
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8 flex items-center justify-between h-[72px]">
           <Link href="/" className="flex items-center gap-2 group" onClick={() => setMobile(false)}>
-            <span className="h-8 w-8 grid place-items-center bg-brand text-white font-display font-bold text-lg rounded-[6px] group-hover:rotate-6 transition-transform">
-              N
-            </span>
-            <span className="display text-ink text-xl tracking-tight">Testsoft</span>
+            <Wordmark size="md" />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-1" onMouseLeave={() => setOpen(null)}>

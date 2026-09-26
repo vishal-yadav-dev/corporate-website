@@ -1,3 +1,4 @@
+import Wordmark from "@/components/Wordmark";
 import Link from "next/link";
 import { getPartners, getOffices } from "@/lib/site";
 import Newsletter from "./Newsletter";
@@ -68,8 +69,7 @@ export default async function Footer() {
 
         <div className="mt-14 pt-8 border-t border-line flex flex-col md:flex-row gap-6 md:items-center md:justify-between">
           <div className="flex items-center gap-2">
-            <span className="h-7 w-7 grid place-items-center bg-brand text-white font-display font-bold rounded-[5px]">N</span>
-            <span className="display text-lg text-ink">Testsoft</span>
+            <Wordmark size="sm" />
           </div>
           <div className="flex flex-wrap gap-x-5 gap-y-2">
             {SOCIAL.map((s) => (

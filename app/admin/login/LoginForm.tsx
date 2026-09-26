@@ -1,5 +1,6 @@
 "use client";
 
+import Wordmark from "@/components/Wordmark";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -38,8 +39,7 @@ export default function LoginForm() {
     <div className="min-h-screen grid place-items-center bg-paper px-5">
       <div className="w-full max-w-sm">
         <div className="flex items-center gap-2 mb-8 justify-center">
-          <span className="h-9 w-9 grid place-items-center bg-brand text-white font-display font-bold text-lg rounded-[6px]">N</span>
-          <span className="display text-2xl text-ink">Testsoft</span>
+          <Wordmark size="lg" />
         </div>
         <div className="bg-surface border border-line rounded-3xl p-8 shadow-xl shadow-brand/5">
           <h1 className="display text-2xl text-ink mb-1">Admin sign in</h1>
