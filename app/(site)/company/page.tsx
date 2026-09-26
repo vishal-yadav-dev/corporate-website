@@ -12,10 +12,10 @@ import { getAwards, getLeaders } from "@/lib/site";
 const PRISM_BG = ["bg-prism-red", "bg-brand", "bg-prism-amber", "bg-prism-green", "bg-prism-blue", "bg-prism-violet"];
 
 const WHY = [
-  { kicker: "Ownership", title: "Consultants, not resources", body: "Our people are employees with a stake in outcomes — funded certifications, senior mentorship, and low turnover so the team that starts your project finishes it." },
-  { kicker: "Regulated-ready", title: "Built for high-stakes operations", body: "Utilities, manufacturing, public sector, higher education — auditable delivery, security controls, and compliance baked into how we work." },
-  { kicker: "Global reach", title: "Onshore judgement, offshore scale", body: "US-based engagement leadership with nearshore Mexico and offshore India pods — the right blend of cost, coverage, and accountability." },
-  { kicker: "Proof", title: "An Inc. 500 track record", body: "Recognized for growth and delivery across a decade — and a certified Minority Business Enterprise your procurement team can count toward diversity spend." },
+  { kicker: "Technology + Talent", title: "Two capabilities, one partner", body: "Clients can engage us for technology solutions, workforce solutions, or a combination of both — without stitching together separate vendors for the build and the people who run it." },
+  { kicker: "Flexible Delivery", title: "Structured around your engagement", body: "Support can be structured around consulting, project delivery, staff augmentation, direct hire, or SOW engagements — whichever model fits the work and the budget." },
+  { kicker: "Enterprise Mindset", title: "Built for complex organizations", body: "Our delivery approach is designed around complex organizations, enterprise platforms, public-sector environments, and regulated industries where auditability matters." },
+  { kicker: "People-Centered", title: "Communication that holds up", body: "Strong communication and practical coordination remain central to both the client and the candidate experience — from first conversation through hypercare." },
 ];
 
 export const metadata: Metadata = {
@@ -38,8 +38,8 @@ export default async function CompanyPage() {
       <div className="relative z-10">
       <PageHeader
         eyebrow="Company"
-        title="People-centric by design."
-        intro="Headquartered in Texas, Testsoft is an Inc. 500 provider of end-to-end enterprise application consulting — modernizing core business processes across CRM, ERP, and HCM for clients worldwide."
+        title="Technology expertise. Workforce strength. Business results."
+        intro="Testsoft Technologies is a technology services and talent solutions company helping organizations solve complex technology challenges and build the teams required to execute them."
       />
 
       <section id="about" className="relative z-10 bg-surface/70 pt-16 sm:pt-24 pb-24 scroll-mt-24">
@@ -72,7 +72,7 @@ export default async function CompanyPage() {
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
           <Reveal className="mb-16">
             <p className="mono-label text-accent-deep mb-4">Leadership</p>
-            <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">The people steering delivery.</h2>
+            <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">Meet the leaders behind the work.</h2>
           </Reveal>
           <Leadership initialLeaders={LEADERS} />
         </div>
@@ -82,7 +82,7 @@ export default async function CompanyPage() {
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
           <Reveal className="mb-16">
             <p className="mono-label text-accent-deep mb-4">Awards & Recognition</p>
-            <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">A track record, recognized.</h2>
+            <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">Committed to responsible and inclusive business.</h2>
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 scene" style={{ perspective: 1400 }}>
             {AWARDS.map((a, i) => (
@@ -108,14 +108,14 @@ export default async function CompanyPage() {
         </div>
       </section>
 
-      <div className="bg-paper/55">        <ScrollStory eyebrow="Why Testsoft" heading="What the awards actually mean." items={WHY} />
+      <div className="bg-paper/55">        <ScrollStory eyebrow="Why Testsoft" heading="Built for complex technology work." items={WHY} />
       </div>
 
       <section id="delivery" className="relative z-10 bg-paper-tint/55 py-24 sm:py-32 scroll-mt-24">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
           <Reveal className="mb-16">
             <p className="mono-label text-accent-deep mb-4">Delivery Centers</p>
-            <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">One team, three time zones.</h2>
+            <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">Connected delivery, US-centered.</h2>
             <p className="mt-6 max-w-2xl text-graphite">Physical offices across the US, Mexico, and India — registered to serve the USA, Canada, UK, Spain, Mexico, Argentina, Brazil, Peru, and beyond.</p>
           </Reveal>
           <div className="grid sm:grid-cols-2 gap-5">

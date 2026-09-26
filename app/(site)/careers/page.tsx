@@ -19,8 +19,8 @@ export default function CareersPage() {
         eyebrow="Careers"
         vanta="waves"
         art="helix"
-        title="Grow with the work."
-        intro="We treat consultants as partners, not resources. You learn on real transformations, backed by funded certifications, senior mentorship, and delivery centers spanning three countries."
+        title="Build what\u2019s next with Testsoft."
+        intro="Join a team working across technology, digital transformation, enterprise solutions, and workforce delivery — with clients who bring real, complex problems."
       />
       <section id="why" className="relative z-10 bg-surface pb-24 scroll-mt-24">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8">

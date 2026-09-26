@@ -41,8 +41,8 @@ export default async function PracticesPage() {
       <PageHeader
         eyebrow="Practices"
         vanta="globe"
-        title="ERP. CRM. HCM."
-        intro="Full-lifecycle implementation, optimization, and support of world-class enterprise platforms — delivered by certified consultants across manufacturing, utilities, higher education, and the public sector."
+        title="Technology practices built for enterprise transformation."
+        intro="Our practices combine platform expertise, engineering capabilities, integration, and delivery discipline to solve complex technology problems."
       />
 
       {/* Practice listing — Vanta topology animating densely behind the cards */}
@@ -54,7 +54,7 @@ export default async function PracticesPage() {
         <div className="relative mx-auto max-w-[1400px] px-5 sm:px-8 py-20 sm:py-28">
           <Reveal className="mb-14">
             <p className="mono-label text-accent-deep mb-4">Our practices</p>
-            <h2 className="display text-4xl sm:text-6xl text-ink max-w-2xl">One certified team per platform.</h2>
+            <h2 className="display text-4xl sm:text-6xl text-ink max-w-2xl">Discover. Design. Build. Integrate. Test. Launch. Optimize.</h2>
           </Reveal>
 
           <div className="space-y-6 scene" style={{ perspective: 1400 }}>

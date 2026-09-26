@@ -19,11 +19,11 @@ export default async function UsStaffingPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Services"
+        eyebrow="Solutions"
         vanta="fog"
         art="orbit"
-        title="Talent, on demand."
-        intro="A certified Minority Business Enterprise placing IT and enterprise-application talent across the US — contract, direct hire, and outcome-based pods, with compliance handled end to end."
+        title="Solutions built around your business."
+        intro="Testsoft combines technology expertise, delivery capabilities, and specialized talent to help organizations solve complex technology challenges — and to scale the teams required to execute them."
       />
 
       {/* Stats */}

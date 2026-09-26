@@ -17,8 +17,8 @@ export default function IndustriesPage() {
         eyebrow="Industries"
         vanta="net"
         art="cubes"
-        title="Where we go deep."
-        intro="We build for regulated, high-volume environments — from grid-scale utilities to campus-wide student systems — pairing platform expertise with real operational context."
+        title="Technology expertise built around your industry."
+        intro="Every industry has different operating models, regulatory environments, technology challenges, and business priorities. Our solutions are designed around those realities."
       />
       <section className="relative z-10 bg-surface pb-24 sm:pb-32">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8 space-y-6 scene" style={{ perspective: 1400 }}>
