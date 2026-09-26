@@ -84,7 +84,9 @@ export default function Reveal({
       style={{
         opacity: hidden ? 0 : 1,
         transform: hidden ? "translateY(24px)" : "translateY(0)",
-        transition: `opacity 0.6s cubic-bezier(0.22,1,0.36,1) ${delay}s, transform 0.6s cubic-bezier(0.22,1,0.36,1) ${delay}s`,
+        // rounded: staggered delays are computed, and 0.41000000000000003s
+        // is what floating point does to them
+        transition: `opacity 0.6s cubic-bezier(0.22,1,0.36,1) ${+delay.toFixed(3)}s, transform 0.6s cubic-bezier(0.22,1,0.36,1) ${+delay.toFixed(3)}s`,
       }}
     >
       {children}

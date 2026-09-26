@@ -55,16 +55,24 @@ export default async function Home() {
               <span aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-accent/15 blur-[110px]" />
               <div className="relative grid lg:grid-cols-[1.15fr_0.85fr] gap-10 lg:gap-16 items-center">
                 <div>
-                  <p className="mono-label text-accent-deep mb-4">State, Local &amp; Education</p>
-                  <h2 className="display text-4xl sm:text-6xl text-ink">Technology for the public sector.</h2>
-                  <p className="mt-6 max-w-xl text-graphite leading-relaxed">
-                    We help government agencies, public institutions, and education organizations modernize
-                    technology, strengthen digital capabilities, and access specialized technology talent —
-                    with the auditability and procurement discipline public work demands.
-                  </p>
+                  <Reveal delay={0.05}>
+                    <p className="mono-label text-accent-deep mb-4">State, Local &amp; Education</p>
+                  </Reveal>
+                  <Reveal delay={0.12}>
+                    <h2 className="display text-4xl sm:text-6xl text-ink">Technology for the public sector.</h2>
+                  </Reveal>
+                  <Reveal delay={0.2}>
+                    <p className="mt-6 max-w-xl text-graphite leading-relaxed">
+                      We help government agencies, public institutions, and education organizations modernize
+                      technology, strengthen digital capabilities, and access specialized technology talent —
+                      with the auditability and procurement discipline public work demands.
+                    </p>
+                  </Reveal>
                   <div className="mt-7 flex flex-wrap gap-2 max-w-xl">
-                    {["Digital Transformation", "Enterprise Applications", "Cloud & Infrastructure", "Data & Analytics", "Cybersecurity & QE", "Technology Workforce"].map((c) => (
-                      <span key={c} className="mono-label text-graphite border border-line-blue rounded-full px-3 py-1.5">{c}</span>
+                    {["Digital Transformation", "Enterprise Applications", "Cloud & Infrastructure", "Data & Analytics", "Cybersecurity & QE", "Technology Workforce"].map((c, ci) => (
+                      <Reveal key={c} delay={0.26 + ci * 0.05}>
+                        <span className="mono-label text-graphite border border-line-blue rounded-full px-3 py-1.5 inline-block hover:border-brand/50 hover:text-brand transition-colors">{c}</span>
+                      </Reveal>
                     ))}
                   </div>
                   <div className="mt-9 flex flex-wrap gap-3">
@@ -84,10 +92,10 @@ export default async function Home() {
                     { k: "6", v: "Industries with dedicated capability" },
                     { k: "13", v: "Technology practices to draw from" },
                   ].map((x, i) => (
-                    <div key={x.k} className="bg-surface p-6">
+                    <Reveal key={x.k} delay={0.55 + i * 0.08} className="bg-surface p-6">
                       <CountUp value={x.k} className={`display text-3xl sm:text-4xl ${PRISM_TEXT[i % 6]}`} />
                       <dd className="mt-2 text-xs text-graphite leading-relaxed">{x.v}</dd>
-                    </div>
+                    </Reveal>
                   ))}
                 </dl>
               </div>
@@ -100,14 +108,20 @@ export default async function Home() {
           homepage previously never mentioned. */}
       <section className="relative z-10 py-24 sm:py-32">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
-          <Reveal className="mb-14">
-            <p className="mono-label text-accent-deep mb-4">Technology Workforce Solutions</p>
-            <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">The right people to execute it.</h2>
-            <p className="mt-6 max-w-2xl text-graphite leading-relaxed">
-              Great technology strategies require the right people to execute them. We provide flexible workforce
-              solutions that help organizations access specialized technology talent when and where they need it.
-            </p>
-          </Reveal>
+          <div className="mb-14">
+            <Reveal delay={0.05}>
+              <p className="mono-label text-accent-deep mb-4">Technology Workforce Solutions</p>
+            </Reveal>
+            <Reveal delay={0.12}>
+              <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">The right people to execute it.</h2>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <p className="mt-6 max-w-2xl text-graphite leading-relaxed">
+                Great technology strategies require the right people to execute them. We provide flexible workforce
+                solutions that help organizations access specialized technology talent when and where they need it.
+              </p>
+            </Reveal>
+          </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {SOLUTIONS.map((sol, i) => (
               <Reveal key={sol.id} delay={(i % 3) * 0.05}>
@@ -116,6 +130,10 @@ export default async function Home() {
                   className="card-lift group flex h-full flex-col bg-surface border border-line rounded-2xl p-7 hover:border-brand/50"
                 >
                   <span className={`mono-label ${PRISM_TEXT[i % 6]}`}>0{i + 1}</span>
+                  <span
+                    aria-hidden
+                    className="mt-4 block h-px w-10 origin-left scale-x-100 bg-brand/40 transition-transform duration-500 ease-out group-hover:scale-x-[3.2]"
+                  />
                   <h3 className="display text-2xl text-ink mt-4 group-hover:text-brand transition-colors">{sol.name}</h3>
                   <p className="mt-2 text-sm text-accent-deep">{sol.line}</p>
                   <p className="mt-4 text-sm text-ink/70 leading-relaxed flex-1">{sol.body}</p>
