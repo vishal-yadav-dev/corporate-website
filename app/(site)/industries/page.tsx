@@ -22,7 +22,7 @@ export default function IndustriesPage() {
         title="Technology shaped by your industry."
         intro="Every industry has different operating models, regulatory environments, technology challenges, and business priorities. Our solutions are designed around those realities."
       />
-      <section className="relative z-10 bg-surface pb-24 sm:pb-32">
+      <section className="relative z-10 bg-surface pt-16 sm:pt-24 pb-24 sm:pb-32">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8 space-y-6 scene" style={{ perspective: 1400 }}>
           {INDUSTRIES.map((ind, i) => (
             <Reveal key={ind.id} delay={0.03}>

@@ -1,8 +1,7 @@
 /**
- * The Testsoft wordmark. "Test" carries the ink colour and "soft" the brand
- * orange, echoing the site's own signature of putting the closing word in
- * brand — and the monogram runs the prism spectrum described in globals.css
- * rather than a flat fill.
+ * The Testsoft wordmark: a single ink colour. A two-tone split was tried and
+ * read as cheap at this size. The monogram carries the colour instead, running
+ * the prism spectrum described in globals.css.
  */
 export default function Wordmark({
   size = "md",
@@ -25,10 +24,7 @@ export default function Wordmark({
       >
         N
       </span>
-      <span className={`display ${text} tracking-tight`}>
-        <span className="text-ink">Test</span>
-        <span className="text-brand">soft</span>
-      </span>
+      <span className={`display ${text} tracking-tight text-ink`}>Testsoft</span>
     </>
   );
 }

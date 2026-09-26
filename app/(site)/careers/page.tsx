@@ -23,7 +23,7 @@ export default function CareersPage() {
         title="Build what comes next."
         intro="Join a team working across technology, digital transformation, enterprise solutions, and workforce delivery — with clients who bring real, complex problems."
       />
-      <section id="why" className="relative z-10 bg-surface pb-24 scroll-mt-24">
+      <section id="why" className="relative z-10 bg-surface pt-16 sm:pt-24 pb-24 scroll-mt-24">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-24">
             <Reveal>
