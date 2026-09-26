@@ -14,7 +14,7 @@ export default async function ContactPage() {
   const LOCATIONS = await getOffices();
   return (
     <>
-      <PageHeader eyebrow="Contact" title="Let\u2019s talk about what\u2019s next." intro="Whether you\u2019re modernizing an enterprise platform, building a digital solution, integrating systems, or scaling your technology team, we\u2019re ready to help." vanta="clouds" art="points" />
+      <PageHeader eyebrow="Contact" title="Let’s talk about what’s next." intro="Whether you’re modernizing an enterprise platform, building a digital solution, integrating systems, or scaling your technology team, we’re ready to help." vanta="clouds" art="points" />
       <section className="relative z-10 bg-surface pb-24 sm:pb-32">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
           <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20">

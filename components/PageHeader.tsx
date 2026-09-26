@@ -32,7 +32,18 @@ export default function PageHeader({
       <div className="mx-auto max-w-[1400px] px-5 sm:px-8 relative z-10">
         <Reveal>
           <p className="mono-label text-accent-deep mb-6">{eyebrow}</p>
-          <h1 className="display text-ink text-6xl sm:text-8xl lg:text-[8rem] max-w-4xl">{title}</h1>
+          {/* The 8rem size only works for a two- or three-word headline. Longer
+              ones step down and get a wider measure, or they stack into a
+              column of text that fills the screen. */}
+          <h1
+            className={`display text-ink ${
+              title.length > 32
+                ? "text-4xl sm:text-6xl lg:text-7xl max-w-5xl"
+                : "text-6xl sm:text-8xl lg:text-[8rem] max-w-4xl"
+            }`}
+          >
+            {title}
+          </h1>
           {intro && <p className="mt-8 max-w-2xl text-lg sm:text-xl text-graphite leading-relaxed">{intro}</p>}
         </Reveal>
       </div>
