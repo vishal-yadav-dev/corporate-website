@@ -114,7 +114,7 @@ export default async function PracticesPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {engineering.map((p, i) => (
               <Reveal key={p.id} delay={(i % 3) * 0.05}>
-                <article id={p.id} className="scroll-mt-28 group h-full bg-paper border border-line rounded-2xl p-7 hover:border-brand/50 transition-colors">
+                <article id={p.id} className="card-lift scroll-mt-28 group h-full bg-paper border border-line rounded-2xl p-7 hover:border-brand/50">
                   <div className="h-px w-10 bg-brand/50 mb-5" />
                   <h3 className="display text-2xl text-ink group-hover:text-brand transition-colors">{p.name}</h3>
                   <p className="mt-1.5 mono-label text-accent-deep">{p.tag}</p>
@@ -136,7 +136,7 @@ export default async function PracticesPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {integration.map((p, i) => (
               <Reveal key={p.id} delay={(i % 3) * 0.05}>
-                <article id={p.id} className="scroll-mt-28 group h-full bg-paper border border-line rounded-2xl p-7 hover:border-brand/50 transition-colors">
+                <article id={p.id} className="card-lift scroll-mt-28 group h-full bg-paper border border-line rounded-2xl p-7 hover:border-brand/50">
                   <div className="h-px w-10 bg-brand/50 mb-5" />
                   <h3 className="display text-2xl text-ink group-hover:text-brand transition-colors">{p.name}</h3>
                   <p className="mt-1.5 mono-label text-accent-deep">{p.tag}</p>

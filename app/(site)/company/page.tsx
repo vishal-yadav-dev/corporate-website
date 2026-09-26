@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
+import CtaBanner from "@/components/CtaBanner";
 import Reveal from "@/components/Reveal";
 import PartnerStrip from "@/components/PartnerStrip";
 import Leadership from "@/components/Leadership";
@@ -10,6 +11,13 @@ import { LOCATIONS, METRICS, PRISM_TEXT } from "@/lib/data";
 import { getAwards, getLeaders } from "@/lib/site";
 
 const PRISM_BG = ["bg-prism-red", "bg-brand", "bg-prism-amber", "bg-prism-green", "bg-prism-blue", "bg-prism-violet"];
+
+const APPROACH = [
+  { n: "01", title: "Understand", body: "We listen to stakeholders, document objectives, understand constraints, and identify the outcomes that matter." },
+  { n: "02", title: "Architect", body: "We define the target state, solution approach, delivery roadmap, and the capabilities required to get there." },
+  { n: "03", title: "Execute", body: "We build, configure, integrate, test, deploy, and staff the work with the right specialists." },
+  { n: "04", title: "Improve", body: "We support adoption, optimize performance, and identify the next opportunities for improvement." },
+];
 
 const WHY = [
   { kicker: "Technology + Talent", title: "Two capabilities, one partner", body: "Clients can engage us for technology solutions, workforce solutions, or a combination of both — without stitching together separate vendors for the build and the people who run it." },
@@ -108,6 +116,30 @@ export default async function CompanyPage() {
         </div>
       </section>
 
+      {/* Our Approach — numbered process, per the blueprint */}
+      <section id="approach" className="relative z-10 bg-surface/70 py-24 sm:py-32 scroll-mt-24">
+        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+          <Reveal className="mb-16">
+            <p className="mono-label text-accent-deep mb-4">Our Approach</p>
+            <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">A practical approach to complex technology challenges.</h2>
+            <p className="mt-6 max-w-2xl text-graphite leading-relaxed">
+              We bring structure to complex technology initiatives without creating unnecessary process.
+            </p>
+          </Reveal>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {APPROACH.map((a, i) => (
+              <Reveal key={a.n} delay={(i % 4) * 0.05}>
+                <div className="card-lift group h-full bg-paper border border-line rounded-2xl p-7 hover:border-brand/50">
+                  <p className={`display text-5xl ${PRISM_TEXT[i % 6]}`}>{a.n}</p>
+                  <h3 className="display text-2xl text-ink mt-5 group-hover:text-brand transition-colors">{a.title}</h3>
+                  <p className="mt-3 text-sm text-ink/75 leading-relaxed">{a.body}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <div className="bg-paper/55">        <ScrollStory eyebrow="Why Testsoft" heading="Built for complex technology work." items={WHY} />
       </div>
 
@@ -154,6 +186,11 @@ export default async function CompanyPage() {
       <div className="bg-surface/70">
         <PartnerStrip heading="Clients & Partners" title="The organizations we build alongside." variant="grid" />
       </div>
+      <CtaBanner
+        eyebrow="Company"
+        heading="Why Testsoft? Let’s talk."
+        body="Technology solutions, workforce solutions, or both — tell us what you are trying to achieve and we will bring the capabilities required to execute."
+      />
       </div>
     </div>
   );

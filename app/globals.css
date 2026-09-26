@@ -114,6 +114,10 @@ body {
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 0.95;
+  /* Body text keeps `overflow-wrap: break-word` as a safety net for long URLs,
+     but a display headline broken mid-word reads as a typo. */
+  overflow-wrap: normal;
+  hyphens: none;
 }
 .mono-label {
   font-family: var(--font-mono), monospace;
@@ -161,6 +165,17 @@ body {
   background-image: radial-gradient(circle at 1px 1px, rgba(22,32,43,0.06) 1px, transparent 0);
 }
 :root[data-theme="light"] .grain::before { opacity: 0.015; }
+
+/* Capability cards: a small, GPU-cheap lift. Transform and shadow only, so it
+   composites rather than repaints. */
+.card-lift {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.35s ease;
+}
+.card-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.75);
+}
+:root[data-theme="light"] .card-lift:hover { box-shadow: 0 24px 60px -30px rgba(22, 32, 43, 0.25); }
 
 /* ---- 3D scene helpers ---- */
 .scene { perspective: 1200px; perspective-origin: 50% 30%; }

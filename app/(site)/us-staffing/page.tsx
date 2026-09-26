@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
+import CountUp from "@/components/CountUp";
 import Reveal from "@/components/Reveal";
 import TiltCard from "@/components/TiltCard";
 import VantaBg from "@/components/VantaBg";
@@ -33,7 +34,7 @@ export default async function UsStaffingPage() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-line-blue border border-line-blue rounded-2xl overflow-hidden surface-card">
             {STAFFING_STATS.map((s, i) => (
               <Reveal key={s.label} delay={i * 0.06} className="bg-surface p-8 sm:p-10">
-                <p className={`display text-4xl sm:text-5xl ${PRISM_TEXT[i % 6]}`}>{s.value}</p>
+                <CountUp value={s.value} className={`display text-4xl sm:text-5xl ${PRISM_TEXT[i % 6]}`} />
                 <p className="mt-3 text-sm text-graphite leading-relaxed">{s.label}</p>
               </Reveal>
             ))}

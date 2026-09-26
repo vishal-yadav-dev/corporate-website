@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import CtaBanner from "@/components/CtaBanner";
 import Reveal from "@/components/Reveal";
@@ -37,10 +38,23 @@ export default function IndustriesPage() {
                   <h2 className="display text-4xl sm:text-6xl text-ink mt-5">{ind.name}</h2>
                   <p className="mt-3 text-accent-deep text-lg">{ind.line}</p>
                   <p className="mt-6 text-graphite leading-relaxed max-w-xl">{ind.body}</p>
+                  <div className="mt-7 flex flex-wrap gap-2 max-w-xl">
+                    {ind.capabilities.map((c) => (
+                      <span key={c} className="mono-label text-graphite border border-line-blue rounded-full px-3 py-1.5 group-hover:border-brand/40 transition-colors">
+                        {c}
+                      </span>
+                    ))}
+                  </div>
+                  <Link
+                    href="/practices"
+                    className="mt-7 inline-flex items-center gap-1.5 mono-label text-accent-deep hover:text-brand transition-colors"
+                  >
+                    Related practices →
+                  </Link>
                 </div>
                 <div className="relative lg:justify-self-end">
                   <div className={`${PRISM_BG[i % 6]} text-white rounded-2xl p-8 sm:p-10 lg:w-[280px] shadow-[0_24px_60px_-24px_rgba(0,0,0,0.6)]`}>
-                    <p className="display text-4xl sm:text-5xl">{ind.metric}</p>
+                    <p className="display text-3xl sm:text-4xl leading-[1.05]">{ind.metric}</p>
                     <p className="mt-2 text-sm text-white/75">{ind.metricLabel}</p>
                   </div>
                 </div>
