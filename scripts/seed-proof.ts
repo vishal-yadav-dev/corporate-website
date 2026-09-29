@@ -19,6 +19,7 @@ const CASES = [
     outcome: "Agents now resolve billing and outage questions from a single console, and the same record is used by field and call-centre teams.",
     quote: "Our agents stopped apologising for the wait while they switched screens.",
     quote_by: "Director of Customer Operations, Cascade Power & Light (demo)",
+    image_url: "/case-studies/utilities.jpg",
   },
   {
     slug: "manufacturer-erp-modernization", title: "Plant floor and ledger telling the same story",
@@ -31,6 +32,7 @@ const CASES = [
     outcome: "Planning, inventory and finance now read from one system, and month-end reconciliation no longer starts with a spreadsheet comparison.",
     quote: "The close stopped being an argument about whose number was right.",
     quote_by: "VP Finance, Pinecrest Industries (demo)",
+    image_url: "/case-studies/manufacturing.jpg",
   },
   {
     slug: "university-student-systems", title: "Connecting recruitment to retention on campus",
@@ -43,6 +45,7 @@ const CASES = [
     outcome: "Advisors see the full student record from enquiry through to alumni, and reporting no longer requires manual joins between departments.",
     quote: "We can finally follow a student through, rather than piecing them together.",
     quote_by: "CIO, Alder State University (demo)",
+    image_url: "/case-studies/higher-education.jpg",
   },
 ];
 
@@ -76,7 +79,7 @@ const CANDIDATE_QUOTES = [
         technology, delivery_model, outcome, quote, quote_by, image_url, sort_order, is_active)
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,true)`,
       [cuid(), c.slug, c.title, c.client, c.industry, c.challenge, c.approach, c.solution,
-       c.technology, c.delivery_model, c.outcome, c.quote, c.quote_by, '', i * 10]
+       c.technology, c.delivery_model, c.outcome, c.quote, c.quote_by, c.image_url ?? '', i * 10]
     );
   }
   console.log(`case_studies   ${CASES.length} demo rows`);
