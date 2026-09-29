@@ -5,8 +5,10 @@ import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 import CtaBanner from "@/components/CtaBanner";
 import CountUp from "@/components/CountUp";
+import StackedStory from "@/components/StackedStory";
 import { getStaffing, getCaseStudies } from "@/lib/site";
 import { INDUSTRIES, STAFFING_STATS, PRISM_TEXT } from "@/lib/data";
+import { SOLUTION_DETAIL } from "@/lib/detail";
 
 /* ISR: solution copy is edited in /admin/site. */
 export const revalidate = 60;
@@ -49,42 +51,120 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
   const solution = solutions.find((s) => s.id === slug);
   if (!solution) notFound();
 
-  const related = solutions.filter((s) => s.id !== solution.id);
+  const d = SOLUTION_DETAIL[slug];
+  const accent = d?.accent ?? 1;
+  const variant = d?.variant ?? "split";
+  const related = solutions.filter((s) => s.group === solution.group && s.id !== solution.id);
   const models = MODELS[solution.id] ?? [];
   const proof = cases.slice(0, 2);
 
   return (
     <>
       <PageHeader
-        eyebrow="Solutions"
-        vanta="fog"
-        art="orbit"
-        title={`${solution.name}.`}
-        intro={solution.line}
+        eyebrow={solution.group === "technology" ? "Technology Solutions" : "Workforce Solutions"}
+        vanta={d?.vanta ?? "fog"}
+        art={d?.art}
+        title={d?.headline ?? `${solution.name}.`}
+        intro={d?.lead ?? solution.line}
       />
 
-      {/* Challenge → solution */}
+      {/* ---- Opening: arrangement varies per solution ---- */}
       <section className="relative z-10 bg-surface/70 pt-16 sm:pt-24 pb-24 sm:pb-32">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16">
-            <Reveal delay={0.05}>
-              <div className="h-full bg-paper border border-line rounded-[28px] p-8 sm:p-12">
+          {variant === "split" && (
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-16">
+              <Reveal delay={0.05}>
+                <div className="h-full bg-paper border border-line rounded-[28px] p-8 sm:p-12">
+                  <p className="mono-label text-accent-deep mb-5">The business challenge</p>
+                  <p className="text-xl sm:text-2xl text-ink leading-relaxed">
+                    {CHALLENGE[solution.id] ?? "Technology plans move faster than the teams available to deliver them."}
+                  </p>
+                </div>
+              </Reveal>
+              <Reveal delay={0.14}>
+                <div className="relative h-full overflow-hidden bg-surface border border-line-blue/60 rounded-[28px] p-8 sm:p-12">
+                  <span aria-hidden className={`pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full ${PRISM_BG[accent]} opacity-[0.16] blur-[100px]`} />
+                  <p className="relative mono-label text-accent-deep mb-5">{d?.whatHeading ?? "Our solution"}</p>
+                  <p className="relative text-lg text-ink/80 leading-relaxed">{d?.what ?? solution.body}</p>
+                </div>
+              </Reveal>
+            </div>
+          )}
+
+          {variant === "stack" && (
+            <div className="max-w-3xl mx-auto">
+              <Reveal delay={0.05}>
                 <p className="mono-label text-accent-deep mb-5">The business challenge</p>
-                <p className="text-xl sm:text-2xl text-ink leading-relaxed">
+                <p className="display text-3xl sm:text-5xl text-ink leading-[1.1]">
                   {CHALLENGE[solution.id] ?? "Technology plans move faster than the teams available to deliver them."}
                 </p>
+              </Reveal>
+              <Reveal delay={0.16}>
+                <div className="mt-12 border-l-2 border-brand/50 pl-7">
+                  <p className="mono-label text-accent-deep mb-4">{d?.whatHeading ?? "Our solution"}</p>
+                  <p className="text-lg text-ink/80 leading-relaxed">{d?.what ?? solution.body}</p>
+                </div>
+              </Reveal>
+            </div>
+          )}
+
+          {variant === "mosaic" && (
+            <div className="grid lg:grid-cols-12 gap-6">
+              <Reveal delay={0.05} className="lg:col-span-7">
+                <div className="h-full rounded-[28px] border border-line bg-paper p-8 sm:p-12">
+                  <p className="mono-label text-accent-deep mb-5">The business challenge</p>
+                  <p className="text-xl sm:text-2xl text-ink leading-relaxed">
+                    {CHALLENGE[solution.id] ?? "Technology plans move faster than the teams available to deliver them."}
+                  </p>
+                </div>
+              </Reveal>
+              <Reveal delay={0.14} className="lg:col-span-5">
+                <div className={`relative h-full overflow-hidden rounded-[28px] ${PRISM_BG[accent]} p-8 sm:p-12`}>
+                  <p className="mono-label text-white/70 mb-5">{d?.whatHeading ?? "Our solution"}</p>
+                  <p className="text-lg text-white leading-relaxed">{d?.what ?? solution.body}</p>
+                </div>
+              </Reveal>
+            </div>
+          )}
+
+          {variant === "rail" && (
+            <div className="grid lg:grid-cols-[auto_1fr] gap-10 lg:gap-16">
+              <Reveal delay={0.05}>
+                <div className="flex lg:flex-col items-center lg:items-start gap-4">
+                  <span className={`h-14 w-14 grid place-items-center rounded-full ${PRISM_BG[accent]} text-white display text-lg`}>
+                    {String(related.length + 1).padStart(2, "0")}
+                  </span>
+                  <span aria-hidden className="hidden lg:block w-px flex-1 bg-gradient-to-b from-brand/60 to-transparent" />
+                </div>
+              </Reveal>
+              <div>
+                <Reveal delay={0.1}>
+                  <p className="mono-label text-accent-deep mb-5">The business challenge</p>
+                  <p className="display text-3xl sm:text-5xl text-ink max-w-3xl leading-[1.1]">
+                    {CHALLENGE[solution.id] ?? "Technology plans move faster than the teams available to deliver them."}
+                  </p>
+                </Reveal>
+                <Reveal delay={0.2}>
+                  <div className="mt-10 max-w-3xl">
+                    <p className="mono-label text-accent-deep mb-4">{d?.whatHeading ?? "Our solution"}</p>
+                    <p className="text-lg text-ink/80 leading-relaxed">{d?.what ?? solution.body}</p>
+                  </div>
+                </Reveal>
               </div>
-            </Reveal>
-            <Reveal delay={0.14}>
-              <div className="relative h-full overflow-hidden bg-surface border border-line-blue/60 rounded-[28px] p-8 sm:p-12">
-                <span aria-hidden className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-brand/15 blur-[100px]" />
-                <p className="relative mono-label text-accent-deep mb-5">Our solution</p>
-                <p className="relative text-lg text-ink/80 leading-relaxed">{solution.body}</p>
-              </div>
-            </Reveal>
-          </div>
+            </div>
+          )}
         </div>
       </section>
+
+      {/* ---- Differentiators as a stacking deck ---- */}
+      {d && (
+        <StackedStory
+          eyebrow={solution.name}
+          heading={<>{d.capHeading.split(" ").slice(0, -1).join(" ")} <span className="text-brand italic">{d.capHeading.split(" ").slice(-1)}</span></>}
+          accentClass={PRISM_BG[accent]}
+          items={d.points}
+        />
+      )}
 
       {/* Capabilities */}
       <section className="relative z-10 bg-paper py-24 sm:py-32">

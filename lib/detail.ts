@@ -17,7 +17,6 @@ export type DetailContent = {
   vanta: "waves" | "rings" | "net" | "globe" | "fog" | "halo" | "dots" | "cells" | "topology" | "trunk" | "clouds";
   art?: "points" | "helix" | "cubes" | "shards" | "orbit";
   accent: number;        // index into the prism palette
-  image?: string;
   whatHeading: string;   // heading for the opening section
   what: string;          // the opening paragraph, written for this page
   capHeading: string;    // heading above the capability grid
@@ -28,7 +27,7 @@ export const PRACTICE_DETAIL: Record<string, DetailContent> = {
   salesforce: {
     headline: "Customer data that finally agrees with itself.",
     lead: "Sales, service and experience on one platform — configured for the way your teams actually work, not the way a demo suggests they should.",
-    variant: "split", vanta: "globe", art: "orbit", accent: 1, image: "/delivery/discover.jpg",
+    variant: "split", vanta: "globe", art: "orbit", accent: 1,
     whatHeading: "Adoption, not just deployment",
     what: "Most Salesforce programmes do not fail on configuration. They fail because the people expected to use the system were never designed into it. We start with the journeys your agents and sellers run every day, then shape the org around them — objects, automation and integration in service of that, rather than the other way round.",
     capHeading: "Where we go deep",
@@ -41,7 +40,7 @@ export const PRACTICE_DETAIL: Record<string, DetailContent> = {
   sap: {
     headline: "S/4HANA without betting the close.",
     lead: "Greenfield, brownfield or selective — sequenced so finance, supply chain and operations keep running while the core moves underneath them.",
-    variant: "rail", vanta: "net", art: "cubes", accent: 0, image: "/delivery/build.jpg",
+    variant: "rail", vanta: "net", art: "cubes", accent: 0,
     whatHeading: "The core, moved carefully",
     what: "An ERP migration is a business continuity exercise wearing a technology costume. We assess the current estate, agree what must not break, and phase the move so month-end closes on schedule throughout. FI/CO, MM/SD and PP get the attention they need; ABAP work is kept to what genuinely cannot be configured.",
     capHeading: "Across the core modules",
@@ -54,7 +53,7 @@ export const PRACTICE_DETAIL: Record<string, DetailContent> = {
   oracle: {
     headline: "Finance, supply chain and HR on one ledger.",
     lead: "E-Business Suite hardened, or Oracle Cloud implemented cleanly — Financials, SCM, Procurement and HCM connected rather than coexisting.",
-    variant: "mosaic", vanta: "dots", art: "shards", accent: 4, image: "/delivery/integrate.jpg",
+    variant: "mosaic", vanta: "dots", art: "shards", accent: 4,
     whatHeading: "Connected enterprise operations",
     what: "Oracle estates tend to grow in layers: a cloud module here, an on-premise extension there, and integrations written to survive rather than to scale. We map what you actually run, decide what moves and what stays, and build the connective tissue so procurement, finance and supply chain finally read from the same source.",
     capHeading: "Capability areas",
@@ -67,7 +66,7 @@ export const PRACTICE_DETAIL: Record<string, DetailContent> = {
   workday: {
     headline: "One record for every person you employ.",
     lead: "HCM and Financials deployed, configured and optimized — so HR, payroll, talent and planning stop reconciling spreadsheets.",
-    variant: "stack", vanta: "waves", art: "helix", accent: 3, image: "/delivery/run.jpg",
+    variant: "stack", vanta: "waves", art: "helix", accent: 3,
     whatHeading: "People data that holds up",
     what: "Workday rewards organisations that decide their structures before configuring them. We work through supervisory organisations, security groups and business processes with the people who own them, then configure once — because unpicking a rushed foundation costs more than the original build.",
     capHeading: "Deployment and beyond",
@@ -80,7 +79,7 @@ export const PRACTICE_DETAIL: Record<string, DetailContent> = {
   infor: {
     headline: "CloudSuite that matches how the plant runs.",
     lead: "Industry-specific ERP implemented, upgraded and re-engineered for manufacturing, distribution and service operations.",
-    variant: "split", vanta: "topology", art: "cubes", accent: 2, image: "/delivery/build.jpg",
+    variant: "split", vanta: "topology", art: "cubes", accent: 2,
     whatHeading: "Built for operations",
     what: "Infor's strength is that it already understands your industry. The work is making sure the implementation reflects how your plant, warehouse and service teams actually operate — rather than forcing them into a reference model written for someone else's factory.",
     capHeading: "Where it pays off",
@@ -93,7 +92,7 @@ export const PRACTICE_DETAIL: Record<string, DetailContent> = {
   "application-development": {
     headline: "Software your teams will actually use.",
     lead: "Custom web, mobile and enterprise applications — designed around the work, engineered to be maintained long after launch.",
-    variant: "mosaic", vanta: "halo", art: "points", accent: 5, image: "/delivery/build.jpg",
+    variant: "mosaic", vanta: "halo", art: "points", accent: 5,
     whatHeading: "Built to be maintained",
     what: "Most internal software fails slowly: it ships, it works, and then nobody can change it. We build with the second year in mind — clear boundaries, tests that catch regressions, and documentation written while the decisions are still fresh.",
     capHeading: "What we build",
@@ -106,7 +105,7 @@ export const PRACTICE_DETAIL: Record<string, DetailContent> = {
   "cloud-devops": {
     headline: "Cloud with the business case written first.",
     lead: "Migration, architecture, CI/CD, infrastructure automation and cost discipline across AWS, Azure and Google Cloud.",
-    variant: "rail", vanta: "clouds", art: "orbit", accent: 4, image: "/delivery/integrate.jpg",
+    variant: "rail", vanta: "clouds", art: "orbit", accent: 4,
     whatHeading: "Lift, shift, or leave it",
     what: "Not every workload earns a migration. We assess the estate against cost, risk and change velocity, then move what benefits and modernise what needs it — with the automation and guardrails in place before the traffic arrives, not after the first incident.",
     capHeading: "Across the lifecycle",
@@ -119,7 +118,7 @@ export const PRACTICE_DETAIL: Record<string, DetailContent> = {
   "data-analytics": {
     headline: "Answers the business actually asked for.",
     lead: "Data engineering, architecture, warehousing, BI and governance — built backwards from the decisions they need to support.",
-    variant: "stack", vanta: "dots", art: "shards", accent: 3, image: "/delivery/run.jpg",
+    variant: "stack", vanta: "dots", art: "shards", accent: 3,
     whatHeading: "Start from the question",
     what: "Data programmes drift when they start from the data. We start from the questions leadership cannot currently answer, work back to the sources that would answer them, and build only that — then extend. It produces a narrower first release and a far higher chance it gets used.",
     capHeading: "The foundation",
@@ -132,7 +131,7 @@ export const PRACTICE_DETAIL: Record<string, DetailContent> = {
   "ai-automation": {
     headline: "AI where the payback is obvious.",
     lead: "Use-case identification, governed solution design, workflow integration and process automation — starting with the work that repeats.",
-    variant: "split", vanta: "net", art: "points", accent: 5, image: "/delivery/discover.jpg",
+    variant: "split", vanta: "net", art: "points", accent: 5,
     whatHeading: "Governed, and grounded",
     what: "The hard part of enterprise AI is not the model. It is grounding it in your data, governing what it is allowed to do, and integrating it into a workflow someone already follows. We pick use cases where the process is well understood and the cost of the current manual effort is measurable.",
     capHeading: "How we apply it",
@@ -145,7 +144,7 @@ export const PRACTICE_DETAIL: Record<string, DetailContent> = {
   "quality-engineering": {
     headline: "Quality built in, not inspected in.",
     lead: "Functional, automation, performance, security and API testing woven into the lifecycle rather than bolted on before release.",
-    variant: "rail", vanta: "waves", art: "helix", accent: 0, image: "/delivery/build.jpg",
+    variant: "rail", vanta: "waves", art: "helix", accent: 0,
     whatHeading: "Shift it left, and mean it",
     what: "Testing at the end of a delivery finds defects when they are most expensive to fix. We move coverage into the pipeline — unit and contract tests owned by engineers, automated regression that runs on every merge, and performance work that starts before the load test is a crisis.",
     capHeading: "Coverage that counts",
@@ -158,7 +157,7 @@ export const PRACTICE_DETAIL: Record<string, DetailContent> = {
   mulesoft: {
     headline: "An application network, not more point-to-point.",
     lead: "Anypoint-based System, Process and Experience APIs that make data reusable across cloud and on-premise estates.",
-    variant: "mosaic", vanta: "globe", art: "orbit", accent: 4, image: "/delivery/integrate.jpg",
+    variant: "mosaic", vanta: "globe", art: "orbit", accent: 4,
     whatHeading: "Reuse is the whole point",
     what: "Integration projects justify themselves once. Application networks justify themselves every time the next team reuses an API instead of writing another bespoke connection. We design the layers deliberately so the second and third projects are faster than the first.",
     capHeading: "The layers",
@@ -171,7 +170,7 @@ export const PRACTICE_DETAIL: Record<string, DetailContent> = {
   "api-integration": {
     headline: "Interfaces that other teams can trust.",
     lead: "API strategy, design, development, management and governance — connecting applications, partners and digital experiences.",
-    variant: "stack", vanta: "rings", art: "points", accent: 1, image: "/delivery/integrate.jpg",
+    variant: "stack", vanta: "rings", art: "points", accent: 1,
     whatHeading: "Contracts, not connections",
     what: "An API is a promise to another team. We design the contract first, version it honestly, and put the security and rate limits in place before the first consumer depends on it — so integrations stop being the thing that breaks every release.",
     capHeading: "From design to runtime",
@@ -184,7 +183,7 @@ export const PRACTICE_DETAIL: Record<string, DetailContent> = {
   "enterprise-integration": {
     headline: "A backbone the whole estate can lean on.",
     lead: "Integration architecture connecting ERP, CRM, cloud, legacy and bespoke systems — with monitoring and governance built in.",
-    variant: "rail", vanta: "topology", art: "cubes", accent: 2, image: "/delivery/build.jpg",
+    variant: "rail", vanta: "topology", art: "cubes", accent: 2,
     whatHeading: "Architecture before tooling",
     what: "Integration platforms get chosen too early. We map the flows, the ownership and the failure modes first, then select the pattern — event-driven where it earns it, batch where that is genuinely fine — so the architecture reflects the business rather than a vendor's reference diagram.",
     capHeading: "How it holds together",
@@ -192,6 +191,171 @@ export const PRACTICE_DETAIL: Record<string, DetailContent> = {
       { title: "Event-driven where it fits", body: "Real time when the business needs it, scheduled when it does not — decided deliberately." },
       { title: "Data synchronisation", body: "Bi-directional flows with conflict rules agreed up front rather than discovered in production." },
       { title: "Observable by default", body: "Every flow monitored, with reconciliation that proves the two sides still agree." },
+    ],
+  },
+};
+
+/* ------------------------------------------------------------------ *
+ * Solutions. Same idea, written separately — a solution page answers a
+ * business problem, where a practice page answers a platform question.
+ * ------------------------------------------------------------------ */
+
+export const SOLUTION_DETAIL: Record<string, DetailContent> = {
+  "digital-transformation": {
+    headline: "Transformation that survives contact with the business.",
+    lead: "Strategy, process, technology, data and people connected into a path from where you are to something measurably better.",
+    variant: "rail", vanta: "fog", art: "orbit", accent: 1,
+    whatHeading: "Sequenced, not announced",
+    what: "Most transformation programmes are announced before they are sequenced, and they stall around month nine when the easy work runs out. We define the target operating model, then order the work so each phase funds and de-risks the next — and so the organisation can absorb it while still running.",
+    capHeading: "How the work is ordered",
+    points: [
+      { title: "Assess what is actually there", body: "Current-state process, data and system reality — including the spreadsheets nobody mentions in the steering committee." },
+      { title: "Agree the target operating model", body: "How the organisation should work once the technology changes, decided before tooling is selected." },
+      { title: "Phase for absorption", body: "A roadmap paced to what the business can adopt, not to what a Gantt chart allows." },
+    ],
+  },
+  "enterprise-application-services": {
+    headline: "The systems that run the business, kept running.",
+    lead: "Consulting, implementation, integration, development, testing and ongoing optimization across your enterprise application estate.",
+    variant: "split", vanta: "net", art: "cubes", accent: 4,
+    whatHeading: "From project to steady state",
+    what: "Enterprise applications spend a few months being implemented and then years being lived with. We work across both: the implementation that lands cleanly, and the support model that keeps it healthy through releases, regulation changes and the inevitable request that was out of scope the first time.",
+    capHeading: "Across the lifecycle",
+    points: [
+      { title: "Implementation that lands", body: "Scope, configuration and cutover planned around the business calendar rather than the project one." },
+      { title: "Extension without lock-in", body: "Customisation confined to what configuration genuinely cannot do, so upgrades stay possible." },
+      { title: "Managed support", body: "A steady-state model with named people, SLAs and a backlog the business can see." },
+    ],
+  },
+  "application-modernization": {
+    headline: "Retire the legacy system without stopping the business.",
+    lead: "Assess, refactor, re-platform, replace or integrate — with a roadmap built around business risk rather than technical preference.",
+    variant: "stack", vanta: "topology", art: "shards", accent: 2,
+    whatHeading: "The honest assessment first",
+    what: "Not every legacy application deserves a rewrite. Some should be re-platformed, some wrapped behind an API and left alone, and a few genuinely need replacing. We assess the portfolio against business value, change frequency and risk, then modernise in the order that removes the most risk earliest.",
+    capHeading: "Four honest options",
+    points: [
+      { title: "Wrap and leave", body: "Stable systems exposed behind an API, so the rest of the estate can move without touching them." },
+      { title: "Re-platform", body: "Same logic, modern runtime — the cheapest route when the business rules still hold." },
+      { title: "Replace incrementally", body: "Strangler-pattern migration so the old system retires function by function, never in one weekend." },
+    ],
+  },
+  "cloud-transformation": {
+    headline: "Move the workloads that earn the move.",
+    lead: "Cloud strategy, migration, architecture, modernization, DevOps and security — with the business case written before anything migrates.",
+    variant: "mosaic", vanta: "clouds", art: "points", accent: 5,
+    whatHeading: "The case before the migration",
+    what: "Cloud programmes that start with a migration factory tend to end with a larger bill and the same architecture. We start with the portfolio: what benefits from elasticity, what carries regulatory weight, what should simply be retired. Then we build the landing zone properly before the first workload arrives.",
+    capHeading: "In this order",
+    points: [
+      { title: "Portfolio triage", body: "Each workload scored on cost, risk and change velocity before a destination is chosen." },
+      { title: "Landing zone first", body: "Identity, networking, policy and guardrails established before migration begins." },
+      { title: "Cost discipline built in", body: "Tagging, budgets and rightsizing from day one, so the finance conversation stays calm." },
+    ],
+  },
+  "data-analytics-solutions": {
+    headline: "A data foundation people actually trust.",
+    lead: "Engineering, governance, analytics, reporting and visualization connected into a strategy the business can act on.",
+    variant: "rail", vanta: "dots", art: "helix", accent: 3,
+    whatHeading: "Trust is the deliverable",
+    what: "A dashboard nobody believes is worse than no dashboard, because it moves the argument from the decision to the data. We build lineage, quality checks and clear ownership alongside the pipelines, so when a number is questioned there is an answer rather than an investigation.",
+    capHeading: "What we put in place",
+    points: [
+      { title: "Model the business, not the sources", body: "A warehouse structured around entities the business recognises, rather than a mirror of every source schema." },
+      { title: "Quality you can point at", body: "Lineage, tests and ownership so a disputed number has a traceable history." },
+      { title: "Self-service that holds", body: "Semantic layers that let teams answer their own questions without re-deriving the truth each time." },
+    ],
+  },
+  "ai-automation-solutions": {
+    headline: "AI applied where the cost of the manual work is visible.",
+    lead: "Use-case identification, governed design, workflow integration and process automation — starting where the payback can be measured.",
+    variant: "split", vanta: "halo", art: "points", accent: 0,
+    whatHeading: "Boring problems first",
+    what: "The most valuable early AI work is rarely the most exciting. It is the repeated, well-understood process where the manual cost is already measured and the data already exists. We start there, prove the pattern, and put the governance in place before expanding into judgement-heavy territory.",
+    capHeading: "How we choose and build",
+    points: [
+      { title: "Score before you build", body: "Candidate use cases ranked on value, data readiness and risk — most do not survive the triage." },
+      { title: "Grounded and governed", body: "Retrieval over your own content, with scope, escalation and human review designed in from the start." },
+      { title: "Automate the deterministic parts", body: "RPA and workflow automation where rules are enough, models only where judgement is genuinely required." },
+    ],
+  },
+  "integration-solutions": {
+    headline: "One fabric instead of forty point-to-point connections.",
+    lead: "Integration strategy connecting enterprise applications, cloud platforms, data sources, legacy systems and digital experiences.",
+    variant: "mosaic", vanta: "globe", art: "orbit", accent: 4,
+    whatHeading: "Architecture, then platform",
+    what: "Integration estates rarely fail loudly. They accumulate — a file here, a nightly job there — until nobody can say with confidence which system is authoritative. We map the flows and the ownership first, then choose patterns deliberately, so the architecture reflects the business rather than a vendor diagram.",
+    capHeading: "The building blocks",
+    points: [
+      { title: "Establish the source of truth", body: "For each entity, one authoritative system and an agreed direction of travel." },
+      { title: "Right pattern per flow", body: "Event-driven where the business needs real time, scheduled where it genuinely does not." },
+      { title: "Observable and reconcilable", body: "Every flow monitored, with reconciliation that proves both sides still agree." },
+    ],
+  },
+
+  "staff-augmentation": {
+    headline: "Specialists on your team, under your direction.",
+    lead: "Qualified technology professionals across engineering, enterprise platforms, cloud, data, QA, security and delivery — added to the team you already have.",
+    variant: "split", vanta: "waves", art: "helix", accent: 1,
+    whatHeading: "Your process, our people",
+    what: "Augmentation works when the people arriving fit the way your team already works. We calibrate against your stack, your rituals and your definition of done — then submit a short list you can actually assess, rather than a volume of profiles that pushes the screening cost back onto you.",
+    capHeading: "How we keep the bar",
+    points: [
+      { title: "Technical calibration", body: "A real screen against your stack before a profile reaches you, so the shortlist is short." },
+      { title: "Fits your rituals", body: "People who join your standups and your branching model, not a parallel process beside it." },
+      { title: "Scales both directions", body: "Ramping down handled as carefully as ramping up, including handover of what they knew." },
+    ],
+  },
+  "contingent-workforce": {
+    headline: "Flex the team without inheriting the overhead.",
+    lead: "Project-based hiring, temporary skills and changing demand — with compliance, payrolling and employer-of-record handled.",
+    variant: "stack", vanta: "cells", art: "cubes", accent: 3,
+    whatHeading: "The admin is the service",
+    what: "Finding a contractor is the easy part. The work is classification, multi-state tax, benefits eligibility, insurance and the paperwork that follows someone from onboarding to final invoice. We carry that so your managers are choosing skills rather than administering employment.",
+    capHeading: "What we carry",
+    points: [
+      { title: "Classification done properly", body: "Worker status assessed before engagement, not corrected after an audit." },
+      { title: "Payroll and compliance", body: "Multi-state tax, I-9 and E-Verify, insurance and ACA handled end to end." },
+      { title: "Clean exits", body: "Offboarding, access removal and final invoicing handled on a schedule, not on a reminder." },
+    ],
+  },
+  "direct-hire": {
+    headline: "A shortlist you can actually interview.",
+    lead: "Identify, qualify and recruit technology professionals for permanent roles, with a process built around technical fit and how your team works.",
+    variant: "rail", vanta: "rings", art: "points", accent: 5,
+    whatHeading: "Fewer candidates, better ones",
+    what: "Sending ten profiles is easy and moves the screening cost to you. We run a structured intake, calibrate on the first two candidates, and then submit three to five people who have each been assessed against the role as written — including the parts of it that were never in the job description.",
+    capHeading: "The process",
+    points: [
+      { title: "Structured intake", body: "Time with the hiring manager to establish what the role genuinely requires versus what the posting says." },
+      { title: "Calibrated early", body: "The first submissions used to sharpen the brief, so the shortlist converges quickly." },
+      { title: "Through to start date", body: "Offer support, counter-offer handling and contact through notice, where most searches quietly fail." },
+    ],
+  },
+  "sow-project-teams": {
+    headline: "Buy the outcome, not the timesheet.",
+    lead: "Specialized teams assembled around defined objectives, deliverables, timelines and governance — with one party accountable for the result.",
+    variant: "mosaic", vanta: "trunk", art: "shards", accent: 2,
+    whatHeading: "Accountability in one place",
+    what: "Staff augmentation puts delivery risk on you. A statement of work moves it to us. That only works if the scope is genuinely definable, so we spend real effort on the front end — deliverables, acceptance criteria and the change process — before anyone signs.",
+    capHeading: "What makes it work",
+    points: [
+      { title: "Scope worth signing", body: "Deliverables and acceptance criteria written precisely enough that done is not a debate." },
+      { title: "Governance that is used", body: "Milestones, reporting and escalation agreed at the start and actually followed." },
+      { title: "One throat to choke", body: "A named delivery lead accountable for the outcome rather than for hours supplied." },
+    ],
+  },
+  "managed-workforce": {
+    headline: "See your whole contingent workforce at once.",
+    lead: "Workforce planning, talent acquisition, resource coordination, compliance and reporting across every vendor and every engagement.",
+    variant: "split", vanta: "topology", art: "cubes", accent: 4,
+    whatHeading: "One view across vendors",
+    what: "Contingent labour spreads quietly across departments and suppliers until nobody can answer how many people are engaged, at what rate, or whether their paperwork is current. We consolidate the programme — requisition flow, rate cards, compliance and reporting — so those questions have one answer.",
+    capHeading: "Programme components",
+    points: [
+      { title: "Requisition and rate governance", body: "A single flow with agreed rate cards, so pricing stops depending on which manager called which vendor." },
+      { title: "Compliance visibility", body: "Status, documentation and expiry tracked centrally rather than in each supplier's system." },
+      { title: "Consolidated reporting", body: "Spend, headcount and diversity reporting in one place, including for public-sector requirements." },
     ],
   },
 };

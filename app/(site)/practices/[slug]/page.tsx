@@ -96,12 +96,6 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
                 <Reveal delay={0.12}>
                   <h2 className="display text-4xl sm:text-6xl text-ink">{accentLast(practice.tag)}</h2>
                 </Reveal>
-                {d?.image && (
-                  <Reveal delay={0.2}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={d.image} alt="" loading="lazy" decoding="async" className="mt-10 rounded-2xl border border-line aspect-[4/3] w-full object-cover" />
-                  </Reveal>
-                )}
               </div>
               <Reveal delay={0.18}>
                 <p className="text-xl sm:text-2xl text-ink/80 leading-relaxed">{d?.what}</p>
@@ -118,12 +112,6 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
               <Reveal delay={0.2}>
                 <p className="mt-8 text-xl text-ink/80 leading-relaxed">{d?.what}</p>
               </Reveal>
-              {d?.image && (
-                <Reveal delay={0.28}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={d.image} alt="" loading="lazy" decoding="async" className="mt-12 rounded-[28px] border border-line aspect-[21/9] w-full object-cover" />
-                </Reveal>
-              )}
             </div>
           )}
 
@@ -141,12 +129,6 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
                   <p className="text-lg sm:text-xl text-ink/80 leading-relaxed">{d?.what}</p>
                 </div>
               </Reveal>
-              {d?.image && (
-                <Reveal delay={0.22} className="lg:col-span-12">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={d.image} alt="" loading="lazy" decoding="async" className="rounded-[28px] border border-line aspect-[21/8] w-full object-cover" />
-                </Reveal>
-              )}
             </div>
           )}
 
@@ -168,12 +150,6 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
                 <Reveal delay={0.24}>
                   <p className="mt-8 max-w-3xl text-xl text-ink/80 leading-relaxed">{d?.what}</p>
                 </Reveal>
-                {d?.image && (
-                  <Reveal delay={0.32}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={d.image} alt="" loading="lazy" decoding="async" className="mt-12 rounded-[28px] border border-line aspect-[16/7] w-full object-cover" />
-                  </Reveal>
-                )}
               </div>
             </div>
           )}
