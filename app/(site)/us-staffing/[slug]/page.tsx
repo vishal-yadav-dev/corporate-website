@@ -260,7 +260,7 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
             <div className="grid lg:grid-cols-2 gap-5">
               {proof.map((c, i) => (
                 <Reveal key={c.id} delay={i * 0.08}>
-                  <Link href="/company#client-success" className="card-lift group block h-full bg-paper border border-line rounded-2xl p-7 hover:border-brand/50">
+                  <Link href="/company#case-studies" className="card-lift group block h-full bg-paper border border-line rounded-2xl p-7 hover:border-brand/50">
                     <p className={`mono-label ${PRISM_TEXT[i % 6]}`}>{c.industry}</p>
                     <h3 className="display text-2xl text-ink mt-3 group-hover:text-brand transition-colors">{c.title}</h3>
                     <p className="mt-3 text-sm text-ink/70 leading-relaxed">{c.outcome}</p>

@@ -251,7 +251,7 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
             <div className="grid lg:grid-cols-2 gap-5">
               {proof.map((c, i) => (
                 <Reveal key={c.id} delay={i * 0.08}>
-                  <Link href="/company#client-success" className="card-lift group block h-full overflow-hidden bg-surface border border-line rounded-2xl hover:border-brand/50">
+                  <Link href="/company#case-studies" className="card-lift group block h-full overflow-hidden bg-surface border border-line rounded-2xl hover:border-brand/50">
                     {c.image && (
                       /* eslint-disable-next-line @next/next/no-img-element */
                       <img src={c.image} alt="" loading="lazy" decoding="async" className="h-48 w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105" />

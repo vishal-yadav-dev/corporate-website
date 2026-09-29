@@ -188,13 +188,13 @@ export default async function CompanyPage() {
       {/* Client success — case studies, then the two testimonial walls. Each
           section renders only when there is real material to show. */}
       {CASES.length > 0 && (
-        <section id="client-success" className="relative z-10 bg-paper py-24 sm:py-32 scroll-mt-24">
+        <section id="case-studies" className="relative z-10 bg-paper py-24 sm:py-32 scroll-mt-24">
           <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
             <div className="mb-16">
-              <Reveal delay={0.05}><p className="mono-label text-accent-deep mb-4">Client Success</p></Reveal>
+              <Reveal delay={0.05}><p className="mono-label text-accent-deep mb-4">Case Studies</p></Reveal>
               <Reveal delay={0.12}>
                 <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">
-                  Technology solutions. Real-world <span className="text-brand italic">impact.</span>
+                  Technology solutions in <span className="text-brand italic">action.</span>
                 </h2>
               </Reveal>
             </div>
