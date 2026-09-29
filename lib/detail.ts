@@ -493,7 +493,7 @@ export const INDUSTRY_DETAIL: Record<string, IndustryDetail> = {
   utilities: {
     headline: "Critical infrastructure, quietly modernised.",
     lead: "Customer platforms, integration, data and workforce capability for organisations where an outage is a public event and the regulator is always watching.",
-    variant: "mosaic", vanta: "net", accent: 0, video: "pipeline",
+    variant: "mosaic", vanta: "net", accent: 0, video: "grid",
     stats: [
       { value: "10+", label: "Years delivering for utilities" },
       { value: "6", label: "Capability areas across the estate" },

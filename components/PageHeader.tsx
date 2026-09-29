@@ -46,7 +46,6 @@ export default function PageHeader({
             aria-hidden
           >
             <source src={`/videos/${video}.mp4`} type="video/mp4" />
-            <source src={`/videos/${video}.webm`} type="video/webm" />
           </video>
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-paper/85 via-paper/55 to-paper" />
         </>
