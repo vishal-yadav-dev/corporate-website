@@ -65,7 +65,7 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
         </div>
       </section>
 
-      <section className="relative z-10 pb-24">
+      <section className="relative z-10 pt-12 sm:pt-16 pb-24">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8 grid lg:grid-cols-[1fr_360px] gap-12 lg:gap-20">
           <div>
             {job.summary && <p className="text-xl text-ink leading-relaxed">{job.summary}</p>}

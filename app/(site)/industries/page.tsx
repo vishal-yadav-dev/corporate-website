@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
+import CtaBanner from "@/components/CtaBanner";
 import Reveal from "@/components/Reveal";
 import { INDUSTRIES, PRISM_TEXT } from "@/lib/data";
 
@@ -16,11 +18,10 @@ export default function IndustriesPage() {
       <PageHeader
         eyebrow="Industries"
         vanta="net"
-        art="cubes"
-        title="Where we go deep."
-        intro="We build for regulated, high-volume environments — from grid-scale utilities to campus-wide student systems — pairing platform expertise with real operational context."
+        title="Technology shaped by your industry."
+        intro="Every industry has different operating models, regulatory environments, technology challenges, and business priorities. Our solutions are designed around those realities."
       />
-      <section className="relative z-10 bg-surface pb-24 sm:pb-32">
+      <section className="relative z-10 bg-surface pt-16 sm:pt-24 pb-24 sm:pb-32">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8 space-y-6 scene" style={{ perspective: 1400 }}>
           {INDUSTRIES.map((ind, i) => (
             <Reveal key={ind.id} delay={0.03}>
@@ -33,21 +34,57 @@ export default function IndustriesPage() {
                 />
                 <div className="relative">
                   <span className={`mono-label ${PRISM_TEXT[i % 6]}`}>Industry</span>
-                  <h2 className="display text-4xl sm:text-6xl text-ink mt-5">{ind.name}</h2>
+                  <h2 className="display text-4xl sm:text-6xl text-ink mt-5"><Link href={`/industries/${ind.id}`} className="hover:text-brand transition-colors">{ind.name}</Link></h2>
                   <p className="mt-3 text-accent-deep text-lg">{ind.line}</p>
                   <p className="mt-6 text-graphite leading-relaxed max-w-xl">{ind.body}</p>
+                  <div className="mt-7 flex flex-wrap gap-2 max-w-xl">
+                    {ind.capabilities.map((c) => (
+                      <span key={c} className="mono-label text-graphite border border-line-blue rounded-full px-3 py-1.5 group-hover:border-brand/40 transition-colors">
+                        {c}
+                      </span>
+                    ))}
+                  </div>
+                  <Link
+                    href={`/industries/${ind.id}`}
+                    className="mt-7 inline-flex items-center gap-1.5 mono-label text-accent-deep hover:text-brand transition-colors"
+                  >
+                    Explore {ind.name} →
+                  </Link>
                 </div>
                 <div className="relative lg:justify-self-end">
-                  <div className={`${PRISM_BG[i % 6]} text-white rounded-2xl p-8 sm:p-10 lg:w-[280px] shadow-[0_24px_60px_-24px_rgba(0,0,0,0.6)]`}>
-                    <p className="display text-4xl sm:text-5xl">{ind.metric}</p>
-                    <p className="mt-2 text-sm text-white/75">{ind.metricLabel}</p>
-                  </div>
+                  {ind.image ? (
+                    <figure className="relative overflow-hidden rounded-2xl border border-line lg:w-[320px]">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={ind.image}
+                        alt={`${ind.name} technology work`}
+                        loading="lazy"
+                        decoding="async"
+                        className="aspect-[4/3] w-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-105"
+                      />
+                      <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5">
+                        <p className="display text-2xl text-white leading-[1.05]">{ind.metric}</p>
+                        <p className="mt-1 text-xs text-white/75">{ind.metricLabel}</p>
+                      </figcaption>
+                    </figure>
+                  ) : (
+                    <div className={`${PRISM_BG[i % 6]} text-white rounded-2xl p-8 sm:p-10 lg:w-[280px] shadow-[0_24px_60px_-24px_rgba(0,0,0,0.6)]`}>
+                      <p className="display text-3xl sm:text-4xl leading-[1.05]">{ind.metric}</p>
+                      <p className="mt-2 text-sm text-white/75">{ind.metricLabel}</p>
+                    </div>
+                  )}
                 </div>
               </div>
             </Reveal>
           ))}
         </div>
       </section>
+      <CtaBanner
+        eyebrow="Industries"
+        heading="Discuss your industry technology initiative."
+        body="Every industry has different operating models and constraints. Tell us yours and we will start from the problem, not the tool."
+      />
+
     </>
   );
 }

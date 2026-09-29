@@ -267,3 +267,45 @@ CREATE TABLE IF NOT EXISTS newsletters (
   status      TEXT NOT NULL DEFAULT 'sent',   -- 'sent' | 'skipped' | 'failed'
   created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+
+-- Case studies (managed from /admin/site, shown on /company#case-studies).
+-- Fields follow the content blueprint's case-study template.
+CREATE TABLE IF NOT EXISTS case_studies (
+  id             TEXT PRIMARY KEY,
+  slug           TEXT UNIQUE NOT NULL,
+  client         TEXT NOT NULL DEFAULT '',   -- blank when the name cannot be disclosed
+  industry       TEXT NOT NULL DEFAULT '',
+  challenge      TEXT NOT NULL DEFAULT '',
+  approach       TEXT NOT NULL DEFAULT '',
+  solution       TEXT NOT NULL DEFAULT '',
+  technology     TEXT NOT NULL DEFAULT '',   -- comma separated
+  delivery_model TEXT NOT NULL DEFAULT '',
+  outcome        TEXT NOT NULL DEFAULT '',   -- qualitative is fine; never invent a metric
+  quote          TEXT NOT NULL DEFAULT '',
+  quote_by       TEXT NOT NULL DEFAULT '',
+  image_id       TEXT REFERENCES site_images(id) ON DELETE SET NULL,
+  image_url      TEXT NOT NULL DEFAULT '',
+  sort_order     INTEGER NOT NULL DEFAULT 0,
+  is_active      BOOLEAN NOT NULL DEFAULT true,
+  created_at     TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at     TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS case_studies_sort_idx ON case_studies (sort_order);
+
+-- Client and candidate testimonials share a table, split by `kind`.
+CREATE TABLE IF NOT EXISTS testimonials (
+  id           TEXT PRIMARY KEY,
+  kind         TEXT NOT NULL DEFAULT 'client',   -- 'client' | 'candidate'
+  quote        TEXT NOT NULL DEFAULT '',
+  person       TEXT NOT NULL DEFAULT '',
+  title        TEXT NOT NULL DEFAULT '',
+  organization TEXT NOT NULL DEFAULT '',
+  context      TEXT NOT NULL DEFAULT '',        -- engagement type, or candidate discipline
+  logo_id      TEXT REFERENCES site_images(id) ON DELETE SET NULL,
+  logo_url     TEXT NOT NULL DEFAULT '',
+  sort_order   INTEGER NOT NULL DEFAULT 0,
+  is_active    BOOLEAN NOT NULL DEFAULT true,
+  created_at   TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at   TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS testimonials_kind_idx ON testimonials (kind);

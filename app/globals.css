@@ -45,10 +45,10 @@
 /* ---- Light theme (toggle sets data-theme="light" on <html>) ---- */
 :root[data-theme="light"] {
   --color-paper: #FFFFFF;
-  --color-paper-tint: #F1F5F9;
-  --color-paper-deep: #E7EDF3;
-  --color-surface: #FFFFFF;
-  --color-surface-2: #F5F8FB;
+  --color-paper-tint: #EAF1F8;
+  --color-paper-deep: #DCE7F1;
+  --color-surface: #F6FAFD;
+  --color-surface-2: #EAF1F8;
 
   --color-ink: #16202B;
   --color-ink-soft: #33404D;
@@ -114,6 +114,10 @@ body {
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 0.95;
+  /* Body text keeps `overflow-wrap: break-word` as a safety net for long URLs,
+     but a display headline broken mid-word reads as a typo. */
+  overflow-wrap: normal;
+  hyphens: none;
 }
 .mono-label {
   font-family: var(--font-mono), monospace;
@@ -161,6 +165,17 @@ body {
   background-image: radial-gradient(circle at 1px 1px, rgba(22,32,43,0.06) 1px, transparent 0);
 }
 :root[data-theme="light"] .grain::before { opacity: 0.015; }
+
+/* Capability cards: a small, GPU-cheap lift. Transform and shadow only, so it
+   composites rather than repaints. */
+.card-lift {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.35s ease;
+}
+.card-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.75);
+}
+:root[data-theme="light"] .card-lift:hover { box-shadow: 0 24px 60px -30px rgba(22, 32, 43, 0.25); }
 
 /* ---- 3D scene helpers ---- */
 .scene { perspective: 1200px; perspective-origin: 50% 30%; }
@@ -242,14 +257,14 @@ body {
    Breakpoint matches the one VantaBg already opts out at. */
 @media (max-width: 899px), (pointer: coarse) {
   body { background-attachment: scroll; }
-  .anim-grid, .anim-drift, .anim-float, .anim-travel, .anim-orbit, .anim-spin-3d {
+  .anim-grid, .anim-drift, .anim-float, .anim-travel, .anim-orbit, .anim-spin-3d, .anim-sway {
     animation: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
-  .marquee-track, .anim-float, .anim-spin-3d, .anim-drift, .anim-grid, .anim-pulse-ring { animation: none; }
+  .marquee-track, .anim-float, .anim-spin-3d, .anim-drift, .anim-grid, .anim-pulse-ring, .anim-sway { animation: none; }
   .card-3d:hover { transform: none; }
 }
 
@@ -270,3 +285,40 @@ select optgroup {
 }
 input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.5); }
 :root:not([data-theme="light"]) input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.85); }
+
+/* A slow yaw. Paired with the float it reads as an object turning in the
+   header rather than a logo pinned flat to the page. */
+@keyframes sway-y { 0%, 100% { transform: rotateY(-14deg); } 50% { transform: rotateY(14deg); } }
+.anim-sway { animation: sway-y 9s ease-in-out infinite; }
+
+/* Prism washes behind cards. On near-black 10% reads clearly; on white it
+   disappears, so light mode carries more of it.
+
+   The value travels as a custom property rather than a themed rule, so the
+   class stays a single selector and Tailwind's `group-hover:opacity-*` can
+   still win on hover. A `:root[data-theme="light"] .prism-wash` rule would
+   have outranked it and frozen the hover. */
+:root { --wash: 0.10; --wash-lg: 0.16; }
+:root[data-theme="light"] { --wash: 0.24; --wash-lg: 0.30; }
+.prism-wash { opacity: var(--wash); }
+.prism-wash-lg { opacity: var(--wash-lg); }
+
+/* The short rule above a card heading, in the card's prism colour. */
+.prism-rule { height: 3px; width: 3.5rem; border-radius: 999px; }
+
+/* Card shadow for panels that float over a pinned background.
+
+   The two themes need different shadows, not the same one at two opacities: on
+   near-black only a deep, wide falloff separates a card from the surface at
+   all, while on white a black shadow greys the page, so light mode uses a
+   cooler, tighter one tinted towards the ink colour. */
+:root {
+  --card-shadow: 0 28px 70px -34px rgba(0, 0, 0, 0.85);
+  --card-shadow-hover: 0 36px 90px -34px rgba(0, 0, 0, 0.95);
+}
+:root[data-theme="light"] {
+  --card-shadow: 0 18px 44px -24px rgba(22, 32, 43, 0.30);
+  --card-shadow-hover: 0 26px 60px -24px rgba(22, 32, 43, 0.38);
+}
+.shadow-card { box-shadow: var(--card-shadow); transition: box-shadow .4s cubic-bezier(.22,1,.36,1); }
+.shadow-card:hover { box-shadow: var(--card-shadow-hover); }

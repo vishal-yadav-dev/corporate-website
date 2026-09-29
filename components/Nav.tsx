@@ -1,5 +1,6 @@
 "use client";
 
+import Wordmark from "@/components/Wordmark";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
@@ -31,10 +32,7 @@ export default function Nav() {
       >
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8 flex items-center justify-between h-[72px]">
           <Link href="/" className="flex items-center gap-2 group" onClick={() => setMobile(false)}>
-            <span className="h-8 w-8 grid place-items-center bg-brand text-white font-display font-bold text-lg rounded-[6px] group-hover:rotate-6 transition-transform">
-              N
-            </span>
-            <span className="display text-ink text-xl tracking-tight">Testsoft</span>
+            <Wordmark size="md" />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-1" onMouseLeave={() => setOpen(null)}>
@@ -50,15 +48,40 @@ export default function Nav() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 8 }}
                       transition={{ duration: 0.16 }}
-                      className="absolute top-full left-0 pt-3"
+                      /* A three-column menu is ~800px wide and would run off
+                         the right edge from a mid-nav trigger, so wide menus
+                         centre under theirs instead of left-aligning. */
+                      className={`absolute top-full pt-3 ${
+                        (item.groups?.length ?? 0) >= 3 ? "left-1/2 -translate-x-1/2" : "left-0"
+                      }`}
                     >
-                      <div className="min-w-[220px] bg-surface border border-line rounded-xl p-2 shadow-xl shadow-brand/5">
-                        {item.children.map((c) => (
-                          <Link key={c.label} href={c.href} className="block px-3 py-2 text-sm text-ink/70 hover:text-brand hover:bg-paper-tint rounded-lg transition-colors">
-                            {c.label}
-                          </Link>
-                        ))}
-                      </div>
+                      {item.groups ? (
+                        <div className="flex gap-8 xl:gap-10 bg-surface border border-line rounded-2xl p-6 shadow-xl shadow-brand/5">
+                          {item.groups.map((g) => (
+                            <div key={g.title} className="min-w-[205px] xl:min-w-[230px]">
+                              <p className="mono-label text-accent-deep px-3 pb-3 border-b border-line mb-2">{g.title}</p>
+                              {g.items.map((c) => (
+                                <Link
+                                  key={c.label}
+                                  href={c.href}
+                                  className="group/i flex items-center justify-between gap-4 px-3 py-2 text-sm text-ink/70 hover:text-brand hover:bg-paper-tint rounded-lg transition-colors"
+                                >
+                                  {c.label}
+                                  <span className="opacity-0 -translate-x-1 group-hover/i:opacity-100 group-hover/i:translate-x-0 transition-all duration-200">→</span>
+                                </Link>
+                              ))}
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="min-w-[220px] bg-surface border border-line rounded-xl p-2 shadow-xl shadow-brand/5">
+                          {item.children.map((c) => (
+                            <Link key={c.label} href={c.href} className="block px-3 py-2 text-sm text-ink/70 hover:text-brand hover:bg-paper-tint rounded-lg transition-colors">
+                              {c.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -69,7 +92,7 @@ export default function Nav() {
           <div className="hidden lg:flex items-center gap-3">
             <ThemeToggle />
             <Link href="/contact" className="group inline-flex items-center gap-2 bg-brand text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-brand-deep transition-colors">
-              Start a project
+              Talk to an Expert
               <span className="group-hover:translate-x-0.5 transition-transform">→</span>
             </Link>
           </div>
@@ -106,7 +129,7 @@ export default function Nav() {
                 </div>
               ))}
               <Link href="/contact" onClick={() => setMobile(false)} className="inline-flex items-center gap-2 bg-brand text-white px-6 py-3 rounded-full font-medium">
-                Start a project →
+                Talk to an Expert →
               </Link>
             </div>
           </motion.div>

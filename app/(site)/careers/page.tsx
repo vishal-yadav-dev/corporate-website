@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
+import CtaBanner from "@/components/CtaBanner";
 import Reveal from "@/components/Reveal";
 import JobBoard from "@/components/JobBoard";
 import PartnerStrip from "@/components/PartnerStrip";
@@ -18,11 +19,10 @@ export default function CareersPage() {
       <PageHeader
         eyebrow="Careers"
         vanta="waves"
-        art="helix"
-        title="Grow with the work."
-        intro="We treat consultants as partners, not resources. You learn on real transformations, backed by funded certifications, senior mentorship, and delivery centers spanning three countries."
+        title="Build what comes next."
+        intro="Join a team working across technology, digital transformation, enterprise solutions, and workforce delivery — with clients who bring real, complex problems."
       />
-      <section id="why" className="relative z-10 bg-surface pb-24 scroll-mt-24">
+      <section id="why" className="relative z-10 bg-surface pt-16 sm:pt-24 pb-24 scroll-mt-24">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-24">
             <Reveal>
@@ -41,7 +41,7 @@ export default function CareersPage() {
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
           <Reveal className="mb-16">
             <p className="mono-label text-accent-deep mb-4">Benefits</p>
-            <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">What you get in return.</h2>
+            <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">Life at Testsoft.</h2>
           </Reveal>
           <div className="grid sm:grid-cols-2 gap-5 scene" style={{ perspective: 1400 }}>
             {BENEFITS.map((b, i) => (
@@ -64,7 +64,7 @@ export default function CareersPage() {
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
           <Reveal className="mb-12">
             <p className="mono-label text-accent-deep mb-4">Open roles</p>
-            <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">Find your seat.</h2>
+            <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">Find your next opportunity.</h2>
           </Reveal>
           <JobBoard />
         </div>
@@ -72,6 +72,15 @@ export default function CareersPage() {
 
       <div className="bg-paper-tint">
         <PartnerStrip heading="Where you'll work" title="On real transformations, for names you know." variant="grid" />
+      </div>
+      <CtaBanner
+        eyebrow="Careers"
+        heading="Build what’s next with us."
+        body="Technology, recruiting, delivery, operations — see the roles that are open, or send a résumé and we will keep you in mind."
+        cta="View Open Positions"
+        href="/careers#jobs"
+      />
+      <div className="hidden">
       </div>
     </>
   );

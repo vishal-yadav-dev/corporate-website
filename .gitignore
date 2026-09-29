@@ -42,3 +42,10 @@ yarn-error.log*
 next-env.d.ts
 .env
 .pgdata/
+
+# generated-image originals, kept out of the deploy
+public/case-studies/orig/
+
+# local agent config, not part of the project
+CLAUDE.md
+.claude/

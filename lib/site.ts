@@ -65,9 +65,48 @@ export const COLLECTIONS: Record<string, Collection> = {
     slugFrom: "name",
     fields: [
       { name: "name", type: "text", required: true },
+      { name: "group_key", type: "text", default: "workforce" },
       { name: "line", type: "text" },
       { name: "body", type: "text" },
       { name: "points", type: "text" },
+      { name: "sort_order", type: "int", default: 0 },
+      { name: "is_active", type: "bool", default: true },
+    ],
+  },
+  case_studies: {
+    table: "case_studies",
+    order: "sort_order ASC, created_at ASC",
+    slugFrom: "title",
+    fields: [
+      { name: "title", type: "text", required: true },
+      { name: "client", type: "text" },
+      { name: "industry", type: "text" },
+      { name: "challenge", type: "text" },
+      { name: "approach", type: "text" },
+      { name: "solution", type: "text" },
+      { name: "technology", type: "text" },
+      { name: "delivery_model", type: "text" },
+      { name: "outcome", type: "text" },
+      { name: "quote", type: "text" },
+      { name: "quote_by", type: "text" },
+      { name: "image_id", type: "text" },
+      { name: "image_url", type: "text" },
+      { name: "sort_order", type: "int", default: 0 },
+      { name: "is_active", type: "bool", default: true },
+    ],
+  },
+  testimonials: {
+    table: "testimonials",
+    order: "sort_order ASC, created_at ASC",
+    fields: [
+      { name: "kind", type: "text", default: "client" },
+      { name: "quote", type: "text", required: true },
+      { name: "person", type: "text" },
+      { name: "title", type: "text" },
+      { name: "organization", type: "text" },
+      { name: "context", type: "text" },
+      { name: "logo_id", type: "text" },
+      { name: "logo_url", type: "text" },
       { name: "sort_order", type: "int", default: 0 },
       { name: "is_active", type: "bool", default: true },
     ],
@@ -149,12 +188,12 @@ export async function getPractices(): Promise<PracticeView[]> {
   }));
 }
 
-export type StaffingView = { id: string; name: string; line: string; body: string; points: string[] };
+export type StaffingView = { id: string; name: string; line: string; body: string; points: string[]; group: "technology" | "workforce" };
 
 export async function getStaffing(): Promise<StaffingView[]> {
   try {
-    const rows = await q<{ slug: string; name: string; line: string; body: string; points: string }>(
-      "SELECT slug, name, line, body, points FROM staffing WHERE is_active = true ORDER BY sort_order ASC, created_at ASC"
+    const rows = await q<{ slug: string; name: string; line: string; body: string; points: string; group_key: string }>(
+      "SELECT slug, name, line, body, points, group_key FROM staffing WHERE is_active = true ORDER BY sort_order ASC, created_at ASC"
     );
     if (rows.length) {
       return rows.map((r) => ({
@@ -163,11 +202,13 @@ export async function getStaffing(): Promise<StaffingView[]> {
         line: r.line,
         body: r.body,
         points: r.points.split("\n").map((s) => s.replace(/^[-*•]\s*/, "").trim()).filter(Boolean),
+        group: (r.group_key === "technology" ? "technology" : "workforce") as "technology" | "workforce",
       }));
     }
   } catch { /* fallback */ }
   return STAFFING_FALLBACK.map((s) => ({
     id: s.id, name: s.name, line: s.line, body: s.body, points: [...s.points],
+    group: s.group as "technology" | "workforce",
   }));
 }
 
@@ -238,6 +279,53 @@ export async function getLeaders(): Promise<LeaderView[]> {
     id: String(i), name: p.name, title: p.role, bio: p.bio,
     linkedin_url: p.linkedin, photo_id: null, photo_url: "",
   }));
+}
+
+export type CaseStudyView = {
+  id: string; title: string; client: string; industry: string; challenge: string;
+  approach: string; solution: string; technology: string[]; deliveryModel: string;
+  outcome: string; quote: string; quoteBy: string; image: string;
+};
+
+/** Case studies. Empty until real, client-approved material is added. */
+export async function getCaseStudies(): Promise<CaseStudyView[]> {
+  try {
+    const rows = await q<{
+      slug: string; title: string; client: string; industry: string; challenge: string;
+      approach: string; solution: string; technology: string; delivery_model: string;
+      outcome: string; quote: string; quote_by: string; image_id: string | null; image_url: string;
+    }>(
+      "SELECT slug, title, client, industry, challenge, approach, solution, technology, delivery_model, outcome, quote, quote_by, image_id, image_url FROM case_studies WHERE is_active = true ORDER BY sort_order ASC, created_at ASC"
+    );
+    return rows.map((r) => ({
+      id: r.slug, title: r.title, client: r.client, industry: r.industry,
+      challenge: r.challenge, approach: r.approach, solution: r.solution,
+      technology: r.technology.split(",").map((t) => t.trim()).filter(Boolean),
+      deliveryModel: r.delivery_model, outcome: r.outcome,
+      quote: r.quote, quoteBy: r.quote_by, image: logoSrc(r.image_id, r.image_url),
+    }));
+  } catch { return []; }
+}
+
+export type TestimonialView = {
+  quote: string; person: string; title: string; organization: string; context: string; logo: string;
+};
+
+/** Testimonials by kind — 'client' or 'candidate'. Empty until supplied. */
+export async function getTestimonials(kind: "client" | "candidate"): Promise<TestimonialView[]> {
+  try {
+    const rows = await q<{
+      quote: string; person: string; title: string; organization: string;
+      context: string; logo_id: string | null; logo_url: string;
+    }>(
+      "SELECT quote, person, title, organization, context, logo_id, logo_url FROM testimonials WHERE is_active = true AND kind = $1 ORDER BY sort_order ASC, created_at ASC",
+      [kind]
+    );
+    return rows.map((r) => ({
+      quote: r.quote, person: r.person, title: r.title,
+      organization: r.organization, context: r.context, logo: logoSrc(r.logo_id, r.logo_url),
+    }));
+  } catch { return []; }
 }
 
 /** Simple key/value copy (About Us etc.), with defaults. */
