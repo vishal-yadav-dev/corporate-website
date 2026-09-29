@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import CtaBanner from "@/components/CtaBanner";
 import Reveal from "@/components/Reveal";
@@ -29,12 +30,15 @@ export default function ContractVehiclesPage() {
       <section className="relative z-10 bg-paper-tint/55 pt-16 sm:pt-24 pb-20 sm:pb-28">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
           <Reveal>
-            <div className="relative overflow-hidden rounded-[28px] border border-line-blue/60 bg-surface px-7 py-12 sm:px-14 sm:py-16">
+            <Link
+              href="/company/contract-vehicles/tips"
+              className="group block relative overflow-hidden rounded-[28px] border border-line-blue/60 bg-surface px-7 py-12 sm:px-14 sm:py-16 transition-colors hover:border-brand/50"
+            >
               <span aria-hidden className="pointer-events-none absolute -right-28 -top-28 h-80 w-80 rounded-full bg-brand/12 blur-[120px]" />
               <div className="relative grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16">
                 <div>
                   <p className="mono-label text-accent-deep mb-4">Primary cooperative</p>
-                  <h2 className="display text-4xl sm:text-6xl text-ink leading-[0.98]">
+                  <h2 className="display text-4xl sm:text-6xl text-ink leading-[0.98] group-hover:text-brand transition-colors">
                     TIPS
                   </h2>
                   <p className="mt-4 text-accent-deep text-lg">The Interlocal Purchasing System</p>
@@ -57,9 +61,13 @@ export default function ContractVehiclesPage() {
                     waiting out a protest window. Membership is free, and an agency can join at any
                     point before it issues the order.
                   </p>
+                  <span className="mono-label text-accent-deep mt-8 inline-flex items-center gap-2 group-hover:text-brand transition-colors">
+                    Read the TIPS vehicle
+                    <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
+                  </span>
                 </div>
               </div>
-            </div>
+            </Link>
           </Reveal>
         </div>
       </section>

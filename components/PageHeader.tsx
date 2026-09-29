@@ -62,7 +62,10 @@ export default function PageHeader({
         </>
       )}
       {!vanta && !video && <div className="pointer-events-none absolute -top-20 right-0 h-[360px] w-[360px] rounded-full bg-brand/8 blur-[120px]" />}
-      {art && <HeaderArt variant={art} />}
+      {/* A topic video already carries the motion in the header. Laying the
+          generated geometry over real footage read as clutter, so the art is
+          only drawn when there is no video behind it. */}
+      {art && !video && <HeaderArt variant={art} />}
 
       <div className="mx-auto max-w-[1400px] px-5 sm:px-8 relative z-10">
         <Reveal>

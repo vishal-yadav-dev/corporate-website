@@ -1,14 +1,13 @@
+import Link from "next/link";
 import type { VehicleGroup } from "@/lib/contracts";
 
 /**
  * The vehicles themselves, set as a ledger rather than as cards.
  *
- * A procurement officer reads this page to check one thing — whether they can
- * buy through us and under what number — so the layout is a document: hairline
- * rules, a fixed column for the authority, and detail that opens in place.
- *
- * Built on native <details>, so every row is expandable, findable by the
- * browser's own in-page search, and costs no JavaScript at all.
+ * A procurement officer reads this page to find the contract they can order
+ * against, so the layout is a document: hairline rules, the awarding body in a
+ * fixed column, and each row opening its own page where the eligibility, scope
+ * and the awarding body's own link live in full.
  */
 export default function VehicleLedger({ groups }: { groups: VehicleGroup[] }) {
   return (
@@ -27,46 +26,29 @@ export default function VehicleLedger({ groups }: { groups: VehicleGroup[] }) {
             <ul>
               {group.vehicles.map((v) => (
                 <li key={v.id} className="border-b border-line">
-                  <details className="group">
-                    <summary className="flex cursor-pointer list-none items-start gap-5 py-7 sm:py-9 transition-colors hover:bg-surface/60 [&::-webkit-details-marker]:hidden">
-                      <span className="flex-1">
-                        <span className="mono-label text-graphite">{v.authority}</span>
-                        <span className="display block text-xl sm:text-3xl text-ink mt-2 group-hover:text-brand transition-colors">
-                          {v.name}
-                        </span>
-                        <span className="mt-2 block max-w-2xl text-graphite leading-relaxed">{v.summary}</span>
+                  <Link
+                    href={`/company/contract-vehicles/${v.id}`}
+                    className="group flex items-start gap-5 py-7 sm:py-9 transition-colors hover:bg-surface/60"
+                  >
+                    <span className="flex-1">
+                      <span className="mono-label text-graphite">{v.authority}</span>
+                      <span className="display block text-xl sm:text-3xl text-ink mt-2 group-hover:text-brand transition-colors">
+                        {v.name}
                       </span>
-                      {/* A plus that becomes a minus. Two rules, one rotated. */}
-                      <span aria-hidden className="relative mt-3 h-7 w-7 shrink-0 rounded-full border border-line-blue transition-colors group-hover:border-brand/50 group-open:border-brand/50">
-                        <span className="absolute left-1/2 top-1/2 h-px w-3 -translate-x-1/2 -translate-y-1/2 bg-accent-deep" />
-                        <span className="absolute left-1/2 top-1/2 h-px w-3 -translate-x-1/2 -translate-y-1/2 rotate-90 bg-accent-deep transition-transform duration-300 group-open:rotate-0" />
+                      <span className="mt-2 block max-w-2xl text-graphite leading-relaxed">{v.summary}</span>
+                      <span className="mono-label text-accent-deep mt-4 inline-block">
+                        Contract # {/* Never invent one: buyers verify the number with the
+                                       awarding body before citing it on a requisition. */}
+                        {v.number ?? "provided on request"}
                       </span>
-                    </summary>
-
-                    <div className="grid gap-8 pb-10 sm:grid-cols-[0.9fr_1.1fr] sm:gap-14">
-                      <div>
-                        <p className="mono-label text-accent-deep">Contract number</p>
-                        <p className="mt-3 font-mono text-sm text-ink">
-                          {/* Never invent one: buyers verify the number with the
-                              awarding body before citing it on a requisition. */}
-                          {v.number ?? "Provided on request"}
-                        </p>
-                        <p className="mono-label text-accent-deep mt-8">Who can buy</p>
-                        <p className="mt-3 text-graphite leading-relaxed">{v.eligibility}</p>
-                      </div>
-                      <div>
-                        <p className="mono-label text-accent-deep">In scope</p>
-                        <ul className="mt-4 space-y-3">
-                          {v.scope.map((line) => (
-                            <li key={line} className="flex gap-3 text-ink/80 leading-relaxed">
-                              <span aria-hidden className="mt-[0.7em] h-px w-4 shrink-0 bg-brand/60" />
-                              {line}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </details>
+                    </span>
+                    <span
+                      aria-hidden
+                      className="mt-3 grid h-9 w-9 shrink-0 place-items-center rounded-full border border-line-blue text-accent-deep transition-all duration-300 group-hover:border-brand/50 group-hover:text-brand group-hover:translate-x-1"
+                    >
+                      →
+                    </span>
+                  </Link>
                 </li>
               ))}
             </ul>
