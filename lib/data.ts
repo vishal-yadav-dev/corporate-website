@@ -9,11 +9,13 @@ export const NAV: NavItem[] = [
     children: [
       /* "Company Overview" under a menu called Who We Are just said the same
          thing twice. */
-      { label: "Our Story", href: "/company#about" },
+      { label: "About Us", href: "/company#about" },
       { label: "Leadership", href: "/company#leadership" },
       { label: "Our Approach", href: "/company#approach" },
-      { label: "Delivery Model", href: "/company#delivery" },
       { label: "Government Contract Vehicles", href: "/company/contract-vehicles" },
+      { label: "Delivery Model", href: "/company#delivery" },
+      { label: "CSR", href: "/company#csr" },
+      
     ],
   },
   {
