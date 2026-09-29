@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import PageHeader from "@/components/PageHeader";
 import CtaBanner from "@/components/CtaBanner";
 import Reveal from "@/components/Reveal";
-import Float3D from "@/components/Float3D";
 import { ALL_VEHICLES, getVehicle, type Vehicle } from "@/lib/contracts";
 import { PRISM_TEXT } from "@/lib/data";
 
@@ -117,7 +116,19 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
                     )}
                   </div>
                   {v.image ? (
-                    <Float3D src={v.image.src} alt={v.image.alt} className="lg:justify-self-end w-full max-w-md" />
+                    /* The mark is mid-dark artwork on transparency, so it sits
+                       on a light plate — the same treatment the partner logos
+                       in the footer get, for the same reason. */
+                    <div className="grid place-items-center rounded-2xl bg-white p-10 sm:p-14 ring-1 ring-black/5 lg:justify-self-end w-full max-w-sm">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={v.image.src}
+                        alt={v.image.alt}
+                        loading="lazy"
+                        decoding="async"
+                        className="block w-full max-w-[220px] h-auto"
+                      />
+                    </div>
                   ) : (
                     <a
                       href={v.vendor.href}

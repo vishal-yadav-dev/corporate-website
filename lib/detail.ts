@@ -455,7 +455,7 @@ export const INDUSTRY_DETAIL: Record<string, IndustryDetail> = {
   sled: {
     headline: "Public technology, held to public standards.",
     lead: "Government agencies, public institutions and education organizations modernizing systems under procurement rules, audit scrutiny and budget cycles that do not move.",
-    variant: "rail", vanta: "topology", accent: 4,
+    variant: "rail", vanta: "topology", accent: 4, video: "civic",
     stats: [
       { value: "MBE", label: "Certified Minority Business Enterprise" },
       { value: "50", label: "States with payroll and compliance coverage" },
@@ -531,7 +531,7 @@ export const INDUSTRY_DETAIL: Record<string, IndustryDetail> = {
   enterprise: {
     headline: "Complex estates, made legible.",
     lead: "Enterprise platforms, digital engineering, cloud, data and integration brought together for organisations whose technology landscape has grown faster than its documentation.",
-    variant: "rail", vanta: "dots", accent: 3,
+    variant: "rail", vanta: "dots", accent: 3, video: "metro",
     stats: [
       { value: "13", label: "Technology practices to draw from" },
       { value: "5", label: "Workforce engagement models" },
