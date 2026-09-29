@@ -54,7 +54,9 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
   const d = SOLUTION_DETAIL[slug];
   const accent = d?.accent ?? 1;
   const variant = d?.variant ?? "split";
-  const related = solutions.filter((s) => s.group === solution.group && s.id !== solution.id);
+  const siblings = solutions.filter((s) => s.group === solution.group);
+  const position = siblings.findIndex((s) => s.id === solution.id) + 1;
+  const related = siblings.filter((s) => s.id !== solution.id);
   const models = MODELS[solution.id] ?? [];
   const proof = cases.slice(0, 2);
 
@@ -132,7 +134,7 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
               <Reveal delay={0.05}>
                 <div className="flex lg:flex-col items-center lg:items-start gap-4">
                   <span className={`h-14 w-14 grid place-items-center rounded-full ${PRISM_BG[accent]} text-white display text-lg`}>
-                    {String(related.length + 1).padStart(2, "0")}
+                    {String(position).padStart(2, "0")}
                   </span>
                   <span aria-hidden className="hidden lg:block w-px flex-1 bg-gradient-to-b from-brand/60 to-transparent" />
                 </div>
@@ -277,9 +279,13 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {related.map((r, i) => (
               <Reveal key={r.id} delay={(i % 4) * 0.05}>
-                <Link href={`/us-staffing/${r.id}`} className="card-lift group block h-full bg-surface border border-line rounded-2xl p-6 hover:border-brand/50">
+                <Link href={`/us-staffing/${r.id}`} className="card-lift group flex h-full flex-col bg-surface border border-line rounded-2xl p-6 hover:border-brand/50">
                   <h3 className="display text-xl text-ink group-hover:text-brand transition-colors">{r.name}</h3>
-                  <p className="mt-2 text-sm text-graphite leading-relaxed">{r.line}</p>
+                  <p className="mt-2 mono-label text-accent-deep">{r.line}</p>
+                  <p className="mt-4 text-sm text-ink/65 leading-relaxed flex-1">
+                    {SOLUTION_DETAIL[r.id]?.lead ?? r.body}
+                  </p>
+                  <span className="mt-5 mono-label text-graphite group-hover:text-brand transition-colors">Explore →</span>
                 </Link>
               </Reveal>
             ))}

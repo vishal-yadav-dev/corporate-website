@@ -8,7 +8,7 @@ import PinnedStory from "@/components/PinnedStory";
 import PartnerStrip from "@/components/PartnerStrip";
 import { getPractices, getCaseStudies } from "@/lib/site";
 import { INDUSTRIES, PRISM_TEXT } from "@/lib/data";
-import { PRACTICE_DETAIL } from "@/lib/detail";
+import { PRACTICE_DETAIL, CAPABILITY_NOTES } from "@/lib/detail";
 
 /* ISR: practice copy is edited in /admin/site. */
 export const revalidate = 60;
@@ -175,9 +175,13 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
           <div className={`grid gap-5 ${variant === "stack" ? "sm:grid-cols-2" : variant === "mosaic" ? "sm:grid-cols-2 lg:grid-cols-3" : "sm:grid-cols-2 lg:grid-cols-4"}`}>
             {practice.stack.map((cap, i) => (
               <Reveal key={cap} delay={(i % 4) * 0.06}>
-                <div className="card-lift group h-full bg-paper border border-line rounded-2xl p-7 hover:border-brand/50">
+                <div className="card-lift group flex h-full flex-col bg-paper border border-line rounded-2xl p-7 hover:border-brand/50">
                   <span className={`display text-4xl ${PRISM_TEXT[(accent + i) % 6]}`}>0{i + 1}</span>
                   <h3 className="display text-xl text-ink mt-5 group-hover:text-brand transition-colors">{cap}</h3>
+                  {CAPABILITY_NOTES[slug]?.[cap] && (
+                    <p className="mt-3 text-sm text-ink/70 leading-relaxed">{CAPABILITY_NOTES[slug][cap]}</p>
+                  )}
+                  <span aria-hidden className="mt-auto pt-6 block h-px w-8 origin-left bg-brand/40 transition-transform duration-500 group-hover:scale-x-[2.5]" />
                 </div>
               </Reveal>
             ))}
@@ -272,9 +276,13 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {related.map((r, i) => (
               <Reveal key={r.id} delay={(i % 4) * 0.05}>
-                <Link href={`/practices/${r.id}`} className="card-lift group block h-full bg-paper border border-line rounded-2xl p-6 hover:border-brand/50">
+                <Link href={`/practices/${r.id}`} className="card-lift group flex h-full flex-col bg-paper border border-line rounded-2xl p-6 hover:border-brand/50">
                   <h3 className="display text-xl text-ink group-hover:text-brand transition-colors">{r.name}</h3>
                   <p className="mt-2 mono-label text-accent-deep">{r.tag}</p>
+                  <p className="mt-4 text-sm text-ink/65 leading-relaxed flex-1">
+                    {PRACTICE_DETAIL[r.id]?.lead ?? r.body}
+                  </p>
+                  <span className="mt-5 mono-label text-graphite group-hover:text-brand transition-colors">Explore →</span>
                 </Link>
               </Reveal>
             ))}

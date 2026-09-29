@@ -359,3 +359,88 @@ export const SOLUTION_DETAIL: Record<string, DetailContent> = {
     ],
   },
 };
+
+/**
+ * A line of substance under each capability card. Without these the cards were
+ * a number and a single word, which told a buyer nothing.
+ */
+export const CAPABILITY_NOTES: Record<string, Record<string, string>> = {
+  salesforce: {
+    "Consulting": "Org review, licence rationalisation and a roadmap that sequences what to fix first.",
+    "Implementation": "Sales, Service and Experience Cloud configured around the journeys your teams already run.",
+    "Development": "Apex, LWC and Flow where configuration genuinely runs out — kept upgrade-safe.",
+    "Integration": "Billing, ERP and legacy records surfaced in the console rather than in a second tab.",
+  },
+  sap: {
+    "S/4HANA": "Greenfield, brownfield or selective conversion, chosen on business risk rather than fashion.",
+    "Implementation": "FI/CO, MM/SD and PP configured with the month-end close protected throughout.",
+    "Integration": "Clean interfaces to the systems around the core, monitored rather than assumed.",
+    "SAP Cloud": "BTP extensions and cloud services added without dragging custom code into the core.",
+  },
+  oracle: {
+    "Oracle Cloud": "Fusion Financials, SCM and HCM moved when the case is clear, module by module.",
+    "ERP": "General ledger, payables and receivables configured to close on schedule.",
+    "SCM": "Planning, inventory and order management connected to the ledger they report into.",
+    "Procurement": "Sourcing and purchasing flows that buyers will follow without a workaround.",
+  },
+  workday: {
+    "HCM": "Supervisory organisations, job architecture and security designed before configuration.",
+    "Financials": "Accounting structure and reporting aligned to how the organisation is actually run.",
+    "Integration": "Payroll, benefits and downstream feeds built with monitoring and alerting.",
+    "Configuration": "Business processes configured with the owners in the room, then documented.",
+  },
+  infor: {
+    "CloudSuite": "Industry editions implemented against your operating model, not the reference one.",
+    "Implementation": "Plant, warehouse and service processes mapped before the system is configured.",
+    "Integration": "Shop floor, logistics and finance connected so the numbers reconcile daily.",
+    "Upgrades": "Moving off heavily customised estates while keeping the logic that mattered.",
+  },
+  "application-development": {
+    "Custom Applications": "Purpose-built systems where no product fits, scoped to the smallest useful release.",
+    "Web & Mobile": "Responsive, accessible interfaces tested on the devices your users actually carry.",
+    "API Development": "Documented, versioned interfaces so the next team reuses rather than rebuilds.",
+    "Legacy Modernization": "Strangler-pattern migration that retires the old system function by function.",
+  },
+  "cloud-devops": {
+    "AWS": "Landing zones, networking and identity set up before the first workload lands.",
+    "Azure": "Subscription design, policy and hybrid connectivity for estates with on-premise weight.",
+    "Google Cloud": "Data and analytics workloads placed where they run best rather than uniformly.",
+    "CI/CD": "Pipelines with real gates — tests, scanning and a rollback that has been rehearsed.",
+  },
+  "data-analytics": {
+    "Data Engineering": "Ingestion and transformation with lineage, so a number can be traced to its source.",
+    "Data Warehousing": "Modelled around business entities, not a mirror of every source schema.",
+    "Business Intelligence": "Reports built for the decision being made, then retired when it changes.",
+    "Data Governance": "Ownership, quality rules and access defined before the first dashboard ships.",
+  },
+  "ai-automation": {
+    "Generative AI": "Grounded in your own content, with scope and escalation designed in from the start.",
+    "Process Automation": "The deterministic steps automated first, where the manual cost is already measured.",
+    "RPA": "Bots for systems with no API, built to fail loudly rather than silently.",
+    "AI Integration": "Models wired into the workflow someone already follows, not beside it.",
+  },
+  "quality-engineering": {
+    "Automation Testing": "The right tests at the right layer, rather than a brittle UI suite nobody trusts.",
+    "Performance": "Load and soak modelling against realistic profiles, long before go-live week.",
+    "Security Testing": "SAST, dependency scanning and abuse cases running as pipeline gates.",
+    "API Testing": "Contract tests that catch a breaking change before a consumer does.",
+  },
+  mulesoft: {
+    "Anypoint": "Runtime, policy and monitoring managed centrally instead of per integration.",
+    "API Strategy": "System, process and experience layers with clear ownership and versioning.",
+    "API Management": "Throttling, security and analytics applied consistently across the estate.",
+    "Data Integration": "Legacy and mainframe data exposed safely without rewriting the system of record.",
+  },
+  "api-integration": {
+    "API Design": "Specifications agreed and mocked first, so consumers can build in parallel.",
+    "API Management": "Gateways, keys and quotas that protect the systems behind them.",
+    "System Connectivity": "Reliable links between applications, partners and digital channels.",
+    "Security & Governance": "Authentication, authorisation and standards applied to every interface.",
+  },
+  "enterprise-integration": {
+    "Integration Architecture": "Flows, ownership and failure modes mapped before a platform is chosen.",
+    "ERP/CRM Integration": "The two systems most businesses run on, kept in agreement.",
+    "Event-Driven": "Real time where the business needs it, scheduled where it genuinely does not.",
+    "Data Synchronization": "Bi-directional flows with conflict rules agreed up front, not in production.",
+  },
+};
