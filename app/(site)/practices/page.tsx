@@ -25,21 +25,25 @@ const INTEGRATIONS = [
     kicker: "Conversational AI",
     title: "Salesforce chatbots & Agentforce",
     body: "We design, build, and tune Einstein Bots and Agentforce agents on Service Cloud and Experience Cloud — grounded in your knowledge base, wired to real actions, and handed off cleanly to live agents.",
+    image: "/practices/conversational-ai.jpg",
   },
   {
     kicker: "API-led",
     title: "MuleSoft application networks",
     body: "Anypoint-based System, Process, and Experience APIs that make legacy data reusable and keep ERP, CRM, and custom apps in sync in real time.",
+    image: "/practices/api-led.jpg",
   },
   {
     kicker: "iPaaS & events",
     title: "Event-driven integration",
     body: "Platform events, streaming, and iPaaS pipelines so mission-critical systems react to each other in seconds — not overnight batch windows.",
+    image: "/practices/event-driven.jpg",
   },
   {
     kicker: "Data",
     title: "Master data & sync",
     body: "Bi-directional sync, de-duplication, and a single source of truth across CRM, ERP, and the data warehouse, with monitoring and reconciliation built in.",
+    image: "/practices/master-data.jpg",
   },
 ];
 

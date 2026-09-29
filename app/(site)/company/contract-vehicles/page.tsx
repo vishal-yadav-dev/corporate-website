@@ -19,7 +19,7 @@ export default function ContractVehiclesPage() {
     <>
       <PageHeader
         eyebrow="Government Contract Vehicles"
-        vanta="topology"
+        video="tips"
         title="Procurement paths already open"
         intro="Public agencies can reach us through cooperative and state contracts that have already been competed. The solicitation cycle is done, the rates are published, and the work can start on a purchase order."
       />
@@ -34,20 +34,6 @@ export default function ContractVehiclesPage() {
               className="group block relative overflow-hidden rounded-[28px] border border-line-blue/60 bg-surface px-7 py-12 sm:px-14 sm:py-16 transition-colors hover:border-brand/50"
             >
               <span aria-hidden className="pointer-events-none absolute -right-28 -top-28 h-80 w-80 rounded-full bg-brand/12 blur-[120px]" />
-              {/* The cooperative's own artwork, at full width. It is the one
-                  piece of another organisation's brand on the page, so it runs
-                  across the card rather than sitting in a corner of it. */}
-              <figure className="relative overflow-hidden rounded-2xl border border-line-blue/60 mb-10 sm:mb-14">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/vehicles/tips.png"
-                  alt="The Interlocal Purchasing System"
-                  loading="lazy"
-                  decoding="async"
-                  className="block w-full h-auto"
-                />
-              </figure>
-
               <div className="relative grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16">
                 <div>
                   <p className="mono-label text-accent-deep mb-4">Primary cooperative</p>
@@ -78,6 +64,7 @@ export default function ContractVehiclesPage() {
                     Read the TIPS vehicle
                     <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
                   </span>
+
                 </div>
               </div>
             </Link>
