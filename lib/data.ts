@@ -13,7 +13,7 @@ export const NAV: NavItem[] = [
       { label: "Leadership", href: "/company#leadership" },
       { label: "Our Approach", href: "/company#approach" },
       { label: "Government Contract Vehicles", href: "/company/contract-vehicles" },
-      { label: "Delivery Model", href: "/company#delivery" },
+      { label: "Delivery Centers", href: "/company#delivery" },
       { label: "CSR", href: "/company#csr" },
       
     ],
