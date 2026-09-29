@@ -11,7 +11,7 @@ export const NAV: NavItem[] = [
          thing twice. */
       { label: "About Us", href: "/company#about" },
       { label: "Leadership", href: "/company#leadership" },
-      { label: "Our Approach", href: "/company#approach" },
+      { label: "Awards", href: "/company#awards" },
       { label: "Government Contract Vehicles", href: "/company/contract-vehicles" },
       { label: "Delivery Centers", href: "/company#delivery" },
       { label: "CSR", href: "/company#csr" },
