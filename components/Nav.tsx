@@ -50,13 +50,33 @@ export default function Nav() {
                       transition={{ duration: 0.16 }}
                       className="absolute top-full left-0 pt-3"
                     >
-                      <div className="min-w-[220px] bg-surface border border-line rounded-xl p-2 shadow-xl shadow-brand/5">
-                        {item.children.map((c) => (
-                          <Link key={c.label} href={c.href} className="block px-3 py-2 text-sm text-ink/70 hover:text-brand hover:bg-paper-tint rounded-lg transition-colors">
-                            {c.label}
-                          </Link>
-                        ))}
-                      </div>
+                      {item.groups ? (
+                        <div className="flex gap-10 bg-surface border border-line rounded-2xl p-6 shadow-xl shadow-brand/5">
+                          {item.groups.map((g) => (
+                            <div key={g.title} className="min-w-[230px]">
+                              <p className="mono-label text-accent-deep px-3 pb-3 border-b border-line mb-2">{g.title}</p>
+                              {g.items.map((c) => (
+                                <Link
+                                  key={c.label}
+                                  href={c.href}
+                                  className="group/i flex items-center justify-between gap-4 px-3 py-2 text-sm text-ink/70 hover:text-brand hover:bg-paper-tint rounded-lg transition-colors"
+                                >
+                                  {c.label}
+                                  <span className="opacity-0 -translate-x-1 group-hover/i:opacity-100 group-hover/i:translate-x-0 transition-all duration-200">→</span>
+                                </Link>
+                              ))}
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="min-w-[220px] bg-surface border border-line rounded-xl p-2 shadow-xl shadow-brand/5">
+                          {item.children.map((c) => (
+                            <Link key={c.label} href={c.href} className="block px-3 py-2 text-sm text-ink/70 hover:text-brand hover:bg-paper-tint rounded-lg transition-colors">
+                              {c.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
                     </motion.div>
                   )}
                 </AnimatePresence>

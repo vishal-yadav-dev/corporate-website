@@ -17,7 +17,12 @@ export const metadata: Metadata = {
 };
 
 export default async function UsStaffingPage() {
-  const STAFFING = await getStaffing();
+  const ALL = await getStaffing();
+  const GROUPS = [
+    { key: "technology", title: "Technology Solutions", blurb: "From enterprise platforms to digital engineering and integration — turning complex technology challenges into scalable business solutions." },
+    { key: "workforce", title: "Workforce Solutions", blurb: "Great technology strategies require the right people to execute them. Flexible models for accessing specialized technology talent." },
+  ] as const;
+  const STAFFING = ALL;
   return (
     <>
       <PageHeader
@@ -47,32 +52,63 @@ export default async function UsStaffingPage() {
         <VantaBg effect="topology" />
         <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-paper to-transparent" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-paper to-transparent" />
-        <div className="relative mx-auto max-w-[1400px] px-5 sm:px-8 space-y-5 scene">
-          {STAFFING.map((s) => (
-            <Reveal key={s.id} delay={0.03}>
-              <TiltCard max={5}>
-                <div
-                  id={s.id}
-                  className="card-3d scroll-mt-28 group grid lg:grid-cols-[0.9fr_1.1fr] gap-8 lg:gap-16 bg-surface/92 border border-line rounded-3xl p-8 sm:p-12"
-                >
-                  <div>
-                    <div className="h-px w-16 bg-brand/50 mb-6" />
-                    <h2 className="display text-3xl sm:text-5xl text-ink"><Link href={`/us-staffing/${s.id}`} className="hover:text-brand transition-colors">{s.name}</Link></h2>
-                    <p className="mt-3 text-accent-deep">{s.line}</p>
-                    <ul className="mt-8 space-y-2">
-                      {s.points.map((p) => (
-                        <li key={p} className="flex gap-3 text-sm text-graphite">
-                          <span className="text-brand mt-0.5">—</span>
-                          <span>{p}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <p className="text-lg sm:text-xl text-graphite leading-relaxed self-center">{s.body}</p>
+        <div className="relative mx-auto max-w-[1400px] px-5 sm:px-8 space-y-20 scene">
+          {GROUPS.map((g) => {
+            const rows = ALL.filter((x) => x.group === g.key);
+            if (rows.length === 0) return null;
+            return (
+              <div key={g.key} id={g.key}>
+                <div className="mb-10 scroll-mt-28">
+                  <Reveal delay={0.05}><p className="mono-label text-accent-deep mb-4">{g.title}</p></Reveal>
+                  <Reveal delay={0.12}>
+                    <h2 className="display text-4xl sm:text-6xl text-ink max-w-3xl">
+                      {g.key === "technology" ? (
+                        <>Solve it with <span className="text-brand italic">technology.</span></>
+                      ) : (
+                        <>Staff it with the right <span className="text-brand italic">people.</span></>
+                      )}
+                    </h2>
+                  </Reveal>
+                  <Reveal delay={0.2}>
+                    <p className="mt-5 max-w-2xl text-graphite leading-relaxed">{g.blurb}</p>
+                  </Reveal>
                 </div>
-              </TiltCard>
-            </Reveal>
-          ))}
+
+                <div className="space-y-5">
+                  {rows.map((s) => (
+                    <Reveal key={s.id} delay={0.03}>
+                      <TiltCard max={5}>
+                        <div
+                          id={s.id}
+                          className="card-3d scroll-mt-28 group grid lg:grid-cols-[0.9fr_1.1fr] gap-8 lg:gap-16 bg-surface/92 border border-line rounded-3xl p-8 sm:p-12 hover:border-brand/50"
+                        >
+                          <div>
+                            <div className="h-px w-16 bg-brand/50 mb-6 transition-all duration-500 group-hover:w-28" />
+                            <h2 className="display text-3xl sm:text-5xl text-ink">
+                              <Link href={`/us-staffing/${s.id}`} className="hover:text-brand transition-colors">{s.name}</Link>
+                            </h2>
+                            <p className="mt-3 text-accent-deep">{s.line}</p>
+                            <ul className="mt-8 space-y-2">
+                              {s.points.map((p) => (
+                                <li key={p} className="flex gap-3 text-sm text-graphite">
+                                  <span className="text-brand mt-0.5">—</span>
+                                  <span>{p}</span>
+                                </li>
+                              ))}
+                            </ul>
+                            <Link href={`/us-staffing/${s.id}`} className="mt-8 inline-flex items-center gap-2 mono-label text-accent-deep hover:text-brand transition-colors">
+                              Explore {s.name} →
+                            </Link>
+                          </div>
+                          <p className="text-lg sm:text-xl text-graphite leading-relaxed self-center">{s.body}</p>
+                        </div>
+                      </TiltCard>
+                    </Reveal>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 

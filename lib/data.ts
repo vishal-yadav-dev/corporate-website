@@ -1,4 +1,8 @@
-export const NAV = [
+export type NavChild = { label: string; href: string };
+export type NavGroup = { title: string; items: NavChild[] };
+export type NavItem = { label: string; href: string; children: NavChild[]; groups?: NavGroup[] };
+
+export const NAV: NavItem[] = [
   {
     label: "Company",
     href: "/company",
@@ -43,12 +47,45 @@ export const NAV = [
   {
     label: "Solutions",
     href: "/us-staffing",
+    /* Two columns: technology on the left, workforce on the right. `children`
+       is the flat version the mobile menu uses. */
+    groups: [
+      {
+        title: "Technology Solutions",
+        items: [
+          { label: "Digital Transformation", href: "/us-staffing/digital-transformation" },
+          { label: "Enterprise Application Services", href: "/us-staffing/enterprise-application-services" },
+          { label: "Application Modernization", href: "/us-staffing/application-modernization" },
+          { label: "Cloud Transformation", href: "/us-staffing/cloud-transformation" },
+          { label: "Data & Analytics", href: "/us-staffing/data-analytics-solutions" },
+          { label: "AI & Automation", href: "/us-staffing/ai-automation-solutions" },
+          { label: "Integration Solutions", href: "/us-staffing/integration-solutions" },
+        ],
+      },
+      {
+        title: "Workforce Solutions",
+        items: [
+          { label: "IT Staff Augmentation", href: "/us-staffing/staff-augmentation" },
+          { label: "Contingent Workforce", href: "/us-staffing/contingent-workforce" },
+          { label: "Direct Hire", href: "/us-staffing/direct-hire" },
+          { label: "SOW / Project Teams", href: "/us-staffing/sow-project-teams" },
+          { label: "Managed Workforce", href: "/us-staffing/managed-workforce" },
+        ],
+      },
+    ],
     children: [
-      { label: "IT Staff Augmentation", href: "/us-staffing/staff-augmentation" },
-      { label: "Contingent Workforce", href: "/us-staffing/contingent-workforce" },
-      { label: "Direct Hire", href: "/us-staffing/direct-hire" },
-      { label: "SOW / Project Teams", href: "/us-staffing/sow-project-teams" },
-      { label: "Managed Workforce", href: "/us-staffing/managed-workforce" },
+        { label: "Digital Transformation", href: "/us-staffing/digital-transformation" },
+        { label: "Enterprise Application Services", href: "/us-staffing/enterprise-application-services" },
+        { label: "Application Modernization", href: "/us-staffing/application-modernization" },
+        { label: "Cloud Transformation", href: "/us-staffing/cloud-transformation" },
+        { label: "Data & Analytics", href: "/us-staffing/data-analytics-solutions" },
+        { label: "AI & Automation", href: "/us-staffing/ai-automation-solutions" },
+        { label: "Integration Solutions", href: "/us-staffing/integration-solutions" },
+        { label: "IT Staff Augmentation", href: "/us-staffing/staff-augmentation" },
+        { label: "Contingent Workforce", href: "/us-staffing/contingent-workforce" },
+        { label: "Direct Hire", href: "/us-staffing/direct-hire" },
+        { label: "SOW / Project Teams", href: "/us-staffing/sow-project-teams" },
+        { label: "Managed Workforce", href: "/us-staffing/managed-workforce" },
     ],
   },
   {
@@ -61,22 +98,46 @@ export const NAV = [
     ],
   },
   { label: "Contact", href: "/contact", children: [] },
-] as const;
+];
 
+/** Solutions, in two groups: technology and workforce. `group` drives the
+    two-column Solutions menu and the grouping on the hub page. */
 export const STAFFING = [
-  { id: "staff-augmentation", name: "IT Staff Augmentation", line: "Scale your technology teams with specialized talent",
+  { id: "digital-transformation", group: "technology", name: "Digital Transformation", line: "Turn technology strategy into business progress",
+    body: "Connect strategy, process, technology, data, and people to create a practical path from current state to measurable improvement — sequenced so each step pays for the next.",
+    points: ["Current-state assessment", "Target operating model", "Phased transformation roadmap", "Adoption and change support"] },
+  { id: "enterprise-application-services", group: "technology", name: "Enterprise Application Services", line: "Modernize the systems that run your business",
+    body: "Support enterprise applications end to end — consulting, implementation, integration, development, testing, and ongoing optimization across the platforms your operations depend on.",
+    points: ["Implementation and rollout", "Managed application support", "Extension and custom development", "Upgrade and release management"] },
+  { id: "application-modernization", group: "technology", name: "Application Modernization", line: "Modernize legacy applications without losing continuity",
+    body: "Assess, refactor, re-platform, replace, or integrate legacy applications with a roadmap designed around business risk and priorities rather than technical preference.",
+    points: ["Portfolio assessment", "Refactor, re-platform or replace", "Incremental migration", "Risk and continuity planning"] },
+  { id: "cloud-transformation", group: "technology", name: "Cloud Transformation", line: "Move to the cloud with a clear business case",
+    body: "Support cloud strategy, migration, architecture, modernization, DevOps, security, and ongoing optimization — with the business case written before the first workload moves.",
+    points: ["Cloud strategy and business case", "Migration and landing zones", "DevOps and automation", "Cost and performance optimization"] },
+  { id: "data-analytics-solutions", group: "technology", name: "Data & Analytics Solutions", line: "Create a data foundation for better decisions",
+    body: "Connect data engineering, governance, analytics, reporting, and visualization into a practical data strategy that answers the questions the business is actually asking.",
+    points: ["Data architecture and engineering", "Warehousing and pipelines", "Reporting and visualization", "Governance and data quality"] },
+  { id: "ai-automation-solutions", group: "technology", name: "AI & Automation Solutions", line: "Move from AI interest to practical business value",
+    body: "Identify high-value use cases, design governed solutions, integrate AI into workflows, and automate repeatable processes — starting where the payback is clearest.",
+    points: ["Use-case identification", "Governed AI solution design", "Workflow integration", "Process automation and RPA"] },
+  { id: "integration-solutions", group: "technology", name: "Integration Solutions", line: "Connect the enterprise",
+    body: "Build integration strategies that connect enterprise applications, cloud platforms, data sources, legacy systems, and digital experiences into one reliable fabric.",
+    points: ["Integration strategy and architecture", "API design and management", "Event-driven and real-time flows", "Monitoring and governance"] },
+
+  { id: "staff-augmentation", group: "workforce", name: "IT Staff Augmentation", line: "Scale your technology teams with specialized talent",
     body: "Access qualified technology professionals across software engineering, enterprise platforms, cloud, data, QA, cybersecurity, business analysis, and project delivery — added to your team, working under your direction.",
     points: ["Engineering & enterprise platforms", "Cloud, data & QA specialists", "Onshore, nearshore & offshore", "Scale up or down as demand changes"] },
-  { id: "contingent-workforce", name: "Contingent Workforce", line: "Flexible workforce solutions for changing business needs",
+  { id: "contingent-workforce", group: "workforce", name: "Contingent Workforce", line: "Flexible workforce solutions for changing business needs",
     body: "Support project-based hiring, temporary workforce needs, specialized skills, and changing demand with a structured workforce model — including compliance, payrolling, and employer-of-record services.",
     points: ["Project-based & temporary hiring", "Specialized short-term skills", "Compliance & payrolling handled", "Structured onboarding and offboarding"] },
-  { id: "direct-hire", name: "Direct Hire", line: "Find the technology talent you need for the long term",
+  { id: "direct-hire", group: "workforce", name: "Direct Hire", line: "Find the technology talent you need for the long term",
     body: "Identify, qualify, and recruit technology professionals for permanent positions with a process designed around technical fit and cultural alignment.",
     points: ["Structured intake & calibration", "Qualified, shortlisted candidates", "Technical and cultural fit", "Offer and onboarding support"] },
-  { id: "sow-project-teams", name: "SOW / Project Teams", line: "Outcome-focused technology delivery teams",
+  { id: "sow-project-teams", group: "workforce", name: "SOW / Project Teams", line: "Outcome-focused technology delivery teams",
     body: "Assemble specialized teams around defined project objectives, deliverables, timelines, technology requirements, and governance — with a single point of accountability for the outcome.",
     points: ["Defined scope & deliverables", "Dedicated delivery team", "Milestone-based governance", "Single point of accountability"] },
-  { id: "managed-workforce", name: "Managed Workforce", line: "A more strategic approach to technology workforce management",
+  { id: "managed-workforce", group: "workforce", name: "Managed Workforce", line: "A more strategic approach to technology workforce management",
     body: "Support workforce planning, talent acquisition, resource coordination, compliance, reporting, and workforce optimization across your contingent technology labour.",
     points: ["Workforce planning & coordination", "MSP / VMS program support", "Compliance & consolidated reporting", "Ongoing workforce optimization"] },
 ];

@@ -65,6 +65,7 @@ export const COLLECTIONS: Record<string, Collection> = {
     slugFrom: "name",
     fields: [
       { name: "name", type: "text", required: true },
+      { name: "group_key", type: "text", default: "workforce" },
       { name: "line", type: "text" },
       { name: "body", type: "text" },
       { name: "points", type: "text" },
@@ -187,12 +188,12 @@ export async function getPractices(): Promise<PracticeView[]> {
   }));
 }
 
-export type StaffingView = { id: string; name: string; line: string; body: string; points: string[] };
+export type StaffingView = { id: string; name: string; line: string; body: string; points: string[]; group: "technology" | "workforce" };
 
 export async function getStaffing(): Promise<StaffingView[]> {
   try {
-    const rows = await q<{ slug: string; name: string; line: string; body: string; points: string }>(
-      "SELECT slug, name, line, body, points FROM staffing WHERE is_active = true ORDER BY sort_order ASC, created_at ASC"
+    const rows = await q<{ slug: string; name: string; line: string; body: string; points: string; group_key: string }>(
+      "SELECT slug, name, line, body, points, group_key FROM staffing WHERE is_active = true ORDER BY sort_order ASC, created_at ASC"
     );
     if (rows.length) {
       return rows.map((r) => ({
@@ -201,11 +202,13 @@ export async function getStaffing(): Promise<StaffingView[]> {
         line: r.line,
         body: r.body,
         points: r.points.split("\n").map((s) => s.replace(/^[-*•]\s*/, "").trim()).filter(Boolean),
+        group: (r.group_key === "technology" ? "technology" : "workforce") as "technology" | "workforce",
       }));
     }
   } catch { /* fallback */ }
   return STAFFING_FALLBACK.map((s) => ({
     id: s.id, name: s.name, line: s.line, body: s.body, points: [...s.points],
+    group: s.group as "technology" | "workforce",
   }));
 }
 
