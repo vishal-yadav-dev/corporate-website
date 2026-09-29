@@ -37,7 +37,7 @@ export default function HorizontalStory({
       {/* Desktop: pinned, moving sideways */}
       <section ref={ref} className="relative hidden lg:block bg-paper border-y border-line" style={{ height: `${items.length * 80}vh` }}>
         <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center">
-          <span aria-hidden className={`pointer-events-none absolute -left-40 top-1/4 h-[60vh] w-[60vh] rounded-full ${accentClass} opacity-[0.12] blur-[150px]`} />
+          <span aria-hidden className={`pointer-events-none absolute -left-40 top-1/4 h-[60vh] w-[60vh] rounded-full ${accentClass} prism-wash-lg blur-[150px]`} />
           <div className="mx-auto max-w-[1400px] w-full px-8">
             <p className="mono-label text-accent-deep mb-4">{eyebrow}</p>
             <h2 className="display text-5xl xl:text-7xl text-ink max-w-3xl mb-14">{heading}</h2>

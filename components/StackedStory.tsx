@@ -91,7 +91,7 @@ function Card({
           boxShadow: "0 30px 80px -40px rgba(0,0,0,0.8)",
         }}
       >
-        <span aria-hidden className={`pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full ${accentClass} opacity-[0.12] blur-[100px] transition-opacity duration-500 group-hover:opacity-25`} />
+        <span aria-hidden className={`pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full ${accentClass} prism-wash blur-[100px] transition-opacity duration-500 group-hover:opacity-25`} />
         <div className="relative flex flex-wrap items-baseline gap-5">
           <span className="display text-5xl sm:text-7xl text-ink/15 leading-none">0{index + 1}</span>
           <h3 className="display text-2xl sm:text-4xl text-ink">{title}</h3>

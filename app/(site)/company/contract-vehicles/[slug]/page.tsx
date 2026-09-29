@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import PageHeader from "@/components/PageHeader";
 import CtaBanner from "@/components/CtaBanner";
 import Reveal from "@/components/Reveal";
+import FactStrip from "@/components/FactStrip";
 import { ALL_VEHICLES, getVehicle, type Vehicle } from "@/lib/contracts";
 import { PRISM_TEXT } from "@/lib/data";
 
@@ -38,20 +39,14 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
           rather than as prose. */}
       <section className="relative z-10 bg-surface border-y border-line">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
-          <dl className="grid sm:grid-cols-2 lg:grid-cols-5 divide-y divide-line lg:divide-y-0 lg:divide-x lg:divide-line">
-            <div className="py-8 lg:pr-8">
-              <dt className="mono-label text-accent-deep">Contract number</dt>
-              {/* Never invent one: buyers verify the number with the awarding
-                  body before citing it on a requisition. */}
-              <dd className="mt-3 font-mono text-sm text-ink">{v.number ?? "Provided on request"}</dd>
-            </div>
-            {v.facts.map((f) => (
-              <div key={f.label} className="py-8 lg:px-8 last:lg:pr-0">
-                <dt className="mono-label text-accent-deep">{f.label}</dt>
-                <dd className="mt-3 text-sm text-ink/80 leading-relaxed">{f.value}</dd>
-              </div>
-            ))}
-          </dl>
+          <FactStrip
+            facts={[
+              /* Never invent a number: buyers verify it with the awarding body
+                 before citing it on a requisition. */
+              { label: "Contract number", value: v.number ?? "Provided on request", mono: true },
+              ...v.facts,
+            ]}
+          />
         </div>
       </section>
 
@@ -68,7 +63,7 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
           </div>
           <ol className="grid gap-5 sm:grid-cols-2">
             {v.points.map((p, i) => (
-              <Reveal key={p.title} delay={i * 0.05}>
+              <Reveal key={p.title} delay={i * 0.05} variant="tilt" duration={0.7}>
                 <li className="group relative h-full overflow-hidden rounded-3xl border border-line bg-paper p-8 sm:p-10 transition-colors hover:border-brand/50">
                   <span
                     aria-hidden
@@ -162,9 +157,9 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
               All contract vehicles →
             </Link>
           </div>
-          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {siblings.map((o, i) => (
-              <li key={o.id}>
+              <Reveal key={o.id} delay={i * 0.05} variant="right">
                 <Link
                   href={`/company/contract-vehicles/${o.id}`}
                   className="group flex h-full flex-col rounded-2xl border border-line bg-surface p-7 transition-colors hover:border-brand/50"
@@ -173,9 +168,9 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
                   <span className="display text-xl text-ink mt-3 group-hover:text-brand transition-colors">{o.short}</span>
                   <span className="mt-3 text-sm text-graphite leading-relaxed">{o.summary}</span>
                 </Link>
-              </li>
+              </Reveal>
             ))}
-          </ul>
+          </div>
         </div>
       </section>
 
@@ -194,7 +189,7 @@ function Breadcrumb({ group, name }: { group: string; name: string }) {
     <nav aria-label="Breadcrumb" className="relative z-10 bg-paper">
       <div className="mx-auto max-w-[1400px] px-5 sm:px-8 pb-10">
         <ol className="flex flex-wrap items-center gap-2 mono-label text-graphite">
-          <li><Link href="/company" className="hover:text-brand transition-colors">Company</Link></li>
+          <li><Link href="/company" className="hover:text-brand transition-colors">Who We Are</Link></li>
           <li aria-hidden>/</li>
           <li><Link href="/company/contract-vehicles" className="hover:text-brand transition-colors">Contract Vehicles</Link></li>
           <li aria-hidden>/</li>

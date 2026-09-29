@@ -16,6 +16,8 @@ export const metadata: Metadata = {
 /* The blueprint asks for technology grouped by category. Platforms carry a
    logo and earn a full-width feature card; engineering and integration
    practices read better as a capability grid. */
+const PRISM_BG = ["bg-prism-red", "bg-brand", "bg-prism-amber", "bg-prism-green", "bg-prism-blue", "bg-prism-violet"];
+
 const PLATFORM_IDS = ["salesforce", "sap", "oracle", "workday", "infor"];
 const ENGINEERING_IDS = ["application-development", "cloud-devops", "data-analytics", "ai-automation", "quality-engineering"];
 const INTEGRATION_IDS = ["mulesoft", "api-integration", "enterprise-integration"];
@@ -76,14 +78,14 @@ export default async function PracticesPage() {
 
           <div className="space-y-6 scene" style={{ perspective: 1400 }}>
             {PRACTICES.map((p, i) => (
-              <Reveal key={p.id} delay={0.03}>
+              <Reveal key={p.id} delay={0.03} variant={i % 2 ? "left" : "right"} duration={0.75}>
                 <div
                   id={p.id}
                   className={`card-3d scroll-mt-28 group relative grid lg:grid-cols-[0.85fr_1.15fr] gap-8 lg:gap-16 bg-surface/92 border border-line rounded-[28px] p-8 sm:p-12 overflow-hidden hover:border-brand/60 ${i % 2 ? "lg:[&>*:first-child]:order-2" : ""}`}
                 >
-                  <div className="pointer-events-none absolute -right-24 -bottom-24 h-72 w-72 rounded-full bg-brand/10 blur-[110px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className={`prism-wash pointer-events-none absolute -right-24 -bottom-24 h-72 w-72 rounded-full ${PRISM_BG[i % 6]} blur-[110px] transition-opacity duration-500 group-hover:opacity-40`} />
                   <div className="relative">
-                    <div className="h-px w-14 bg-brand/50 mb-6" />
+                    <div className={`prism-rule ${PRISM_BG[i % 6]} mb-6`} />
                     {p.logo && (
                       <div className="inline-grid place-items-center rounded-xl bg-white px-4 h-12 sm:h-14 mb-6 ring-1 ring-black/5 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.6)]">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -120,10 +122,11 @@ export default async function PracticesPage() {
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {engineering.map((p, i) => (
-              <Reveal key={p.id} delay={(i % 3) * 0.05}>
-                <Link href={`/practices/${p.id}`} id={p.id} className="card-lift scroll-mt-28 group block h-full bg-paper border border-line rounded-2xl p-7 hover:border-brand/50">
-                  <div className="h-px w-10 bg-brand/50 mb-5" />
-                  <h3 className="display text-2xl text-ink group-hover:text-brand transition-colors">{p.name}</h3>
+              <Reveal key={p.id} delay={(i % 3) * 0.05} variant="rise">
+                <Link href={`/practices/${p.id}`} id={p.id} className="card-lift scroll-mt-28 group relative overflow-hidden block h-full bg-paper border border-line rounded-2xl p-7 hover:border-brand/50">
+                  <span aria-hidden className={`prism-wash pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full ${PRISM_BG[i % 6]} blur-[70px] transition-opacity duration-500 group-hover:opacity-40`} />
+                  <div className={`prism-rule ${PRISM_BG[i % 6]} mb-5`} />
+                  <h3 className="relative display text-2xl text-ink group-hover:text-brand transition-colors">{p.name}</h3>
                   <p className="mt-1.5 mono-label text-accent-deep">{p.tag}</p>
                   <p className="mt-4 text-sm text-ink/75 leading-relaxed">{p.body}</p>
                   <div className="mt-6 flex flex-wrap gap-2">
@@ -142,10 +145,11 @@ export default async function PracticesPage() {
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {integration.map((p, i) => (
-              <Reveal key={p.id} delay={(i % 3) * 0.05}>
-                <Link href={`/practices/${p.id}`} id={p.id} className="card-lift scroll-mt-28 group block h-full bg-paper border border-line rounded-2xl p-7 hover:border-brand/50">
-                  <div className="h-px w-10 bg-brand/50 mb-5" />
-                  <h3 className="display text-2xl text-ink group-hover:text-brand transition-colors">{p.name}</h3>
+              <Reveal key={p.id} delay={(i % 3) * 0.05} variant="tilt" duration={0.7}>
+                <Link href={`/practices/${p.id}`} id={p.id} className="card-lift scroll-mt-28 group relative overflow-hidden block h-full bg-paper border border-line rounded-2xl p-7 hover:border-brand/50">
+                  <span aria-hidden className={`prism-wash pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full ${PRISM_BG[i % 6]} blur-[70px] transition-opacity duration-500 group-hover:opacity-40`} />
+                  <div className={`prism-rule ${PRISM_BG[i % 6]} mb-5`} />
+                  <h3 className="relative display text-2xl text-ink group-hover:text-brand transition-colors">{p.name}</h3>
                   <p className="mt-1.5 mono-label text-accent-deep">{p.tag}</p>
                   <p className="mt-4 text-sm text-ink/75 leading-relaxed">{p.body}</p>
                   <div className="mt-6 flex flex-wrap gap-2">

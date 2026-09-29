@@ -28,10 +28,15 @@ export default function PinnedStory({
       {/* Pinned background */}
       <div className="sticky top-0 h-screen overflow-hidden scene">
         <div className="absolute inset-0 bg-dotgrid anim-grid opacity-[0.22]" />
-        <div className={`anim-drift pointer-events-none absolute -top-1/4 right-[-10%] h-[70vh] w-[70vh] rounded-full ${accentClass} opacity-[0.14] blur-[160px]`} />
+        <div className={`anim-drift pointer-events-none absolute -top-1/4 right-[-10%] h-[70vh] w-[70vh] rounded-full ${accentClass} prism-wash-lg blur-[160px]`} />
         <div className="anim-drift pointer-events-none absolute bottom-[-20%] left-[-12%] h-[62vh] w-[62vh] rounded-full bg-accent/10 blur-[160px]" style={{ animationDelay: "-5s" }} />
 
-        <div className="relative h-full grid place-items-center px-5 sm:px-8">
+        {/* Anchored to the top on a fixed offset, the way the homepage's pinned
+            story does it — a viewport-relative one drifts with window height,
+            and this headline has to clear the same fixed 72px nav on every
+            screen. Centring it, which is what this used to do, put its lower
+            edge well below halfway once it ran to two lines. */}
+        <div className="relative h-full grid items-start px-5 sm:px-8 pt-28 sm:pt-32">
           <div className="mx-auto max-w-[1400px] w-full">
             <p className="mono-label text-accent-deep mb-5">{eyebrow}</p>
             <h2 className="display text-5xl sm:text-7xl lg:text-8xl text-ink max-w-4xl">{heading}</h2>
@@ -41,10 +46,10 @@ export default function PinnedStory({
 
       {/* Cards travelling over it */}
       <div className="relative -mt-[100vh]">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8 pt-[78vh] pb-[16vh] space-y-8 sm:space-y-12 scene" style={{ perspective: 1600 }}>
+        <div className="mx-auto max-w-[1400px] px-5 sm:px-8 pt-[44vh] lg:pt-[48vh] pb-[16vh] space-y-8 sm:space-y-12 scene" style={{ perspective: 1600 }}>
           {items.map((it, i) => (
             <PinnedCard key={it.title} index={i} even={i % 2 === 0} accentClass={accentClass}>
-              <div className="relative bg-surface/95 border border-line rounded-[28px] p-8 sm:p-12 backdrop-blur-sm hover:border-brand/50 transition-colors">
+              <div className="shadow-card relative bg-surface/95 border border-line rounded-[28px] p-8 sm:p-12 backdrop-blur-sm hover:border-brand/50 transition-colors">
                 <span className={`mono-label text-graphite`}>0{i + 1}</span>
                 <h3 className="display text-3xl sm:text-5xl text-ink mt-4">{it.title}</h3>
                 <p className="mt-5 text-lg text-ink/75 leading-relaxed max-w-2xl">{it.body}</p>

@@ -4,10 +4,12 @@ export type NavItem = { label: string; href: string; children: NavChild[]; group
 
 export const NAV: NavItem[] = [
   {
-    label: "Company",
+    label: "Who We Are",
     href: "/company",
     children: [
-      { label: "Company Overview", href: "/company#about" },
+      /* "Company Overview" under a menu called Who We Are just said the same
+         thing twice. */
+      { label: "Our Story", href: "/company#about" },
       { label: "Leadership", href: "/company#leadership" },
       { label: "Our Approach", href: "/company#approach" },
       { label: "Delivery Model", href: "/company#delivery" },

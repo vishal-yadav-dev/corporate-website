@@ -38,14 +38,42 @@ export function useReveal<T extends HTMLElement>() {
   return { ref, hidden };
 }
 
+/**
+ * The entrances a section can choose from.
+ *
+ * Every page on the site used the same lift, which made distinct sections read
+ * as one long list. These are the alternatives; `up` stays the default so a
+ * section only changes when it asks to.
+ *
+ * Each is a single transform string — compositor work only, no layout. `blur`
+ * is the exception and is reserved for single elements: filtering a whole grid
+ * at once is the one effect here a phone would feel.
+ */
+export type RevealVariant = "up" | "rise" | "left" | "right" | "tilt" | "zoom" | "blur";
+
+const FROM: Record<RevealVariant, { transform: string; filter?: string }> = {
+  up:    { transform: "translateY(24px)" },
+  rise:  { transform: "translateY(48px) scale(0.965)" },
+  left:  { transform: "translateX(-44px)" },
+  right: { transform: "translateX(44px)" },
+  tilt:  { transform: "perspective(1000px) rotateX(11deg) translateY(30px)" },
+  zoom:  { transform: "scale(0.88)" },
+  blur:  { transform: "translateY(16px)", filter: "blur(10px)" },
+};
+
 export default function Reveal({
   children,
   delay = 0,
   className = "",
+  variant = "up",
+  duration = 0.6,
 }: {
   children: ReactNode;
   delay?: number;
   className?: string;
+  variant?: RevealVariant;
+  /** Heavier entrances read better a little slower. */
+  duration?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   /* Visible by default. The entrance is an enhancement layered on afterwards —
@@ -77,16 +105,23 @@ export default function Reveal({
     return () => io.disconnect();
   }, []);
 
+  const from = FROM[variant];
+  // rounded: staggered delays are computed, and 0.41000000000000003s is what
+  // floating point does to them
+  const d = +delay.toFixed(3);
+  const ease = "cubic-bezier(0.22,1,0.36,1)";
+  const props = ["opacity", "transform"];
+  if (from.filter) props.push("filter");
+
   return (
     <div
       ref={ref}
       className={className}
       style={{
         opacity: hidden ? 0 : 1,
-        transform: hidden ? "translateY(24px)" : "translateY(0)",
-        // rounded: staggered delays are computed, and 0.41000000000000003s
-        // is what floating point does to them
-        transition: `opacity 0.6s cubic-bezier(0.22,1,0.36,1) ${+delay.toFixed(3)}s, transform 0.6s cubic-bezier(0.22,1,0.36,1) ${+delay.toFixed(3)}s`,
+        transform: hidden ? from.transform : "none",
+        filter: from.filter ? (hidden ? from.filter : "none") : undefined,
+        transition: props.map((pr) => `${pr} ${duration}s ${ease} ${d}s`).join(", "),
       }}
     >
       {children}

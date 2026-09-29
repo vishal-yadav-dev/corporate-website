@@ -20,14 +20,14 @@ const APPROACH = [
 ];
 
 const WHY = [
-  { kicker: "Technology + Talent", title: "Two capabilities, one partner", body: "Clients can engage us for technology solutions, workforce solutions, or a combination of both — without stitching together separate vendors for the build and the people who run it." },
-  { kicker: "Flexible Delivery", title: "Structured around your engagement", body: "Support can be structured around consulting, project delivery, staff augmentation, direct hire, or SOW engagements — whichever model fits the work and the budget." },
-  { kicker: "Enterprise Mindset", title: "Built for complex organizations", body: "Our delivery approach is designed around complex organizations, enterprise platforms, public-sector environments, and regulated industries where auditability matters." },
-  { kicker: "People-Centered", title: "Communication that holds up", body: "Strong communication and practical coordination remain central to both the client and the candidate experience — from first conversation through hypercare." },
+  { kicker: "Technology + Talent", title: "Two capabilities, one partner", body: "Clients can engage us for technology solutions, workforce solutions, or a combination of both — without stitching together separate vendors for the build and the people who run it.", image: "/company/technology-talent.jpg" },
+  { kicker: "Flexible Delivery", title: "Structured around your engagement", body: "Support can be structured around consulting, project delivery, staff augmentation, direct hire, or SOW engagements — whichever model fits the work and the budget.", image: "/company/flexible-delivery.jpg" },
+  { kicker: "Enterprise Mindset", title: "Built for complex organizations", body: "Our delivery approach is designed around complex organizations, enterprise platforms, public-sector environments, and regulated industries where auditability matters.", image: "/company/enterprise-mindset.jpg" },
+  { kicker: "People-Centered", title: "Communication that holds up", body: "Strong communication and practical coordination remain central to both the client and the candidate experience — from first conversation through hypercare.", image: "/company/people-centered.jpg" },
 ];
 
 export const metadata: Metadata = {
-  title: "Company",
+  title: "Who We Are",
   description: "About Testsoft Technologies — leadership, awards, delivery centers, and corporate responsibility.",
 };
 
@@ -47,7 +47,7 @@ export default async function CompanyPage() {
 
       <div className="relative z-10">
       <PageHeader
-        eyebrow="Company"
+        eyebrow="Who We Are"
         title="Where expertise meets execution."
         intro="Testsoft Technologies is a technology services and talent solutions company helping organizations solve complex technology challenges and build the teams required to execute them."
       />
@@ -130,7 +130,7 @@ export default async function CompanyPage() {
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {APPROACH.map((a, i) => (
-              <Reveal key={a.n} delay={(i % 4) * 0.05}>
+              <Reveal key={a.n} delay={(i % 4) * 0.05} variant="tilt" duration={0.7}>
                 <div className="card-lift group h-full bg-paper border border-line rounded-2xl p-7 hover:border-brand/50">
                   <p className={`display text-5xl ${PRISM_TEXT[i % 6]}`}>{a.n}</p>
                   <h3 className="display text-2xl text-ink mt-5 group-hover:text-brand transition-colors">{a.title}</h3>
@@ -154,7 +154,7 @@ export default async function CompanyPage() {
           </Reveal>
           <div className="grid sm:grid-cols-2 gap-5">
             {LOCATIONS.map((loc, i) => (
-              <Reveal key={loc.region} delay={(i % 2) * 0.06}>
+              <Reveal key={loc.region} delay={(i % 2) * 0.06} variant="rise">
                 <div className="h-full bg-surface border border-line rounded-2xl p-8">
                   <p className="mono-label text-accent-deep mb-3">{loc.role}</p>
                   <h3 className="display text-2xl text-ink">{loc.region}</h3>
@@ -228,7 +228,7 @@ export default async function CompanyPage() {
 
             <div className="space-y-6 scene" style={{ perspective: 1400 }}>
               {CASES.map((c, i) => (
-                <Reveal key={c.id} delay={0.05}>
+                <Reveal key={c.id} delay={0.05} variant="rise" duration={0.75}>
                   <article
                     id={c.id}
                     className={`card-3d group scroll-mt-28 relative grid lg:grid-cols-[0.9fr_1.1fr] gap-8 lg:gap-14 bg-surface border border-line rounded-[28px] overflow-hidden hover:border-brand/50 ${i % 2 ? "lg:[&>*:first-child]:order-2" : ""}`}
@@ -298,7 +298,7 @@ export default async function CompanyPage() {
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {CLIENT_QUOTES.map((t, i) => (
-                <Reveal key={i} delay={(i % 3) * 0.06}>
+                <Reveal key={i} delay={(i % 3) * 0.06} variant="zoom">
                   <figure className="card-lift h-full bg-paper border border-line rounded-2xl p-7 hover:border-brand/50">
                     <span aria-hidden className={`block h-px w-10 ${PRISM_BG[i % 6]} mb-5 opacity-70`} />
                     <blockquote className="text-lg text-ink/85 leading-relaxed">&ldquo;{t.quote}&rdquo;</blockquote>
@@ -334,7 +334,7 @@ export default async function CompanyPage() {
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {CANDIDATE_QUOTES.map((t, i) => (
-                <Reveal key={i} delay={(i % 4) * 0.06}>
+                <Reveal key={i} delay={(i % 4) * 0.06} variant="left">
                   <figure className="card-lift h-full bg-surface border border-line rounded-2xl p-6 hover:border-brand/50">
                     <blockquote className="text-ink/85 leading-relaxed">&ldquo;{t.quote}&rdquo;</blockquote>
                     <figcaption className="mt-5 text-sm text-graphite">
@@ -353,7 +353,7 @@ export default async function CompanyPage() {
         <PartnerStrip heading="Clients & Partners" title="The organizations we build alongside." variant="grid" />
       </div>
       <CtaBanner
-        eyebrow="Company"
+        eyebrow="Who We Are"
         heading="Why Testsoft? Let’s talk."
         body="Technology solutions, workforce solutions, or both — tell us what you are trying to achieve and we will bring the capabilities required to execute."
       />

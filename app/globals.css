@@ -45,10 +45,10 @@
 /* ---- Light theme (toggle sets data-theme="light" on <html>) ---- */
 :root[data-theme="light"] {
   --color-paper: #FFFFFF;
-  --color-paper-tint: #F1F5F9;
-  --color-paper-deep: #E7EDF3;
-  --color-surface: #FFFFFF;
-  --color-surface-2: #F5F8FB;
+  --color-paper-tint: #EAF1F8;
+  --color-paper-deep: #DCE7F1;
+  --color-surface: #F6FAFD;
+  --color-surface-2: #EAF1F8;
 
   --color-ink: #16202B;
   --color-ink-soft: #33404D;
@@ -290,3 +290,35 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.5); }
    header rather than a logo pinned flat to the page. */
 @keyframes sway-y { 0%, 100% { transform: rotateY(-14deg); } 50% { transform: rotateY(14deg); } }
 .anim-sway { animation: sway-y 9s ease-in-out infinite; }
+
+/* Prism washes behind cards. On near-black 10% reads clearly; on white it
+   disappears, so light mode carries more of it.
+
+   The value travels as a custom property rather than a themed rule, so the
+   class stays a single selector and Tailwind's `group-hover:opacity-*` can
+   still win on hover. A `:root[data-theme="light"] .prism-wash` rule would
+   have outranked it and frozen the hover. */
+:root { --wash: 0.10; --wash-lg: 0.16; }
+:root[data-theme="light"] { --wash: 0.24; --wash-lg: 0.30; }
+.prism-wash { opacity: var(--wash); }
+.prism-wash-lg { opacity: var(--wash-lg); }
+
+/* The short rule above a card heading, in the card's prism colour. */
+.prism-rule { height: 3px; width: 3.5rem; border-radius: 999px; }
+
+/* Card shadow for panels that float over a pinned background.
+
+   The two themes need different shadows, not the same one at two opacities: on
+   near-black only a deep, wide falloff separates a card from the surface at
+   all, while on white a black shadow greys the page, so light mode uses a
+   cooler, tighter one tinted towards the ink colour. */
+:root {
+  --card-shadow: 0 28px 70px -34px rgba(0, 0, 0, 0.85);
+  --card-shadow-hover: 0 36px 90px -34px rgba(0, 0, 0, 0.95);
+}
+:root[data-theme="light"] {
+  --card-shadow: 0 18px 44px -24px rgba(22, 32, 43, 0.30);
+  --card-shadow-hover: 0 26px 60px -24px rgba(22, 32, 43, 0.38);
+}
+.shadow-card { box-shadow: var(--card-shadow); transition: box-shadow .4s cubic-bezier(.22,1,.36,1); }
+.shadow-card:hover { box-shadow: var(--card-shadow-hover); }

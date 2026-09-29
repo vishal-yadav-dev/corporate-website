@@ -28,7 +28,7 @@ export default function ContractVehiclesPage() {
           the ledger rather than filed inside it. */}
       <section className="relative z-10 bg-paper-tint/55 pt-16 sm:pt-24 pb-20 sm:pb-28">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
-          <Reveal>
+          <Reveal variant="blur" duration={0.8}>
             <Link
               href="/company/contract-vehicles/tips"
               className="group block relative overflow-hidden rounded-[28px] border border-line-blue/60 bg-surface px-7 py-12 sm:px-14 sm:py-16 transition-colors hover:border-brand/50"
@@ -94,7 +94,7 @@ export default function ContractVehiclesPage() {
             </div>
             <ul className="grid sm:grid-cols-3 gap-6">
               {CERTIFICATIONS.map((c, i) => (
-                <Reveal key={c.label} delay={i * 0.06}>
+                <Reveal key={c.label} delay={i * 0.06} variant="zoom">
                   <li className="h-full rounded-2xl border border-line bg-surface p-7 transition-colors hover:border-brand/50">
                     <p className={`display text-4xl ${PRISM_TEXT[i % 6]}`}>{c.label}</p>
                     <p className="mt-4 text-graphite leading-relaxed">{c.body}</p>

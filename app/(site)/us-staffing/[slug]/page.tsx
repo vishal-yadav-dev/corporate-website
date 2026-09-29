@@ -55,7 +55,6 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
   const accent = d?.accent ?? 1;
   const variant = d?.variant ?? "split";
   const siblings = solutions.filter((s) => s.group === solution.group);
-  const position = siblings.findIndex((s) => s.id === solution.id) + 1;
   const related = siblings.filter((s) => s.id !== solution.id);
   const models = MODELS[solution.id] ?? [];
   const proof = cases.slice(0, 2);
@@ -84,7 +83,7 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
               </Reveal>
               <Reveal delay={0.14}>
                 <div className="relative h-full overflow-hidden bg-surface border border-line-blue/60 rounded-[28px] p-8 sm:p-12">
-                  <span aria-hidden className={`pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full ${PRISM_BG[accent]} opacity-[0.16] blur-[100px]`} />
+                  <span aria-hidden className={`pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full ${PRISM_BG[accent]} prism-wash-lg blur-[100px]`} />
                   <p className="relative mono-label text-accent-deep mb-5">{d?.whatHeading ?? "Our solution"}</p>
                   <p className="relative text-lg text-ink/80 leading-relaxed">{d?.what ?? solution.body}</p>
                 </div>
@@ -132,9 +131,10 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
             <div className="grid lg:grid-cols-[auto_1fr] gap-10 lg:gap-16">
               <Reveal delay={0.05}>
                 <div className="flex lg:flex-col items-center lg:items-start gap-4">
-                  <span className={`h-14 w-14 grid place-items-center rounded-full ${PRISM_BG[accent]} text-white display text-lg`}>
-                    {String(position).padStart(2, "0")}
-                  </span>
+                  {/* The rail still needs a head to start from. It used to be
+                      this page's position within its group, which told a reader
+                      who landed here from search nothing at all. */}
+                  <span aria-hidden className={`h-4 w-4 shrink-0 rounded-full ${PRISM_BG[accent]} ring-4 ring-brand/15`} />
                   <span aria-hidden className="hidden lg:block w-px flex-1 bg-gradient-to-b from-brand/60 to-transparent" />
                 </div>
               </Reveal>

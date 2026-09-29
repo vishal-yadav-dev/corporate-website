@@ -226,7 +226,7 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
             {industries.map((ind, i) => (
               <Reveal key={ind.id} delay={(i % 4) * 0.06}>
                 <Link href={`/industries#${ind.id}`} className="card-lift group relative block h-full overflow-hidden bg-paper border border-line rounded-2xl p-7 hover:border-brand/50">
-                  <span aria-hidden className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full ${PRISM_BG[(accent + i) % 6]} opacity-[0.12] blur-[70px] group-hover:opacity-25 transition-opacity duration-500`} />
+                  <span aria-hidden className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full ${PRISM_BG[(accent + i) % 6]} prism-wash blur-[70px] group-hover:opacity-25 transition-opacity duration-500`} />
                   <h3 className="relative display text-2xl text-ink group-hover:text-brand transition-colors">{ind.name}</h3>
                   <p className="relative mt-2 text-sm text-accent-deep">{ind.line}</p>
                   <span className="relative mt-6 block mono-label text-graphite group-hover:text-brand transition-colors">Explore →</span>
