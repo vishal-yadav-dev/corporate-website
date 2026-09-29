@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import PageHeader from "@/components/PageHeader";
 import CtaBanner from "@/components/CtaBanner";
 import Reveal from "@/components/Reveal";
+import Float3D from "@/components/Float3D";
 import { ALL_VEHICLES, getVehicle, type Vehicle } from "@/lib/contracts";
 import { PRISM_TEXT } from "@/lib/data";
 
@@ -92,21 +93,42 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
             <Reveal>
               <div className="relative overflow-hidden rounded-[28px] border border-line-blue/60 bg-surface px-7 py-11 sm:px-14 sm:py-14">
                 <span aria-hidden className={`pointer-events-none absolute -left-24 -bottom-24 h-72 w-72 rounded-full ${PRISM_BG[v.accent % 6]} opacity-[0.12] blur-[110px]`} />
-                <div className="relative flex flex-col gap-7 lg:flex-row lg:items-center lg:justify-between">
+                <div
+                  className={
+                    v.image
+                      ? "relative grid gap-12 lg:grid-cols-[1fr_0.85fr] lg:items-center lg:gap-16"
+                      : "relative flex flex-col gap-7 lg:flex-row lg:items-center lg:justify-between"
+                  }
+                >
                   <div className="max-w-2xl">
                     <p className="mono-label text-accent-deep mb-4">Verify at the source</p>
                     <h2 className="display text-2xl sm:text-4xl text-ink">{v.authority}</h2>
                     <p className="mt-4 text-graphite leading-relaxed">{v.vendor.note}</p>
+                    {v.image && (
+                      <a
+                        href={v.vendor.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group mt-8 inline-flex items-center gap-3 rounded-full bg-brand px-6 py-3.5 font-medium text-white transition-colors hover:bg-brand-deep"
+                      >
+                        {v.vendor.label}
+                        <span aria-hidden className="transition-transform group-hover:translate-x-0.5">↗</span>
+                      </a>
+                    )}
                   </div>
-                  <a
-                    href={v.vendor.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group inline-flex shrink-0 items-center gap-3 rounded-full bg-brand px-6 py-3.5 font-medium text-white transition-colors hover:bg-brand-deep"
-                  >
-                    {v.vendor.label}
-                    <span aria-hidden className="transition-transform group-hover:translate-x-0.5">↗</span>
-                  </a>
+                  {v.image ? (
+                    <Float3D src={v.image.src} alt={v.image.alt} className="lg:justify-self-end w-full max-w-md" />
+                  ) : (
+                    <a
+                      href={v.vendor.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group inline-flex shrink-0 items-center gap-3 rounded-full bg-brand px-6 py-3.5 font-medium text-white transition-colors hover:bg-brand-deep"
+                    >
+                      {v.vendor.label}
+                      <span aria-hidden className="transition-transform group-hover:translate-x-0.5">↗</span>
+                    </a>
+                  )}
                 </div>
               </div>
             </Reveal>

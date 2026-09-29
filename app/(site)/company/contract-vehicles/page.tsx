@@ -3,6 +3,7 @@ import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import CtaBanner from "@/components/CtaBanner";
 import Reveal from "@/components/Reveal";
+import Float3D from "@/components/Float3D";
 import VehicleLedger from "@/components/VehicleLedger";
 import ProcurementRail from "@/components/ProcurementRail";
 import { VEHICLE_GROUPS, BUY_STEPS, CERTIFICATIONS } from "@/lib/contracts";
@@ -34,21 +35,17 @@ export default function ContractVehiclesPage() {
               className="group block relative overflow-hidden rounded-[28px] border border-line-blue/60 bg-surface px-7 py-12 sm:px-14 sm:py-16 transition-colors hover:border-brand/50"
             >
               <span aria-hidden className="pointer-events-none absolute -right-28 -top-28 h-80 w-80 rounded-full bg-brand/12 blur-[120px]" />
-              <div className="relative grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16">
+              <div className="relative grid lg:grid-cols-[1.15fr_0.85fr] gap-12 lg:gap-16 lg:items-center">
                 <div>
                   <p className="mono-label text-accent-deep mb-4">Primary cooperative</p>
                   <h2 className="display text-4xl sm:text-6xl text-ink leading-[0.98] group-hover:text-brand transition-colors">
                     TIPS
                   </h2>
                   <p className="mt-4 text-accent-deep text-lg">The Interlocal Purchasing System</p>
-                  <p className="mono-label text-graphite mt-8 leading-relaxed">
-                    Region 8 Education Service Center
-                    <br />
-                    Pittsburg, Texas
+                  <p className="mono-label text-graphite mt-6 leading-relaxed">
+                    Region 8 Education Service Center · Pittsburg, Texas
                   </p>
-                </div>
-                <div className="lg:pt-14">
-                  <p className="text-lg text-ink/80 leading-relaxed">
+                  <p className="mt-8 text-lg text-ink/80 leading-relaxed">
                     TIPS is a national purchasing cooperative that gives its members access to
                     contracts it has already competed on their behalf. It is housed at and managed by
                     the Region 8 Education Service Center in Pittsburg, Texas.
@@ -65,6 +62,14 @@ export default function ContractVehiclesPage() {
                     <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
                   </span>
                 </div>
+                {/* The cooperative's own mark, held in space rather than laid
+                    flat — it is the one piece of another organisation's brand
+                    on the page, so it gets room instead of a corner. */}
+                <Float3D
+                  src="/vehicles/tips.png"
+                  alt="The Interlocal Purchasing System"
+                  className="w-full max-w-sm mx-auto lg:mx-0 lg:justify-self-end"
+                />
               </div>
             </Link>
           </Reveal>

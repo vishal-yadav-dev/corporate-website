@@ -39,6 +39,8 @@ export type Vehicle = {
   points: { title: string; body: string }[];
   /** The awarding body's own site, so a buyer can verify us at the source. */
   vendor?: { label: string; href: string; note: string };
+  /** Vendor artwork, shown as a floating 3D plate beside the vendor band. */
+  image?: { src: string; alt: string };
   /** Each vehicle gets its own background and accent so the set does not read
       as one page repeated seven times. */
   vanta: VantaEffect;
@@ -113,6 +115,7 @@ export const VEHICLE_GROUPS: VehicleGroup[] = [
           href: "https://www.tips-usa.com/",
           note: "Look us up in the TIPS vendor directory, confirm the award, or start a membership application — all from the cooperative's own site.",
         },
+        image: { src: "/vehicles/tips.png", alt: "The Interlocal Purchasing System" },
         vanta: "globe",
         accent: 1,
         variant: "dossier",

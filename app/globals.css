@@ -257,14 +257,14 @@ body {
    Breakpoint matches the one VantaBg already opts out at. */
 @media (max-width: 899px), (pointer: coarse) {
   body { background-attachment: scroll; }
-  .anim-grid, .anim-drift, .anim-float, .anim-travel, .anim-orbit, .anim-spin-3d {
+  .anim-grid, .anim-drift, .anim-float, .anim-travel, .anim-orbit, .anim-spin-3d, .anim-sway {
     animation: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
-  .marquee-track, .anim-float, .anim-spin-3d, .anim-drift, .anim-grid, .anim-pulse-ring { animation: none; }
+  .marquee-track, .anim-float, .anim-spin-3d, .anim-drift, .anim-grid, .anim-pulse-ring, .anim-sway { animation: none; }
   .card-3d:hover { transform: none; }
 }
 
@@ -285,3 +285,8 @@ select optgroup {
 }
 input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.5); }
 :root:not([data-theme="light"]) input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.85); }
+
+/* A slow yaw, used under a floating 3D figure so it reads as an object in
+   space rather than a picture that happens to bob. */
+@keyframes sway-y { 0%, 100% { transform: rotateY(-9deg); } 50% { transform: rotateY(9deg); } }
+.anim-sway { animation: sway-y 11s ease-in-out infinite; }
