@@ -444,3 +444,108 @@ export const CAPABILITY_NOTES: Record<string, Record<string, string>> = {
     "Data Synchronization": "Bi-directional flows with conflict rules agreed up front, not in production.",
   },
 };
+
+/* ------------------------------------------------------------------ *
+ * Industries. `video` names a file in /public/videos; where a topic has
+ * no footage the header falls back to the generated background.
+ * ------------------------------------------------------------------ */
+
+export type IndustryDetail = DetailContent & { video?: string; stats: { value: string; label: string }[] };
+
+export const INDUSTRY_DETAIL: Record<string, IndustryDetail> = {
+  sled: {
+    headline: "Public technology, held to public standards.",
+    lead: "Government agencies, public institutions and education organizations modernizing systems under procurement rules, audit scrutiny and budget cycles that do not move.",
+    variant: "rail", vanta: "topology", art: "cubes", accent: 4,
+    stats: [
+      { value: "MBE", label: "Certified Minority Business Enterprise" },
+      { value: "50", label: "States with payroll and compliance coverage" },
+      { value: "6", label: "Capability areas across SLED programmes" },
+    ],
+    whatHeading: "Procurement is part of the problem",
+    what: "Public-sector delivery is not private-sector delivery with more paperwork. Funding arrives on a cycle, scope is fixed by a solicitation, and every decision has to survive an audit years later. We plan around those constraints rather than treating them as friction — which is usually the difference between a programme that renews and one that does not.",
+    capHeading: "What SLED programmes need",
+    points: [
+      { title: "Auditable from day one", body: "Decisions, approvals and change records captured as the work happens, not reconstructed for an audit." },
+      { title: "Built for the funding cycle", body: "Phasing that delivers something usable inside each budget period rather than a payoff two cycles away." },
+      { title: "Accessible by default", body: "Public services have to work for everyone, so accessibility is a requirement in the build, not a remediation." },
+      { title: "Supplier diversity", body: "Certified MBE status that counts toward diversity spend requirements in public procurement." },
+    ],
+  },
+  manufacturing: {
+    headline: "The plant and the ledger, finally agreeing.",
+    lead: "Operations, enterprise applications, supply chain and data connected so production, warehouse and finance stop reconciling different versions of the same week.",
+    variant: "split", vanta: "trunk", art: "cubes", accent: 2, video: "plant",
+    stats: [
+      { value: "15+", label: "Years delivering for manufacturers" },
+      { value: "6", label: "Capability areas on the plant floor and above it" },
+      { value: "4", label: "ERP platforms in practice" },
+    ],
+    whatHeading: "Start where the work happens",
+    what: "Manufacturing systems fail at the seams: between planning and the floor, between the floor and the warehouse, between all of it and finance. We start on the floor with the people running the process, then work outward — because an ERP configured from a conference room encodes the operating model someone wished for rather than the one that exists.",
+    capHeading: "Across the operation",
+    points: [
+      { title: "Planning that reflects capacity", body: "Production schedules built on real constraints — changeover time, labour, tooling — not theoretical throughput." },
+      { title: "Inventory you can trust", body: "Barcode scanning, lot and serial traceability, and counts that hold up between cycles." },
+      { title: "Supply chain visibility", body: "Supplier, logistics and order data connected so a delay is visible before it becomes a shortage." },
+      { title: "One version of the month", body: "Plant, warehouse and finance closing on the same numbers without a reconciliation spreadsheet." },
+    ],
+  },
+  utilities: {
+    headline: "Critical infrastructure, quietly modernised.",
+    lead: "Customer platforms, integration, data and workforce capability for organisations where an outage is a public event and the regulator is always watching.",
+    variant: "mosaic", vanta: "net", art: "orbit", accent: 0, video: "pipeline",
+    stats: [
+      { value: "10+", label: "Years delivering for utilities" },
+      { value: "6", label: "Capability areas across the estate" },
+      { value: "24/7", label: "Operational reality the systems serve" },
+    ],
+    whatHeading: "Change without downtime",
+    what: "Utility systems cannot be taken down for a weekend to see how the migration goes. Every change is planned around continuity — parallel running, staged cutover, and a rollback that has been rehearsed rather than documented. The interesting engineering is in making the change invisible to the customer.",
+    capHeading: "Where the work concentrates",
+    points: [
+      { title: "One view for the agent", body: "Billing history, outage status and service records in a single console instead of three systems." },
+      { title: "Integration under load", body: "Interfaces to metering, outage and billing platforms that hold when a storm triples the call volume." },
+      { title: "Regulatory reporting", body: "Data captured and retained the way the regulator will eventually ask for it." },
+      { title: "Field and office aligned", body: "The same record whether it is opened in a truck or at a desk." },
+    ],
+  },
+  "higher-education": {
+    headline: "One student record, from enquiry to alumni.",
+    lead: "Campus systems, ERP, CRM, data and integration connected so recruitment, enrolment, support and advancement stop each holding a fragment of the same person.",
+    variant: "stack", vanta: "globe", art: "helix", accent: 5, video: "edu",
+    stats: [
+      { value: "8+", label: "Years delivering for institutions" },
+      { value: "6", label: "Capability areas across campus" },
+      { value: "3", label: "Core platforms most campuses run" },
+    ],
+    whatHeading: "Follow the student, not the department",
+    what: "Campuses are organised by department, and their systems inherit that shape: admissions holds one record, the SIS another, advancement a third. Nobody can follow a student through. We design around the student journey instead, then connect the departmental systems to it — which is harder politically than technically.",
+    capHeading: "Across the student lifecycle",
+    points: [
+      { title: "Recruitment to enrolment", body: "Enquiry, application and matriculation on one platform, so a prospect never restarts the conversation." },
+      { title: "Advising with context", body: "Advisors seeing academic, financial and support history together rather than in three tabs." },
+      { title: "Campus ERP", body: "Workday or equivalent for HR and finance, integrated with the student systems rather than beside them." },
+      { title: "Reporting without manual joins", body: "Institutional reporting that does not begin with exporting three systems into a spreadsheet." },
+    ],
+  },
+  enterprise: {
+    headline: "Complex estates, made legible.",
+    lead: "Enterprise platforms, digital engineering, cloud, data and integration brought together for organisations whose technology landscape has grown faster than its documentation.",
+    variant: "rail", vanta: "dots", art: "shards", accent: 3,
+    stats: [
+      { value: "13", label: "Technology practices to draw from" },
+      { value: "5", label: "Workforce engagement models" },
+      { value: "7", label: "Technology solution areas" },
+    ],
+    whatHeading: "Landscape before roadmap",
+    what: "Large estates accumulate: an acquisition here, a departmental system there, integrations written to survive a deadline. Before recommending anything we map what is actually running, who owns it and what depends on it — because most enterprise roadmaps fail on a dependency nobody documented rather than on the technology chosen.",
+    capHeading: "Where we help most",
+    points: [
+      { title: "Estate mapping", body: "Systems, owners and dependencies documented before a target architecture is proposed." },
+      { title: "Platform consolidation", body: "Overlapping systems rationalised on evidence of use, not on licence renewal dates." },
+      { title: "Integration backbone", body: "One fabric connecting ERP, CRM, cloud and legacy, with an agreed source of truth per entity." },
+      { title: "Capacity when it is needed", body: "Specialists added to programme teams without restarting a hiring cycle each time scope moves." },
+    ],
+  },
+};

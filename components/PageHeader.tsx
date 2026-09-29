@@ -23,22 +23,45 @@ export default function PageHeader({
   intro,
   art,
   vanta,
+  video,
 }: {
   eyebrow: string;
   title: string;
   intro?: string;
   art?: ArtVariant;
   vanta?: VantaEffect;
+  /** basename in /public/videos, without extension — e.g. "plant" */
+  video?: string;
 }) {
   return (
     <section className="relative pt-[150px] sm:pt-[190px] pb-16 sm:pb-28 overflow-hidden">
-      {vanta && (
+      {/* A topic video takes precedence over the generated background. It is
+          muted, looping and inert, so it never competes for attention or
+          autoplay permission. */}
+      {video && (
+        <>
+          <video
+            className="absolute inset-0 h-full w-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="none"
+            aria-hidden
+          >
+            <source src={`/videos/${video}.mp4`} type="video/mp4" />
+            <source src={`/videos/${video}.webm`} type="video/webm" />
+          </video>
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-paper/85 via-paper/55 to-paper" />
+        </>
+      )}
+      {!video && vanta && (
         <>
           <VantaBg effect={vanta} />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-paper/80 via-paper/45 to-paper" />
         </>
       )}
-      {!vanta && <div className="pointer-events-none absolute -top-20 right-0 h-[360px] w-[360px] rounded-full bg-brand/8 blur-[120px]" />}
+      {!vanta && !video && <div className="pointer-events-none absolute -top-20 right-0 h-[360px] w-[360px] rounded-full bg-brand/8 blur-[120px]" />}
       {art && <HeaderArt variant={art} />}
 
       <div className="mx-auto max-w-[1400px] px-5 sm:px-8 relative z-10">

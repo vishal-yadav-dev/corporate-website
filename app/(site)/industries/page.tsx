@@ -35,7 +35,7 @@ export default function IndustriesPage() {
                 />
                 <div className="relative">
                   <span className={`mono-label ${PRISM_TEXT[i % 6]}`}>Industry</span>
-                  <h2 className="display text-4xl sm:text-6xl text-ink mt-5">{ind.name}</h2>
+                  <h2 className="display text-4xl sm:text-6xl text-ink mt-5"><Link href={`/industries/${ind.id}`} className="hover:text-brand transition-colors">{ind.name}</Link></h2>
                   <p className="mt-3 text-accent-deep text-lg">{ind.line}</p>
                   <p className="mt-6 text-graphite leading-relaxed max-w-xl">{ind.body}</p>
                   <div className="mt-7 flex flex-wrap gap-2 max-w-xl">
@@ -46,10 +46,10 @@ export default function IndustriesPage() {
                     ))}
                   </div>
                   <Link
-                    href="/practices"
+                    href={`/industries/${ind.id}`}
                     className="mt-7 inline-flex items-center gap-1.5 mono-label text-accent-deep hover:text-brand transition-colors"
                   >
-                    Related practices →
+                    Explore {ind.name} →
                   </Link>
                 </div>
                 <div className="relative lg:justify-self-end">
