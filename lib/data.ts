@@ -28,6 +28,39 @@ export const NAV: NavItem[] = [
   {
     label: "Practices",
     href: "/practices",
+    /* Three columns, matching how the practices hub page groups them:
+       platforms, engineering, integration. `children` is the flat list the
+       mobile menu uses. */
+    groups: [
+      {
+        title: "Enterprise Platforms",
+        items: [
+          { label: "Salesforce", href: "/practices/salesforce" },
+          { label: "SAP", href: "/practices/sap" },
+          { label: "Oracle", href: "/practices/oracle" },
+          { label: "Workday", href: "/practices/workday" },
+          { label: "Infor", href: "/practices/infor" },
+        ],
+      },
+      {
+        title: "Digital Engineering",
+        items: [
+          { label: "Application Development", href: "/practices/application-development" },
+          { label: "Cloud & DevOps", href: "/practices/cloud-devops" },
+          { label: "Data & Analytics", href: "/practices/data-analytics" },
+          { label: "AI & Automation", href: "/practices/ai-automation" },
+          { label: "Quality Engineering", href: "/practices/quality-engineering" },
+        ],
+      },
+      {
+        title: "Integration",
+        items: [
+          { label: "MuleSoft", href: "/practices/mulesoft" },
+          { label: "API Integration", href: "/practices/api-integration" },
+          { label: "Enterprise Integration", href: "/practices/enterprise-integration" },
+        ],
+      },
+    ],
     children: [
       { label: "Salesforce", href: "/practices/salesforce" },
       { label: "SAP", href: "/practices/sap" },

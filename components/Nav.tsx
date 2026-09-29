@@ -48,12 +48,17 @@ export default function Nav() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 8 }}
                       transition={{ duration: 0.16 }}
-                      className="absolute top-full left-0 pt-3"
+                      /* A three-column menu is ~800px wide and would run off
+                         the right edge from a mid-nav trigger, so wide menus
+                         centre under theirs instead of left-aligning. */
+                      className={`absolute top-full pt-3 ${
+                        (item.groups?.length ?? 0) >= 3 ? "left-1/2 -translate-x-1/2" : "left-0"
+                      }`}
                     >
                       {item.groups ? (
-                        <div className="flex gap-10 bg-surface border border-line rounded-2xl p-6 shadow-xl shadow-brand/5">
+                        <div className="flex gap-8 xl:gap-10 bg-surface border border-line rounded-2xl p-6 shadow-xl shadow-brand/5">
                           {item.groups.map((g) => (
-                            <div key={g.title} className="min-w-[230px]">
+                            <div key={g.title} className="min-w-[205px] xl:min-w-[230px]">
                               <p className="mono-label text-accent-deep px-3 pb-3 border-b border-line mb-2">{g.title}</p>
                               {g.items.map((c) => (
                                 <Link
