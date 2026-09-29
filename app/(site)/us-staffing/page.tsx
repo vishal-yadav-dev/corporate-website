@@ -57,7 +57,7 @@ export default async function UsStaffingPage() {
                 >
                   <div>
                     <div className="h-px w-16 bg-brand/50 mb-6" />
-                    <h2 className="display text-3xl sm:text-5xl text-ink">{s.name}</h2>
+                    <h2 className="display text-3xl sm:text-5xl text-ink"><Link href={`/us-staffing/${s.id}`} className="hover:text-brand transition-colors">{s.name}</Link></h2>
                     <p className="mt-3 text-accent-deep">{s.line}</p>
                     <ul className="mt-8 space-y-2">
                       {s.points.map((p) => (

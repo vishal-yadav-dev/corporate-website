@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 import PartnerStrip from "@/components/PartnerStrip";
@@ -85,7 +86,9 @@ export default async function PracticesPage() {
                         <img src={p.logo} alt={`${p.name} logo`} className="h-7 sm:h-8 w-auto max-w-[150px] object-contain" />
                       </div>
                     )}
-                    <h3 className="display text-4xl sm:text-6xl text-ink">{p.name}</h3>
+                    <h3 className="display text-4xl sm:text-6xl text-ink">
+                      <Link href={`/practices/${p.id}`} className="hover:text-brand transition-colors">{p.name}</Link>
+                    </h3>
                     <p className="mt-3 text-accent-deep">{p.tag}</p>
                     <div className="mt-8 flex flex-wrap gap-2">
                       {p.stack.map((s) => (
@@ -114,7 +117,7 @@ export default async function PracticesPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {engineering.map((p, i) => (
               <Reveal key={p.id} delay={(i % 3) * 0.05}>
-                <article id={p.id} className="card-lift scroll-mt-28 group h-full bg-paper border border-line rounded-2xl p-7 hover:border-brand/50">
+                <Link href={`/practices/${p.id}`} id={p.id} className="card-lift scroll-mt-28 group block h-full bg-paper border border-line rounded-2xl p-7 hover:border-brand/50">
                   <div className="h-px w-10 bg-brand/50 mb-5" />
                   <h3 className="display text-2xl text-ink group-hover:text-brand transition-colors">{p.name}</h3>
                   <p className="mt-1.5 mono-label text-accent-deep">{p.tag}</p>
@@ -124,7 +127,7 @@ export default async function PracticesPage() {
                       <span key={t} className="mono-label text-graphite border border-line-blue rounded-full px-2.5 py-1">{t}</span>
                     ))}
                   </div>
-                </article>
+                </Link>
               </Reveal>
             ))}
           </div>
@@ -136,7 +139,7 @@ export default async function PracticesPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {integration.map((p, i) => (
               <Reveal key={p.id} delay={(i % 3) * 0.05}>
-                <article id={p.id} className="card-lift scroll-mt-28 group h-full bg-paper border border-line rounded-2xl p-7 hover:border-brand/50">
+                <Link href={`/practices/${p.id}`} id={p.id} className="card-lift scroll-mt-28 group block h-full bg-paper border border-line rounded-2xl p-7 hover:border-brand/50">
                   <div className="h-px w-10 bg-brand/50 mb-5" />
                   <h3 className="display text-2xl text-ink group-hover:text-brand transition-colors">{p.name}</h3>
                   <p className="mt-1.5 mono-label text-accent-deep">{p.tag}</p>
@@ -146,7 +149,7 @@ export default async function PracticesPage() {
                       <span key={t} className="mono-label text-graphite border border-line-blue rounded-full px-2.5 py-1">{t}</span>
                     ))}
                   </div>
-                </article>
+                </Link>
               </Reveal>
             ))}
           </div>
