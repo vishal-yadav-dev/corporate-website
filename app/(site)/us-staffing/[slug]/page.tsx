@@ -65,7 +65,6 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
       <PageHeader
         eyebrow={solution.group === "technology" ? "Technology Solutions" : "Workforce Solutions"}
         vanta={d?.vanta ?? "fog"}
-        art={d?.art}
         title={d?.headline ?? `${solution.name}.`}
         intro={d?.lead ?? solution.line}
       />

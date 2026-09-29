@@ -19,7 +19,6 @@ export default function CareersPage() {
       <PageHeader
         eyebrow="Careers"
         vanta="waves"
-        art="helix"
         title="Build what comes next."
         intro="Join a team working across technology, digital transformation, enterprise solutions, and workforce delivery — with clients who bring real, complex problems."
       />

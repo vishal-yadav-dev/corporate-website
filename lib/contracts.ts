@@ -14,7 +14,6 @@
  */
 
 type VantaEffect = "waves" | "rings" | "net" | "globe" | "fog" | "halo" | "dots" | "cells" | "topology" | "trunk";
-type ArtVariant = "points" | "helix" | "cubes" | "shards" | "orbit";
 
 export type Vehicle = {
   id: string;
@@ -40,10 +39,9 @@ export type Vehicle = {
   points: { title: string; body: string }[];
   /** The awarding body's own site, so a buyer can verify us at the source. */
   vendor?: { label: string; href: string; note: string };
-  /** Each vehicle gets its own background, geometry and accent so the set does
-      not read as one page repeated seven times. */
+  /** Each vehicle gets its own background and accent so the set does not read
+      as one page repeated seven times. */
   vanta: VantaEffect;
-  art: ArtVariant;
   accent: number;
   /** Two page layouts, alternated across the set. */
   variant: "dossier" | "brief";
@@ -116,7 +114,6 @@ export const VEHICLE_GROUPS: VehicleGroup[] = [
           note: "Look us up in the TIPS vendor directory, confirm the award, or start a membership application — all from the cooperative's own site.",
         },
         vanta: "globe",
-        art: "orbit",
         accent: 1,
         variant: "dossier",
       },
@@ -167,7 +164,6 @@ export const VEHICLE_GROUPS: VehicleGroup[] = [
           note: "Check whether your state participates, and read the master agreement and addendum that apply to you.",
         },
         vanta: "net",
-        art: "points",
         accent: 4,
         variant: "brief",
       },
@@ -227,7 +223,6 @@ export const VEHICLE_GROUPS: VehicleGroup[] = [
           note: "Read the ITSAC programme terms, the role catalogue and the current vendor list at the awarding agency.",
         },
         vanta: "waves",
-        art: "helix",
         accent: 2,
         variant: "dossier",
       },
@@ -283,7 +278,6 @@ export const VEHICLE_GROUPS: VehicleGroup[] = [
           note: "Read the DBITS service categories and the statement-of-work templates published by the awarding agency.",
         },
         vanta: "cells",
-        art: "cubes",
         accent: 3,
         variant: "brief",
       },
@@ -334,7 +328,6 @@ export const VEHICLE_GROUPS: VehicleGroup[] = [
           note: "Search the state HUB directory and read the current participation goals by procurement category.",
         },
         vanta: "halo",
-        art: "shards",
         accent: 5,
         variant: "dossier",
       },
@@ -394,7 +387,6 @@ export const VEHICLE_GROUPS: VehicleGroup[] = [
           note: "Read the schedule's ordering procedures and look up special item numbers and current holders.",
         },
         vanta: "rings",
-        art: "cubes",
         accent: 0,
         variant: "brief",
       },
@@ -445,7 +437,6 @@ export const VEHICLE_GROUPS: VehicleGroup[] = [
           note: "Read the ordering guide, the fee structure and the programme office's published turnaround metrics.",
         },
         vanta: "dots",
-        art: "points",
         accent: 4,
         variant: "dossier",
       },

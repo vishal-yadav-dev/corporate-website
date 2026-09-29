@@ -81,7 +81,6 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
       <PageHeader
         eyebrow="Practices"
         vanta={d?.vanta ?? "net"}
-        art={d?.art}
         title={d?.headline ?? `${practice.name}, delivered.`}
         intro={d?.lead ?? practice.body}
       />

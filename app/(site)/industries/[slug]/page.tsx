@@ -64,7 +64,6 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
         eyebrow="Industries"
         video={d?.video}
         vanta={d?.vanta}
-        art={d?.art}
         title={d?.headline ?? `${industry.name}.`}
         intro={d?.lead ?? industry.body}
       />

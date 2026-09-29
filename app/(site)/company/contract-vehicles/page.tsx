@@ -20,7 +20,6 @@ export default function ContractVehiclesPage() {
       <PageHeader
         eyebrow="Government Contract Vehicles"
         vanta="topology"
-        art="shards"
         title="Procurement paths already open"
         intro="Public agencies can reach us through cooperative and state contracts that have already been competed. The solicitation cycle is done, the rates are published, and the work can start on a purchase order."
       />

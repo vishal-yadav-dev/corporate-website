@@ -18,7 +18,6 @@ export default function IndustriesPage() {
       <PageHeader
         eyebrow="Industries"
         vanta="net"
-        art="cubes"
         title="Technology shaped by your industry."
         intro="Every industry has different operating models, regulatory environments, technology challenges, and business priorities. Our solutions are designed around those realities."
       />

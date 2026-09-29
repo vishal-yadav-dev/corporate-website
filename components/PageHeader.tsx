@@ -1,9 +1,7 @@
 import Reveal from "./Reveal";
-import HeaderArt from "./HeaderArt";
 import VantaBg from "./VantaBg";
 
 type VantaEffect = "waves" | "rings" | "net" | "globe" | "fog" | "halo" | "dots" | "cells" | "birds" | "clouds" | "clouds2" | "topology" | "trunk";
-type ArtVariant = "points" | "helix" | "cubes" | "shards" | "orbit";
 
 /** Last word in brand italic — the same signature the homepage hero uses. */
 function renderTitle(title: string) {
@@ -21,14 +19,12 @@ export default function PageHeader({
   eyebrow,
   title,
   intro,
-  art,
   vanta,
   video,
 }: {
   eyebrow: string;
   title: string;
   intro?: string;
-  art?: ArtVariant;
   vanta?: VantaEffect;
   /** basename in /public/videos, without extension — e.g. "plant" */
   video?: string;
@@ -62,10 +58,6 @@ export default function PageHeader({
         </>
       )}
       {!vanta && !video && <div className="pointer-events-none absolute -top-20 right-0 h-[360px] w-[360px] rounded-full bg-brand/8 blur-[120px]" />}
-      {/* A topic video already carries the motion in the header. Laying the
-          generated geometry over real footage read as clutter, so the art is
-          only drawn when there is no video behind it. */}
-      {art && !video && <HeaderArt variant={art} />}
 
       <div className="mx-auto max-w-[1400px] px-5 sm:px-8 relative z-10">
         <Reveal>
