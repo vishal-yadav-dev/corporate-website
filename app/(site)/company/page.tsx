@@ -167,6 +167,33 @@ export default async function CompanyPage() {
         </div>
       </section>
 
+      {/* Public buyers arrive here looking for the contract they can order
+          against, so the company story hands off to it directly. */}
+      <section id="contract-vehicles" className="relative z-10 bg-paper py-16 sm:py-20 scroll-mt-24">
+        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+          <Reveal>
+            <Link
+              href="/company/contract-vehicles"
+              className="group flex flex-col gap-6 rounded-[28px] border border-line bg-surface px-7 py-9 sm:flex-row sm:items-center sm:justify-between sm:px-12 sm:py-11 transition-colors hover:border-brand/50"
+            >
+              <div>
+                <p className="mono-label text-accent-deep mb-3">Public sector</p>
+                <h2 className="display text-2xl sm:text-4xl text-ink">
+                  Government contract <span className="text-brand italic">vehicles</span>
+                </h2>
+                <p className="mt-4 max-w-2xl text-graphite leading-relaxed">
+                  Agencies can buy through TIPS, Texas DIR, GSA and other pre-competed contracts —
+                  no new solicitation required.
+                </p>
+              </div>
+              <span className="mono-label text-accent-deep whitespace-nowrap group-hover:text-brand transition-colors">
+                See the vehicles →
+              </span>
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
       <section id="csr" className="relative z-10 bg-surface/70 py-24 sm:py-32 scroll-mt-24">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">

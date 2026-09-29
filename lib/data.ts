@@ -11,6 +11,7 @@ export const NAV: NavItem[] = [
       { label: "Leadership", href: "/company#leadership" },
       { label: "Our Approach", href: "/company#approach" },
       { label: "Delivery Model", href: "/company#delivery" },
+      { label: "Government Contract Vehicles", href: "/company/contract-vehicles" },
     ],
   },
   {
