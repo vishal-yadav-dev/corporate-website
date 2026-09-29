@@ -30,7 +30,7 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
 
   return (
     <>
-      <PageHeader eyebrow={`${group.title} · Contract vehicle`} vanta={v.vanta} title={v.short} intro={v.lead} />
+      <PageHeader eyebrow={`${group.title} · Contract vehicle`} vanta={v.vanta} logo={v.image} title={v.short} intro={v.lead} />
 
       <Breadcrumb group={group.title} name={v.name} />
 

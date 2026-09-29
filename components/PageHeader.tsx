@@ -1,5 +1,6 @@
 import Reveal from "./Reveal";
 import VantaBg from "./VantaBg";
+import HeaderLogo from "./HeaderLogo";
 
 type VantaEffect = "waves" | "rings" | "net" | "globe" | "fog" | "halo" | "dots" | "cells" | "birds" | "clouds" | "clouds2" | "topology" | "trunk";
 
@@ -21,6 +22,7 @@ export default function PageHeader({
   intro,
   vanta,
   video,
+  logo,
 }: {
   eyebrow: string;
   title: string;
@@ -28,6 +30,8 @@ export default function PageHeader({
   vanta?: VantaEffect;
   /** basename in /public/videos, without extension — e.g. "plant" */
   video?: string;
+  /** An awarding body's mark, turning in place of the generated background. */
+  logo?: { src: string; alt: string };
 }) {
   return (
     <section className="relative pt-[150px] sm:pt-[190px] pb-16 sm:pb-28 overflow-hidden">
@@ -50,13 +54,14 @@ export default function PageHeader({
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-paper/85 via-paper/55 to-paper" />
         </>
       )}
-      {!video && vanta && (
+      {!video && !logo && vanta && (
         <>
           <VantaBg effect={vanta} />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-paper/80 via-paper/45 to-paper" />
         </>
       )}
-      {!vanta && !video && <div className="pointer-events-none absolute -top-20 right-0 h-[360px] w-[360px] rounded-full bg-brand/8 blur-[120px]" />}
+      {logo && <HeaderLogo src={logo.src} />}
+      {!vanta && !video && !logo && <div className="pointer-events-none absolute -top-20 right-0 h-[360px] w-[360px] rounded-full bg-brand/8 blur-[120px]" />}
 
       <div className="mx-auto max-w-[1400px] px-5 sm:px-8 relative z-10">
         <Reveal>
