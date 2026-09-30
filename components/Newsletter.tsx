@@ -48,7 +48,7 @@ export default function Newsletter() {
         <button
           type="submit"
           disabled={state === "loading"}
-          className="bg-brand text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-brand-deep transition-colors disabled:opacity-50"
+          className="btn-cta bg-brand text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-brand-deep transition-colors disabled:opacity-50"
         >
           {state === "loading" ? "…" : "Join"}
         </button>

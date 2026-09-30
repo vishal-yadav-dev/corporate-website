@@ -79,7 +79,12 @@ export default async function PracticesPage() {
           <div className="space-y-6 scene" style={{ perspective: 1400 }}>
             {PRACTICES.map((p, i) => (
               <Reveal key={p.id} delay={0.03} variant={i % 2 ? "left" : "right"} duration={0.75}>
-                <div
+                {/* The whole card is the link, the way the capability grids
+                    below already work. Only the heading used to be clickable,
+                    with nothing to say so — a reader had no way to tell there
+                    was a page behind it. */}
+                <Link
+                  href={`/practices/${p.id}`}
                   id={p.id}
                   className={`card-3d scroll-mt-28 group relative grid lg:grid-cols-[0.85fr_1.15fr] gap-8 lg:gap-16 bg-surface/92 border border-line rounded-[28px] p-8 sm:p-12 overflow-hidden hover:border-brand/60 ${i % 2 ? "lg:[&>*:first-child]:order-2" : ""}`}
                 >
@@ -92,9 +97,7 @@ export default async function PracticesPage() {
                         <img src={p.logo} alt={`${p.name} logo`} className="h-7 sm:h-8 w-auto max-w-[150px] object-contain" />
                       </div>
                     )}
-                    <h3 className="display text-4xl sm:text-6xl text-ink">
-                      <Link href={`/practices/${p.id}`} className="hover:text-brand transition-colors">{p.name}</Link>
-                    </h3>
+                    <h3 className="display text-4xl sm:text-6xl text-ink group-hover:text-brand transition-colors">{p.name}</h3>
                     <p className="mt-3 text-accent-deep">{p.tag}</p>
                     <div className="mt-8 flex flex-wrap gap-2">
                       {p.stack.map((s) => (
@@ -102,8 +105,15 @@ export default async function PracticesPage() {
                       ))}
                     </div>
                   </div>
-                  <p className="relative text-lg sm:text-xl text-ink/75 leading-relaxed self-center">{p.body}</p>
-                </div>
+                  <div className="relative self-center">
+                    <p className="text-lg sm:text-xl text-ink/75 leading-relaxed">{p.body}</p>
+                    {/* The same wording the industry and solution cards use. */}
+                    <span className="mt-7 inline-flex items-center gap-2 mono-label text-accent-deep group-hover:text-brand transition-colors">
+                      Explore {p.name}
+                      <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                    </span>
+                  </div>
+                </Link>
               </Reveal>
             ))}
           </div>

@@ -91,7 +91,7 @@ export default function Nav() {
 
           <div className="hidden lg:flex items-center gap-3">
             <ThemeToggle />
-            <Link href="/contact" className="group inline-flex items-center gap-2 bg-brand text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-brand-deep transition-colors">
+            <Link href="/contact" className="group inline-flex items-center gap-2 btn-cta bg-brand text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-brand-deep transition-colors">
               Talk to an Expert
               <span className="group-hover:translate-x-0.5 transition-transform">→</span>
             </Link>
@@ -128,7 +128,7 @@ export default function Nav() {
                   </div>
                 </div>
               ))}
-              <Link href="/contact" onClick={() => setMobile(false)} className="inline-flex items-center gap-2 bg-brand text-white px-6 py-3 rounded-full font-medium">
+              <Link href="/contact" onClick={() => setMobile(false)} className="inline-flex items-center gap-2 btn-cta bg-brand text-white px-6 py-3 rounded-full font-medium">
                 Talk to an Expert →
               </Link>
             </div>

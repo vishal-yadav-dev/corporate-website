@@ -1,5 +1,6 @@
 import Reveal from "./Reveal";
 import VantaBg from "./VantaBg";
+import ConnectionMap from "./ConnectionMap";
 import HeaderLogo from "./HeaderLogo";
 
 type VantaEffect = "waves" | "rings" | "net" | "globe" | "fog" | "halo" | "dots" | "cells" | "birds" | "clouds" | "clouds2" | "topology" | "trunk";
@@ -22,6 +23,7 @@ export default function PageHeader({
   intro,
   vanta,
   video,
+  dome,
   logo,
 }: {
   eyebrow: string;
@@ -30,6 +32,8 @@ export default function PageHeader({
   vanta?: VantaEffect;
   /** basename in /public/videos, without extension — e.g. "plant" */
   video?: string;
+  /** the office map with live links, instead of a Vanta scene */
+  dome?: boolean;
   /** An awarding body's mark, turning in place of the generated background. */
   logo?: { src: string; alt: string };
 }) {
@@ -54,14 +58,20 @@ export default function PageHeader({
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-paper/85 via-paper/55 to-paper" />
         </>
       )}
-      {!video && !logo && vanta && (
+      {!video && !logo && dome && (
+        <>
+          <ConnectionMap />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-paper/70 via-transparent to-paper" />
+        </>
+      )}
+      {!video && !logo && !dome && vanta && (
         <>
           <VantaBg effect={vanta} />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-paper/80 via-paper/45 to-paper" />
         </>
       )}
       {logo && <HeaderLogo src={logo.src} />}
-      {!vanta && !video && !logo && <div className="pointer-events-none absolute -top-20 right-0 h-[360px] w-[360px] rounded-full bg-brand/8 blur-[120px]" />}
+      {!vanta && !video && !logo && !dome && <div className="pointer-events-none absolute -top-20 right-0 h-[360px] w-[360px] rounded-full bg-brand/8 blur-[120px]" />}
 
       <div className="mx-auto max-w-[1400px] px-5 sm:px-8 relative z-10">
         <Reveal>

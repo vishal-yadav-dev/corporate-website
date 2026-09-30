@@ -140,7 +140,7 @@ export default function Hero({ initialBanners = [] }: { initialBanners?: Banner[
                   {slide.cta_url && (
                     <Link
                       href={slide.cta_url}
-                      className="group inline-flex items-center gap-2 bg-brand text-white px-6 py-3.5 rounded-full font-medium hover:bg-brand-deep transition-colors"
+                      className="group inline-flex items-center gap-2 btn-cta bg-brand text-white px-6 py-3.5 rounded-full font-medium hover:bg-brand-deep transition-colors"
                     >
                       {slide.cta_text || "Learn More"}
                       <span className="group-hover:translate-x-1 transition-transform">→</span>
@@ -189,7 +189,7 @@ export default function Hero({ initialBanners = [] }: { initialBanners?: Banner[
                 <div className="flex flex-wrap gap-3">
                   <Link
                     href="/practices"
-                    className="group inline-flex items-center gap-2 bg-brand text-white px-6 py-3.5 rounded-full font-medium hover:bg-brand-deep transition-colors"
+                    className="group inline-flex items-center gap-2 btn-cta bg-brand text-white px-6 py-3.5 rounded-full font-medium hover:bg-brand-deep transition-colors"
                   >
                     Explore our practices
                     <span className="group-hover:translate-x-1 transition-transform">→</span>

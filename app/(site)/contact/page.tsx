@@ -3,6 +3,7 @@ import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 import ContactForm from "@/components/ContactForm";
 import PartnerStrip from "@/components/PartnerStrip";
+import SectionBackdrop from "@/components/SectionBackdrop";
 import { getOffices } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -14,9 +15,10 @@ export default async function ContactPage() {
   const LOCATIONS = await getOffices();
   return (
     <>
-      <PageHeader eyebrow="Contact" title="Let’s talk." intro="Whether you’re modernizing an enterprise platform, building a digital solution, integrating systems, or scaling your technology team, we’re ready to help." vanta="clouds" />
+      <PageHeader eyebrow="Contact" title="Let’s talk." intro="Whether you’re modernizing an enterprise platform, building a digital solution, integrating systems, or scaling your technology team, we’re ready to help." dome />
       <section className="relative z-10 bg-surface pt-16 sm:pt-24 pb-24 sm:pb-32">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <SectionBackdrop from="bg-prism-blue" to="bg-prism-violet" />
+        <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8">
           <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20">
             <Reveal><ContactForm source="contact" /></Reveal>
             <Reveal delay={0.1}>
@@ -37,7 +39,9 @@ export default async function ContactPage() {
 
       {/* Office locations on the map */}
       <section className="relative z-10 bg-paper-tint py-20 sm:py-28">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <SectionBackdrop from="bg-prism-violet" to="bg-prism-blue" />
+        {/* positioned, so it paints over the absolutely-placed backdrop */}
+        <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8">
           <Reveal className="mb-12">
             <p className="mono-label text-accent-deep mb-3">Global locations</p>
             <h2 className="display text-4xl sm:text-6xl text-ink max-w-2xl">Find us on the ground.</h2>

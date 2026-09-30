@@ -28,7 +28,7 @@ export default async function Footer() {
           <div>
             <p className="mono-label text-brand-bright mb-6">Let&apos;s build</p>
             <h2 className="display text-4xl sm:text-6xl max-w-xl text-ink">Ready to modernize your core systems?</h2>
-            <Link href="/contact" className="group mt-8 inline-flex items-center gap-3 bg-brand text-white px-6 py-3.5 rounded-full font-medium hover:bg-brand-deep transition-colors">
+            <Link href="/contact" className="group mt-8 inline-flex items-center gap-3 btn-cta bg-brand text-white px-6 py-3.5 rounded-full font-medium hover:bg-brand-deep transition-colors">
               Start a conversation
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </Link>

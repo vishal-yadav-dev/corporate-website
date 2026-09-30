@@ -51,7 +51,7 @@ export default function JobBoard() {
       <div className="flex flex-wrap gap-2 mb-8">
         {filters.map((f) => (
           <button key={f} onClick={() => setActive(f)}
-            className={`mono-label px-4 py-2 rounded-full border transition-colors ${active === f ? "bg-brand text-white border-brand" : "text-graphite border-line-blue hover:border-brand hover:text-brand"}`}>
+            className={`mono-label px-4 py-2 rounded-full border transition-colors ${active === f ? "btn-cta bg-brand text-white border-brand" : "text-graphite border-line-blue hover:border-brand hover:text-brand"}`}>
             {f}
           </button>
         ))}

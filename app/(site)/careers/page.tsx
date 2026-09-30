@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import CtaBanner from "@/components/CtaBanner";
 import Reveal from "@/components/Reveal";
+import SectionBackdrop from "@/components/SectionBackdrop";
 import JobBoard from "@/components/JobBoard";
+import ResumeDrop from "@/components/ResumeDrop";
 import PartnerStrip from "@/components/PartnerStrip";
 import { BENEFITS, PRISM_TEXT } from "@/lib/data";
 
@@ -23,13 +25,14 @@ export default function CareersPage() {
         intro="Join a team working across technology, digital transformation, enterprise solutions, and workforce delivery — with clients who bring real, complex problems."
       />
       <section id="why" className="relative z-10 bg-surface pt-16 sm:pt-24 pb-24 scroll-mt-24">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <SectionBackdrop variant="quiet" />
+        <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-24">
-            <Reveal>
+            <Reveal variant="right" duration={0.75}>
               <p className="mono-label text-accent-deep mb-4">Why join us</p>
               <p className="text-2xl sm:text-3xl display text-ink leading-tight">Your skill set should stay ahead of the platform. Here, it does.</p>
             </Reveal>
-            <Reveal delay={0.1} className="space-y-5 text-graphite leading-relaxed self-center">
+            <Reveal delay={0.1} variant="left" duration={0.75} className="space-y-5 text-graphite leading-relaxed self-center">
               <p>We view our consultants as our primary asset, and we invest accordingly — continuous professional development, certifications, and mentorship built into how we work.</p>
               <p>Take ownership early, work across global delivery centers, and evolve into a partner in the company&apos;s journey.</p>
             </Reveal>
@@ -38,17 +41,18 @@ export default function CareersPage() {
       </section>
 
       <section id="benefits" className="relative z-10 bg-paper-tint py-24 sm:py-32 scroll-mt-24">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <SectionBackdrop from="bg-prism-blue" to="bg-prism-violet" />
+        <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8">
           <Reveal className="mb-16">
             <p className="mono-label text-accent-deep mb-4">Benefits</p>
             <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">Life at Testsoft.</h2>
           </Reveal>
           <div className="grid sm:grid-cols-2 gap-5 scene" style={{ perspective: 1400 }}>
             {BENEFITS.map((b, i) => (
-              <Reveal key={b.title} delay={(i % 2) * 0.06}>
+              <Reveal key={b.title} delay={(i % 2) * 0.06} variant="tilt" duration={0.7}>
                 <div className="card-3d group h-full relative bg-surface border border-line rounded-2xl p-8 overflow-hidden hover:border-brand/50">
                   <span
-                    className={`pointer-events-none absolute -left-16 -bottom-16 h-52 w-52 rounded-full ${PRISM_BG[i % 6]} opacity-[0.10] blur-[80px] group-hover:opacity-20 transition-opacity duration-500`}
+                    className={`pointer-events-none absolute -left-16 -bottom-16 h-52 w-52 rounded-full ${PRISM_BG[i % 6]} prism-wash blur-[80px] group-hover:opacity-30 transition-opacity duration-500`}
                   />
                   <span className={`relative mono-label ${PRISM_TEXT[i % 6]}`}>Benefit</span>
                   <h3 className="relative display text-2xl mt-5 text-ink">{b.title}</h3>
@@ -61,12 +65,17 @@ export default function CareersPage() {
       </section>
 
       <section id="jobs" className="relative z-10 bg-surface py-24 sm:py-32 scroll-mt-24">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <SectionBackdrop variant="quiet" />
+        <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8">
           <Reveal className="mb-12">
             <p className="mono-label text-accent-deep mb-4">Open roles</p>
             <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">Find your next opportunity.</h2>
           </Reveal>
           <JobBoard />
+
+          <Reveal className="mt-14" variant="rise" duration={0.75}>
+            <ResumeDrop />
+          </Reveal>
         </div>
       </section>
 
@@ -76,7 +85,7 @@ export default function CareersPage() {
       <CtaBanner
         eyebrow="Careers"
         heading="Build what’s next with us."
-        body="Technology, recruiting, delivery, operations — see the roles that are open, or send a résumé and we will keep you in mind."
+        body="Technology, recruiting, delivery, operations — see the roles that are open, or send a resume and we will keep you in mind."
         cta="View Open Positions"
         href="/careers#jobs"
       />

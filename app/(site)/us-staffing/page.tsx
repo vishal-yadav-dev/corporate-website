@@ -128,7 +128,7 @@ export default async function UsStaffingPage() {
               </p>
               <Link
                 href="/contact"
-                className="mt-8 inline-flex items-center gap-2 bg-brand text-white px-7 py-3.5 rounded-full font-medium hover:bg-brand-deep transition-colors"
+                className="mt-8 inline-flex items-center gap-2 btn-cta bg-brand text-white px-7 py-3.5 rounded-full font-medium hover:bg-brand-deep transition-colors"
               >
                 Start a staffing request →
               </Link>
