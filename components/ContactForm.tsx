@@ -35,7 +35,7 @@ export default function ContactForm({ source = "contact" }: { source?: "contact"
     return (
       <div className="bg-paper border border-line rounded-3xl p-10 sm:p-14 h-full grid place-items-center text-center">
         <div>
-          <div className="mx-auto h-14 w-14 grid place-items-center rounded-full bg-brand text-white text-2xl mb-6">✓</div>
+          <div className="mx-auto h-14 w-14 grid place-items-center rounded-full btn-cta bg-brand text-white text-2xl mb-6">✓</div>
           <h3 className="display text-3xl text-ink">Message received.</h3>
           <p className="mt-3 text-graphite max-w-sm">Thanks, {form.name.split(" ")[0]}. A practice lead will be in touch shortly.</p>
           <button onClick={() => { setStatus("idle"); setForm({ name: "", email: "", company: "", phone: "", practice: "", message: "", website: "" }); }} className="mt-8 mono-label text-brand hover:underline">
@@ -85,7 +85,7 @@ export default function ContactForm({ source = "contact" }: { source?: "contact"
         <textarea className={`${field} min-h-[140px] resize-y`} value={form.message} onChange={(e) => set("message", e.target.value)} placeholder="A few lines on your project, systems, and timeline." />
       </div>
       {status === "error" && <p className="text-sm text-accent-deep">{err}</p>}
-      <button type="submit" disabled={!valid || status === "loading"} className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand text-white px-8 py-3.5 rounded-full font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-brand-deep transition-colors">
+      <button type="submit" disabled={!valid || status === "loading"} className="w-full sm:w-auto inline-flex items-center justify-center gap-2 btn-cta bg-brand text-white px-8 py-3.5 rounded-full font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-brand-deep transition-colors">
         {status === "loading" ? "Sending…" : "Send message →"}
       </button>
     </form>

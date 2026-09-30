@@ -30,7 +30,7 @@ export default function CtaBanner({
             {body && <p className="mt-5 max-w-xl text-graphite leading-relaxed">{body}</p>}
             <Link
               href={href}
-              className="group mt-9 inline-flex items-center gap-3 bg-brand text-white px-6 py-3.5 rounded-full font-medium hover:bg-brand-deep transition-colors"
+              className="group mt-9 inline-flex items-center gap-3 btn-cta bg-brand text-white px-6 py-3.5 rounded-full font-medium hover:bg-brand-deep transition-colors"
             >
               {cta}
               <span className="group-hover:translate-x-0.5 transition-transform">→</span>

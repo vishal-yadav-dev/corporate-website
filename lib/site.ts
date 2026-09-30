@@ -1,4 +1,5 @@
 import "server-only";
+import { cache } from "react";
 import { q } from "@/lib/db";
 import { PARTNERS as PARTNERS_FALLBACK, LOCATIONS, PRACTICES as PRACTICES_FALLBACK, PRACTICE_LOGOS, STAFFING as STAFFING_FALLBACK, AWARDS as AWARDS_FALLBACK, LEADERSHIP as LEADERSHIP_FALLBACK } from "@/lib/data";
 
@@ -141,7 +142,7 @@ function logoSrc(logo_id: string | null, logo_url: string): string {
   return logo_id ? `/api/images/${logo_id}` : logo_url || "";
 }
 
-export async function getPartners(): Promise<PartnerView[]> {
+async function readPartners(): Promise<PartnerView[]> {
   try {
     const rows = await q<{ name: string; logo_id: string | null; logo_url: string; website: string }>(
       "SELECT name, logo_id, logo_url, website FROM partners WHERE is_active = true ORDER BY sort_order ASC, created_at ASC"
@@ -153,7 +154,7 @@ export async function getPartners(): Promise<PartnerView[]> {
   return PARTNERS_FALLBACK.map((p) => ({ name: p.name, logo: p.logo, website: "" }));
 }
 
-export async function getOffices(): Promise<OfficeView[]> {
+async function readOffices(): Promise<OfficeView[]> {
   try {
     const rows = await q<OfficeView>(
       "SELECT region, role, address, tel FROM offices WHERE is_active = true ORDER BY sort_order ASC, created_at ASC"
@@ -163,7 +164,7 @@ export async function getOffices(): Promise<OfficeView[]> {
   return LOCATIONS.map((l) => ({ region: l.region, role: l.role, address: l.address, tel: l.tel }));
 }
 
-export async function getPractices(): Promise<PracticeView[]> {
+async function readPractices(): Promise<PracticeView[]> {
   try {
     const rows = await q<{
       slug: string; name: string; tag: string; body: string; stack: string;
@@ -190,7 +191,7 @@ export async function getPractices(): Promise<PracticeView[]> {
 
 export type StaffingView = { id: string; name: string; line: string; body: string; points: string[]; group: "technology" | "workforce" };
 
-export async function getStaffing(): Promise<StaffingView[]> {
+async function readStaffing(): Promise<StaffingView[]> {
   try {
     const rows = await q<{ slug: string; name: string; line: string; body: string; points: string; group_key: string }>(
       "SELECT slug, name, line, body, points, group_key FROM staffing WHERE is_active = true ORDER BY sort_order ASC, created_at ASC"
@@ -214,7 +215,7 @@ export async function getStaffing(): Promise<StaffingView[]> {
 
 export type AwardView = { year: string; title: string; image: string };
 
-export async function getAwards(): Promise<AwardView[]> {
+async function readAwards(): Promise<AwardView[]> {
   try {
     const rows = await q<{ year: string; title: string; image_id: string | null; image_url: string }>(
       "SELECT year, title, image_id, image_url FROM awards WHERE is_active = true ORDER BY sort_order ASC, created_at ASC"
@@ -241,7 +242,7 @@ export type BannerView = {
 
 /** Homepage banners, server-side, so the hero headline ships in the HTML
     instead of waiting on hydration plus a round trip to the database. */
-export async function getBanners(): Promise<BannerView[]> {
+async function readBanners(): Promise<BannerView[]> {
   try {
     return await q<BannerView>(`
       SELECT
@@ -268,7 +269,7 @@ export type LeaderView = {
 
 /** Leadership team, server-side. Rendering the hardcoded fallback first and
     swapping after a client fetch flashed placeholder people at visitors. */
-export async function getLeaders(): Promise<LeaderView[]> {
+async function readLeaders(): Promise<LeaderView[]> {
   try {
     const rows = await q<LeaderView>(
       "SELECT id, name, title, bio, linkedin_url, photo_id, photo_url FROM leaders WHERE is_active = true ORDER BY sort_order ASC, created_at ASC"
@@ -288,7 +289,7 @@ export type CaseStudyView = {
 };
 
 /** Case studies. Empty until real, client-approved material is added. */
-export async function getCaseStudies(): Promise<CaseStudyView[]> {
+async function readCaseStudies(): Promise<CaseStudyView[]> {
   try {
     const rows = await q<{
       slug: string; title: string; client: string; industry: string; challenge: string;
@@ -312,7 +313,7 @@ export type TestimonialView = {
 };
 
 /** Testimonials by kind — 'client' or 'candidate'. Empty until supplied. */
-export async function getTestimonials(kind: "client" | "candidate"): Promise<TestimonialView[]> {
+async function readTestimonials(kind: "client" | "candidate"): Promise<TestimonialView[]> {
   try {
     const rows = await q<{
       quote: string; person: string; title: string; organization: string;
@@ -329,7 +330,7 @@ export async function getTestimonials(kind: "client" | "candidate"): Promise<Tes
 }
 
 /** Simple key/value copy (About Us etc.), with defaults. */
-export async function getCopy(defaults: Record<string, string>): Promise<Record<string, string>> {
+async function readCopy(defaults: Record<string, string>): Promise<Record<string, string>> {
   const out = { ...defaults };
   try {
     const rows = await q<{ key: string; value: string }>("SELECT key, value FROM content");
@@ -337,3 +338,29 @@ export async function getCopy(defaults: Record<string, string>): Promise<Record<
   } catch { /* ignore */ }
   return out;
 }
+
+/* ------------------------------------------------------------------ *
+ * Per-request deduplication.
+ *
+ * These are read from more than one place in a single render — getPartners()
+ * alone is called by both the footer and the partner strip, so a page carrying
+ * both issued the identical query twice. React's cache() collapses repeat calls
+ * within one request to a single execution.
+ *
+ * This is deliberately not `unstable_cache` or `use cache`: the first is
+ * replaced in Next 16, and the second needs `cacheComponents`, which changes
+ * how the whole app treats dynamic reads. Across requests the page-level
+ * `revalidate` already does the caching. This layer costs nothing and changes
+ * no behaviour.
+ * ------------------------------------------------------------------ */
+
+export const getPartners = cache(readPartners);
+export const getOffices = cache(readOffices);
+export const getPractices = cache(readPractices);
+export const getStaffing = cache(readStaffing);
+export const getAwards = cache(readAwards);
+export const getBanners = cache(readBanners);
+export const getLeaders = cache(readLeaders);
+export const getCaseStudies = cache(readCaseStudies);
+export const getTestimonials = cache(readTestimonials);
+export const getCopy = cache(readCopy);

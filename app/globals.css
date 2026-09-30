@@ -322,3 +322,67 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.5); }
 }
 .shadow-card { box-shadow: var(--card-shadow); transition: box-shadow .4s cubic-bezier(.22,1,.36,1); }
 .shadow-card:hover { box-shadow: var(--card-shadow-hover); }
+
+/* ---- Primary call to action -------------------------------------------
+   A class rather than a component: the site has these buttons written as
+   links, submits and anchors in a dozen files, and one class upgrades all of
+   them without rewriting the markup around each.
+
+   Three layers, none of which touch layout: a sheen that sweeps across on
+   hover, an aura that blooms behind the shape, and a one-pixel lift. `isolate`
+   keeps the pseudo-elements from escaping a card's own stacking context. */
+.btn-cta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transform: translateY(0);
+  transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s cubic-bezier(.22,1,.36,1), background-color .2s;
+  box-shadow: 0 10px 26px -14px color-mix(in oklab, var(--color-brand) 85%, transparent);
+}
+.btn-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -60%;
+  width: 45%;
+  z-index: -1;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.34), transparent);
+  transform: skewX(-18deg);
+  transition: transform .75s cubic-bezier(.22,1,.36,1);
+}
+.btn-cta:hover::before { transform: skewX(-18deg) translateX(340%); }
+.btn-cta::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  z-index: -2;
+  border-radius: inherit;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--color-brand-bright) 70%, transparent), transparent 70%);
+  opacity: 0;
+  transform: scale(.7);
+  transition: opacity .45s ease, transform .45s cubic-bezier(.22,1,.36,1);
+}
+.btn-cta:hover::after { opacity: .55; transform: scale(1); }
+.btn-cta:hover { transform: translateY(-2px); box-shadow: 0 18px 40px -16px color-mix(in oklab, var(--color-brand) 95%, transparent); }
+.btn-cta:active { transform: translateY(0); transition-duration: .08s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-cta, .btn-cta::before, .btn-cta::after { transition: none; }
+  .btn-cta:hover { transform: none; }
+  .btn-cta:hover::before { transform: skewX(-18deg); }
+}
+
+/* A click has to be felt before the navigation resolves, or the reader assumes
+   it missed and clicks again. This fires on pointer-down, needs no JavaScript,
+   and works before React has even hydrated. */
+.card-lift:active, .card-3d:active, a.btn-cta:active, button.btn-cta:active {
+  transform: scale(0.988);
+  transition-duration: .08s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-lift:active, .card-3d:active { transform: none; }
+}
+
+/* Horizontal card rails: the swipe is the affordance, the bar is not. */
+.scrollbar-none { scrollbar-width: none; -ms-overflow-style: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }

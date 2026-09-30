@@ -8,6 +8,10 @@ import FactStrip from "@/components/FactStrip";
 import { ALL_VEHICLES, getVehicle, type Vehicle } from "@/lib/contracts";
 import { PRISM_TEXT } from "@/lib/data";
 
+/* ISR: rendered once and reused for a minute, so a click is not waiting
+   on a database round trip. */
+export const revalidate = 60;
+
 const PRISM_BG = ["bg-prism-red", "bg-brand", "bg-prism-amber", "bg-prism-green", "bg-prism-blue", "bg-prism-violet"];
 
 export async function generateStaticParams() {

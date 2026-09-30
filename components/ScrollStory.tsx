@@ -100,7 +100,7 @@ export default function ScrollStory({
         <div className="grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-20">
           {/* Sticky visual */}
           <div className="hidden lg:block">
-            <div className="sticky top-28 h-[68vh] scene">
+            <div className="sticky top-28 h-[56vh] scene">
               <AnimatePresence mode="popLayout">
                 <motion.div
                   key={active}
@@ -151,7 +151,7 @@ export default function ScrollStory({
                 key={i}
                 data-idx={i}
                 ref={(el) => { refs.current[i] = el; }}
-                className="min-h-[60vh] lg:min-h-[68vh] flex flex-col justify-center py-10"
+                className="min-h-[44vh] lg:min-h-[50vh] flex flex-col justify-center py-8"
               >
                 {/* mobile visual */}
                 <div className="lg:hidden mb-6 rounded-2xl overflow-hidden border border-line aspect-[4/3] relative">

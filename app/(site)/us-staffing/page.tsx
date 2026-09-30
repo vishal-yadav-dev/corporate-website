@@ -12,6 +12,10 @@ import { STAFFING_STATS, PRISM_TEXT } from "@/lib/data";
 const PRISM_BG = ["bg-prism-red", "bg-brand", "bg-prism-amber", "bg-prism-green", "bg-prism-blue", "bg-prism-violet"];
 import { getStaffing } from "@/lib/site";
 
+/* ISR: rendered once and reused for a minute, so a click is not waiting
+   on a database round trip. */
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Services",
   description:
@@ -128,7 +132,7 @@ export default async function UsStaffingPage() {
               </p>
               <Link
                 href="/contact"
-                className="mt-8 inline-flex items-center gap-2 bg-brand text-white px-7 py-3.5 rounded-full font-medium hover:bg-brand-deep transition-colors"
+                className="mt-8 inline-flex items-center gap-2 btn-cta bg-brand text-white px-7 py-3.5 rounded-full font-medium hover:bg-brand-deep transition-colors"
               >
                 Start a staffing request →
               </Link>

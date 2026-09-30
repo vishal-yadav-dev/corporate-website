@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { CV_MAX_BYTES } from "@/lib/jobs";
 
-export default function ApplyForm({ jobId, jobTitle }: { jobId: string; jobTitle: string }) {
+export default function ApplyForm({ jobId, jobTitle }: { jobId?: string; jobTitle?: string }) {
   const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">("idle");
   const [err, setErr] = useState("");
   const [form, setForm] = useState({
@@ -27,7 +27,7 @@ export default function ApplyForm({ jobId, jobTitle }: { jobId: string; jobTitle
 
     setStatus("loading");
     const fd = new FormData();
-    fd.set("job_id", jobId);
+    if (jobId) fd.set("job_id", jobId);
     Object.entries(form).forEach(([k, v]) => fd.set(k, v));
     fd.set("cv", cv);
 
@@ -45,10 +45,11 @@ export default function ApplyForm({ jobId, jobTitle }: { jobId: string; jobTitle
   if (status === "sent") {
     return (
       <div className="bg-paper border border-line rounded-3xl p-10 sm:p-14 text-center">
-        <div className="mx-auto h-14 w-14 grid place-items-center rounded-full bg-brand text-white text-2xl mb-6">✓</div>
+        <div className="mx-auto h-14 w-14 grid place-items-center rounded-full btn-cta bg-brand text-white text-2xl mb-6">✓</div>
         <h3 className="display text-3xl text-ink">Application received.</h3>
         <p className="mt-3 text-graphite max-w-sm mx-auto">
-          Thanks, {form.name.split(" ")[0]}. Our talent team will review your CV for {jobTitle} and be in touch.
+          Thanks, {form.name.split(" ")[0]}. Our talent team will review your CV
+          {jobTitle ? ` for ${jobTitle}` : ""} and be in touch.
         </p>
       </div>
     );
@@ -86,7 +87,7 @@ export default function ApplyForm({ jobId, jobTitle }: { jobId: string; jobTitle
         <input className={field} value={form.linkedin_url} onChange={(e) => set("linkedin_url", e.target.value)} placeholder="https://linkedin.com/in/…" />
       </div>
       <div>
-        <label className="mono-label text-graphite block mb-2">CV / Résumé <span className="text-graphite/50">— PDF or Word, max 10MB</span></label>
+        <label className="mono-label text-graphite block mb-2">CV / Resume <span className="text-graphite/50">— PDF or Word, max 10MB</span></label>
         <input
           type="file"
           accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
@@ -102,7 +103,7 @@ export default function ApplyForm({ jobId, jobTitle }: { jobId: string; jobTitle
 
       {status === "error" && <p className="text-sm text-accent-deep">{err}</p>}
 
-      <button type="submit" disabled={!valid || status === "loading"} className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand text-white px-8 py-3.5 rounded-full font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-brand-deep transition-colors">
+      <button type="submit" disabled={!valid || status === "loading"} className="w-full sm:w-auto inline-flex items-center justify-center gap-2 btn-cta bg-brand text-white px-8 py-3.5 rounded-full font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-brand-deep transition-colors">
         {status === "loading" ? "Submitting…" : "Submit application →"}
       </button>
     </form>

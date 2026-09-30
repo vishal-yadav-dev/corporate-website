@@ -80,7 +80,7 @@ function LeaderModal({ leader, onClose }: { leader: Leader; onClose: () => void 
           {leader.linkedin_url && (
             <a
               href={leader.linkedin_url} target="_blank" rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 bg-brand text-white px-5 py-2.5 rounded-full font-medium hover:bg-brand-deep transition-colors"
+              className="mt-6 inline-flex items-center gap-2 btn-cta bg-brand text-white px-5 py-2.5 rounded-full font-medium hover:bg-brand-deep transition-colors"
             >
               Connect on LinkedIn →
             </a>

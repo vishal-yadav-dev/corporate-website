@@ -3,9 +3,14 @@ import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import CtaBanner from "@/components/CtaBanner";
 import Reveal from "@/components/Reveal";
+import ConstellationField from "@/components/ConstellationField";
 import { INDUSTRIES, PRISM_TEXT } from "@/lib/data";
 
 const PRISM_BG = ["bg-prism-red", "bg-brand", "bg-prism-amber", "bg-prism-green", "bg-prism-blue", "bg-prism-violet"];
+
+/* ISR: rendered once and reused for a minute, so a click is not waiting
+   on a database round trip. */
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Industries",
@@ -21,8 +26,10 @@ export default function IndustriesPage() {
         title="Technology shaped by your industry."
         intro="Every industry has different operating models, regulatory environments, technology challenges, and business priorities. Our solutions are designed around those realities."
       />
-      <section className="relative z-10 bg-surface pt-16 sm:pt-24 pb-24 sm:pb-32">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8 space-y-6 scene" style={{ perspective: 1400 }}>
+      <section className="relative z-10 bg-surface pt-16 sm:pt-24 pb-24 sm:pb-32 overflow-hidden">
+        <ConstellationField />
+        {/* positioned, so the cards paint over the field rather than under it */}
+        <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8 space-y-6 scene" style={{ perspective: 1400 }}>
           {INDUSTRIES.map((ind, i) => (
             <Reveal key={ind.id} delay={0.03}>
               <div
