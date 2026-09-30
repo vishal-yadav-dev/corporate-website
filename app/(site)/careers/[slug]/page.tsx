@@ -6,6 +6,10 @@ import ApplyForm from "@/components/ApplyForm";
 import { one } from "@/lib/db";
 import { toBullets, type Job } from "@/lib/jobs";
 
+/* ISR: rendered once and reused for a minute, so a click is not waiting
+   on a database round trip. */
+export const revalidate = 60;
+
 async function getJob(slug: string) {
   return one<Job>("SELECT * FROM jobs WHERE slug = $1 AND status = 'published'", [slug]);
 }

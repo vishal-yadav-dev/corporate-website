@@ -370,3 +370,19 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.5); }
   .btn-cta:hover { transform: none; }
   .btn-cta:hover::before { transform: skewX(-18deg); }
 }
+
+/* A click has to be felt before the navigation resolves, or the reader assumes
+   it missed and clicks again. This fires on pointer-down, needs no JavaScript,
+   and works before React has even hydrated. */
+.card-lift:active, .card-3d:active, a.btn-cta:active, button.btn-cta:active {
+  transform: scale(0.988);
+  transition-duration: .08s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-lift:active, .card-3d:active { transform: none; }
+}
+
+/* Horizontal card rails: the swipe is the affordance, the bar is not. */
+.scrollbar-none { scrollbar-width: none; -ms-overflow-style: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }

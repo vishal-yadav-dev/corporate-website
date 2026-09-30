@@ -6,6 +6,10 @@ import PartnerStrip from "@/components/PartnerStrip";
 import SectionBackdrop from "@/components/SectionBackdrop";
 import { getOffices } from "@/lib/site";
 
+/* ISR: rendered once and reused for a minute, so a click is not waiting
+   on a database round trip. */
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Contact",
   description: "Start a conversation with Testsoft Technologies. Offices in Texas, Monterrey, Visakhapatnam, and Noida.",

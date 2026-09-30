@@ -2,11 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
+import LinkPending from "@/components/LinkPending";
 import PartnerStrip from "@/components/PartnerStrip";
 import CtaBanner from "@/components/CtaBanner";
 import ScrollStory from "@/components/ScrollStory";
 import VantaBg from "@/components/VantaBg";
 import { getPractices } from "@/lib/site";
+
+/* ISR: rendered once and reused for a minute, so a click is not waiting
+   on a database round trip. */
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Practices",
@@ -110,6 +115,7 @@ export default async function PracticesPage() {
                     {/* The same wording the industry and solution cards use. */}
                     <span className="mt-7 inline-flex items-center gap-2 mono-label text-accent-deep group-hover:text-brand transition-colors">
                       Explore {p.name}
+                      <LinkPending />
                       <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                     </span>
                   </div>

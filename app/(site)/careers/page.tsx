@@ -10,6 +10,10 @@ import { BENEFITS, PRISM_TEXT } from "@/lib/data";
 
 const PRISM_BG = ["bg-prism-red", "bg-brand", "bg-prism-amber", "bg-prism-green", "bg-prism-blue", "bg-prism-violet"];
 
+/* ISR: rendered once and reused for a minute, so a click is not waiting
+   on a database round trip. */
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Careers",
   description: "Build enterprise software that matters. Explore open roles across Salesforce, SAP, Oracle, Infor, Workday, and MuleSoft.",

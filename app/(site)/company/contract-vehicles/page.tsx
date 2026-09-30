@@ -8,6 +8,10 @@ import ProcurementRail from "@/components/ProcurementRail";
 import { VEHICLE_GROUPS, BUY_STEPS, CERTIFICATIONS } from "@/lib/contracts";
 import { PRISM_TEXT } from "@/lib/data";
 
+/* ISR: rendered once and reused for a minute, so a click is not waiting
+   on a database round trip. */
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Government Contract Vehicles",
   description:

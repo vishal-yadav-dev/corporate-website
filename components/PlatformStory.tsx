@@ -87,13 +87,13 @@ export default function PlatformStory({
 
       {/* ---- Scrolling cards (overlap the pinned bg) ---- */}
       <div className="relative z-10 -mt-[100vh]">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8 pt-[34vh] pb-[14vh] space-y-10 sm:space-y-14 scene" style={{ perspective: 1600 }}>
+        <div className="mx-auto max-w-[1400px] px-5 sm:px-8 pt-[26vh] pb-[8vh] space-y-6 sm:space-y-8 scene" style={{ perspective: 1600 }}>
           {items.map((it, i) => (
             <PlatformCard key={it.id} even={i % 2 === 0}>
               <Link
                 id={it.id}
                 href={standalone ? `#${it.id}` : `/practices#${it.id}`}
-                className="card-3d group block rounded-[28px] p-8 sm:p-12 relative overflow-hidden bg-surface/95 backdrop-blur-xl border border-line-blue/60 shadow-[0_40px_100px_-30px_rgba(0,0,0,0.9)] scroll-mt-28"
+                className="card-3d group block rounded-[28px] p-7 sm:p-9 relative overflow-hidden bg-surface/95 backdrop-blur-xl border border-line-blue/60 shadow-[0_40px_100px_-30px_rgba(0,0,0,0.9)] scroll-mt-28"
               >
                 <div className="pointer-events-none absolute -right-24 -bottom-24 h-72 w-72 rounded-full bg-brand/10 blur-[110px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative">
@@ -107,7 +107,7 @@ export default function PlatformStory({
                       <img src={it.logo} alt={`${it.name} logo`} className="h-7 w-auto max-w-[150px] object-contain" />
                     </span>
                   )}
-                  <h3 className="display text-4xl sm:text-6xl text-ink">{it.name}</h3>
+                  <h3 className="display text-3xl sm:text-5xl text-ink">{it.name}</h3>
                   <p className="mt-3 text-accent-deep">{it.tag}</p>
                   <p className="mt-5 text-ink/70 leading-relaxed max-w-xl">{it.body}</p>
                   <div className="mt-7 flex flex-wrap gap-2">
