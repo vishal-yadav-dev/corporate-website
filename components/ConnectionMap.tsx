@@ -30,24 +30,24 @@ const MASK =
 const GW = 180;
 const GH = 90;
 
-export type Place = { label: string; lat: number; lon: number; color: string };
+export type Place = { label: string; country: string; lat: number; lon: number; color: string };
 
 /* One prism colour each, so the four read apart at a glance rather than as
    four identical orange pins. */
 const OFFICES: Place[] = [
-  { label: "Texas", lat: 32.78, lon: -96.8, color: "#F1531E" },
-  { label: "Monterrey", lat: 25.69, lon: -100.32, color: "#F5A623" },
-  { label: "Noida", lat: 28.54, lon: 77.39, color: "#27B36B" },
-  { label: "Visakhapatnam", lat: 17.69, lon: 83.22, color: "#2F97DB" },
+  { label: "Texas", country: "USA", lat: 32.78, lon: -96.8, color: "#F1531E" },
+  { label: "North York", country: "Canada", lat: 43.77, lon: -79.41, color: "#7E5BE6" },
+  { label: "Monterrey", country: "Mexico", lat: 25.69, lon: -100.32, color: "#F5A623" },
+  { label: "Noida", country: "India", lat: 28.54, lon: 77.39, color: "#27B36B" },
+  { label: "Visakhapatnam", country: "India", lat: 17.69, lon: 83.22, color: "#2F97DB" },
 ];
 
-/* Every link starts at the first office — it is the headquarters. */
-const LINKS: [number, number][] = [
-  [0, 1],
-  [0, 2],
-  [0, 3],
-  [2, 3],
-];
+/* Every office joined to every other, not a star out of one. Ten links across
+   five offices, each carrying its own pulse on its own phase, so there is
+   always traffic somewhere on the map and no two runs start together. */
+const LINKS: [number, number][] = OFFICES.flatMap((_, i) =>
+  OFFICES.slice(i + 1).map((_, j): [number, number] => [i, i + 1 + j])
+);
 
 function decode(b64: string) {
   const bin = atob(b64);
@@ -178,7 +178,7 @@ export default function ConnectionMap() {
         /* a link touching the lit office brightens with it */
         const hot = Math.max(lit[a], lit[b]);
         const hue = OFFICES[b].color;
-        ctx.globalAlpha = (light ? 0.38 : 0.30) + hot * 0.5;
+        ctx.globalAlpha = (light ? 0.26 : 0.20) + hot * 0.55;
         ctx.strokeStyle = hue;
         ctx.lineWidth = 1 + hot * 1.2;
         ctx.beginPath();
@@ -187,7 +187,7 @@ export default function ConnectionMap() {
         ctx.stroke();
 
         /* the pulse: offset per link so they never travel together */
-        const k = (time * (0.32 + hot * 0.5) + i * 0.27) % 1;
+        const k = (time * (0.3 + hot * 0.5) + i / LINKS.length) % 1;
         for (let s = 0; s < 7; s++) {
           const u = k - s * 0.018;
           if (u < 0 || u > 1) continue;
@@ -197,7 +197,7 @@ export default function ConnectionMap() {
           ctx.globalAlpha = (1 - s / 7) * 0.9;
           ctx.fillStyle = hue;
           ctx.beginPath();
-          ctx.arc(x, y, (2.4 + hot * 1.4) - s * 0.25, 0, Math.PI * 2);
+          ctx.arc(x, y, (3.1 + hot * 1.6) - s * 0.32, 0, Math.PI * 2);
           ctx.fill();
         }
       });
@@ -209,30 +209,30 @@ export default function ConnectionMap() {
         const phase = (time * (0.7 + g * 0.6) + i * 0.5) % 1;
         ctx.globalAlpha = (1 - phase) * ((light ? 0.7 : 0.55) + g * 0.35);
         ctx.strokeStyle = hue;
-        ctx.lineWidth = 1.2 + g;
+        ctx.lineWidth = 1.7 + g * 1.4;
         ctx.beginPath();
-        ctx.arc(q.x, q.y, 4 + phase * (16 + g * 14), 0, Math.PI * 2);
+        ctx.arc(q.x, q.y, 6 + phase * (22 + g * 16), 0, Math.PI * 2);
         ctx.stroke();
 
         ctx.globalAlpha = 0.95;
         ctx.fillStyle = hue;
         ctx.beginPath();
-        ctx.arc(q.x, q.y, 3.2 + g * 2.4, 0, Math.PI * 2);
+        ctx.arc(q.x, q.y, 5.4 + g * 3, 0, Math.PI * 2);
         ctx.fill();
         ctx.globalAlpha = 0.9;
         ctx.fillStyle = light ? "#FFFFFF" : "#FFFFFF";
         ctx.beginPath();
-        ctx.arc(q.x, q.y, 1.2 + g * 0.8, 0, Math.PI * 2);
+        ctx.arc(q.x, q.y, 2.1 + g * 1.1, 0, Math.PI * 2);
         ctx.fill();
 
         /* the name, once the office is lit enough to be worth reading */
         if (g > 0.05) {
-          const label = OFFICES[i].label.toUpperCase();
+          const label = `${OFFICES[i].label} · ${OFFICES[i].country}`.toUpperCase();
           ctx.font = "600 11px ui-monospace, SFMono-Regular, Menlo, monospace";
           ctx.textBaseline = "middle";
           const tw = ctx.measureText(label).width;
-          const lx = q.x + 14;
-          const ly = q.y - 14;
+          const lx = q.x + 18;
+          const ly = q.y - 18;
           ctx.globalAlpha = g * 0.85;
           ctx.fillStyle = PLATE;
           ctx.beginPath();
