@@ -1,7 +1,7 @@
 "use client";
 
 import Wordmark from "@/components/Wordmark";
-import { useState, useEffect } from "react";
+import { Fragment, useState, useEffect } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { NAV } from "@/lib/data";
@@ -56,21 +56,36 @@ export default function Nav() {
                       }`}
                     >
                       {item.groups ? (
-                        <div className="flex gap-8 xl:gap-10 bg-surface border border-line rounded-2xl p-6 shadow-xl shadow-brand/5">
+                        /* A grid of two rows, not a row of columns: the headers
+                           all sit in the first row, so that row is as tall as
+                           the tallest of them and every underline lands on the
+                           same line. Columns each sized their own header before,
+                           and a title that wrapped to two lines dropped its rule
+                           below the others. */
+                        <div
+                          className="relative overflow-hidden grid grid-flow-col auto-cols-[minmax(215px,1fr)] xl:auto-cols-[minmax(248px,1fr)] gap-x-8 xl:gap-x-10 gap-y-0 bg-surface border border-line rounded-2xl p-6 shadow-xl shadow-brand/5"
+                          style={{ gridTemplateRows: "auto 1fr" }}
+                        >
+                          {/* a little colour under the panel so it is not a flat
+                              slab; both ride --wash, so they hold up on white */}
+                          <span aria-hidden className="prism-wash pointer-events-none absolute -left-16 -top-16 h-56 w-56 rounded-full bg-prism-blue blur-[80px]" />
+                          <span aria-hidden className="prism-wash pointer-events-none absolute -right-20 -bottom-20 h-56 w-56 rounded-full bg-prism-violet blur-[80px]" />
                           {item.groups.map((g) => (
-                            <div key={g.title} className="min-w-[205px] xl:min-w-[230px]">
-                              <p className="mono-label text-accent-deep px-3 pb-3 border-b border-line mb-2">{g.title}</p>
-                              {g.items.map((c) => (
-                                <Link
-                                  key={c.label}
-                                  href={c.href}
-                                  className="group/i flex items-center justify-between gap-4 px-3 py-2 text-sm text-ink/70 hover:text-brand hover:bg-paper-tint rounded-lg transition-colors"
-                                >
-                                  {c.label}
-                                  <span className="opacity-0 -translate-x-1 group-hover/i:opacity-100 group-hover/i:translate-x-0 transition-all duration-200">→</span>
-                                </Link>
-                              ))}
-                            </div>
+                            <Fragment key={g.title}>
+                              <p className="relative menu-group-label text-accent-deep px-3 pb-2.5 border-b border-line self-end">{g.title}</p>
+                              <div className="relative pt-2">
+                                {g.items.map((c) => (
+                                  <Link
+                                    key={c.label}
+                                    href={c.href}
+                                    className="group/i flex items-center justify-between gap-4 px-3 py-2 text-sm text-ink/70 hover:text-brand hover:bg-paper-tint rounded-lg transition-colors"
+                                  >
+                                    {c.label}
+                                    <span className="opacity-0 -translate-x-1 group-hover/i:opacity-100 group-hover/i:translate-x-0 transition-all duration-200">→</span>
+                                  </Link>
+                                ))}
+                              </div>
+                            </Fragment>
                           ))}
                         </div>
                       ) : (

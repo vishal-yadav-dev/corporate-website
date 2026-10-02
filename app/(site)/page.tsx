@@ -32,7 +32,7 @@ export default async function Home() {
       <Hero initialBanners={BANNERS} />
 
       {/* Metrics */}
-      <section className="relative z-10 py-20 sm:py-28">
+      <section className="relative z-10 py-12 sm:py-16">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-line-blue border border-line-blue rounded-2xl overflow-hidden surface-card">
             {METRICS.map((m, i) => (
@@ -49,9 +49,9 @@ export default async function Home() {
           each platform to say its name and one line. The same five now read
           left to right in a single band, and the page they lead to carries the
           detail. */}
-      <section className="relative z-10 py-20 sm:py-28">
+      <section className="relative z-10 py-12 sm:py-16">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
-          <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
+          <div className="mb-8 flex flex-wrap items-end justify-between gap-6">
             <div>
               <Reveal delay={0.05}>
                 <p className="mono-label text-accent-deep mb-4">Practices</p>
@@ -84,31 +84,42 @@ export default async function Home() {
             <div className="flex gap-4 px-5 sm:px-8 lg:px-0 lg:grid lg:grid-cols-5">
               {PRACTICES.slice(0, 5).map((it, i) => (
                 <Reveal key={it.id} delay={i * 0.06} className="w-[72vw] shrink-0 sm:w-[46vw] lg:w-auto">
-                  <Link
-                    href={`/practices/${it.id}`}
-                    className="card-lift group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface p-6 hover:border-brand/50"
-                  >
-                    <span
-                      aria-hidden
-                      className={`prism-wash pointer-events-none absolute -right-14 -top-14 h-40 w-40 rounded-full ${PRISM_BG[i % 6]} blur-[70px] transition-opacity duration-500 group-hover:opacity-40`}
-                    />
-                    {it.logo ? (
-                      <span className="relative inline-grid h-11 w-fit place-items-center rounded-lg bg-white px-3 ring-1 ring-black/5">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={it.logo} alt="" className="h-6 w-auto max-w-[104px] object-contain" />
-                      </span>
-                    ) : (
-                      <span className={`prism-rule relative ${PRISM_BG[i % 6]}`} />
-                    )}
-                    <h3 className="relative display text-2xl text-ink mt-5 group-hover:text-brand transition-colors">
-                      {it.name}
-                    </h3>
-                    <p className="relative mt-2 text-sm text-accent-deep">{it.tag}</p>
-                    <span className="relative mt-5 inline-flex items-center gap-2 mono-label text-graphite group-hover:text-brand transition-colors">
-                      Explore
-                      <LinkPending />
-                      <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-                    </span>
+                  <Link href={`/practices/${it.id}`} className="flip group block h-full">
+                    <div className="flip-inner h-full min-h-[232px]">
+                      {/* front */}
+                      <div className="flip-face card-lift overflow-hidden rounded-2xl border border-line bg-surface p-6">
+                        <span
+                          aria-hidden
+                          className={`prism-wash pointer-events-none absolute -right-14 -top-14 h-40 w-40 rounded-full ${PRISM_BG[i % 6]} blur-[70px]`}
+                        />
+                        {it.logo ? (
+                          <span className="relative inline-grid h-11 w-fit place-items-center rounded-lg bg-white px-3 ring-1 ring-black/5">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={it.logo} alt="" className="h-6 w-auto max-w-[104px] object-contain" />
+                          </span>
+                        ) : (
+                          <span className={`prism-rule relative ${PRISM_BG[i % 6]}`} />
+                        )}
+                        <h3 className="relative display text-2xl text-ink mt-5">{it.name}</h3>
+                        <p className="relative mt-2 text-sm text-accent-deep">{it.tag}</p>
+                      </div>
+
+                      {/* back */}
+                      <div className={`flip-face flip-back overflow-hidden rounded-2xl border border-brand/50 bg-surface p-6 flex flex-col`}>
+                        <span
+                          aria-hidden
+                          className={`prism-wash-lg pointer-events-none absolute -left-16 -bottom-16 h-44 w-44 rounded-full ${PRISM_BG[i % 6]} blur-[70px]`}
+                        />
+                        <p className="relative mono-label text-accent-deep">{it.name}</p>
+                        {/* three lines at this width; the rest is on the page it opens */}
+                        <p className="relative mt-3 text-sm text-ink/80 leading-relaxed line-clamp-4">{it.body}</p>
+                        <span className="relative mt-auto pt-4 inline-flex items-center gap-2 mono-label text-brand">
+                          Explore
+                          <LinkPending />
+                          <span aria-hidden>→</span>
+                        </span>
+                      </div>
+                    </div>
                   </Link>
                 </Reveal>
               ))}
@@ -119,13 +130,33 @@ export default async function Home() {
 
       {/* Industries — brand tint band */}
       {/* SLED spotlight — the segment the business most wants to win work in */}
-      <section className="relative z-10 bg-paper-tint/55 py-20 sm:py-28">
+      <section className="relative z-10 bg-paper-tint/55 py-12 sm:py-16">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
           <Reveal>
             <div className="relative overflow-hidden rounded-[28px] border border-line-blue/60 bg-surface p-8 sm:p-14">
-              <span aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-accent/15 blur-[110px]" />
-              <div className="relative grid lg:grid-cols-[1.15fr_0.85fr] gap-10 lg:gap-16 items-center">
-                <div>
+              {/* The footage is the card's own background, bled to all four
+                  edges and dissolved into the surface — it has no frame, no
+                  border and no corners of its own, so it reads as part of the
+                  panel rather than as a video dropped into it. */}
+              <video
+                className="media-footage pointer-events-none absolute inset-0 h-full w-full object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="none"
+                aria-hidden
+              >
+                <source src="/videos/sled.mp4" type="video/mp4" />
+              </video>
+              {/* Two passes: one along the card so the copy side is solid and the
+                  footage survives on the right, one down it so the top edge is
+                  never a hard cut. */}
+              <span aria-hidden className="veil-x pointer-events-none absolute inset-0" />
+              <span aria-hidden className="veil-y pointer-events-none absolute inset-0" />
+              <span aria-hidden className="prism-wash pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-accent blur-[110px]" />
+              <div className="relative">
+                <div className="max-w-2xl">
                   <Reveal delay={0.05}>
                     <p className="mono-label text-accent-deep mb-4">State, Local &amp; Education</p>
                   </Reveal>
@@ -156,19 +187,6 @@ export default async function Home() {
                     </Link>
                   </div>
                 </div>
-                <dl className="grid grid-cols-2 gap-px bg-line-blue border border-line-blue rounded-2xl overflow-hidden">
-                  {[
-                    { k: "MBE", v: "Certified Minority Business Enterprise" },
-                    { k: "50", v: "States with payroll and compliance coverage" },
-                    { k: "6", v: "Industries with dedicated capability" },
-                    { k: "13", v: "Technology practices to draw from" },
-                  ].map((x, i) => (
-                    <Reveal key={x.k} delay={0.55 + i * 0.08} className="bg-surface p-6">
-                      <CountUp value={x.k} className={`display text-3xl sm:text-4xl ${PRISM_TEXT[i % 6]}`} />
-                      <dd className="mt-2 text-xs text-graphite leading-relaxed">{x.v}</dd>
-                    </Reveal>
-                  ))}
-                </dl>
               </div>
             </div>
           </Reveal>
@@ -178,9 +196,9 @@ export default async function Home() {
       {/* Workforce solutions. This listed all twelve as cards, which cost four
           rows of scrolling to say something the two group names already say.
           It now sends the reader to the page that holds them. */}
-      <section className="relative z-10 py-24 sm:py-32">
+      <section className="relative z-10 py-12 sm:py-16">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
-          <div className="mb-14">
+          <div className="mb-8">
             <Reveal delay={0.05}>
               <p className="mono-label text-accent-deep mb-4">Technology Workforce Solutions</p>
             </Reveal>
@@ -258,7 +276,7 @@ export default async function Home() {
           "Explore SLED", so listing all five again as full rows repeated a
           section the reader had just passed. One band, every industry still one
           click away. */}
-      <section className="relative z-10 bg-paper-tint py-20 sm:py-24">
+      <section className="relative z-10 bg-paper-tint py-12 sm:py-16">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
           <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16 lg:items-center">
             <Reveal>

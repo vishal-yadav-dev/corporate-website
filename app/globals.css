@@ -386,3 +386,100 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.5); }
 /* Horizontal card rails: the swipe is the affordance, the bar is not. */
 .scrollbar-none { scrollbar-width: none; -ms-overflow-style: none; }
 .scrollbar-none::-webkit-scrollbar { display: none; }
+
+/* ---- Veils over background footage ------------------------------------
+   The same overlay cannot serve both themes. It is painted in `surface`, which
+   is near-black in dark mode and near-white in light mode — so an 85% veil
+   that merely dims the footage on dark all but erases it on light.
+
+   The copy side has to stay solid either way, because the text sits on it. It
+   is the open side that differs: dark mode can afford a heavier veil there and
+   still read, light mode has to pull almost all of it away. */
+:root { --veil-mid: 85%; --veil-end: 20%; --veil-top: 80%; --veil-bottom: 90%; }
+:root[data-theme="light"] { --veil-mid: 72%; --veil-end: 0%; --veil-top: 42%; --veil-bottom: 50%; }
+
+/* Background footage, graded per theme.
+
+   Pulling the veil back was not enough on light. This particular clip is a
+   white marble building under a white winter sky — on a near-white card it has
+   almost nothing to separate it, however little veil sits on top. So on light
+   the footage itself is graded: contrast and saturation up to give the stone an
+   edge, brightness down so the sky stops merging into the card. Dark mode needs
+   none of this; the card is already the opposite of the picture. */
+.media-footage { filter: none; }
+:root[data-theme="light"] .media-footage {
+  filter: contrast(1.28) saturate(1.35) brightness(0.88);
+}
+
+.veil-x {
+  background: linear-gradient(
+    to right,
+    var(--color-surface) 0%,
+    color-mix(in oklab, var(--color-surface) var(--veil-mid), transparent) 52%,
+    color-mix(in oklab, var(--color-surface) var(--veil-end), transparent) 100%
+  );
+}
+.veil-y {
+  background: linear-gradient(
+    to bottom,
+    color-mix(in oklab, var(--color-surface) var(--veil-top), transparent) 0%,
+    transparent 42%,
+    color-mix(in oklab, var(--color-surface) var(--veil-bottom), transparent) 100%
+  );
+}
+
+/* Mega-menu column headers.
+
+   Not a bigger `.mono-label`: that class is the site's eyebrow and is on nearly
+   every section, so resizing it would move type everywhere. These headers sit
+   above a list and need to out-rank it, so they get their own size, weight and
+   a tighter track — wide letter-spacing at a larger size would push the column
+   wider than the items under it.
+
+   Declared here rather than as utilities because `.mono-label` is plain CSS
+   outside Tailwind's layers and would otherwise win on font-size. */
+.menu-group-label {
+  font-family: var(--font-mono), monospace;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  letter-spacing: 0.10em;
+  font-weight: 600;
+  /* These titles are near enough the same length that one wrapping and the
+     other not is pure accident — "TECHNOLOGY SOLUTIONS" is a character longer
+     than "WORKFORCE SOLUTIONS" and tips over the column width while the other
+     does not. Each header keeps its line and the column widens to suit, so the
+     set reads as one row of titles. */
+  white-space: nowrap;
+}
+
+/* ---- Hover flip cards --------------------------------------------------
+   The whole card is one link, so the face turned away holds no focusable
+   element — `backface-visibility` hides pixels, never tab order, and a hidden
+   button you can still Tab into is worse than no effect at all.
+
+   The turn is behind `(hover: hover)`. On a touch screen there is no hover to
+   reveal the back with, and a tap would both flip and navigate, so those
+   devices simply get the front — which already carries the name, the tag and
+   the call to action. */
+.flip { perspective: 1200px; }
+.flip-inner {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-back { transform: rotateY(180deg); }
+
+@media (hover: hover) {
+  .flip:hover .flip-inner,
+  .flip:focus-visible .flip-inner { transform: rotateY(180deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-inner { transition: none; }
+}
