@@ -156,7 +156,7 @@ const CASE_FIELDS: EditorField[] = [
 ];
 
 const TESTIMONIAL_FIELDS: EditorField[] = [
-  { key: "kind", label: "Kind", type: "text", placeholder: "client or candidate" },
+  { key: "kind", label: "Kind", type: "text", placeholder: "client = Client Testimonials, candidate = Employee Testimonials" },
   { key: "quote", label: "Quote", type: "textarea" },
   { key: "person", label: "Name or role", type: "text" },
   { key: "title", label: "Job title", type: "text" },
@@ -167,7 +167,25 @@ const TESTIMONIAL_FIELDS: EditorField[] = [
   { key: "is_active", label: "Visible", type: "checkbox" },
 ];
 
-const TABS = ["Partners & clients", "Offices", "Practices", "Services", "Case studies", "Testimonials", "Awards", "About Us"] as const;
+const BLOG_FIELDS: EditorField[] = [
+  { key: "title", label: "Title", type: "text", full: true },
+  { key: "tag", label: "Category", type: "text", placeholder: "Workforce, Technology, AI, Public Sector…" },
+  { key: "published_at", label: "Published", type: "text", placeholder: "2026-03-26 (YYYY-MM-DD)", help: "ISO date. The page prints it as 26 March 2026 and sorts newest first." },
+  { key: "author_name", label: "Author", type: "text" },
+  { key: "author_role", label: "Author role", type: "text" },
+  { key: "excerpt", label: "Card summary", type: "textarea", full: true, help: "One or two lines. Shown on the blog index and the homepage." },
+  { key: "image_url", label: "Image URL", type: "text", full: true, placeholder: "/insights/platform.jpg" },
+  { key: "image_alt", label: "Image description", type: "text", full: true, help: "What the picture shows, for screen readers." },
+  { key: "intro", label: "Opening paragraph", type: "textarea", full: true },
+  { key: "sections_json", label: "Body (JSON)", type: "textarea", full: true,
+    help: 'A list of sections: [{"heading":"…","paras":["…"],"list":["…"]}]. `list` is optional.' },
+  { key: "takeaways_json", label: "In short (JSON)", type: "textarea", full: true, help: 'A list of lines: ["…","…"]' },
+  { key: "accent", label: "Colour (0-5)", type: "number", help: "Which prism colour the post carries." },
+  { key: "sort_order", label: "Order", type: "number" },
+  { key: "is_active", label: "Published", type: "checkbox" },
+];
+
+const TABS = ["Partners & clients", "Offices", "Practices", "Services", "Case studies", "Testimonials", "Awards", "Blog", "About Us"] as const;
 
 function AboutEditor() {
   const [values, setValues] = useState<Record<string, string>>({});
@@ -282,10 +300,36 @@ export default function SiteContentPage() {
         />
       )}
 
+      {tab === "Blog" && (
+        <CollectionEditor
+          type="blog_posts" title="Blog"
+          description="Posts on /blog and the three cards on the homepage. The slug is taken from the title on first save and then stays put, so an existing link keeps working when a title is reworded."
+          fields={BLOG_FIELDS}
+          defaults={{
+            title: "", tag: "Technology", excerpt: "", image_url: "", image_alt: "",
+            author_name: "", author_role: "", published_at: new Date().toISOString().slice(0, 10),
+            accent: 1, intro: "", sections_json: "[]", takeaways_json: "[]",
+            sort_order: 0, is_active: true,
+          }}
+          renderPreview={(it) => (
+            <div>
+              <p className="mono-label text-accent-deep">{String(it.tag || "")} · {String(it.published_at || "")}</p>
+              <p className="text-ink mt-1">{String(it.title || "Untitled")}</p>
+              <p className="text-sm text-graphite mt-1">{String(it.excerpt || "")}</p>
+              {/* Who touched it, so a second admin knows whose work this is. */}
+              <p className="mono-label text-graphite/70 mt-2">
+                Added by {String(it.created_by || "—")}
+                {it.updated_by && it.updated_by !== it.created_by ? ` · last edited by ${String(it.updated_by)}` : ""}
+              </p>
+            </div>
+          )}
+        />
+      )}
+
       {tab === "Testimonials" && (
         <CollectionEditor
           type="testimonials" title="Testimonials"
-          description="Client and candidate quotes. Set kind to 'client' or 'candidate'. Publish only with permission."
+          description="Quote walls on Who We Are. kind 'client' feeds Client Testimonials, 'candidate' feeds Employee Testimonials. The stored values stay as they are so existing rows keep working. Publish only with permission."
           fields={TESTIMONIAL_FIELDS}
           defaults={{ kind: "client", quote: "", person: "", title: "", organization: "", context: "", logo_url: "", sort_order: 0, is_active: true }}
           renderPreview={(it) => (

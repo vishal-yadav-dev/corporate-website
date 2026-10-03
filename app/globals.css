@@ -122,8 +122,12 @@ body {
 .mono-label {
   font-family: var(--font-mono), monospace;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: 0.72rem;
+  /* Tracking eases off as the weight goes up: 0.18em at 600 reads as spaced-out
+     rather than as a label. JetBrains Mono is a 100-800 variable face, so 600
+     is a drawn weight and not a synthesised one. */
+  letter-spacing: 0.13em;
+  font-size: 0.92rem;
+  font-weight: 600;
 }
 
 /* ---- Surfaces / depth ---- */
@@ -193,6 +197,9 @@ body {
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 .marquee-track { animation: marquee 28s linear infinite; }
 .marquee-track:hover { animation-play-state: paused; }
+/* Pausing is bound to the rail, not the track: between tiles the pointer is
+   over the gap, and a track-only rule lets the row stutter back into motion. */
+.marquee-rail:hover .marquee-track { animation-play-state: paused; }
 
 @keyframes float-y { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
 .anim-float { animation: float-y 7s ease-in-out infinite; }
@@ -441,9 +448,12 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.5); }
 .menu-group-label {
   font-family: var(--font-mono), monospace;
   text-transform: uppercase;
-  font-size: 0.95rem;
-  letter-spacing: 0.10em;
-  font-weight: 600;
+  /* Sized against the nav bar above it: the bar sits at 0.92rem, so a group
+     heading has to clear that to read as a heading rather than as another nav
+     link. Tracking tightens as the size and weight go up. */
+  font-size: 1.15rem;
+  letter-spacing: 0.07em;
+  font-weight: 700;
   /* These titles are near enough the same length that one wrapping and the
      other not is pure accident — "TECHNOLOGY SOLUTIONS" is a character longer
      than "WORKFORCE SOLUTIONS" and tips over the column width while the other
@@ -482,4 +492,80 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.5); }
 
 @media (prefers-reduced-motion: reduce) {
   .flip-inner { transition: none; }
+}
+
+/* ---- Section and data labels ------------------------------------------
+   Every eyebrow and field label on the site was the same blue, 172 of them, so
+   a practice page, a solution page and a contract vehicle all read as the same
+   page with the words swapped.
+
+   Each detail page already carries an accent index — it picks the glow behind
+   its cards and the colour of its rules. The labels now take it too, through a
+   variable the page sets on its wrapper, so a page is one colour idea rather
+   than one colour plus a stock blue. Pages that set nothing keep the blue. */
+.label-accent { color: var(--page-accent, var(--color-accent-deep)); }
+
+/* A brief ring on whatever a link just jumped to. Outline rather than border,
+   so nothing in the layout moves while it shows. */
+@keyframes ring-flash {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-brand) 0%, transparent); }
+  30%      { box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-brand) 55%, transparent); }
+}
+.ring-flash { border-radius: 24px; animation: ring-flash 1.4s ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ring-flash { animation: none; }
+}
+
+/* ---- Text over a background image -------------------------------------
+   A veil tuned on dark leaves light mode unreadable: the page colour is
+   near-white there, the copy is dark ink, and a busy picture underneath puts
+   mid-tones right where the text sits. Light mode therefore hides far more of
+   the image than dark does — the picture is texture under the words, not a
+   photograph the words happen to sit on. */
+:root { --band-veil: 0.45; }
+:root[data-theme="light"] { --band-veil: 0.72; }
+.band-veil { background-color: color-mix(in oklab, var(--color-paper) calc(var(--band-veil) * 100%), transparent); }
+
+/* ---- Flow arrows ------------------------------------------------------
+   The connectors between steps are the only thing saying these are a sequence,
+   so they travel instead of sitting still. Transform only, and it stands down
+   with the rest of the motion. */
+@keyframes arrow-flow {
+  0%, 100% { transform: translate(0, -50%); opacity: 0.45; }
+  50%      { transform: translate(6px, -50%); opacity: 1; }
+}
+.arrow-flow { animation: arrow-flow 1.8s ease-in-out infinite; }
+
+@keyframes arrow-flow-y {
+  0%, 100% { transform: translate(-50%, 0); opacity: 0.45; }
+  50%      { transform: translate(-50%, 6px); opacity: 1; }
+}
+.arrow-flow-y { animation: arrow-flow-y 1.8s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .arrow-flow, .arrow-flow-y { animation: none; opacity: 0.6; }
+}
+
+/* ---- Bleeding media ---------------------------------------------------
+   An image inside a bordered, rounded box reads as a picture pinned to the
+   page. Masking its alpha away at every edge instead lets it dissolve into
+   whatever is behind it, so the section has texture rather than a photograph
+   sitting in a frame. The mask is the image's own alpha — nothing is painted
+   over it, so it works on any background colour and in either theme. */
+.media-bleed {
+  -webkit-mask-image: radial-gradient(130% 115% at 60% 45%, #000 38%, transparent 78%);
+  mask-image: radial-gradient(130% 115% at 60% 45%, #000 38%, transparent 78%);
+}
+
+/* A sheen that crosses a plate every few seconds. Transform only, and it rides
+   inside an overflow-hidden parent so nothing escapes the shape. */
+@keyframes plate-sheen {
+  0%        { transform: translateX(-140%) skewX(-18deg); }
+  55%, 100% { transform: translateX(260%) skewX(-18deg); }
+}
+.plate-sheen { animation: plate-sheen 5.5s cubic-bezier(.4,0,.2,1) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .plate-sheen { animation: none; opacity: 0; }
 }

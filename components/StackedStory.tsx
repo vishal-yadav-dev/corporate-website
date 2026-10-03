@@ -27,9 +27,9 @@ export default function StackedStory({
   items: { title: string; body: string }[];
 }) {
   return (
-    <section className="relative z-10 bg-paper py-24 sm:py-32">
+    <section className="relative z-10 bg-paper py-16 sm:py-20">
       <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
-        <div className="mb-16 max-w-3xl">
+        <div className="mb-10 max-w-3xl">
           <Head eyebrow={eyebrow} heading={heading} intro={intro} />
         </div>
 
@@ -40,7 +40,7 @@ export default function StackedStory({
         </div>
 
         {/* Tail space so the last card can settle before the section ends. */}
-        <div className="h-[18vh]" aria-hidden />
+        <div className="h-[8vh]" aria-hidden />
       </div>
     </section>
   );

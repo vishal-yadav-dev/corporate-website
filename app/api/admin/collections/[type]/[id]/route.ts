@@ -29,6 +29,10 @@ export async function PUT(req: Request, ctx: { params: Promise<{ type: string; i
     vals.push(val);
     sets.push(`${f.name} = $${vals.length}`);
   }
+  if (c.stamped) {
+    vals.push(guard.name || guard.email);
+    sets.push(`updated_by = $${vals.length}`);
+  }
   vals.push(id);
   await q(`UPDATE ${c.table} SET ${sets.join(", ")}, updated_at = now() WHERE id = $${vals.length}`, vals);
   const item = await one(`SELECT * FROM ${c.table} WHERE id = $1`, [id]);

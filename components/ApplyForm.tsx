@@ -87,7 +87,7 @@ export default function ApplyForm({ jobId, jobTitle }: { jobId?: string; jobTitl
         <input className={field} value={form.linkedin_url} onChange={(e) => set("linkedin_url", e.target.value)} placeholder="https://linkedin.com/in/…" />
       </div>
       <div>
-        <label className="mono-label text-graphite block mb-2">CV / Resume <span className="text-graphite/50">— PDF or Word, max 10MB</span></label>
+        <label className="mono-label text-graphite block mb-2">CV / Resume <span className="text-graphite/50">PDF or Word, max 10MB</span></label>
         <input
           type="file"
           accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"

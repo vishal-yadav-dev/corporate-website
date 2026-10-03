@@ -1,21 +1,75 @@
-export type NavChild = { label: string; href: string };
+export type NavChild = {
+  label: string;
+  href: string;
+  /** one line of description; its presence switches the menu to the rich layout */
+  desc?: string;
+};
 export type NavGroup = { title: string; items: NavChild[] };
 export type NavItem = { label: string; href: string; children: NavChild[]; groups?: NavGroup[] };
 
+export const solutionHref = (group: string, id: string) => `/solutions/${group}-solutions/${id}`;
+
 export const NAV: NavItem[] = [
   {
-    label: "Who We Are",
+    label: "About Us",
+    /* Clicking the word itself lands on Who We Are, which is what /company now
+       is. Leadership and Delivery Centres are sections of that page rather than
+       pages of their own, so they point at anchors. */
     href: "/company",
+    groups: [
+      {
+        title: "The company",
+        items: [
+          {
+            label: "Who We Are",
+            href: "/company",
+            desc: "Twenty years of enterprise delivery, the people behind it, and how the work actually gets done.",
+          },
+          {
+            label: "Our Vision",
+            href: "/company/our-vision",
+            desc: "Where we are taking the practice, and what we want to be judged on when we get there.",
+          },
+          {
+            label: "Diversity & Inclusion",
+            href: "/company/diversity-inclusion",
+            desc: "A certified Minority Business Enterprise, and what that commitment obliges in how we hire and staff.",
+          },
+        ],
+      },
+      {
+        title: "How we work",
+        items: [
+          {
+            label: "Leadership",
+            href: "/company#leadership",
+            desc: "The people accountable for delivery, and the experience they bring to it.",
+          },
+          {
+            label: "Delivery Centers",
+            href: "/company#delivery",
+            desc: "US-centered delivery, with connected centers across North America and India.",
+          },
+        ],
+      },
+      {
+        title: "Working with us",
+        items: [
+          {
+            label: "Government Contract Vehicles",
+            href: "/company/contract-vehicles",
+            desc: "Buy through TIPS and the Florida DMS state term contract, already competed, so no new solicitation is needed.",
+          },
+        ],
+      },
+    ],
     children: [
-      /* "Company Overview" under a menu called Who We Are just said the same
-         thing twice. */
-      { label: "About Us", href: "/company#about" },
+      { label: "Who We Are", href: "/company" },
+      { label: "Our Vision", href: "/company/our-vision" },
+      { label: "Diversity & Inclusion", href: "/company/diversity-inclusion" },
       { label: "Leadership", href: "/company#leadership" },
-      { label: "Awards", href: "/company#awards" },
-      { label: "Government Contract Vehicles", href: "/company/contract-vehicles" },
       { label: "Delivery Centers", href: "/company#delivery" },
-      { label: "CSR", href: "/company#csr" },
-      
+      { label: "Government Contract Vehicles", href: "/company/contract-vehicles" },
     ],
   },
   {
@@ -83,46 +137,46 @@ export const NAV: NavItem[] = [
   },
   {
     label: "Solutions",
-    href: "/us-staffing",
+    href: "/solutions",
     /* Two columns: technology on the left, workforce on the right. `children`
        is the flat version the mobile menu uses. */
     groups: [
       {
         title: "Technology Solutions",
         items: [
-          { label: "Digital Transformation", href: "/us-staffing/digital-transformation" },
-          { label: "Enterprise Application Services", href: "/us-staffing/enterprise-application-services" },
-          { label: "Application Modernization", href: "/us-staffing/application-modernization" },
-          { label: "Cloud Transformation", href: "/us-staffing/cloud-transformation" },
-          { label: "Data & Analytics", href: "/us-staffing/data-analytics-solutions" },
-          { label: "AI & Automation", href: "/us-staffing/ai-automation-solutions" },
-          { label: "Integration Solutions", href: "/us-staffing/integration-solutions" },
+          { label: "Digital Transformation", href: solutionHref("technology", "digital-transformation") },
+          { label: "Enterprise Application Services", href: solutionHref("technology", "enterprise-application-services") },
+          { label: "Application Modernization", href: solutionHref("technology", "application-modernization") },
+          { label: "Cloud Transformation", href: solutionHref("technology", "cloud-transformation") },
+          { label: "Data & Analytics", href: solutionHref("technology", "data-analytics-solutions") },
+          { label: "AI & Automation", href: solutionHref("technology", "ai-automation-solutions") },
+          { label: "Integration Solutions", href: solutionHref("technology", "integration-solutions") },
         ],
       },
       {
         title: "Workforce Solutions",
         items: [
-          { label: "IT Staff Augmentation", href: "/us-staffing/staff-augmentation" },
-          { label: "Contingent Workforce", href: "/us-staffing/contingent-workforce" },
-          { label: "Direct Hire", href: "/us-staffing/direct-hire" },
-          { label: "SOW / Project Teams", href: "/us-staffing/sow-project-teams" },
-          { label: "Managed Workforce", href: "/us-staffing/managed-workforce" },
+          { label: "IT Staff Augmentation", href: solutionHref("workforce", "staff-augmentation") },
+          { label: "Contingent Workforce", href: solutionHref("workforce", "contingent-workforce") },
+          { label: "Direct Hire", href: solutionHref("workforce", "direct-hire") },
+          { label: "SOW / Project Teams", href: solutionHref("workforce", "sow-project-teams") },
+          { label: "Managed Workforce", href: solutionHref("workforce", "managed-workforce") },
         ],
       },
     ],
     children: [
-        { label: "Digital Transformation", href: "/us-staffing/digital-transformation" },
-        { label: "Enterprise Application Services", href: "/us-staffing/enterprise-application-services" },
-        { label: "Application Modernization", href: "/us-staffing/application-modernization" },
-        { label: "Cloud Transformation", href: "/us-staffing/cloud-transformation" },
-        { label: "Data & Analytics", href: "/us-staffing/data-analytics-solutions" },
-        { label: "AI & Automation", href: "/us-staffing/ai-automation-solutions" },
-        { label: "Integration Solutions", href: "/us-staffing/integration-solutions" },
-        { label: "IT Staff Augmentation", href: "/us-staffing/staff-augmentation" },
-        { label: "Contingent Workforce", href: "/us-staffing/contingent-workforce" },
-        { label: "Direct Hire", href: "/us-staffing/direct-hire" },
-        { label: "SOW / Project Teams", href: "/us-staffing/sow-project-teams" },
-        { label: "Managed Workforce", href: "/us-staffing/managed-workforce" },
+      { label: "Digital Transformation", href: solutionHref("technology", "digital-transformation") },
+      { label: "Enterprise Application Services", href: solutionHref("technology", "enterprise-application-services") },
+      { label: "Application Modernization", href: solutionHref("technology", "application-modernization") },
+      { label: "Cloud Transformation", href: solutionHref("technology", "cloud-transformation") },
+      { label: "Data & Analytics", href: solutionHref("technology", "data-analytics-solutions") },
+      { label: "AI & Automation", href: solutionHref("technology", "ai-automation-solutions") },
+      { label: "Integration Solutions", href: solutionHref("technology", "integration-solutions") },
+      { label: "IT Staff Augmentation", href: solutionHref("workforce", "staff-augmentation") },
+      { label: "Contingent Workforce", href: solutionHref("workforce", "contingent-workforce") },
+      { label: "Direct Hire", href: solutionHref("workforce", "direct-hire") },
+      { label: "SOW / Project Teams", href: solutionHref("workforce", "sow-project-teams") },
+      { label: "Managed Workforce", href: solutionHref("workforce", "managed-workforce") },
     ],
   },
   {
@@ -141,38 +195,38 @@ export const NAV: NavItem[] = [
     two-column Solutions menu and the grouping on the hub page. */
 export const STAFFING = [
   { id: "digital-transformation", group: "technology", name: "Digital Transformation", line: "Turn technology strategy into business progress",
-    body: "Connect strategy, process, technology, data, and people to create a practical path from current state to measurable improvement — sequenced so each step pays for the next.",
+    body: "Connect strategy, process, technology, data, and people to create a practical path from current state to measurable improvement, sequenced so each step pays for the next.",
     points: ["Current-state assessment", "Target operating model", "Phased transformation roadmap", "Adoption and change support"] },
   { id: "enterprise-application-services", group: "technology", name: "Enterprise Application Services", line: "Modernize the systems that run your business",
-    body: "Support enterprise applications end to end — consulting, implementation, integration, development, testing, and ongoing optimization across the platforms your operations depend on.",
+    body: "Support enterprise applications end to end, consulting, implementation, integration, development, testing, and ongoing optimization across the platforms your operations depend on.",
     points: ["Implementation and rollout", "Managed application support", "Extension and custom development", "Upgrade and release management"] },
   { id: "application-modernization", group: "technology", name: "Application Modernization", line: "Modernize legacy applications without losing continuity",
     body: "Assess, refactor, re-platform, replace, or integrate legacy applications with a roadmap designed around business risk and priorities rather than technical preference.",
     points: ["Portfolio assessment", "Refactor, re-platform or replace", "Incremental migration", "Risk and continuity planning"] },
   { id: "cloud-transformation", group: "technology", name: "Cloud Transformation", line: "Move to the cloud with a clear business case",
-    body: "Support cloud strategy, migration, architecture, modernization, DevOps, security, and ongoing optimization — with the business case written before the first workload moves.",
+    body: "Support cloud strategy, migration, architecture, modernization, DevOps, security, and ongoing optimization, with the business case written before the first workload moves.",
     points: ["Cloud strategy and business case", "Migration and landing zones", "DevOps and automation", "Cost and performance optimization"] },
   { id: "data-analytics-solutions", group: "technology", name: "Data & Analytics Solutions", line: "Create a data foundation for better decisions",
     body: "Connect data engineering, governance, analytics, reporting, and visualization into a practical data strategy that answers the questions the business is actually asking.",
     points: ["Data architecture and engineering", "Warehousing and pipelines", "Reporting and visualization", "Governance and data quality"] },
   { id: "ai-automation-solutions", group: "technology", name: "AI & Automation Solutions", line: "Move from AI interest to practical business value",
-    body: "Identify high-value use cases, design governed solutions, integrate AI into workflows, and automate repeatable processes — starting where the payback is clearest.",
+    body: "Identify high-value use cases, design governed solutions, integrate AI into workflows, and automate repeatable processes, starting where the payback is clearest.",
     points: ["Use-case identification", "Governed AI solution design", "Workflow integration", "Process automation and RPA"] },
   { id: "integration-solutions", group: "technology", name: "Integration Solutions", line: "Connect the enterprise",
     body: "Build integration strategies that connect enterprise applications, cloud platforms, data sources, legacy systems, and digital experiences into one reliable fabric.",
     points: ["Integration strategy and architecture", "API design and management", "Event-driven and real-time flows", "Monitoring and governance"] },
 
   { id: "staff-augmentation", group: "workforce", name: "IT Staff Augmentation", line: "Scale your technology teams with specialized talent",
-    body: "Access qualified technology professionals across software engineering, enterprise platforms, cloud, data, QA, cybersecurity, business analysis, and project delivery — added to your team, working under your direction.",
+    body: "Access qualified technology professionals across software engineering, enterprise platforms, cloud, data, QA, cybersecurity, business analysis, and project delivery, added to your team, working under your direction.",
     points: ["Engineering & enterprise platforms", "Cloud, data & QA specialists", "Onshore, nearshore & offshore", "Scale up or down as demand changes"] },
   { id: "contingent-workforce", group: "workforce", name: "Contingent Workforce", line: "Flexible workforce solutions for changing business needs",
-    body: "Support project-based hiring, temporary workforce needs, specialized skills, and changing demand with a structured workforce model — including compliance, payrolling, and employer-of-record services.",
+    body: "Support project-based hiring, temporary workforce needs, specialized skills, and changing demand with a structured workforce model, including compliance, payrolling, and employer-of-record services.",
     points: ["Project-based & temporary hiring", "Specialized short-term skills", "Compliance & payrolling handled", "Structured onboarding and offboarding"] },
   { id: "direct-hire", group: "workforce", name: "Direct Hire", line: "Find the technology talent you need for the long term",
     body: "Identify, qualify, and recruit technology professionals for permanent positions with a process designed around technical fit and cultural alignment.",
     points: ["Structured intake & calibration", "Qualified, shortlisted candidates", "Technical and cultural fit", "Offer and onboarding support"] },
   { id: "sow-project-teams", group: "workforce", name: "SOW / Project Teams", line: "Outcome-focused technology delivery teams",
-    body: "Assemble specialized teams around defined project objectives, deliverables, timelines, technology requirements, and governance — with a single point of accountability for the outcome.",
+    body: "Assemble specialized teams around defined project objectives, deliverables, timelines, technology requirements, and governance, with a single point of accountability for the outcome.",
     points: ["Defined scope & deliverables", "Dedicated delivery team", "Milestone-based governance", "Single point of accountability"] },
   { id: "managed-workforce", group: "workforce", name: "Managed Workforce", line: "A more strategic approach to technology workforce management",
     body: "Support workforce planning, talent acquisition, resource coordination, compliance, reporting, and workforce optimization across your contingent technology labour.",
@@ -263,17 +317,17 @@ export const INDUSTRIES = [
 
 export const LEADERSHIP = [
   { name: "Avery Sinclair", role: "Chief Executive Officer", linkedin: "https://www.linkedin.com/in/placeholder-avery-sinclair",
-    bio: "Technology entrepreneur and business strategist focused on building and scaling people-centric technology businesses. Avery drives growth through strategic vision, business development, and long-term partnerships — building a culture where people and the business grow together." },
+    bio: "Technology entrepreneur and business strategist focused on building and scaling people-centric technology businesses. Avery drives growth through strategic vision, business development, and long-term partnerships, building a culture where people and the business grow together." },
   { name: "Jordan Whitfield", role: "Engagement Manager, Projects & Delivery", linkedin: "https://www.linkedin.com/in/placeholder-jordan-whitfield",
     bio: "Leads software project delivery and client engagement, aligning business objectives with technical execution. A Certified Scrum Master, Jordan pairs staffing expertise with agile methodology to strengthen project outcomes and organizational growth." },
   { name: "Priya Raman", role: "Business Unit Head, SI", linkedin: "https://www.linkedin.com/in/placeholder-priya-raman",
     bio: "Staffing leader with deep expertise in client engagement, delivery operations, and recruitment. Priya builds efficient, process-driven delivery models that consistently deliver compliant, on-time talent for enterprise clients." },
-  { name: "Marcus Ellery", role: "Business Unit Head — Delivery & Operations", linkedin: "https://www.linkedin.com/in/placeholder-marcus-ellery",
+  { name: "Marcus Ellery", role: "Business Unit Head, Delivery & Operations", linkedin: "https://www.linkedin.com/in/placeholder-marcus-ellery",
     bio: "Delivery and operations leader who turns people, process, and partnerships into measurable results. Marcus drives delivery excellence, builds high-performing teams, and cultivates lasting client relationships." },
   { name: "Nadia Brooks", role: "HR Manager", linkedin: "https://www.linkedin.com/in/placeholder-nadia-brooks",
-    bio: "Human resources leader driving organizational performance through strategic, people-centric leadership — talent strategy, workforce transformation, employee engagement, and HR governance built to scale." },
-  { name: "Caleb Ortiz", role: "Sr Sales Manager — Projects", linkedin: "https://www.linkedin.com/in/placeholder-caleb-ortiz",
-    bio: "Drives client acquisition, strategic partnerships, and business growth — connecting clients with premier talent and technology while navigating complex RFPs, RFIs, and ITQs." },
+    bio: "Human resources leader driving organizational performance through strategic, people-centric leadership, talent strategy, workforce transformation, employee engagement, and HR governance built to scale." },
+  { name: "Caleb Ortiz", role: "Sr Sales Manager, Projects", linkedin: "https://www.linkedin.com/in/placeholder-caleb-ortiz",
+    bio: "Drives client acquisition, strategic partnerships, and business growth, connecting clients with premier talent and technology while navigating complex RFPs, RFIs, and ITQs." },
   { name: "Devon Hartley", role: "Sr Product Manager", linkedin: "https://www.linkedin.com/in/placeholder-devon-hartley",
     bio: "Owns the product lifecycle, leveraging market trends and modern methodologies to deliver robust, scalable software solutions." },
   { name: "Rowan Vance", role: "Founder", linkedin: "https://www.linkedin.com/in/placeholder-rowan-vance",
@@ -303,45 +357,58 @@ export const PARTNERS = [
 ];
 
 export const LOCATIONS = [
-  { region: "Texas — USA", role: "Headquarters", address: "Texas, USA", tel: "+1 555 000 0101" },
-  { region: "Monterrey — México", role: "Nearshore Delivery", address: "Nuevo León, México", tel: "+52 555 000 0102" },
-  { region: "Visakhapatnam — India", role: "Offshore Delivery", address: "Andhra Pradesh, India", tel: "+91 555 000 0103" },
-  { region: "Noida — India", role: "Offshore Delivery", address: "Uttar Pradesh, India", tel: "+91 555 000 0104" },
+  { region: "Texas, USA", role: "Headquarters", address: "Texas, USA", tel: "+1 555 000 0101" },
+  { region: "Monterrey, México", role: "Nearshore Delivery", address: "Nuevo León, México", tel: "+52 555 000 0102" },
+  { region: "Visakhapatnam, India", role: "Offshore Delivery", address: "Andhra Pradesh, India", tel: "+91 555 000 0103" },
+  { region: "Noida, India", role: "Offshore Delivery", address: "Uttar Pradesh, India", tel: "+91 555 000 0104" },
 ];
 
 /** Cycle the Testsoft prism spectrum for stat numbers, chips, etc. */
+/** Same order as PRISM_TEXT, as custom-property references so a page can set
+    `--page-accent` and have everything under it follow — and still flip with
+    the theme, since the prism colours are redefined in light mode. */
+export const PRISM_VAR = [
+  "var(--color-prism-red)", "var(--color-brand)", "var(--color-prism-amber)",
+  "var(--color-prism-green)", "var(--color-prism-blue)", "var(--color-prism-violet)",
+] as const;
+
 export const PRISM_TEXT = [
   "text-prism-red", "text-brand", "text-prism-amber",
   "text-prism-green", "text-prism-blue", "text-prism-violet",
 ] as const;
 
+/* Counted from the lists themselves rather than typed out. Healthcare was
+   removed from INDUSTRIES and this still read "6" — a number on the homepage
+   that the site's own industries page contradicted. These three can no longer
+   drift. METRICS is declared after the arrays it counts, which is what makes
+   this legal. */
 export const METRICS = [
   { value: "Inc.500", label: "Fastest-growing private companies, USA" },
-  { value: "13", label: "Technology practices across the enterprise" },
-  { value: "6", label: "Industries with dedicated capability" },
-  { value: "5", label: "Workforce engagement models" },
+  { value: String(PRACTICES.length), label: "Technology practices across the enterprise" },
+  { value: String(INDUSTRIES.length), label: "Industries with dedicated capability" },
+  { value: String(STAFFING.filter((s) => s.group === "workforce").length), label: "Workforce engagement models" },
 ];
 
 export const AWARDS = [
-  { year: "2020", title: "Inc. 500 — Fastest-Growing Private Companies in the USA" },
-  { year: "2013", title: "EY Entrepreneur of the Year, New Jersey — Finalist" },
-  { year: "2011", title: "EY Entrepreneur of the Year, New Jersey — Finalist" },
-  { year: "2008", title: "EY Entrepreneur of the Year, New Jersey — Finalist" },
+  { year: "2020", title: "Inc. 500 Fastest-Growing Private Companies in the USA" },
+  { year: "2013", title: "EY Entrepreneur of the Year, New Jersey, Finalist" },
+  { year: "2011", title: "EY Entrepreneur of the Year, New Jersey, Finalist" },
+  { year: "2008", title: "EY Entrepreneur of the Year, New Jersey, Finalist" },
   { year: "Cert.", title: "Certified Minority Business Enterprise (MBE)" },
 ];
 
 export const BENEFITS = [
-  { title: "Continuous certification", body: "Funded certifications and training across Salesforce, SAP, Oracle, Infor, and Workday — your skill set stays ahead of the platform." },
+  { title: "Continuous certification", body: "Funded certifications and training across Salesforce, SAP, Oracle, Infor, and Workday, your skill set stays ahead of the platform." },
   { title: "Mentorship that compounds", body: "Senior consultants invest in your growth from day one. You learn on real transformations, not sandbox exercises." },
-  { title: "Global mobility", body: "Work across US, nearshore Mexico, and offshore India delivery centers — real projects, real clients, real scale." },
+  { title: "Global mobility", body: "Work across US, nearshore Mexico, and offshore India delivery centers, real projects, real clients, real scale." },
   { title: "Ownership culture", body: "We treat consultants as partners, not resources. Take ownership early and grow into the company's journey." },
 ];
 
 export const JOBS = [
   { title: "Senior Salesforce Developer", location: "Frisco, TX / Remote", type: "Full-time", practice: "Salesforce" },
   { title: "SAP S/4HANA Consultant (FI/CO)", location: "Noida, India", type: "Full-time", practice: "SAP" },
-  { title: "Workday HCM Consultant", location: "Remote — US", type: "Contract", practice: "Workday" },
+  { title: "Workday HCM Consultant", location: "Remote, US", type: "Contract", practice: "Workday" },
   { title: "MuleSoft Integration Engineer", location: "Visakhapatnam, India", type: "Full-time", practice: "MuleSoft" },
   { title: "Oracle Cloud SCM Lead", location: "Monterrey, México", type: "Full-time", practice: "Oracle" },
-  { title: "Engagement Manager — Delivery", location: "Frisco, TX", type: "Full-time", practice: "Delivery" },
+  { title: "Engagement Manager, Delivery", location: "Frisco, TX", type: "Full-time", practice: "Delivery" },
 ];

@@ -31,7 +31,7 @@ async function knowledge(): Promise<string> {
     "OFFICES:",
     ...offices.map((o) => `- ${o.region} (${o.role}): ${o.address}${o.tel ? ` · ${o.tel}` : ""}`),
     "",
-    "CONTACT: Use the contact form at /contact, or the staffing request at /us-staffing. Careers and open roles are at /careers.",
+    "CONTACT: Use the contact form at /contact, or view solutions at /solutions. Careers and open roles are at /careers.",
   ].join("\n");
 }
 

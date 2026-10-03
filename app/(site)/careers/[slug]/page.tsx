@@ -47,7 +47,7 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
         <ul className="space-y-2">
           {bullets.map((b, i) => (
             <li key={i} className="flex gap-3 text-graphite leading-relaxed">
-              <span className="text-brand mt-1">—</span>
+              <span className="text-brand mt-1">·</span>
               <span>{b}</span>
             </li>
           ))}
@@ -69,7 +69,7 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
         </div>
       </section>
 
-      <section className="relative z-10 pt-12 sm:pt-16 pb-24">
+      <section className="relative z-10 pt-10 sm:pt-12 pb-16">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8 grid lg:grid-cols-[1fr_360px] gap-12 lg:gap-20">
           <div>
             {job.summary && <p className="text-xl text-ink leading-relaxed">{job.summary}</p>}
@@ -80,7 +80,7 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
             <Section title="What you bring" body={job.requirements} />
             <Section title="What we offer" body={job.benefits} />
 
-            <div id="apply" className="mt-14 border-t border-line pt-10 scroll-mt-28">
+            <div id="apply" className="mt-14 border-t border-line pt-10 scroll-mt-16">
               <p className="mono-label text-accent-deep mb-4">Apply now</p>
               <h2 className="display text-3xl text-ink mb-6">Tell us about you.</h2>
               <ApplyForm jobId={job.id} jobTitle={job.title} />

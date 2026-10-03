@@ -31,12 +31,12 @@ export default function Newsletter() {
   }
 
   if (state === "done") {
-    return <p className="text-sm text-accent">Thanks — you&apos;re on the list.</p>;
+    return <p className="text-sm text-accent">Thanks, you&apos;re on the list.</p>;
   }
 
   return (
     <form onSubmit={submit}>
-      <label className="mono-label text-graphite block mb-2">Newsletter</label>
+      <label className="mono-label text-graphite block mb-2"> Subscribe to our blogs</label>
       <div className="flex gap-2">
         <input
           type="email"
@@ -50,7 +50,7 @@ export default function Newsletter() {
           disabled={state === "loading"}
           className="btn-cta bg-brand text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-brand-deep transition-colors disabled:opacity-50"
         >
-          {state === "loading" ? "…" : "Join"}
+          {state === "loading" ? "…" : "Subscribe"}
         </button>
       </div>
       {state === "error" && <p className="text-xs text-brand mt-2">{msg}</p>}

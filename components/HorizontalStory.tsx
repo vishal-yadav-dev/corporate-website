@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 
 /**
@@ -28,22 +28,47 @@ export default function HorizontalStory({
   const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
 
-  /* Travel far enough to bring the last card fully into view. */
-  const distance = Math.max(0, items.length - 1) * 46;
-  const x = useTransform(scrollYProgress, [0, 1], ["2%", `-${distance}%`]);
+  /* How far the row has to travel is measured, not guessed. It used to be
+     `(items.length - 1) * 46%` of the row's own width, which overshot: the
+     cards finished somewhere off the left edge and the last part of the scroll
+     was spent staring at an empty panel with no sign that the page continued.
+     Measured, the row stops with the final card resting at the right edge. */
+  const viewRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLOListElement>(null);
+  const [maxX, setMaxX] = useState(0);
+
+  useEffect(() => {
+    const measure = () => {
+      const track = trackRef.current;
+      const view = viewRef.current;
+      if (!track || !view) return;
+      // a little tail so the last card is not flush against the edge
+      setMaxX(Math.max(0, track.scrollWidth - view.clientWidth + 32));
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [items.length]);
+
+  const x = useTransform(scrollYProgress, [0, 1], [0, -maxX]);
 
   return (
     <>
       {/* Desktop: pinned, moving sideways */}
       <section ref={ref} className="relative hidden lg:block bg-paper border-y border-line" style={{ height: `${items.length * 80}vh` }}>
-        <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center">
+        {/* Anchored to the top of the pinned viewport, not centred in it. The
+            heading and the row together are shorter than a tall screen, so
+            `justify-center` put a few hundred pixels of nothing between the
+            previous section and this heading, which read as a gap in the page
+            rather than as a composition. */}
+        <div ref={viewRef} className="sticky top-0 h-screen overflow-hidden flex flex-col justify-start pt-24 xl:pt-28">
           <span aria-hidden className={`pointer-events-none absolute -left-40 top-1/4 h-[60vh] w-[60vh] rounded-full ${accentClass} prism-wash-lg blur-[150px]`} />
           <div className="mx-auto max-w-[1400px] w-full px-8">
             <p className="mono-label text-accent-deep mb-4">{eyebrow}</p>
-            <h2 className="display text-5xl xl:text-7xl text-ink max-w-3xl mb-14">{heading}</h2>
+            <h2 className="display text-5xl xl:text-7xl text-ink max-w-3xl mb-8">{heading}</h2>
           </div>
 
-          <motion.ol style={reduced ? undefined : { x }} className="flex gap-6 pl-8 xl:pl-[max(2rem,calc((100vw-1400px)/2+2rem))]">
+          <motion.ol ref={trackRef} style={reduced ? undefined : { x }} className="flex gap-6 pl-8 xl:pl-[max(2rem,calc((100vw-1400px)/2+2rem))]">
             {items.map((it, i) => (
               <li key={it.title} className="w-[clamp(320px,30vw,460px)] shrink-0">
                 <article className="group h-full rounded-[28px] border border-line bg-surface p-9 hover:border-brand/50 transition-colors">
@@ -59,7 +84,7 @@ export default function HorizontalStory({
       </section>
 
       {/* Phones and tablets: the same content, read vertically */}
-      <section className="relative lg:hidden bg-paper border-y border-line py-20">
+      <section className="relative lg:hidden bg-paper border-y border-line py-14 sm:py-16">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
           <p className="mono-label text-accent-deep mb-4">{eyebrow}</p>
           <h2 className="display text-4xl sm:text-5xl text-ink mb-10">{heading}</h2>

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import VantaBg from "@/components/VantaBg";
 
 // used only when a banner has no background_fx set, or when there are no banners
-const FALLBACK_FX = ["halo", "birds", "net", "dots"] as const;
+const FALLBACK_FX = ["halo", "cells", "net", "dots"] as const;
 
 type Banner = {
   id: string;
@@ -140,7 +140,7 @@ export default function Hero({ initialBanners = [] }: { initialBanners?: Banner[
                   {slide.cta_url && (
                     <Link
                       href={slide.cta_url}
-                      className="group inline-flex items-center gap-2 btn-cta bg-brand text-white px-6 py-3.5 rounded-full font-medium hover:bg-brand-deep transition-colors"
+                      className="group inline-flex items-center gap-2 btn-cta btn-cta bg-brand text-white px-6 py-3.5 rounded-full font-medium hover:bg-brand-deep transition-colors"
                     >
                       {slide.cta_text || "Learn More"}
                       <span className="group-hover:translate-x-1 transition-transform">→</span>
@@ -184,12 +184,12 @@ export default function Hero({ initialBanners = [] }: { initialBanners?: Banner[
               >
                 <p className="max-w-xl text-lg sm:text-xl text-graphite leading-relaxed">
                   We architect, implement, and run the platforms that keep global enterprises
-                  moving — Salesforce, SAP, Oracle, and custom cloud apps.
+                  moving, Salesforce, SAP, Oracle, and custom cloud apps.
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <Link
                     href="/practices"
-                    className="group inline-flex items-center gap-2 btn-cta bg-brand text-white px-6 py-3.5 rounded-full font-medium hover:bg-brand-deep transition-colors"
+                    className="group inline-flex items-center gap-2 btn-cta btn-cta bg-brand text-white px-6 py-3.5 rounded-full font-medium hover:bg-brand-deep transition-colors"
                   >
                     Explore our practices
                     <span className="group-hover:translate-x-1 transition-transform">→</span>

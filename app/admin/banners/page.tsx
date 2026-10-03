@@ -20,7 +20,6 @@ type Banner = {
 export const BANNER_FX = [
   { value: "", label: "None (plain gradient)" },
   { value: "halo", label: "Halo" },
-  { value: "birds", label: "Birds" },
   { value: "net", label: "Net" },
   { value: "dots", label: "Dots" },
   { value: "rings", label: "Rings" },

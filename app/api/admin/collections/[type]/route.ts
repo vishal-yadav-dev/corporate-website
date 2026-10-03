@@ -39,6 +39,14 @@ export async function POST(req: Request, ctx: { params: Promise<{ type: string }
     vals.push(val);
   }
 
+  /* Who added it. Recorded on the row rather than inferred from a log, so the
+     editor can show it back and a second admin knows whose work they are
+     changing. */
+  if (c.stamped) {
+    cols.push("created_by", "updated_by");
+    vals.push(guard.name || guard.email, guard.name || guard.email);
+  }
+
   if (c.slugFrom) {
     const base = slugify(String(body[c.slugFrom] ?? "item"));
     let slug = base;

@@ -207,7 +207,7 @@ CREATE TABLE IF NOT EXISTS practices (
 );
 CREATE INDEX IF NOT EXISTS practices_sort_idx ON practices (sort_order);
 
--- US Staffing services (managed from /admin/site, shown on /us-staffing)
+-- Solution services (managed from /admin/site, shown on /solutions)
 CREATE TABLE IF NOT EXISTS staffing (
   id          TEXT PRIMARY KEY,
   slug        TEXT UNIQUE NOT NULL,
@@ -309,3 +309,30 @@ CREATE TABLE IF NOT EXISTS testimonials (
   updated_at   TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 CREATE INDEX IF NOT EXISTS testimonials_kind_idx ON testimonials (kind);
+
+-- Blog posts. The body is held as JSON text so the admin can edit structured
+-- sections without a second table; `created_by` / `updated_by` record which
+-- admin account last touched the row, which the editor shows back to them.
+CREATE TABLE IF NOT EXISTS blog_posts (
+  id             TEXT PRIMARY KEY,
+  slug           TEXT NOT NULL UNIQUE,
+  title          TEXT NOT NULL,
+  tag            TEXT NOT NULL DEFAULT '',
+  excerpt        TEXT NOT NULL DEFAULT '',
+  image_url      TEXT NOT NULL DEFAULT '',
+  image_alt      TEXT NOT NULL DEFAULT '',
+  author_name    TEXT NOT NULL DEFAULT '',
+  author_role    TEXT NOT NULL DEFAULT '',
+  published_at   TEXT NOT NULL DEFAULT '',      -- ISO date, e.g. 2026-09-18
+  accent         INTEGER NOT NULL DEFAULT 1,
+  intro          TEXT NOT NULL DEFAULT '',
+  sections_json  TEXT NOT NULL DEFAULT '[]',    -- [{heading,paras[],list[]}]
+  takeaways_json TEXT NOT NULL DEFAULT '[]',    -- ["...","..."]
+  sort_order     INTEGER NOT NULL DEFAULT 0,
+  is_active      BOOLEAN NOT NULL DEFAULT true,
+  created_by     TEXT NOT NULL DEFAULT '',
+  updated_by     TEXT NOT NULL DEFAULT '',
+  created_at     TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at     TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS blog_posts_published_idx ON blog_posts (published_at DESC);

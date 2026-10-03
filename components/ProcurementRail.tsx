@@ -33,9 +33,9 @@ export default function ProcurementRail({
   const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
-    <section className="relative z-10 bg-surface py-24 sm:py-32">
+    <section className="relative z-10 bg-surface py-16 sm:py-20">
       <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
-        <div className="max-w-3xl mb-16">
+        <div className="max-w-3xl mb-10">
           <p className="mono-label text-accent-deep mb-4">{eyebrow}</p>
           <h2 className="display text-4xl sm:text-6xl text-ink">{heading}</h2>
           {intro && <p className="mt-6 text-graphite leading-relaxed">{intro}</p>}

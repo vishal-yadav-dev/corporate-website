@@ -78,6 +78,7 @@ export default function VantaBg({
 
     let vanta: { destroy: () => void } | null = null;
     let cancelled = false;
+    let fadeRaf = 0;
 
     (async () => {
       const usesP5 = P5_EFFECTS.has(effect);
@@ -121,10 +122,41 @@ export default function VantaBg({
         ...(light ? { color: 0xe2481b, color2: 0x1e88c7 } : {}),
         ...JSON.parse(optKey || "{}"),
       });
+
+      /* The p5 effects draw onto their canvas and never clear it: topology lays
+         down 4,500 line segments every frame at 5% alpha, so after a few minutes
+         on the page the trails saturate and the text sits on a solid block of
+         colour. No Vanta option controls that, so the canvas is aged from the
+         outside — every FADE_MS the oldest ink is erased by FADE_ALPHA, which
+         holds the texture at a steady density however long the tab stays open.
+         `destination-out` erases rather than paints, so repeated passes cannot
+         drift the colour the way filling with the background colour would.
+         Raise FADE_ALPHA for a sparser look, lower it for a denser one. */
+      if (usesP5) {
+        const FADE_MS = 350;
+        const FADE_ALPHA = 0.04;
+        let last = 0;
+        const age = (t: number) => {
+          fadeRaf = requestAnimationFrame(age);
+          if (t - last < FADE_MS) return;
+          last = t;
+          const canvas = el.querySelector("canvas");
+          // null in WebGL mode, and before p5 has mounted its canvas
+          const ctx = canvas?.getContext("2d");
+          if (!ctx || !canvas) return;
+          ctx.save();
+          ctx.globalCompositeOperation = "destination-out";
+          ctx.fillStyle = `rgba(0,0,0,${FADE_ALPHA})`;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.restore();
+        };
+        fadeRaf = requestAnimationFrame(age);
+      }
     })().catch((e) => console.warn("Vanta init failed:", effect, e));
 
     return () => {
       cancelled = true;
+      if (fadeRaf) cancelAnimationFrame(fadeRaf);
       try { vanta?.destroy(); } catch {}
     };
   }, [effect, optKey, enabled, near, theme]);

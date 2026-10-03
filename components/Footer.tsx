@@ -23,12 +23,12 @@ export default async function Footer() {
     <footer className="relative z-10 bg-paper-deep text-ink overflow-hidden">
       <div className="pointer-events-none absolute -top-40 right-0 h-[420px] w-[420px] rounded-full bg-brand/12 blur-[130px]" />
       <div className="pointer-events-none absolute bottom-0 left-0 h-[360px] w-[360px] rounded-full bg-accent/10 blur-[130px]" />
-      <div className="relative mx-auto max-w-[1400px] px-5 sm:px-8 py-16 sm:py-24">
+      <div className="relative mx-auto max-w-[1400px] px-5 sm:px-8 py-12 sm:py-16">
         <div className="grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-20">
           <div>
             <p className="mono-label text-brand-bright mb-6">Let&apos;s build</p>
             <h2 className="display text-4xl sm:text-6xl max-w-xl text-ink">Ready to modernize your core systems?</h2>
-            <Link href="/contact" className="group mt-8 inline-flex items-center gap-3 btn-cta bg-brand text-white px-6 py-3.5 rounded-full font-medium hover:bg-brand-deep transition-colors">
+            <Link href="/contact#form" className="group mt-8 inline-flex items-center gap-3 btn-cta bg-brand text-white px-6 py-3.5 rounded-full font-medium hover:bg-brand-deep transition-colors">
               Start a conversation
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </Link>
@@ -51,15 +51,19 @@ export default async function Footer() {
 
         <div className="mt-16 pt-10 border-t border-line">
           <p className="mono-label text-graphite mb-5">Clients & Partners</p>
-          <div className="flex flex-wrap items-center gap-2.5">
+          {/* One line, always. The tiles are sized so the full set fits the
+              container on a desktop; below that the row scrolls sideways rather
+              than wrapping, which is what put the last logo on a line of its
+              own. `shrink-0` is what stops flex from squeezing them instead. */}
+          <div className="flex flex-nowrap items-center gap-2 overflow-x-auto scrollbar-none">
             {partners.map((p) =>
               p.logo ? (
-                <div key={p.name} className="grid place-items-center bg-white rounded-lg h-11 px-4 ring-1 ring-black/5">
+                <div key={p.name} className="shrink-0 grid place-items-center bg-white rounded-lg h-10 px-3 ring-1 ring-black/5 transition-transform duration-300 hover:-translate-y-0.5">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={p.logo} alt={p.name} className="h-5 w-auto max-w-[110px] object-contain" />
+                  <img src={p.logo} alt={p.name} className="h-4 w-auto max-w-[84px] object-contain" />
                 </div>
               ) : (
-                <span key={p.name} className="grid place-items-center bg-surface-2 rounded-lg h-11 px-4 text-xs text-graphite">
+                <span key={p.name} className="shrink-0 grid place-items-center bg-surface-2 rounded-lg h-10 px-3 text-[11px] text-graphite whitespace-nowrap">
                   {p.name}
                 </span>
               )

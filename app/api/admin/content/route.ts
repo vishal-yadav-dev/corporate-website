@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { q } from "@/lib/db";
 import { requireAdmin } from "@/lib/guard";
+import { revalidatePath } from "next/cache";
 
 export async function GET() {
   const guard = await requireAdmin("content");
@@ -22,5 +23,25 @@ export async function PUT(req: Request) {
       [e.key, String(e.value ?? "")]
     );
   }
+  /* Every site page is ISR'd for a minute. Without this the editor would save
+     successfully and the change would not show for up to 60s, which reads as a
+     failure. */
+  revalidatePath("/", "layout");
+  return NextResponse.json({ ok: true });
+}
+
+export async function DELETE(req: Request) {
+  const guard = await requireAdmin("content");
+  if (guard instanceof Response) return guard;
+  const body = await req.json().catch(() => ({}));
+  const keys = body.keys as string[] | undefined;
+  if (!Array.isArray(keys) || !keys.length) {
+    return NextResponse.json({ error: "Invalid payload." }, { status: 422 });
+  }
+  /* Resetting removes the row. The registry default then applies again, so a
+     default that changes in code is picked up instead of being shadowed by a
+     stored copy of its old text. */
+  for (const k of keys) await q("DELETE FROM content WHERE key = $1", [k]);
+  revalidatePath("/", "layout");
   return NextResponse.json({ ok: true });
 }

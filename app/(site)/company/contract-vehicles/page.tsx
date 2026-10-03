@@ -3,8 +3,9 @@ import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import CtaBanner from "@/components/CtaBanner";
 import Reveal from "@/components/Reveal";
-import VehicleLedger from "@/components/VehicleLedger";
 import ProcurementRail from "@/components/ProcurementRail";
+import LinkPending from "@/components/LinkPending";
+import DataFlow from "@/components/DataFlow";
 import { VEHICLE_GROUPS, BUY_STEPS, CERTIFICATIONS } from "@/lib/contracts";
 import { PRISM_TEXT } from "@/lib/data";
 
@@ -12,10 +13,12 @@ import { PRISM_TEXT } from "@/lib/data";
    on a database round trip. */
 export const revalidate = 60;
 
+const PRISM_BG = ["bg-prism-red", "bg-brand", "bg-prism-amber", "bg-prism-green", "bg-prism-blue", "bg-prism-violet"];
+
 export const metadata: Metadata = {
   title: "Government Contract Vehicles",
   description:
-    "Public agencies can buy Testsoft services through TIPS, Texas DIR, GSA and other pre-competed contract vehicles — no new solicitation required.",
+    "Public agencies can buy Testsoft services through TIPS and the Florida DMS state term contract, already competed, so no new solicitation is required.",
 };
 
 export default function ContractVehiclesPage() {
@@ -28,55 +31,63 @@ export default function ContractVehiclesPage() {
         intro="Public agencies can reach us through cooperative and state contracts that have already been competed. The solicitation cycle is done, the rates are published, and the work can start on a purchase order."
       />
 
-      {/* TIPS carries most of the public sector volume, so it is set apart from
-          the ledger rather than filed inside it. */}
-      <section className="relative z-10 bg-paper-tint/55 pt-16 sm:pt-24 pb-20 sm:pb-28">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
-          <Reveal variant="blur" duration={0.8}>
-            <Link
-              href="/company/contract-vehicles/tips"
-              className="group block relative overflow-hidden rounded-[28px] border border-line-blue/60 bg-surface px-7 py-12 sm:px-14 sm:py-16 transition-colors hover:border-brand/50"
-            >
-              <span aria-hidden className="pointer-events-none absolute -right-28 -top-28 h-80 w-80 rounded-full bg-brand/12 blur-[120px]" />
-              <div className="relative grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16">
-                <div>
-                  <p className="mono-label text-accent-deep mb-4">Primary cooperative</p>
-                  <h2 className="display text-4xl sm:text-6xl text-ink leading-[0.98] group-hover:text-brand transition-colors">
-                    TIPS
-                  </h2>
-                  <p className="mt-4 text-accent-deep text-lg">The Interlocal Purchasing System</p>
-                  <p className="mono-label text-graphite mt-8 leading-relaxed">
-                    Region 8 Education Service Center
-                    <br />
-                    Pittsburg, Texas
-                  </p>
-                </div>
-                <div className="lg:pt-14">
-                  <p className="text-lg text-ink/80 leading-relaxed">
-                    TIPS is a national purchasing cooperative that gives its members access to
-                    contracts it has already competed on their behalf. It is housed at and managed by
-                    the Region 8 Education Service Center in Pittsburg, Texas.
-                  </p>
-                  <p className="mt-6 text-graphite leading-relaxed">
-                    For a member agency that means our rates, terms and scope are settled before the
-                    conversation begins. A district, a city or a university can move from a decision
-                    to an issued order without drafting an RFP, convening an evaluation committee or
-                    waiting out a protest window. Membership is free, and an agency can join at any
-                    point before it issues the order.
-                  </p>
-                  <span className="mono-label text-accent-deep mt-8 inline-flex items-center gap-2 group-hover:text-brand transition-colors">
-                    Read the TIPS vehicle
-                    <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
+      {/* Both vehicles, one treatment. TIPS used to get a feature card above a
+          ledger it also appeared in, so the two read as a headline act and a
+          footnote. They are two ways to buy the same work. */}
+      <section className="relative z-10 overflow-hidden bg-paper-tint/55 pt-14 sm:pt-20 pb-14 sm:pb-20">
+        <DataFlow density={0.7} />
+        <span aria-hidden className="pointer-events-none absolute inset-0 bg-paper-tint/70" />
+        <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-paper to-transparent" />
+        <span aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-paper to-transparent" />
+
+        <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8">
+          <Reveal className="mb-10 max-w-3xl">
+            <p className="mono-label label-accent mb-4">The vehicles</p>
+            <h2 className="display text-4xl sm:text-6xl text-ink">
+              Two ways to buy, both already <span className="text-brand italic">competed.</span>
+            </h2>
+          </Reveal>
+
+          <div className="grid gap-5 lg:grid-cols-2">
+            {VEHICLE_GROUPS.flatMap((g) => g.vehicles.map((v) => ({ v, g }))).map(({ v, g }, i) => (
+              <Reveal key={v.id} delay={i * 0.08} variant={i ? "left" : "right"} duration={0.75}>
+                <Link
+                  href={`/company/contract-vehicles/${v.id}`}
+                  className="card-lift group relative flex h-full flex-col overflow-hidden rounded-[28px] border border-line bg-surface p-8 sm:p-11 transition-colors hover:border-brand/50"
+                >
+                  <span
+                    aria-hidden
+                    className={`prism-wash-lg pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full ${PRISM_BG[i % 6]} blur-[110px] transition-opacity duration-500 group-hover:opacity-50`}
+                  />
+                  <span
+                    aria-hidden
+                    className={`prism-rule relative block ${PRISM_BG[i % 6]} origin-left transition-transform duration-500 group-hover:scale-x-[1.8]`}
+                  />
+                  <span className={`relative mono-label mt-6 ${PRISM_TEXT[i % 6]}`}>{g.title}</span>
+                  <span className="relative mono-label text-graphite mt-2">{v.authority}</span>
+                  <h3 className="relative display text-2xl sm:text-4xl text-ink mt-4 leading-[1.1] group-hover:text-brand transition-colors">
+                    {v.name}
+                  </h3>
+                  <p className="relative mt-5 text-graphite leading-relaxed flex-1">{v.summary}</p>
+
+                  <span className="relative mt-7 block border-t border-line pt-5">
+                    <span className="mono-label label-accent">Contract number</span>
+                    <span className="mt-2 block font-mono text-sm text-ink">
+                      {v.number ?? "Provided on request"}
+                    </span>
                   </span>
 
-                </div>
-              </div>
-            </Link>
-          </Reveal>
+                  <span className="relative mt-6 inline-flex items-center gap-2 mono-label label-accent group-hover:text-brand transition-colors">
+                    Read the vehicle
+                    <LinkPending />
+                    <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                  </span>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
-
-      <VehicleLedger groups={VEHICLE_GROUPS} />
 
       <ProcurementRail
         eyebrow="How to buy"
@@ -87,11 +98,11 @@ export default function ContractVehiclesPage() {
 
       {/* Certifications are the second thing a procurement officer checks, after
           the vehicle itself. */}
-      <section className="relative z-10 bg-paper py-20 sm:py-28 border-t border-line">
+      <section className="relative z-10 overflow-hidden bg-paper py-12 sm:py-16 border-t border-line">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
           <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-10 lg:gap-16">
             <div>
-              <p className="mono-label text-accent-deep mb-4">Certifications</p>
+              <p className="mono-label label-accent mb-4">Certifications</p>
               <h2 className="display text-3xl sm:text-5xl text-ink">
                 Status that counts toward your goals
               </h2>
@@ -99,9 +110,10 @@ export default function ContractVehiclesPage() {
             <ul className="grid sm:grid-cols-3 gap-6">
               {CERTIFICATIONS.map((c, i) => (
                 <Reveal key={c.label} delay={i * 0.06} variant="zoom">
-                  <li className="h-full rounded-2xl border border-line bg-surface p-7 transition-colors hover:border-brand/50">
-                    <p className={`display text-4xl ${PRISM_TEXT[i % 6]}`}>{c.label}</p>
-                    <p className="mt-4 text-graphite leading-relaxed">{c.body}</p>
+                  <li className="card-lift group relative h-full overflow-hidden rounded-2xl border border-line bg-surface p-7 transition-colors hover:border-brand/50">
+                    <span aria-hidden className={`prism-wash pointer-events-none absolute -left-14 -bottom-14 h-40 w-40 rounded-full ${PRISM_BG[(i + 2) % 6]} blur-[70px] transition-opacity duration-500 group-hover:opacity-45`} />
+                    <p className={`display relative text-4xl ${PRISM_TEXT[i % 6]}`}>{c.label}</p>
+                    <p className="relative mt-4 text-graphite leading-relaxed">{c.body}</p>
                   </li>
                 </Reveal>
               ))}

@@ -88,11 +88,11 @@ export default function ScrollStory({
   const current = items[active];
 
   return (
-    <section className="relative z-10 py-20 sm:py-28">
+    <section className="relative z-10 py-14 sm:py-18">
       <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
         {(eyebrow || heading) && (
-          <div className="mb-14">
-            {eyebrow && <p className="mono-label text-accent-deep mb-4">{eyebrow}</p>}
+          <div className="mb-10">
+            {eyebrow && <p className="mono-label label-accent mb-4">{eyebrow}</p>}
             {heading && <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">{heading}</h2>}
           </div>
         )}
@@ -126,7 +126,7 @@ export default function ScrollStory({
                   )}
                   <div className="absolute left-6 bottom-6 right-6">
                     {current.kicker && (
-                      <p className={`mono-label ${current.image ? "text-brand-bright" : "text-accent-deep"}`}>{current.kicker}</p>
+                      <p className={`mono-label ${current.image ? "text-brand-bright" : "label-accent"}`}>{current.kicker}</p>
                     )}
                     <p className={`display text-2xl mt-1 ${current.image ? "text-white" : "text-ink"}`}>{current.title}</p>
                   </div>
@@ -162,7 +162,7 @@ export default function ScrollStory({
                     <StoryArt index={i} />
                   )}
                 </div>
-                {it.kicker && <p className="mono-label text-accent-deep mb-3">{it.kicker}</p>}
+                {it.kicker && <p className="mono-label label-accent mb-3">{it.kicker}</p>}
                 <h3 className="display text-3xl sm:text-5xl text-ink">{it.title}</h3>
                 <p className="mt-5 text-lg text-graphite leading-relaxed max-w-lg">{it.body}</p>
                 {it.extra}
