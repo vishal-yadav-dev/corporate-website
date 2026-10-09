@@ -37,7 +37,7 @@ export default function PinnedStory({
             screen. Centring it, which is what this used to do, put its lower
             edge well below halfway once it ran to two lines. */}
         <div className="relative h-full grid items-start px-5 sm:px-8 pt-28 sm:pt-32">
-          <div className="mx-auto max-w-[1400px] w-full">
+          <div className="mx-auto max-w-[87.5rem] w-full">
             <p className="mono-label text-accent-deep mb-5">{eyebrow}</p>
             <h2 className="display text-5xl sm:text-7xl lg:text-8xl text-ink max-w-4xl">{heading}</h2>
           </div>
@@ -46,10 +46,10 @@ export default function PinnedStory({
 
       {/* Cards travelling over it */}
       <div className="relative -mt-[100vh]">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8 pt-[44vh] lg:pt-[48vh] pb-[16vh] space-y-8 sm:space-y-12 scene" style={{ perspective: 1600 }}>
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8 pt-[44vh] lg:pt-[48vh] pb-[16vh] space-y-8 sm:space-y-12 scene" style={{ perspective: 1600 }}>
           {items.map((it, i) => (
             <PinnedCard key={it.title} index={i} even={i % 2 === 0} accentClass={accentClass}>
-              <div className="shadow-card relative bg-surface/95 border border-line rounded-[28px] p-8 sm:p-12 backdrop-blur-sm hover:border-brand/50 transition-colors">
+              <div className="shadow-card relative bg-surface/95 border border-line rounded-[1.75rem] p-8 sm:p-12 backdrop-blur-sm hover:border-brand/50 transition-colors">
                 <span className={`mono-label text-graphite`}>0{i + 1}</span>
                 <h3 className="display text-3xl sm:text-5xl text-ink mt-4">{it.title}</h3>
                 <p className="mt-5 text-lg text-ink/75 leading-relaxed max-w-2xl">{it.body}</p>

@@ -26,15 +26,15 @@ export default function IndustriesPage() {
         title="Technology shaped by your industry."
         intro="Every industry has different operating models, regulatory environments, technology challenges, and business priorities. Our solutions are designed around those realities."
       />
-      <section className="relative z-10 bg-surface pt-16 sm:pt-24 pb-24 sm:pb-32 overflow-hidden">
+      <section className="relative z-10 bg-surface pt-12 sm:pt-16 pb-16 sm:pb-20 overflow-hidden">
         <ConstellationField />
         {/* positioned, so the cards paint over the field rather than under it */}
-        <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8 space-y-6 scene" style={{ perspective: 1400 }}>
+        <div className="relative z-10 mx-auto max-w-[87.5rem] px-5 sm:px-8 space-y-6 scene" style={{ perspective: 1400 }}>
           {INDUSTRIES.map((ind, i) => (
             <Reveal key={ind.id} delay={0.03}>
               <div
                 id={ind.id}
-                className="card-3d group scroll-mt-28 relative grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-16 items-center bg-paper border border-line rounded-3xl p-8 sm:p-12 overflow-hidden hover:border-brand/50"
+                className="card-3d group scroll-mt-16 relative grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-16 items-center bg-paper border border-line rounded-3xl p-8 sm:p-12 overflow-hidden hover:border-brand/50"
               >
                 <div
                   className={`pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full ${PRISM_BG[i % 6]} opacity-[0.10] blur-[90px] group-hover:opacity-20 transition-opacity duration-500`}
@@ -60,7 +60,7 @@ export default function IndustriesPage() {
                 </div>
                 <div className="relative lg:justify-self-end">
                   {ind.image ? (
-                    <figure className="relative overflow-hidden rounded-2xl border border-line lg:w-[320px]">
+                    <figure className="relative overflow-hidden rounded-2xl border border-line lg:w-[20rem]">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={ind.image}
@@ -75,7 +75,7 @@ export default function IndustriesPage() {
                       </figcaption>
                     </figure>
                   ) : (
-                    <div className={`${PRISM_BG[i % 6]} text-white rounded-2xl p-8 sm:p-10 lg:w-[280px] shadow-[0_24px_60px_-24px_rgba(0,0,0,0.6)]`}>
+                    <div className={`${PRISM_BG[i % 6]} text-white rounded-2xl p-8 sm:p-10 lg:w-[17.5rem] shadow-[0_24px_60px_-24px_rgba(0,0,0,0.6)]`}>
                       <p className="display text-3xl sm:text-4xl leading-[1.05]">{ind.metric}</p>
                       <p className="mt-2 text-sm text-white/75">{ind.metricLabel}</p>
                     </div>

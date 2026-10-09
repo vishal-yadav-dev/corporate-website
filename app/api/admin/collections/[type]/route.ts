@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { q, one } from "@/lib/db";
 import { requireAdmin } from "@/lib/guard";
 import { cuid } from "@/lib/id";
@@ -39,6 +40,14 @@ export async function POST(req: Request, ctx: { params: Promise<{ type: string }
     vals.push(val);
   }
 
+  /* Who added it. Recorded on the row rather than inferred from a log, so the
+     editor can show it back and a second admin knows whose work they are
+     changing. */
+  if (c.stamped) {
+    cols.push("created_by", "updated_by");
+    vals.push(guard.name || guard.email, guard.name || guard.email);
+  }
+
   if (c.slugFrom) {
     const base = slugify(String(body[c.slugFrom] ?? "item"));
     let slug = base;
@@ -49,6 +58,9 @@ export async function POST(req: Request, ctx: { params: Promise<{ type: string }
 
   const ph = vals.map((_, i) => `$${i + 1}`).join(",");
   await q(`INSERT INTO ${c.table} (${cols.join(",")}) VALUES (${ph})`, vals);
+  /* Every site page is ISR'd for a minute. Without this a saved entry would not
+     show for up to 60s, which reads as a failure. */
+  revalidatePath("/", "layout");
   const item = await one(`SELECT * FROM ${c.table} WHERE id = $1`, [vals[0]]);
   return NextResponse.json({ item });
 }

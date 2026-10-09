@@ -7,7 +7,7 @@ import CtaBanner from "@/components/CtaBanner";
 import PinnedStory from "@/components/PinnedStory";
 import PartnerStrip from "@/components/PartnerStrip";
 import { getPractices, getCaseStudies } from "@/lib/site";
-import { INDUSTRIES, PRISM_TEXT } from "@/lib/data";
+import { INDUSTRIES, PRISM_TEXT, PRISM_VAR } from "@/lib/data";
 import { PRACTICE_DETAIL, CAPABILITY_NOTES } from "@/lib/detail";
 
 /* ISR: practice copy is edited in /admin/site. */
@@ -77,21 +77,21 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
   const proof = cases.slice(0, 2);
 
   return (
-    <>
+    <div style={{ "--page-accent": PRISM_VAR[accent % 6] } as React.CSSProperties}>
       <PageHeader
-        eyebrow="Practices"
+        eyebrow={`Practices / ${practice.name}`}
         vanta={d?.vanta ?? "net"}
         title={d?.headline ?? `${practice.name}, delivered.`}
         intro={d?.lead ?? practice.body}
       />
 
       {/* ---- Opening section: a different arrangement per practice ---- */}
-      <section className="relative z-10 bg-surface/70 pt-16 sm:pt-24 pb-24 sm:pb-32">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+      <section className="relative z-10 bg-surface/70 pt-12 sm:pt-16 pb-16 sm:pb-20">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           {variant === "split" && (
             <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-10 lg:gap-20 items-start">
               <div className="lg:sticky lg:top-28">
-                <Reveal delay={0.05}><p className="mono-label text-accent-deep mb-4">{d?.whatHeading}</p></Reveal>
+                <Reveal delay={0.05}><p className="mono-label label-accent mb-4">{d?.whatHeading}</p></Reveal>
                 <Reveal delay={0.12}>
                   <h2 className="display text-4xl sm:text-6xl text-ink">{accentLast(practice.tag)}</h2>
                 </Reveal>
@@ -104,7 +104,7 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
 
           {variant === "stack" && (
             <div className="max-w-3xl mx-auto text-center">
-              <Reveal delay={0.05}><p className="mono-label text-accent-deep mb-5">{d?.whatHeading}</p></Reveal>
+              <Reveal delay={0.05}><p className="mono-label label-accent mb-5">{d?.whatHeading}</p></Reveal>
               <Reveal delay={0.12}>
                 <h2 className="display text-4xl sm:text-6xl text-ink">{accentLast(practice.tag)}</h2>
               </Reveal>
@@ -117,14 +117,14 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
           {variant === "mosaic" && (
             <div className="grid lg:grid-cols-12 gap-6 items-stretch">
               <Reveal delay={0.05} className="lg:col-span-5">
-                <div className={`relative h-full overflow-hidden rounded-[28px] border border-line bg-paper p-8 sm:p-10`}>
+                <div className={`relative h-full overflow-hidden rounded-[1.75rem] border border-line bg-paper p-8 sm:p-10`}>
                   <span aria-hidden className={`pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full ${PRISM_BG[accent]} opacity-[0.14] blur-[100px]`} />
-                  <p className="relative mono-label text-accent-deep mb-4">{d?.whatHeading}</p>
+                  <p className="relative mono-label label-accent mb-4">{d?.whatHeading}</p>
                   <h2 className="relative display text-4xl sm:text-5xl text-ink">{accentLast(practice.tag)}</h2>
                 </div>
               </Reveal>
               <Reveal delay={0.14} className="lg:col-span-7">
-                <div className="h-full rounded-[28px] border border-line bg-surface p-8 sm:p-10 flex items-center">
+                <div className="h-full rounded-[1.75rem] border border-line bg-surface p-8 sm:p-10 flex items-center">
                   <p className="text-lg sm:text-xl text-ink/80 leading-relaxed">{d?.what}</p>
                 </div>
               </Reveal>
@@ -135,14 +135,32 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
             <div className="grid lg:grid-cols-[auto_1fr] gap-10 lg:gap-16">
               <Reveal delay={0.05}>
                 <div className="flex lg:flex-col items-center lg:items-start gap-4">
-                  <span className={`h-14 w-14 grid place-items-center rounded-full ${PRISM_BG[accent]} text-white display text-xl`}>
-                    {practice.name.slice(0, 2)}
-                  </span>
+                  {d?.badge ? (
+                    /* A picture of the work, ringed in the page's colour. The
+                       circle held two letters before, which told a reader
+                       nothing they could not already see in the heading. */
+                    <span className="group relative h-20 w-20 shrink-0 overflow-hidden rounded-full ring-2 ring-[var(--page-accent,var(--color-brand))]/60 ring-offset-4 ring-offset-paper">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={d.badge}
+                        alt=""
+                        aria-hidden
+                        loading="lazy"
+                        decoding="async"
+                        className="h-full w-full scale-[1.08] object-cover transition-transform duration-700 group-hover:scale-[1.2]"
+                      />
+                      <span aria-hidden className={`pointer-events-none absolute inset-0 ${PRISM_BG[accent]} opacity-20 mix-blend-multiply`} />
+                    </span>
+                  ) : (
+                    <span className={`h-14 w-14 grid place-items-center rounded-full ${PRISM_BG[accent]} text-white display text-xl`}>
+                      {practice.name.slice(0, 2)}
+                    </span>
+                  )}
                   <span aria-hidden className="hidden lg:block w-px flex-1 bg-gradient-to-b from-brand/60 to-transparent" />
                 </div>
               </Reveal>
               <div>
-                <Reveal delay={0.1}><p className="mono-label text-accent-deep mb-4">{d?.whatHeading}</p></Reveal>
+                <Reveal delay={0.1}><p className="mono-label label-accent mb-4">{d?.whatHeading}</p></Reveal>
                 <Reveal delay={0.16}>
                   <h2 className="display text-4xl sm:text-6xl text-ink max-w-3xl">{accentLast(practice.tag)}</h2>
                 </Reveal>
@@ -166,10 +184,10 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
       )}
 
       {/* ---- Capabilities: column count varies with the variant ---- */}
-      <section className="relative z-10 bg-surface/70 py-24 sm:py-32">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+      <section className="relative z-10 bg-surface/70 py-16 sm:py-20">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-10" delay={0.05}>
-            <p className="mono-label text-accent-deep">Capabilities</p>
+            <p className="mono-label label-accent">Capabilities</p>
           </Reveal>
           <div className={`grid gap-5 ${variant === "stack" ? "sm:grid-cols-2" : variant === "mosaic" ? "sm:grid-cols-2 lg:grid-cols-3" : "sm:grid-cols-2 lg:grid-cols-4"}`}>
             {practice.stack.map((cap, i) => (
@@ -189,10 +207,10 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
       </section>
 
       {/* ---- Delivery approach ---- */}
-      <section className="relative z-10 bg-paper py-24 sm:py-32">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
-          <div className="mb-14">
-            <Reveal delay={0.05}><p className="mono-label text-accent-deep mb-4">Our delivery approach</p></Reveal>
+      <section className="relative z-10 bg-paper py-16 sm:py-20">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
+          <div className="mb-10">
+            <Reveal delay={0.05}><p className="mono-label label-accent mb-4">Our delivery approach</p></Reveal>
             <Reveal delay={0.12}>
               <h2 className="display text-4xl sm:text-6xl text-ink max-w-3xl">
                 Seven steps, in the same <span className="text-brand italic">order.</span>
@@ -212,10 +230,10 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
       </section>
 
       {/* ---- Relevant industries ---- */}
-      <section className="relative z-10 bg-surface/70 py-24 sm:py-32">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
-          <div className="mb-14">
-            <Reveal delay={0.05}><p className="mono-label text-accent-deep mb-4">Relevant industries</p></Reveal>
+      <section className="relative z-10 bg-surface/70 py-16 sm:py-20">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
+          <div className="mb-10">
+            <Reveal delay={0.05}><p className="mono-label label-accent mb-4">Relevant industries</p></Reveal>
             <Reveal delay={0.12}>
               <h2 className="display text-4xl sm:text-6xl text-ink max-w-3xl">
                 Where this practice goes <span className="text-brand italic">deepest.</span>
@@ -228,7 +246,7 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
                 <Link href={`/industries#${ind.id}`} className="card-lift group relative block h-full overflow-hidden bg-paper border border-line rounded-2xl p-7 hover:border-brand/50">
                   <span aria-hidden className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full ${PRISM_BG[(accent + i) % 6]} prism-wash blur-[70px] group-hover:opacity-25 transition-opacity duration-500`} />
                   <h3 className="relative display text-2xl text-ink group-hover:text-brand transition-colors">{ind.name}</h3>
-                  <p className="relative mt-2 text-sm text-accent-deep">{ind.line}</p>
+                  <p className="relative mt-2 text-sm label-accent">{ind.line}</p>
                   <span className="relative mt-6 block mono-label text-graphite group-hover:text-brand transition-colors">Explore →</span>
                 </Link>
               </Reveal>
@@ -239,10 +257,10 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
 
       {/* ---- Proof ---- */}
       {proof.length > 0 && (
-        <section className="relative z-10 bg-paper py-24 sm:py-32">
-          <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
-            <Reveal className="mb-14" delay={0.05}>
-              <p className="mono-label text-accent-deep mb-4">Case studies &amp; proof</p>
+        <section className="relative z-10 bg-paper py-16 sm:py-20">
+          <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
+            <Reveal className="mb-10" delay={0.05}>
+              <p className="mono-label label-accent mb-4">Case studies &amp; proof</p>
               <h2 className="display text-4xl sm:text-6xl text-ink max-w-3xl">
                 Work that has already <span className="text-brand italic">shipped.</span>
               </h2>
@@ -250,7 +268,7 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
             <div className="grid lg:grid-cols-2 gap-5">
               {proof.map((c, i) => (
                 <Reveal key={c.id} delay={i * 0.08}>
-                  <Link href="/company#case-studies" className="card-lift group block h-full overflow-hidden bg-surface border border-line rounded-2xl hover:border-brand/50">
+                  <Link href={`/success-stories/${c.id}`} className="card-lift group block h-full overflow-hidden bg-surface border border-line rounded-2xl hover:border-brand/50">
                     {c.image && (
                       /* eslint-disable-next-line @next/next/no-img-element */
                       <img src={c.image} alt="" loading="lazy" decoding="async" className="h-48 w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105" />
@@ -269,15 +287,15 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
       )}
 
       {/* ---- Related practices ---- */}
-      <section className="relative z-10 bg-surface/70 py-20 sm:py-28">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
-          <Reveal className="mb-10"><p className="mono-label text-accent-deep">Related practices</p></Reveal>
+      <section className="relative z-10 bg-surface/70 py-14 sm:py-18">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
+          <Reveal className="mb-10"><p className="mono-label label-accent">Related practices</p></Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {related.map((r, i) => (
               <Reveal key={r.id} delay={(i % 4) * 0.05}>
                 <Link href={`/practices/${r.id}`} className="card-lift group flex h-full flex-col bg-paper border border-line rounded-2xl p-6 hover:border-brand/50">
                   <h3 className="display text-xl text-ink group-hover:text-brand transition-colors">{r.name}</h3>
-                  <p className="mt-2 mono-label text-accent-deep">{r.tag}</p>
+                  <p className="mt-2 mono-label label-accent">{r.tag}</p>
                   <p className="mt-4 text-sm text-ink/65 leading-relaxed flex-1">
                     {PRACTICE_DETAIL[r.id]?.lead ?? r.body}
                   </p>
@@ -290,7 +308,7 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
       </section>
 
       <div className="bg-paper">
-        <PartnerStrip heading="Platform partners &amp; clients" title="Certified across the platforms we deliver." variant="grid" />
+        <PartnerStrip heading="Platform partners &amp; clients" title="Certified across the platforms we deliver." />
       </div>
 
       <CtaBanner
@@ -298,6 +316,6 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
         heading={`Talk to a ${practice.name} expert.`}
         body="Tell us what you are trying to achieve on the platform, and we will bring the people who have done it before."
       />
-    </>
+    </div>
   );
 }

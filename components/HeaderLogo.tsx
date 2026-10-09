@@ -22,13 +22,21 @@ export default function HeaderLogo({ src }: { src: string }) {
       <div className="preserve-3d anim-float">
         <div className="preserve-3d anim-sway">
           <div className="relative">
-            <span className="absolute -inset-14 rounded-full bg-brand/25 blur-[100px]" />
+            <span className="anim-pulse-glow absolute -inset-16 rounded-full bg-brand/30 blur-[110px]" />
+            {/* The official mark is a wide banner, so the plate follows its
+                shape rather than boxing it into a square. */}
             <div
-              className="relative grid place-items-center rounded-3xl bg-white p-10 xl:p-12 ring-1 ring-black/5 w-[280px] xl:w-[340px]"
-              style={{ boxShadow: "0 50px 110px -45px rgba(0,0,0,0.9)" }}
+              className="relative overflow-hidden grid place-items-center rounded-2xl bg-white px-9 py-7 xl:px-12 xl:py-9 ring-1 ring-black/5 w-[26.25rem] xl:w-[32.5rem]"
+              style={{ boxShadow: "0 55px 120px -45px rgba(0,0,0,0.9)" }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={src} alt="" className="block w-full h-auto" />
+              <img src={src} alt="" className="relative block w-full h-auto" />
+              {/* light crossing the plate, clipped to its shape */}
+              <span
+                aria-hidden
+                className="plate-sheen pointer-events-none absolute inset-y-0 -left-1/3 w-1/3"
+                style={{ background: "linear-gradient(100deg, transparent, rgba(255,255,255,.85), transparent)" }}
+              />
             </div>
           </div>
         </div>

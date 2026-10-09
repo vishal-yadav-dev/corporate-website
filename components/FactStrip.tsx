@@ -50,7 +50,7 @@ export default function FactStrip({
                 transition: `opacity .55s ${EASE} ${delay}s, transform .55s ${EASE} ${delay}s`,
               }}
             >
-              <dt className="mono-label text-accent-deep">{f.label}</dt>
+              <dt className="mono-label label-accent">{f.label}</dt>
               <dd className={`mt-3 leading-relaxed ${f.mono ? "font-mono text-sm text-ink" : "text-sm text-ink/80"}`}>
                 {f.value}
               </dd>

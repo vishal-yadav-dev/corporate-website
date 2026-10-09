@@ -1,6 +1,8 @@
 import Reveal from "./Reveal";
 import VantaBg from "./VantaBg";
+import InkField from "@/components/InkField";
 import ConnectionMap from "./ConnectionMap";
+import FlowField from "./FlowField";
 import HeaderLogo from "./HeaderLogo";
 
 type VantaEffect = "waves" | "rings" | "net" | "globe" | "fog" | "halo" | "dots" | "cells" | "birds" | "clouds" | "clouds2" | "topology" | "trunk";
@@ -24,6 +26,8 @@ export default function PageHeader({
   vanta,
   video,
   dome,
+  flow,
+  ink,
   logo,
 }: {
   eyebrow: string;
@@ -34,11 +38,15 @@ export default function PageHeader({
   video?: string;
   /** the office map with live links, instead of a Vanta scene */
   dome?: boolean;
+  /** the flow field, instead of a Vanta scene */
+  flow?: boolean;
+  /** lines of writing appearing a word at a time — for the blog */
+  ink?: boolean;
   /** An awarding body's mark, turning in place of the generated background. */
-  logo?: { src: string; alt: string };
+  logo?: { src: string; alt?: string };
 }) {
   return (
-    <section className="relative pt-[150px] sm:pt-[190px] pb-16 sm:pb-28 overflow-hidden">
+    <section className="relative pt-[9.375rem] sm:pt-[11.875rem] pb-16 sm:pb-28 overflow-hidden">
       {/* A topic video takes precedence over the generated background. It is
           muted, looping and inert, so it never competes for attention or
           autoplay permission. */}
@@ -58,22 +66,34 @@ export default function PageHeader({
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-paper/85 via-paper/55 to-paper" />
         </>
       )}
+      {!video && !logo && !dome && ink && (
+        <>
+          <InkField />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-paper/45 via-transparent to-paper" />
+        </>
+      )}
+      {!video && !logo && !dome && !ink && flow && (
+        <>
+          <FlowField />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-paper/55 via-transparent to-paper" />
+        </>
+      )}
       {!video && !logo && dome && (
         <>
           <ConnectionMap />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-paper/70 via-transparent to-paper" />
         </>
       )}
-      {!video && !logo && !dome && vanta && (
+      {!video && !logo && !dome && !ink && !flow && vanta && (
         <>
           <VantaBg effect={vanta} />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-paper/80 via-paper/45 to-paper" />
         </>
       )}
       {logo && <HeaderLogo src={logo.src} />}
-      {!vanta && !video && !logo && !dome && <div className="pointer-events-none absolute -top-20 right-0 h-[360px] w-[360px] rounded-full bg-brand/8 blur-[120px]" />}
+      {!vanta && !video && !logo && !dome && !flow && <div className="pointer-events-none absolute -top-20 right-0 h-[22.5rem] w-[22.5rem] rounded-full bg-brand/8 blur-[120px]" />}
 
-      <div className="mx-auto max-w-[1400px] px-5 sm:px-8 relative z-10">
+      <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8 relative z-10">
         <Reveal>
           <p className="mono-label text-accent-deep mb-6">{eyebrow}</p>
           {/* Same treatment as the homepage carousel: the last word carries the

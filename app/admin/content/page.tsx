@@ -49,6 +49,7 @@ export default function ContentPage() {
         <div className="flex items-center gap-3">
           <button onClick={save} disabled={busy || !loaded} className="bg-brand text-white px-6 py-3 rounded-full font-medium hover:bg-brand-deep transition-colors disabled:opacity-50">{!loaded ? "Loading…" : busy ? "Saving…" : "Save changes"}</button>
           {saved && <span className="text-sm text-brand">Saved ✓</span>}
+          <a href="/" target="_blank" rel="noreferrer" className="text-sm text-accent-deep hover:underline ml-auto">View on site ↗</a>
         </div>
       </div>
     </div>

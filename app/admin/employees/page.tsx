@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import EmailChips, { isEmail } from "@/components/admin/EmailChips";
+import { announcementHtml } from "@/lib/email-shell";
 
 type Employee = { id: string; name: string; email: string; title: string | null; department: string | null; location: string | null; start_date: string | null; status: string };
 type Person = { name: string; email: string };
-type Announce = { employee: { id: string; name: string }; email: { subject: string; text: string; html: string }; candidates: { employees: Person[]; admins: Person[] } };
+type Announce = { employee: { id: string; name: string }; email: { subject: string; text: string; html: string }; candidates: { employees: Person[]; admins: Person[] }; from?: string };
 
 const empty = { name: "", email: "", title: "", department: "", location: "", startDate: "" };
 
@@ -164,6 +166,12 @@ function AnnounceModal({ data, onClose }: { data: Announce; onClose: () => void 
   const [body, setBody] = useState(data.email.text);
   const [result, setResult] = useState<{ ok: boolean; mode: string; sent: number; note?: string; error?: string } | null>(null);
   const [busy, setBusy] = useState(false);
+  /* Anyone not on the list: a client contact, a contractor, a shared inbox. */
+  const [extra, setExtra] = useState<string[]>([]);
+  const [cc, setCc] = useState<string[]>([]);
+  const [bcc, setBcc] = useState<string[]>([]);
+  const badAddress = [...extra, ...cc, ...bcc].some((e) => !isEmail(e));
+  const total = new Set([...selected, ...extra, ...cc, ...bcc]).size;
 
   const toggle = (email: string) => setSelected((s) => { const n = new Set(s); n.has(email) ? n.delete(email) : n.add(email); return n; });
   const all = () => setSelected(new Set(allPeople.map((p) => p.email)));
@@ -173,7 +181,7 @@ function AnnounceModal({ data, onClose }: { data: Announce; onClose: () => void 
     setBusy(true);
     const res = await fetch("/api/admin/announce", {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ employeeId: data.employee.id, recipients: [...selected], subject, text: body, html: data.email.html }),
+      body: JSON.stringify({ employeeId: data.employee.id, recipients: [...selected, ...extra], cc, bcc, subject, text: body }),
     });
     setResult(await res.json());
     setBusy(false);
@@ -207,8 +215,22 @@ function AnnounceModal({ data, onClose }: { data: Announce; onClose: () => void 
                   <input value={subject} onChange={(e) => setSubject(e.target.value)} className="w-full bg-surface border border-line rounded-xl px-4 py-3 text-ink focus:border-brand focus:outline-none" />
                 </div>
                 <div>
-                  <label className="mono-label text-graphite block mb-2">Message preview</label>
+                  <label className="mono-label text-graphite block mb-2">Message</label>
                   <textarea value={body} onChange={(e) => setBody(e.target.value)} className="w-full bg-paper-tint/40 border border-line rounded-xl px-4 py-3 text-ink text-sm min-h-[160px] focus:border-brand focus:outline-none" />
+                </div>
+                <div>
+                  <label className="mono-label text-graphite block mb-2">Preview · as it will arrive</label>
+                  <div className="border border-line rounded-xl p-3">
+                    <p className="px-1 pb-2 text-xs text-graphite">
+                      From <span className="text-ink">{data.from || "…"}</span> · Subject <span className="text-ink">{subject}</span>
+                    </p>
+                    <iframe
+                      title="Announcement preview"
+                      sandbox=""
+                      srcDoc={`<!doctype html><html><body style="margin:0;padding:16px;background:#F4F6F8">${announcementHtml(body)}</body></html>`}
+                      className="block w-full h-[300px] rounded-lg bg-white"
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -233,10 +255,19 @@ function AnnounceModal({ data, onClose }: { data: Announce; onClose: () => void 
                 </div>
               </div>
 
+              <div className="mt-6 space-y-4">
+                <EmailChips label="Add other addresses" value={extra} onChange={setExtra} placeholder="Anyone not in the list above" />
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <EmailChips label="CC" value={cc} onChange={setCc} placeholder="Optional" />
+                  <EmailChips label="BCC" value={bcc} onChange={setBcc} placeholder="Optional" />
+                </div>
+                {badAddress && <p className="text-sm text-accent-deep">One of the addresses is not valid. It is marked in red.</p>}
+              </div>
+
               <div className="mt-6 flex items-center justify-between gap-3">
                 <button onClick={onClose} className="text-sm text-graphite hover:text-ink">Cancel</button>
-                <button onClick={send} disabled={busy || selected.size === 0} className="bg-brand text-white px-6 py-3 rounded-full font-medium hover:bg-brand-deep transition-colors disabled:opacity-50">
-                  {busy ? "Sending…" : `Send to ${selected.size} →`}
+                <button onClick={send} disabled={busy || total === 0 || badAddress} className="bg-brand text-white px-6 py-3 rounded-full font-medium hover:bg-brand-deep transition-colors disabled:opacity-50">
+                  {busy ? "Sending…" : `Send to ${total} →`}
                 </button>
               </div>
             </>

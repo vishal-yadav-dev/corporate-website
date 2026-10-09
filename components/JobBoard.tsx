@@ -41,7 +41,7 @@ export default function JobBoard() {
   if (jobs.length === 0) {
     return (
       <div className="bg-paper border border-line rounded-2xl p-10 text-center text-graphite">
-        No open roles right now. Send your CV to <a href="/contact" className="text-brand hover:underline">our team</a> and we&apos;ll reach out when something fits.
+        No open roles right now. Send your CV to <a href="/careers#open-application" className="text-brand hover:underline">our team</a> and we&apos;ll reach out when something fits.
       </div>
     );
   }

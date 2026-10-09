@@ -77,7 +77,7 @@ export default function ResumeDrop() {
       >
         {/* ---- front: the pitch ---- */}
         <div ref={frontRef} className={hideBack} inert={open || undefined} aria-hidden={open}>
-          <div className="relative overflow-hidden rounded-[28px] border border-line-blue/60 bg-surface px-7 py-11 sm:px-14 sm:py-14">
+          <div className="relative overflow-hidden rounded-[1.75rem] border border-line-blue/60 bg-surface px-7 py-11 sm:px-14 sm:py-14">
             <span aria-hidden className="prism-wash-lg pointer-events-none absolute -right-28 -top-28 h-80 w-80 rounded-full bg-prism-blue blur-[120px]" />
             <span aria-hidden className="prism-wash-lg pointer-events-none absolute -left-24 -bottom-24 h-72 w-72 rounded-full bg-prism-violet blur-[120px]" />
             <div className="relative flex flex-col gap-7 lg:flex-row lg:items-center lg:justify-between">
@@ -111,7 +111,7 @@ export default function ResumeDrop() {
           inert={!open || undefined}
           aria-hidden={!open}
         >
-          <div className="relative overflow-hidden rounded-[28px] border border-line-blue/60 bg-surface px-7 py-9 sm:px-14 sm:py-12">
+          <div className="relative overflow-hidden rounded-[1.75rem] border border-line-blue/60 bg-surface px-7 py-9 sm:px-14 sm:py-12">
             <span aria-hidden className="prism-wash-lg pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-prism-blue blur-[120px]" />
             <div className="relative mb-7 flex flex-wrap items-center justify-between gap-4">
               <div>

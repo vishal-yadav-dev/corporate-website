@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { PreviewLink, useDraftMirror } from "@/components/admin/preview";
 import Link from "next/link";
 import { PRACTICES } from "@/lib/data";
 import { EMPLOYMENT_TYPES, WORKPLACES, JOB_STATUSES } from "@/lib/jobs";
@@ -47,6 +48,7 @@ export default function JobsAdminPage() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [err, setErr] = useState("");
   const [busy, setBusy] = useState(false);
+  useDraftMirror("job", { ...form, __id: editingId });
   const [note, setNote] = useState("");
 
   const load = useCallback(() => {
@@ -234,6 +236,7 @@ export default function JobsAdminPage() {
               Cancel
             </button>
           )}
+          <PreviewLink kind="job" className="self-center" />
         </div>
       </form>
 

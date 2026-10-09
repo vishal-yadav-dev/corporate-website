@@ -1,6 +1,7 @@
 import { q } from "@/lib/db";
 import { cuid } from "@/lib/id";
 import { bad, isEmail, toCsv, HttpError } from "@/lib/http";
+import { leadReceived } from "@/lib/services/form-mail";
 
 export type Lead = {
   id: string; source: string; name: string; email: string; company: string | null;
@@ -30,6 +31,9 @@ export async function submit(body: Record<string, unknown>) {
      VALUES ($1,$2,$3,$4,$5,$6,$7,$8)`,
     [cuid(), source, name, email, company, phone, practice, message]
   );
+  /* Saved first, mailed second: the enquiry is in Admin → Enquiries whether or
+     not the mail goes. */
+  await leadReceived({ name, email, company, phone, practice, message });
   return { ok: true };
 }
 

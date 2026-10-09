@@ -17,6 +17,8 @@ export const SECTIONS = [
   { key: "banners", label: "Homepage banners", href: "/admin/banners", icon: "layout" },
   { key: "site", label: "Site content", href: "/admin/site", icon: "globe" },
   { key: "content", label: "Homepage text", href: "/admin/content", icon: "text" },
+  { key: "pages", label: "Page text", href: "/admin/pages", icon: "edit" },
+  { key: "legal", label: "Policies", href: "/admin/legal", icon: "scale" },
   { key: "team", label: "Users & access", href: "/admin/team", icon: "shield" },
 ] as const;
 

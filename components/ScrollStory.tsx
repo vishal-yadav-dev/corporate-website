@@ -24,7 +24,7 @@ function StoryArt({ index }: { index: number }) {
       <div className="absolute inset-0 bg-dotgrid opacity-25" />
       <div className="anim-drift pointer-events-none absolute -top-16 -left-10 h-64 w-64 rounded-full blur-[110px]" style={{ background: a, opacity: 0.28 }} />
       <div className="anim-drift pointer-events-none absolute -bottom-16 -right-10 h-72 w-72 rounded-full blur-[120px]" style={{ background: b, opacity: 0.22, animationDelay: "-5s" }} />
-      <svg viewBox="0 0 400 400" className="relative w-2/3 max-w-[280px] anim-float" fill="none">
+      <svg viewBox="0 0 400 400" className="relative w-2/3 max-w-[17.5rem] anim-float" fill="none">
         {/* concentric arcs */}
         {[130, 100, 70, 40].map((r, i) => (
           <circle key={r} cx="200" cy="200" r={r} stroke={PRISM[(index + i) % 6]} strokeOpacity={0.5 - i * 0.08} strokeWidth="2" />
@@ -88,11 +88,11 @@ export default function ScrollStory({
   const current = items[active];
 
   return (
-    <section className="relative z-10 py-20 sm:py-28">
-      <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+    <section className="relative z-10 py-14 sm:py-18">
+      <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
         {(eyebrow || heading) && (
-          <div className="mb-14">
-            {eyebrow && <p className="mono-label text-accent-deep mb-4">{eyebrow}</p>}
+          <div className="mb-10">
+            {eyebrow && <p className="mono-label label-accent mb-4">{eyebrow}</p>}
             {heading && <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">{heading}</h2>}
           </div>
         )}
@@ -126,7 +126,7 @@ export default function ScrollStory({
                   )}
                   <div className="absolute left-6 bottom-6 right-6">
                     {current.kicker && (
-                      <p className={`mono-label ${current.image ? "text-brand-bright" : "text-accent-deep"}`}>{current.kicker}</p>
+                      <p className={`mono-label ${current.image ? "text-brand-bright" : "label-accent"}`}>{current.kicker}</p>
                     )}
                     <p className={`display text-2xl mt-1 ${current.image ? "text-white" : "text-ink"}`}>{current.title}</p>
                   </div>
@@ -162,7 +162,7 @@ export default function ScrollStory({
                     <StoryArt index={i} />
                   )}
                 </div>
-                {it.kicker && <p className="mono-label text-accent-deep mb-3">{it.kicker}</p>}
+                {it.kicker && <p className="mono-label label-accent mb-3">{it.kicker}</p>}
                 <h3 className="display text-3xl sm:text-5xl text-ink">{it.title}</h3>
                 <p className="mt-5 text-lg text-graphite leading-relaxed max-w-lg">{it.body}</p>
                 {it.extra}

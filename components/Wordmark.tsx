@@ -18,7 +18,7 @@ export default function Wordmark({
   return (
     <>
       <span
-        className={`${badge} grid place-items-center text-white font-display font-bold rounded-[6px] shrink-0 ${
+        className={`${badge} grid place-items-center text-white font-display font-bold rounded-[0.375rem] shrink-0 ${
           mono ? "bg-brand" : "bg-[linear-gradient(135deg,var(--color-prism-red),var(--color-brand)_45%,var(--color-prism-violet))]"
         }`}
       >

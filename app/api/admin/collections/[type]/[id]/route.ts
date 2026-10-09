@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { q, one } from "@/lib/db";
 import { requireAdmin } from "@/lib/guard";
 import { COLLECTIONS, type Field } from "@/lib/site";
@@ -29,8 +30,15 @@ export async function PUT(req: Request, ctx: { params: Promise<{ type: string; i
     vals.push(val);
     sets.push(`${f.name} = $${vals.length}`);
   }
+  if (c.stamped) {
+    vals.push(guard.name || guard.email);
+    sets.push(`updated_by = $${vals.length}`);
+  }
   vals.push(id);
   await q(`UPDATE ${c.table} SET ${sets.join(", ")}, updated_at = now() WHERE id = $${vals.length}`, vals);
+  /* Every site page is ISR'd for a minute. Without this a saved change would not
+     show for up to 60s, which reads as a failure. */
+  revalidatePath("/", "layout");
   const item = await one(`SELECT * FROM ${c.table} WHERE id = $1`, [id]);
   return NextResponse.json({ item });
 }
@@ -42,5 +50,6 @@ export async function DELETE(_req: Request, ctx: { params: Promise<{ type: strin
   const c = COLLECTIONS[type];
   if (!c) return NextResponse.json({ error: "Unknown collection." }, { status: 404 });
   await q(`DELETE FROM ${c.table} WHERE id = $1`, [id]);
+  revalidatePath("/", "layout");
   return NextResponse.json({ ok: true });
 }

@@ -53,7 +53,7 @@ function LeaderModal({ leader, onClose }: { leader: Leader; onClose: () => void 
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 16, scale: 0.98 }}
         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-        className="bg-surface border border-line-blue/60 rounded-[24px] w-full max-w-lg max-h-[88vh] flex flex-col overflow-hidden shadow-[0_40px_120px_-20px_rgba(0,0,0,0.9)]"
+        className="bg-surface border border-line-blue/60 rounded-[1.5rem] w-full max-w-lg max-h-[88vh] flex flex-col overflow-hidden shadow-[0_40px_120px_-20px_rgba(0,0,0,0.9)]"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="relative shrink-0 bg-[#0a0a0a] grid place-items-center">
@@ -76,7 +76,7 @@ function LeaderModal({ leader, onClose }: { leader: Leader; onClose: () => void 
           <p className="mono-label text-brand-bright">Leadership</p>
           <h3 className="display text-2xl sm:text-3xl text-ink mt-1.5">{leader.name}</h3>
           <p className="text-graphite mt-1 text-sm">{leader.title}</p>
-          {leader.bio && <p className="mt-4 text-ink/85 leading-relaxed whitespace-pre-wrap text-[14.5px]">{leader.bio}</p>}
+          {leader.bio && <p className="mt-4 text-ink/85 leading-relaxed whitespace-pre-wrap text-[0.9062rem]">{leader.bio}</p>}
           {leader.linkedin_url && (
             <a
               href={leader.linkedin_url} target="_blank" rel="noopener noreferrer"

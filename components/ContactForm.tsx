@@ -82,7 +82,7 @@ export default function ContactForm({ source = "contact" }: { source?: "contact"
       </div>
       <div>
         <label className="mono-label text-graphite block mb-2">{source === "enquiry" ? "Your enquiry" : "What are you modernizing?"}</label>
-        <textarea className={`${field} min-h-[140px] resize-y`} value={form.message} onChange={(e) => set("message", e.target.value)} placeholder="A few lines on your project, systems, and timeline." />
+        <textarea className={`${field} min-h-[8.75rem] resize-y`} value={form.message} onChange={(e) => set("message", e.target.value)} placeholder="A few lines on your project, systems, and timeline." />
       </div>
       {status === "error" && <p className="text-sm text-accent-deep">{err}</p>}
       <button type="submit" disabled={!valid || status === "loading"} className="w-full sm:w-auto inline-flex items-center justify-center gap-2 btn-cta bg-brand text-white px-8 py-3.5 rounded-full font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-brand-deep transition-colors">

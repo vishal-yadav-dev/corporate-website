@@ -1,1 +1,1 @@
-export { list as GET } from "@/lib/controllers/email-templates";
+export { list as GET, create as POST } from "@/lib/controllers/email-templates";

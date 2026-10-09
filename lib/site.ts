@@ -1,6 +1,9 @@
 import "server-only";
 import { cache } from "react";
 import { q } from "@/lib/db";
+import type { BlogPost, BlogSection } from "@/lib/blog";
+import { BLOG_POSTS as BLOG_FALLBACK, splitImage } from "@/lib/blog";
+import { LEGAL_SLUGS, legalDefault, legalKeys } from "@/lib/legal";
 import { PARTNERS as PARTNERS_FALLBACK, LOCATIONS, PRACTICES as PRACTICES_FALLBACK, PRACTICE_LOGOS, STAFFING as STAFFING_FALLBACK, AWARDS as AWARDS_FALLBACK, LEADERSHIP as LEADERSHIP_FALLBACK } from "@/lib/data";
 
 /* ------------------------------------------------------------------ *
@@ -17,6 +20,8 @@ export type Collection = {
   fields: Field[];
   /** derive a unique slug from another field on insert */
   slugFrom?: string;
+  /** record which admin account created and last changed each row */
+  stamped?: boolean;
 };
 
 export const COLLECTIONS: Record<string, Collection> = {
@@ -108,6 +113,28 @@ export const COLLECTIONS: Record<string, Collection> = {
       { name: "context", type: "text" },
       { name: "logo_id", type: "text" },
       { name: "logo_url", type: "text" },
+      { name: "sort_order", type: "int", default: 0 },
+      { name: "is_active", type: "bool", default: true },
+    ],
+  },
+  blog_posts: {
+    table: "blog_posts",
+    order: "published_at DESC, created_at DESC",
+    slugFrom: "title",
+    stamped: true,
+    fields: [
+      { name: "title", type: "text", required: true },
+      { name: "tag", type: "text", default: "Technology" },
+      { name: "excerpt", type: "text" },
+      { name: "image_url", type: "text" },
+      { name: "image_alt", type: "text" },
+      { name: "author_name", type: "text" },
+      { name: "author_role", type: "text" },
+      { name: "published_at", type: "text" },
+      { name: "accent", type: "int", default: 1 },
+      { name: "intro", type: "text" },
+      { name: "sections_json", type: "text", default: "[]" },
+      { name: "takeaways_json", type: "text", default: "[]" },
       { name: "sort_order", type: "int", default: 0 },
       { name: "is_active", type: "bool", default: true },
     ],
@@ -354,6 +381,15 @@ async function readCopy(defaults: Record<string, string>): Promise<Record<string
  * no behaviour.
  * ------------------------------------------------------------------ */
 
+/** An uploaded image by its slot, as a URL the browser can fetch. */
+async function readImageBySlot(slot: string): Promise<string> {
+  try {
+    const rows = await q<{ id: string }>("SELECT id FROM site_images WHERE slot = $1 LIMIT 1", [slot]);
+    return rows[0] ? `/api/images/${rows[0].id}` : "";
+  } catch { return ""; }
+}
+
+export const getImageBySlot = cache(readImageBySlot);
 export const getPartners = cache(readPartners);
 export const getOffices = cache(readOffices);
 export const getPractices = cache(readPractices);
@@ -364,3 +400,107 @@ export const getLeaders = cache(readLeaders);
 export const getCaseStudies = cache(readCaseStudies);
 export const getTestimonials = cache(readTestimonials);
 export const getCopy = cache(readCopy);
+
+
+/* ------------------------------------------------------------------ *
+ * Blog
+ * ------------------------------------------------------------------ */
+
+type BlogRow = {
+  slug: string; title: string; tag: string; excerpt: string;
+  image_url: string; image_alt: string;
+  author_name: string; author_role: string;
+  published_at: string; accent: number; intro: string;
+  sections_json: string; takeaways_json: string;
+  created_by: string; updated_by: string;
+};
+
+/** Bad JSON in a row must not take the page down, so each parse is guarded. */
+function parseJson<T>(raw: string, fallback: T): T {
+  try {
+    const v = JSON.parse(raw || "null");
+    return v == null ? fallback : (v as T);
+  } catch {
+    return fallback;
+  }
+}
+
+function toPost(r: BlogRow): BlogPost & { createdBy: string; updatedBy: string } {
+  const picture = splitImage(r.image_url || "");
+  return {
+    slug: r.slug,
+    tag: r.tag || "Technology",
+    title: r.title,
+    excerpt: r.excerpt || "",
+    image: picture.src || "/insights/platform.jpg",
+    imageAlt: r.image_alt || "",
+    imagePos: picture.pos,
+    date: r.published_at || "",
+    author: { name: r.author_name || "", role: r.author_role || "" },
+    accent: Number(r.accent) || 0,
+    intro: r.intro || "",
+    sections: parseJson<BlogSection[]>(r.sections_json, []),
+    takeaways: parseJson<string[]>(r.takeaways_json, []),
+    createdBy: r.created_by || "",
+    updatedBy: r.updated_by || "",
+  };
+}
+
+/* Falls back to the bundled posts so the blog is never an empty page on a
+   machine with no database — the same approach the other helpers take. */
+async function readBlogPosts(): Promise<BlogPost[]> {
+  try {
+    const rows = await q<BlogRow>(
+      "SELECT slug, title, tag, excerpt, image_url, image_alt, author_name, author_role, published_at, accent, intro, sections_json, takeaways_json, created_by, updated_by FROM blog_posts WHERE is_active = true ORDER BY published_at DESC, created_at DESC"
+    );
+    return rows.length ? rows.map(toPost) : BLOG_FALLBACK;
+  } catch {
+    return BLOG_FALLBACK;
+  }
+}
+
+export const getBlogPosts = cache(readBlogPosts);
+
+export async function getBlogPost(slug: string): Promise<BlogPost | undefined> {
+  return (await getBlogPosts()).find((p) => p.slug === slug);
+}
+
+
+/* ------------------------------------------------------------------ *
+ * Policy pages
+ * ------------------------------------------------------------------ */
+
+export type LegalView = {
+  slug: string; title: string; body: string;
+  /** ISO timestamp of the last edit, or "" while the page is still the default */
+  updatedAt: string;
+};
+
+/* Stored in `content` under legal.<slug>.title / .body, so no table of its own.
+   With no row, or no database at all, the bundled text renders. */
+async function readLegal(slug: string): Promise<LegalView | undefined> {
+  const base = legalDefault(slug);
+  if (!base) return undefined;
+  const k = legalKeys(slug);
+  const out: LegalView = { ...base, updatedAt: "" };
+  try {
+    const rows = await q<{ key: string; value: string; updated_at: string | Date }>(
+      "SELECT key, value, updated_at FROM content WHERE key = $1 OR key = $2", [k.title, k.body]
+    );
+    for (const r of rows) {
+      if (!r.value.trim()) continue;
+      if (r.key === k.title) out.title = r.value;
+      else out.body = r.value;
+      const at = new Date(r.updated_at).toISOString();
+      if (at > out.updatedAt) out.updatedAt = at;
+    }
+  } catch { /* fallback */ }
+  return out;
+}
+
+export const getLegal = cache(readLegal);
+
+export async function getLegalPages(): Promise<LegalView[]> {
+  const all = await Promise.all(LEGAL_SLUGS.map((s) => getLegal(s)));
+  return all.filter((d): d is LegalView => Boolean(d));
+}

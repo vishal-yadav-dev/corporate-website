@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { q, one } from "@/lib/db";
 import { cuid } from "@/lib/id";
 import { CV_ALLOWED_MIME, CV_MAX_BYTES } from "@/lib/jobs";
-import { sendMail } from "@/lib/email";
+import { applicationReceived } from "@/lib/services/form-mail";
 
 const isEmail = (s: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
 
@@ -61,31 +61,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
   }
 
-  // Best-effort notification to admins (composed only if SMTP is unset).
-  try {
-    const admins = await q<{ email: string }>("SELECT email FROM admins");
-    const to = admins.map((a) => a.email).filter(Boolean);
-    if (to.length) {
-      const subject = `New application${jobTitle ? ` — ${jobTitle}` : ""}: ${name}`;
-      const text = [
-        `A new candidate applied${jobTitle ? ` for ${jobTitle}` : ""}.`,
-        ``,
-        `Name: ${name}`,
-        `Email: ${email}`,
-        phone ? `Phone: ${phone}` : "",
-        location ? `Location: ${location}` : "",
-        linkedinUrl ? `LinkedIn: ${linkedinUrl}` : "",
-        coverNote ? `\nNote:\n${coverNote}` : "",
-        ``,
-        `Review it in the admin hub: /admin/applications`,
-      ]
-        .filter(Boolean)
-        .join("\n");
-      await sendMail({ to, subject, text });
-    }
-  } catch {
-    // notification failure must not fail the application
-  }
+  /* The team is told, and the candidate hears back. A dropped resume has no
+     job behind it, so it gets its own wording and its own recipient list. */
+  await applicationReceived({ name, email, phone, location, linkedinUrl, coverNote, jobTitle });
 
   return NextResponse.json({ ok: true });
 }

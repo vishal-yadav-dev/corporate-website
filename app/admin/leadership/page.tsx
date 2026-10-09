@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { PreviewLink, useDraftMirror } from "@/components/admin/preview";
 
 type Leader = {
   id: string;
@@ -34,6 +35,7 @@ export default function LeadershipAdminPage() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [err, setErr] = useState("");
   const [busy, setBusy] = useState(false);
+  useDraftMirror("leader", { ...form, __id: editingId });
   const [uploading, setUploading] = useState(false);
 
   const load = useCallback(() => {
@@ -183,6 +185,7 @@ export default function LeadershipAdminPage() {
               Cancel
             </button>
           )}
+          <PreviewLink kind="leader" className="self-center" />
         </div>
       </form>
 

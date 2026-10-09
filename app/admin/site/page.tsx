@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import CollectionEditor, { type EditorField } from "@/components/admin/CollectionEditor";
+import { splitImage } from "@/lib/blog";
 
 /* ---------- previews ---------- */
 
@@ -156,7 +157,7 @@ const CASE_FIELDS: EditorField[] = [
 ];
 
 const TESTIMONIAL_FIELDS: EditorField[] = [
-  { key: "kind", label: "Kind", type: "text", placeholder: "client or candidate" },
+  { key: "kind", label: "Kind", type: "text", placeholder: "client = Client Testimonials, candidate = Employee Testimonials" },
   { key: "quote", label: "Quote", type: "textarea" },
   { key: "person", label: "Name or role", type: "text" },
   { key: "title", label: "Job title", type: "text" },
@@ -167,7 +168,26 @@ const TESTIMONIAL_FIELDS: EditorField[] = [
   { key: "is_active", label: "Visible", type: "checkbox" },
 ];
 
-const TABS = ["Partners & clients", "Offices", "Practices", "Services", "Case studies", "Testimonials", "Awards", "About Us"] as const;
+const BLOG_FIELDS: EditorField[] = [
+  { key: "title", label: "Title", type: "text", full: true },
+  { key: "tag", label: "Category", type: "text", placeholder: "Workforce, Technology, AI, Public Sector…" },
+  { key: "published_at", label: "Published", type: "text", placeholder: "2026-03-26 (YYYY-MM-DD)", help: "ISO date. The page prints it as 26 March 2026 and sorts newest first." },
+  { key: "author_name", label: "Author", type: "text" },
+  { key: "author_role", label: "Author role", type: "text" },
+  { key: "excerpt", label: "Card summary", type: "textarea", full: true, help: "One or two lines. Shown on the blog index and the homepage." },
+  { key: "image_url", label: "Image", type: "photo", frame: "aspect-[2.4/1]", full: true,
+    help: "Shown at the top of the post, cropped to this shape, and on its card. Drag the picture to choose which part shows." },
+  { key: "image_alt", label: "Image description", type: "text", full: true, help: "What the picture shows, for screen readers." },
+  { key: "intro", label: "Opening paragraph", type: "textarea", full: true },
+  { key: "sections_json", label: "Body (JSON)", type: "textarea", full: true,
+    help: 'A list of sections: [{"heading":"…","paras":["…"],"list":["…"]}]. `list` is optional.' },
+  { key: "takeaways_json", label: "In short (JSON)", type: "textarea", full: true, help: 'A list of lines: ["…","…"]' },
+  { key: "accent", label: "Colour (0-5)", type: "number", help: "Which prism colour the post carries." },
+  { key: "sort_order", label: "Order", type: "number" },
+  { key: "is_active", label: "Published", type: "checkbox" },
+];
+
+const TABS = ["Partners & clients", "Offices", "Practices", "Services", "Case studies", "Testimonials", "Awards", "Blog", "About Us"] as const;
 
 function AboutEditor() {
   const [values, setValues] = useState<Record<string, string>>({});
@@ -211,6 +231,7 @@ function AboutEditor() {
             {busy ? "Saving…" : "Save changes"}
           </button>
           {saved && <span className="text-sm text-brand">Saved ✓</span>}
+          <a href="/company" target="_blank" rel="noreferrer" className="text-sm text-accent-deep hover:underline ml-auto">View on site ↗</a>
         </div>
       </div>
     </div>
@@ -238,6 +259,7 @@ export default function SiteContentPage() {
           fields={PARTNER_FIELDS}
           defaults={{ name: "", kind: "partner", logo_id: "", logo_url: "", website: "", sort_order: 0, is_active: true }}
           renderPreview={PartnerPreview}
+          viewHref={(it) => (it.is_active ? "/" : null)}
         />
       )}
       {tab === "Offices" && (
@@ -247,6 +269,7 @@ export default function SiteContentPage() {
           fields={OFFICE_FIELDS}
           defaults={{ region: "", role: "", address: "", tel: "", sort_order: 0, is_active: true }}
           renderPreview={OfficePreview}
+          viewHref={(it) => (it.is_active ? "/contact" : null)}
         />
       )}
       {tab === "Practices" && (
@@ -256,6 +279,7 @@ export default function SiteContentPage() {
           fields={PRACTICE_FIELDS}
           defaults={{ name: "", tag: "", body: "", stack: "", logo_id: "", logo_url: "", sort_order: 0, is_active: true }}
           renderPreview={PracticePreview}
+          viewHref={(it) => (it.is_active && it.slug ? `/practices/${it.slug}` : null)}
         />
       )}
       {tab === "Services" && (
@@ -265,11 +289,13 @@ export default function SiteContentPage() {
           fields={STAFFING_FIELDS}
           defaults={{ name: "", line: "", body: "", points: "", sort_order: 0, is_active: true }}
           renderPreview={StaffingPreview}
+          viewHref={(it) => (it.is_active && it.slug ? `/solutions/${it.group_key === "technology" ? "technology" : "workforce"}-solutions/${it.slug}` : null)}
         />
       )}
       {tab === "Case studies" && (
         <CollectionEditor
           type="case_studies" title="Case studies"
+          viewHref={(it) => (it.is_active && it.slug ? `/success-stories/${it.slug}` : null)}
           description="Shown on /company#client-success. Never invent metrics — if an outcome cannot be quantified publicly, describe it qualitatively."
           fields={CASE_FIELDS}
           defaults={{ title: "", client: "", industry: "", challenge: "", approach: "", solution: "", technology: "", delivery_model: "", outcome: "", quote: "", quote_by: "", image_url: "", sort_order: 0, is_active: true }}
@@ -282,10 +308,43 @@ export default function SiteContentPage() {
         />
       )}
 
+      {tab === "Blog" && (
+        <CollectionEditor
+          type="blog_posts" title="Blog"
+          previewKind="blog"
+          viewHref={(it) => (it.is_active && it.slug ? `/blog/${it.slug}` : null)}
+          description="Posts on /blog and the three cards on the homepage. The slug is taken from the title on first save and then stays put, so an existing link keeps working when a title is reworded."
+          fields={BLOG_FIELDS}
+          defaults={{
+            title: "", tag: "Technology", excerpt: "", image_url: "", image_alt: "",
+            author_name: "", author_role: "", published_at: new Date().toISOString().slice(0, 10),
+            accent: 1, intro: "", sections_json: "[]", takeaways_json: "[]",
+            sort_order: 0, is_active: true,
+          }}
+          renderPreview={(it) => (
+            <div>
+              {it.image_url
+                // eslint-disable-next-line @next/next/no-img-element
+                ? <img src={splitImage(String(it.image_url)).src} alt="" className="mb-3 aspect-[16/10] w-full rounded-lg object-cover" style={{ objectPosition: splitImage(String(it.image_url)).pos }} />
+                : null}
+              <p className="mono-label text-accent-deep">{String(it.tag || "")} · {String(it.published_at || "")}</p>
+              <p className="text-ink mt-1">{String(it.title || "Untitled")}</p>
+              <p className="text-sm text-graphite mt-1">{String(it.excerpt || "")}</p>
+              {/* Who touched it, so a second admin knows whose work this is. */}
+              <p className="mono-label text-graphite/70 mt-2">
+                Added by {String(it.created_by || "—")}
+                {it.updated_by && it.updated_by !== it.created_by ? ` · last edited by ${String(it.updated_by)}` : ""}
+              </p>
+            </div>
+          )}
+        />
+      )}
+
       {tab === "Testimonials" && (
         <CollectionEditor
           type="testimonials" title="Testimonials"
-          description="Client and candidate quotes. Set kind to 'client' or 'candidate'. Publish only with permission."
+          viewHref={(it) => (it.is_active ? "/company" : null)}
+          description="Quote walls on Who We Are. kind 'client' feeds Client Testimonials, 'candidate' feeds Employee Testimonials. The stored values stay as they are so existing rows keep working. Publish only with permission."
           fields={TESTIMONIAL_FIELDS}
           defaults={{ kind: "client", quote: "", person: "", title: "", organization: "", context: "", logo_url: "", sort_order: 0, is_active: true }}
           renderPreview={(it) => (
@@ -304,6 +363,7 @@ export default function SiteContentPage() {
           fields={AWARD_FIELDS}
           defaults={{ year: "", title: "", image_id: "", image_url: "", sort_order: 0, is_active: true }}
           renderPreview={AwardPreview}
+          viewHref={(it) => (it.is_active ? "/company#awards" : null)}
         />
       )}
       {tab === "About Us" && <AboutEditor />}

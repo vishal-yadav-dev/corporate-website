@@ -6,6 +6,11 @@ export const list = handler(async () => {
   return json(await svc.list());
 });
 
+export const create = handler(async (req) => {
+  await auth("email");
+  return json(await svc.create(await body(req)));
+});
+
 export const save = handler(async (req, ctx) => {
   await auth("email");
   const { slug } = await params<{ slug: string }>(ctx);

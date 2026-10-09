@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import VantaBg from "@/components/VantaBg";
 
 // used only when a banner has no background_fx set, or when there are no banners
-const FALLBACK_FX = ["halo", "birds", "net", "dots"] as const;
+const FALLBACK_FX = ["halo", "cells", "net", "dots"] as const;
 
 type Banner = {
   id: string;
@@ -56,6 +56,9 @@ export default function Hero({ initialBanners = [] }: { initialBanners?: Banner[
     if (activeIndex >= banners.length && banners.length > 0) setActiveIndex(0);
   }, [banners.length, activeIndex]);
 
+  const prev = () => setActiveIndex((i) => (i === 0 ? banners.length - 1 : i - 1));
+  const next = () => setActiveIndex((i) => (i + 1) % banners.length);
+
   const slide = banners[activeIndex];
   const heroFx =
     (slide?.background_fx || "").trim() ||
@@ -74,7 +77,7 @@ export default function Hero({ initialBanners = [] }: { initialBanners?: Banner[
   }
 
   return (
-    <section className="relative min-h-[100svh] flex flex-col justify-between pt-[72px] overflow-hidden group">
+    <section className="relative min-h-[100svh] flex flex-col justify-between pt-18 overflow-hidden group">
       {/* 1. Animated Vanta background — a different effect per slide */}
       <div className="absolute inset-0 z-0 bg-paper">
         <AnimatePresence mode="wait">
@@ -95,7 +98,7 @@ export default function Hero({ initialBanners = [] }: { initialBanners?: Banner[
       </div>
 
       {/* 2. Slide Content */}
-      <div className="mx-auto max-w-[1400px] px-5 sm:px-8 w-full flex-1 flex flex-col justify-center pb-[14vh] relative z-10">
+      <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8 w-full flex-1 flex flex-col justify-center pb-[14vh] relative z-10">
         <AnimatePresence mode="wait">
           {!loading && banners.length > 0 ? (
             <motion.div
@@ -140,7 +143,7 @@ export default function Hero({ initialBanners = [] }: { initialBanners?: Banner[
                   {slide.cta_url && (
                     <Link
                       href={slide.cta_url}
-                      className="group inline-flex items-center gap-2 btn-cta bg-brand text-white px-6 py-3.5 rounded-full font-medium hover:bg-brand-deep transition-colors"
+                      className="group inline-flex items-center gap-2 btn-cta btn-cta bg-brand text-white px-6 py-3.5 rounded-full font-medium hover:bg-brand-deep transition-colors"
                     >
                       {slide.cta_text || "Learn More"}
                       <span className="group-hover:translate-x-1 transition-transform">→</span>
@@ -184,12 +187,12 @@ export default function Hero({ initialBanners = [] }: { initialBanners?: Banner[
               >
                 <p className="max-w-xl text-lg sm:text-xl text-graphite leading-relaxed">
                   We architect, implement, and run the platforms that keep global enterprises
-                  moving — Salesforce, SAP, Oracle, and custom cloud apps.
+                  moving, Salesforce, SAP, Oracle, and custom cloud apps.
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <Link
                     href="/practices"
-                    className="group inline-flex items-center gap-2 btn-cta bg-brand text-white px-6 py-3.5 rounded-full font-medium hover:bg-brand-deep transition-colors"
+                    className="group inline-flex items-center gap-2 btn-cta btn-cta bg-brand text-white px-6 py-3.5 rounded-full font-medium hover:bg-brand-deep transition-colors"
                   >
                     Explore our practices
                     <span className="group-hover:translate-x-1 transition-transform">→</span>
@@ -204,6 +207,16 @@ export default function Hero({ initialBanners = [] }: { initialBanners?: Banner[
       {/* 3. Indicators & Manual Controls */}
       {!loading && banners.length > 1 && (
         <div className="absolute bottom-28 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 bg-surface/80 backdrop-blur-md px-4 py-2.5 rounded-full border border-line">
+          {/* Below 1400px the container runs to the screen edge, so there is no
+              gutter for the side arrows to sit in — they would land on the
+              headline. There the arrows ride in this pill instead. */}
+          <button
+            onClick={prev}
+            className="min-[1400px]:hidden -ml-1 px-1 text-ink/70 hover:text-brand transition-colors cursor-pointer"
+            aria-label="Previous slide"
+          >
+            ←
+          </button>
           {banners.map((_, idx) => (
             <button
               key={idx}
@@ -216,26 +229,29 @@ export default function Hero({ initialBanners = [] }: { initialBanners?: Banner[
               aria-label={`Go to slide ${idx + 1}`}
             />
           ))}
+          <button
+            onClick={next}
+            className="min-[1400px]:hidden -mr-1 px-1 text-ink/70 hover:text-brand transition-colors cursor-pointer"
+            aria-label="Next slide"
+          >
+            →
+          </button>
         </div>
       )}
 
-      {/* Hover navigation arrows */}
+      {/* Hover navigation arrows — only where the gutter has room for them */}
       {!loading && banners.length > 1 && (
         <>
           <button
-            onClick={() => {
-              setActiveIndex((prev) => (prev === 0 ? banners.length - 1 : prev - 1));
-            }}
-            className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-30 hidden md:grid place-items-center h-12 w-12 rounded-full border border-line bg-surface/85 backdrop-blur-md text-ink hover:bg-brand hover:text-white hover:border-brand transition-all cursor-pointer opacity-0 group-hover:opacity-100"
+            onClick={prev}
+            className="absolute left-8 top-1/2 -translate-y-1/2 z-30 hidden min-[1400px]:grid place-items-center h-12 w-12 rounded-full border border-line bg-surface/85 backdrop-blur-md text-ink hover:bg-brand hover:text-white hover:border-brand transition-all cursor-pointer opacity-0 group-hover:opacity-100"
             aria-label="Previous slide"
           >
             <span className="text-xl">←</span>
           </button>
           <button
-            onClick={() => {
-              setActiveIndex((prev) => (prev + 1) % banners.length);
-            }}
-            className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-30 hidden md:grid place-items-center h-12 w-12 rounded-full border border-line bg-surface/85 backdrop-blur-md text-ink hover:bg-brand hover:text-white hover:border-brand transition-all cursor-pointer opacity-0 group-hover:opacity-100"
+            onClick={next}
+            className="absolute right-8 top-1/2 -translate-y-1/2 z-30 hidden min-[1400px]:grid place-items-center h-12 w-12 rounded-full border border-line bg-surface/85 backdrop-blur-md text-ink hover:bg-brand hover:text-white hover:border-brand transition-all cursor-pointer opacity-0 group-hover:opacity-100"
             aria-label="Next slide"
           >
             <span className="text-xl">→</span>

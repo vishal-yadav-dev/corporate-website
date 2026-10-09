@@ -15,7 +15,7 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Practices",
-  description: "Salesforce, SAP, Oracle, Infor, Workday, MuleSoft and integration practices — full-lifecycle enterprise application delivery.",
+  description: "Salesforce, SAP, Oracle, Infor, Workday, MuleSoft and integration practices, full-lifecycle enterprise application delivery.",
 };
 
 /* The blueprint asks for technology grouped by category. Platforms carry a
@@ -31,7 +31,7 @@ const INTEGRATIONS = [
   {
     kicker: "Conversational AI",
     title: "Salesforce chatbots & Agentforce",
-    body: "We design, build, and tune Einstein Bots and Agentforce agents on Service Cloud and Experience Cloud — grounded in your knowledge base, wired to real actions, and handed off cleanly to live agents.",
+    body: "We design, build, and tune Einstein Bots and Agentforce agents on Service Cloud and Experience Cloud, grounded in your knowledge base, wired to real actions, and handed off cleanly to live agents.",
     image: "/practices/conversational-ai.jpg",
   },
   {
@@ -43,7 +43,7 @@ const INTEGRATIONS = [
   {
     kicker: "iPaaS & events",
     title: "Event-driven integration",
-    body: "Platform events, streaming, and iPaaS pipelines so mission-critical systems react to each other in seconds — not overnight batch windows.",
+    body: "Platform events, streaming, and iPaaS pipelines so mission-critical systems react to each other in seconds, not overnight batch windows.",
     image: "/practices/event-driven.jpg",
   },
   {
@@ -75,8 +75,8 @@ export default async function PracticesPage() {
         {/* only fade the very top & bottom so the animation stays visible */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-paper to-transparent" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-paper to-transparent" />
-        <div className="relative mx-auto max-w-[1400px] px-5 sm:px-8 py-20 sm:py-28">
-          <Reveal className="mb-14">
+        <div className="relative mx-auto max-w-[87.5rem] px-5 sm:px-8 py-14 sm:py-18">
+          <Reveal className="mb-10">
             <p className="mono-label text-accent-deep mb-4">Enterprise Platforms</p>
             <h2 className="display text-4xl sm:text-6xl text-ink max-w-2xl">The platforms your business runs on.</h2>
           </Reveal>
@@ -91,7 +91,7 @@ export default async function PracticesPage() {
                 <Link
                   href={`/practices/${p.id}`}
                   id={p.id}
-                  className={`card-3d scroll-mt-28 group relative grid lg:grid-cols-[0.85fr_1.15fr] gap-8 lg:gap-16 bg-surface/92 border border-line rounded-[28px] p-8 sm:p-12 overflow-hidden hover:border-brand/60 ${i % 2 ? "lg:[&>*:first-child]:order-2" : ""}`}
+                  className={`card-3d scroll-mt-16 group relative grid lg:grid-cols-[0.85fr_1.15fr] gap-8 lg:gap-16 bg-surface/92 border border-line rounded-[1.75rem] p-8 sm:p-12 overflow-hidden hover:border-brand/60 ${i % 2 ? "lg:[&>*:first-child]:order-2" : ""}`}
                 >
                   <div className={`prism-wash pointer-events-none absolute -right-24 -bottom-24 h-72 w-72 rounded-full ${PRISM_BG[i % 6]} blur-[110px] transition-opacity duration-500 group-hover:opacity-40`} />
                   <div className="relative">
@@ -99,7 +99,7 @@ export default async function PracticesPage() {
                     {p.logo && (
                       <div className="inline-grid place-items-center rounded-xl bg-white px-4 h-12 sm:h-14 mb-6 ring-1 ring-black/5 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.6)]">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={p.logo} alt={`${p.name} logo`} className="h-7 sm:h-8 w-auto max-w-[150px] object-contain" />
+                        <img src={p.logo} alt={`${p.name} logo`} className="h-7 sm:h-8 w-auto max-w-[9.375rem] object-contain" />
                       </div>
                     )}
                     <h3 className="display text-4xl sm:text-6xl text-ink group-hover:text-brand transition-colors">{p.name}</h3>
@@ -127,9 +127,9 @@ export default async function PracticesPage() {
       </section>
 
       {/* Digital engineering + integration as capability grids */}
-      <section className="relative z-10 bg-surface/70 py-20 sm:py-28">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
-          <Reveal className="mb-12">
+      <section className="relative z-10 bg-surface/70 py-14 sm:py-18">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
+          <Reveal className="mb-9">
             <p className="mono-label text-accent-deep mb-4">Digital Engineering</p>
             <h2 className="display text-4xl sm:text-6xl text-ink max-w-3xl">Engineering that moves business forward.</h2>
             <p className="mt-6 max-w-2xl text-graphite leading-relaxed">
@@ -139,7 +139,7 @@ export default async function PracticesPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {engineering.map((p, i) => (
               <Reveal key={p.id} delay={(i % 3) * 0.05} variant="rise">
-                <Link href={`/practices/${p.id}`} id={p.id} className="card-lift scroll-mt-28 group relative overflow-hidden block h-full bg-paper border border-line rounded-2xl p-7 hover:border-brand/50">
+                <Link href={`/practices/${p.id}`} id={p.id} className="card-lift scroll-mt-16 group relative overflow-hidden block h-full bg-paper border border-line rounded-2xl p-7 hover:border-brand/50">
                   <span aria-hidden className={`prism-wash pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full ${PRISM_BG[i % 6]} blur-[70px] transition-opacity duration-500 group-hover:opacity-40`} />
                   <div className={`prism-rule ${PRISM_BG[i % 6]} mb-5`} />
                   <h3 className="relative display text-2xl text-ink group-hover:text-brand transition-colors">{p.name}</h3>
@@ -155,14 +155,14 @@ export default async function PracticesPage() {
             ))}
           </div>
 
-          <Reveal className="mt-20 mb-12">
+          <Reveal className="mt-14 mb-9">
             <p className="mono-label text-accent-deep mb-4">Integration</p>
             <h2 className="display text-4xl sm:text-6xl text-ink max-w-3xl">Connect applications, data, and experiences.</h2>
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {integration.map((p, i) => (
               <Reveal key={p.id} delay={(i % 3) * 0.05} variant="tilt" duration={0.7}>
-                <Link href={`/practices/${p.id}`} id={p.id} className="card-lift scroll-mt-28 group relative overflow-hidden block h-full bg-paper border border-line rounded-2xl p-7 hover:border-brand/50">
+                <Link href={`/practices/${p.id}`} id={p.id} className="card-lift scroll-mt-16 group relative overflow-hidden block h-full bg-paper border border-line rounded-2xl p-7 hover:border-brand/50">
                   <span aria-hidden className={`prism-wash pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full ${PRISM_BG[i % 6]} blur-[70px] transition-opacity duration-500 group-hover:opacity-40`} />
                   <div className={`prism-rule ${PRISM_BG[i % 6]} mb-5`} />
                   <h3 className="relative display text-2xl text-ink group-hover:text-brand transition-colors">{p.name}</h3>
@@ -183,7 +183,7 @@ export default async function PracticesPage() {
       <div className="bg-paper">
         <ScrollStory
           eyebrow="Integration & AI"
-          heading="We connect the platforms — and give them a voice."
+          heading="We connect the platforms, and give them a voice."
           items={INTEGRATIONS}
         />
       </div>
@@ -195,7 +195,7 @@ export default async function PracticesPage() {
       />
 
       <div className="bg-surface">
-        <PartnerStrip heading="Platform partners & clients" title="Certified across the platforms we deliver." variant="grid" />
+        <PartnerStrip heading="Platform partners & clients" title="Certified across the platforms we deliver." />
       </div>
     </>
   );
