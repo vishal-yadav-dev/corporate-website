@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import FocalDrag from "@/components/admin/FocalDrag";
 import { PreviewLink, useDraftMirror, useDraftPatches, useSaveRequests, type SaveResult } from "@/components/admin/preview";
+import { LinesField, SectionsField, SwatchField, type Swatch } from "@/components/admin/StructuredFields";
 import { joinImage, splitImage } from "@/lib/blog";
 
 export type EditorField = {
@@ -10,7 +11,7 @@ export type EditorField = {
   label: string;
   /** `image` keeps an upload's id in a `<name>_id` column; `photo` keeps its
    *  address in the field itself, for a table that only has a URL column. */
-  type: "text" | "textarea" | "number" | "checkbox" | "image" | "photo" | "select";
+  type: "text" | "textarea" | "number" | "checkbox" | "image" | "photo" | "select" | "date" | "sections" | "lines" | "swatch";
   placeholder?: string;
   options?: string[];
   help?: string;
@@ -18,6 +19,8 @@ export type EditorField = {
   /** `photo` only: the shape the page crops the picture to, as an aspect class.
    *  Given one, the picture is shown cropped that way and can be dragged. */
   frame?: string;
+  /** `swatch` only: the colours on offer. The field stores the chosen one's index. */
+  swatches?: Swatch[];
 };
 
 type Item = Record<string, unknown> & { id: string };
@@ -246,7 +249,7 @@ export default function CollectionEditor({
           <h2 className="display text-lg text-ink">{editingId ? "Edit entry" : "New entry"}</h2>
           <div className="grid sm:grid-cols-2 gap-4">
             {fields.map((f) => (
-              <div key={f.key} className={f.full || f.type === "textarea" ? "sm:col-span-2" : ""}>
+              <div key={f.key} className={f.full || f.type === "textarea" || f.type === "sections" || f.type === "lines" ? "sm:col-span-2" : ""}>
                 <label className="mono-label text-graphite block mb-1.5">{f.label}</label>
                 {f.type === "textarea" ? (
                   <textarea className={`${input} min-h-[90px] resize-y`} value={String(form[f.key] ?? "")} onChange={(e) => set(f.key, e.target.value)} placeholder={f.placeholder} />
@@ -255,6 +258,14 @@ export default function CollectionEditor({
                     <input type="checkbox" checked={Boolean(form[f.key])} onChange={(e) => set(f.key, e.target.checked)} className="w-4 h-4 accent-brand" />
                     <span className="text-sm text-ink">{f.help || "Enabled"}</span>
                   </label>
+                ) : f.type === "sections" ? (
+                  <SectionsField value={String(form[f.key] ?? "[]")} onChange={(v) => set(f.key, v)} />
+                ) : f.type === "lines" ? (
+                  <LinesField value={String(form[f.key] ?? "[]")} onChange={(v) => set(f.key, v)} placeholder={f.placeholder} />
+                ) : f.type === "swatch" ? (
+                  <SwatchField value={Number(form[f.key]) || 0} swatches={f.swatches || []} onChange={(v) => set(f.key, v)} />
+                ) : f.type === "date" ? (
+                  <input type="date" className={input} value={String(form[f.key] ?? "")} onChange={(e) => set(f.key, e.target.value)} />
                 ) : f.type === "number" ? (
                   <input type="number" className={input} value={String(form[f.key] ?? "0")} onChange={(e) => set(f.key, e.target.value)} />
                 ) : f.type === "select" ? (

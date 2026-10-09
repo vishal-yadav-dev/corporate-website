@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import CollectionEditor, { type EditorField } from "@/components/admin/CollectionEditor";
 import { splitImage } from "@/lib/blog";
+import { PRISM_VAR } from "@/lib/data";
 
 /* ---------- previews ---------- */
 
@@ -168,10 +169,13 @@ const TESTIMONIAL_FIELDS: EditorField[] = [
   { key: "is_active", label: "Visible", type: "checkbox" },
 ];
 
+/* The six colours a post can carry, in the order the pages index them. */
+const POST_COLOURS = ["Red", "Orange", "Amber", "Green", "Blue", "Violet"].map((label, i) => ({ label, color: PRISM_VAR[i] }));
+
 const BLOG_FIELDS: EditorField[] = [
   { key: "title", label: "Title", type: "text", full: true },
   { key: "tag", label: "Category", type: "text", placeholder: "Workforce, Technology, AI, Public Sector…" },
-  { key: "published_at", label: "Published", type: "text", placeholder: "2026-03-26 (YYYY-MM-DD)", help: "ISO date. The page prints it as 26 March 2026 and sorts newest first." },
+  { key: "published_at", label: "Published on", type: "date", help: "Shown on the post. The newest post is listed first." },
   { key: "author_name", label: "Author", type: "text" },
   { key: "author_role", label: "Author role", type: "text" },
   { key: "excerpt", label: "Card summary", type: "textarea", full: true, help: "One or two lines. Shown on the blog index and the homepage." },
@@ -179,10 +183,11 @@ const BLOG_FIELDS: EditorField[] = [
     help: "Shown at the top of the post, cropped to this shape, and on its card. Drag the picture to choose which part shows." },
   { key: "image_alt", label: "Image description", type: "text", full: true, help: "What the picture shows, for screen readers." },
   { key: "intro", label: "Opening paragraph", type: "textarea", full: true },
-  { key: "sections_json", label: "Body (JSON)", type: "textarea", full: true,
-    help: 'A list of sections: [{"heading":"…","paras":["…"],"list":["…"]}]. `list` is optional.' },
-  { key: "takeaways_json", label: "In short (JSON)", type: "textarea", full: true, help: 'A list of lines: ["…","…"]' },
-  { key: "accent", label: "Colour (0-5)", type: "number", help: "Which prism colour the post carries." },
+  { key: "sections_json", label: "Body", type: "sections", help: "The article itself, section by section, in the order it reads." },
+  { key: "takeaways_json", label: "In short", type: "lines", placeholder: "One takeaway per line",
+    help: "Three or four lines a reader should leave with. One per line; they appear in a box at the end of the post." },
+  { key: "accent", label: "Colour", type: "swatch", swatches: POST_COLOURS, full: true,
+    help: "The colour the post carries: its tag, its heading rules and its card." },
   { key: "sort_order", label: "Order", type: "number" },
   { key: "is_active", label: "Published", type: "checkbox" },
 ];
