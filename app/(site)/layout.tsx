@@ -1,10 +1,12 @@
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import FooterReveal from "@/components/FooterReveal";
 import ChatWidget from "@/components/ChatWidget";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative">
+    <div className="site-root relative">
       {/* Global animated backdrop for the dark site */}
       <div aria-hidden className="pointer-events-none fixed inset-0 z-0 bg-dotgrid anim-grid opacity-[0.5]" />
       <div
@@ -22,9 +24,16 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       <div className="relative z-10">
         <Nav />
         <main>{children}</main>
-        <Footer />
+        <FooterReveal>
+          <Footer />
+        </FooterReveal>
       </div>
       <ChatWidget />
+      {/* Visitor counts, on the public site only: the admin is not footfall.
+          Vercel's analytics sets no cookie and keeps no identifier on the
+          visitor's device, so it needs no consent banner. It reports only from
+          a Vercel deployment, once Web Analytics is switched on for the project. */}
+      <Analytics />
     </div>
   );
 }

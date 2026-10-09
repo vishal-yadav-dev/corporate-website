@@ -28,7 +28,7 @@ export default function StackedStory({
 }) {
   return (
     <section className="relative z-10 bg-paper py-16 sm:py-20">
-      <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+      <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
         <div className="mb-10 max-w-3xl">
           <Head eyebrow={eyebrow} heading={heading} intro={intro} />
         </div>
@@ -84,7 +84,7 @@ function Card({
   return (
     <div className="sticky" style={{ top }}>
       <article
-        className="group relative overflow-hidden rounded-[28px] border border-line bg-surface p-8 sm:p-12 mb-6 transition-colors hover:border-brand/50"
+        className="group relative overflow-hidden rounded-[1.75rem] border border-line bg-surface p-8 sm:p-12 mb-6 transition-colors hover:border-brand/50"
         style={{
           /* A touch of scale on the cards underneath keeps the pile readable. */
           transform: `scale(${1 - (total - 1 - index) * 0.012})`,

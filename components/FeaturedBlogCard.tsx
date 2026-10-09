@@ -15,6 +15,7 @@ export type FeaturedPost = {
   excerpt: string;
   image: string;
   imageAlt: string;
+  imagePos?: string;
   date: string;
   dateLabel: string;
   minutes: number;
@@ -53,7 +54,7 @@ export default function FeaturedBlogCard({ post }: { post: FeaturedPost }) {
     <div className="relative group">
       {/* Background Ambient Glow */}
       <div
-        className="anim-pulse-glow absolute -inset-6 rounded-[36px] bg-gradient-to-r from-brand/25 via-accent/20 to-prism-blue/25 blur-3xl opacity-70 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+        className="anim-pulse-glow absolute -inset-6 rounded-[2.25rem] bg-gradient-to-r from-brand/25 via-accent/20 to-prism-blue/25 blur-3xl opacity-70 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
       />
 
       <motion.div
@@ -66,7 +67,7 @@ export default function FeaturedBlogCard({ post }: { post: FeaturedPost }) {
           transformStyle: "preserve-3d",
           "--card-accent": accentColor,
         } as React.CSSProperties}
-        className="relative overflow-hidden rounded-[32px] border border-line bg-surface/95 dark:bg-zinc-900/90 backdrop-blur-xl p-6 sm:p-10 transition-all duration-300 shadow-2xl group-hover:border-[var(--card-accent)]/60 group-hover:shadow-[0_35px_90px_-20px_rgba(242,106,27,0.3)]"
+        className="relative overflow-hidden rounded-[2rem] border border-line bg-surface/95 dark:bg-zinc-900/90 backdrop-blur-xl p-6 sm:p-10 transition-all duration-300 shadow-2xl group-hover:border-[var(--card-accent)]/60 group-hover:shadow-[0_35px_90px_-20px_rgba(242,106,27,0.3)]"
       >
         {/* Dynamic Spotlight Glare */}
         <div
@@ -89,12 +90,13 @@ export default function FeaturedBlogCard({ post }: { post: FeaturedPost }) {
 
         <Link href={`/blog/${post.slug}`} className="grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:gap-12 lg:items-center">
           {/* Image Container with Floating Badge */}
-          <div className="relative overflow-hidden rounded-[24px] border border-line/50 group-hover:border-[var(--card-accent)]/40 transition-colors">
+          <div className="relative overflow-hidden rounded-[1.5rem] border border-line/50 group-hover:border-[var(--card-accent)]/40 transition-colors">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={post.image}
               alt={post.imageAlt}
               className="media-footage block aspect-[16/10] w-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.06]"
+              style={{ objectPosition: post.imagePos }}
             />
 
             {/* Gradient Mask Overlay */}

@@ -11,7 +11,9 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   }
 
   return (
-    <div className="relative min-h-screen lg:pl-[260px] overflow-hidden bg-paper">
+    /* overflow-x-clip, not overflow-hidden: hidden makes this box a scroll
+       container, and a sticky preview inside it then never sticks. */
+    <div className="admin-shell relative min-h-screen overflow-x-clip bg-paper">
       {/* Calm brand backdrop (adapts to theme via body background) */}
       <div aria-hidden className="pointer-events-none fixed inset-0 z-0 bg-paper" />
       <div aria-hidden className="pointer-events-none fixed -top-48 right-[-8rem] z-0 h-[560px] w-[560px] rounded-full bg-brand/[0.12] blur-[160px]" />
@@ -28,7 +30,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       </div>
 
       <AdminSidebar name={session.name} />
-      <div className="relative z-10 mx-auto w-full max-w-[1100px] p-5 sm:p-8 lg:p-12">{children}</div>
+      <div className="admin-main relative z-10 mx-auto w-full p-5 sm:p-8 lg:p-12">{children}</div>
     </div>
   );
 }

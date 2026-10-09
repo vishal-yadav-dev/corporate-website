@@ -412,3 +412,11 @@ export const JOBS = [
   { title: "Oracle Cloud SCM Lead", location: "Monterrey, México", type: "Full-time", practice: "Oracle" },
   { title: "Engagement Manager, Delivery", location: "Frisco, TX", type: "Full-time", practice: "Delivery" },
 ];
+
+/** The company's social profiles. One list for the site footer and the email footer. */
+export const SOCIAL_LINKS = [
+  { label: "LinkedIn", href: "https://www.linkedin.com" },
+  { label: "YouTube", href: "https://www.youtube.com" },
+  { label: "Twitter", href: "https://twitter.com" },
+  { label: "Facebook", href: "https://www.facebook.com" },
+];

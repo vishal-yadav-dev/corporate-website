@@ -63,15 +63,15 @@ export default function HorizontalStory({
             rather than as a composition. */}
         <div ref={viewRef} className="sticky top-0 h-screen overflow-hidden flex flex-col justify-start pt-24 xl:pt-28">
           <span aria-hidden className={`pointer-events-none absolute -left-40 top-1/4 h-[60vh] w-[60vh] rounded-full ${accentClass} prism-wash-lg blur-[150px]`} />
-          <div className="mx-auto max-w-[1400px] w-full px-8">
+          <div className="mx-auto max-w-[87.5rem] w-full px-8">
             <p className="mono-label text-accent-deep mb-4">{eyebrow}</p>
             <h2 className="display text-5xl xl:text-7xl text-ink max-w-3xl mb-8">{heading}</h2>
           </div>
 
-          <motion.ol ref={trackRef} style={reduced ? undefined : { x }} className="flex gap-6 pl-8 xl:pl-[max(2rem,calc((100vw-1400px)/2+2rem))]">
+          <motion.ol ref={trackRef} style={reduced ? undefined : { x }} className="flex gap-6 pl-8 xl:pl-[max(2rem,calc((100vw-87.5rem)/2+2rem))]">
             {items.map((it, i) => (
-              <li key={it.title} className="w-[clamp(320px,30vw,460px)] shrink-0">
-                <article className="group h-full rounded-[28px] border border-line bg-surface p-9 hover:border-brand/50 transition-colors">
+              <li key={it.title} className="w-[clamp(20rem,30vw,28.75rem)] shrink-0">
+                <article className="group h-full rounded-[1.75rem] border border-line bg-surface p-9 hover:border-brand/50 transition-colors">
                   <span className="display text-6xl text-ink/12 leading-none">0{i + 1}</span>
                   <h3 className="display text-2xl xl:text-3xl text-ink mt-5">{it.title}</h3>
                   <p className="mt-5 text-ink/75 leading-relaxed">{it.body}</p>
@@ -85,7 +85,7 @@ export default function HorizontalStory({
 
       {/* Phones and tablets: the same content, read vertically */}
       <section className="relative lg:hidden bg-paper border-y border-line py-14 sm:py-16">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <p className="mono-label text-accent-deep mb-4">{eyebrow}</p>
           <h2 className="display text-4xl sm:text-5xl text-ink mb-10">{heading}</h2>
           <ol className="space-y-5">

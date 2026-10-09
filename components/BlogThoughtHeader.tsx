@@ -62,7 +62,7 @@ export default function BlogThoughtHeader() {
   return (
     <div
       aria-hidden
-      className="absolute right-[3%] xl:right-[6%] top-1/2 -translate-y-1/2 z-10 hidden lg:block select-none pointer-events-auto w-[420px] xl:w-[480px]"
+      className="absolute right-[3%] xl:right-[6%] top-1/2 -translate-y-1/2 z-10 hidden lg:block select-none pointer-events-auto w-[26.25rem] xl:w-[30rem]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -87,7 +87,7 @@ export default function BlogThoughtHeader() {
             “
           </span>
 
-          <div className="relative z-10 min-h-[190px] flex flex-col justify-between">
+          <div className="relative z-10 min-h-[11.875rem] flex flex-col justify-between">
             {/* Tag Badge */}
             <div className="flex items-center justify-between">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand/10 border border-brand/20 text-brand text-xs mono-label font-semibold">

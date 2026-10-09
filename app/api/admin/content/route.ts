@@ -2,16 +2,30 @@ import { NextResponse } from "next/server";
 import { q } from "@/lib/db";
 import { requireAdmin } from "@/lib/guard";
 import { revalidatePath } from "next/cache";
+import { canAccess } from "@/lib/permissions";
+
+/* Three admin screens write here: Homepage text, Page text and the About tab of
+   Site content. Any one of those grants is enough; requiring "content" alone
+   locked an editor out of a screen they had been given. */
+async function guardContent() {
+  const session = await requireAdmin();
+  if (session instanceof Response) return session;
+  const who = { role: session.role, perms: session.perms };
+  if (!["content", "pages", "site"].some((k) => canAccess(who, k))) {
+    return NextResponse.json({ error: "You don't have access to this area." }, { status: 403 });
+  }
+  return session;
+}
 
 export async function GET() {
-  const guard = await requireAdmin("content");
+  const guard = await guardContent();
   if (guard instanceof Response) return guard;
   const content = await q<{ key: string; value: string; updated_at: string }>("SELECT * FROM content ORDER BY key ASC");
   return NextResponse.json({ content });
 }
 
 export async function PUT(req: Request) {
-  const guard = await requireAdmin("content");
+  const guard = await guardContent();
   if (guard instanceof Response) return guard;
   const body = await req.json().catch(() => ({}));
   const entries = body.entries as { key: string; value: string }[] | undefined;
@@ -31,7 +45,7 @@ export async function PUT(req: Request) {
 }
 
 export async function DELETE(req: Request) {
-  const guard = await requireAdmin("content");
+  const guard = await guardContent();
   if (guard instanceof Response) return guard;
   const body = await req.json().catch(() => ({}));
   const keys = body.keys as string[] | undefined;

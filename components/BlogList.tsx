@@ -16,6 +16,7 @@ export type BlogCard = {
   excerpt: string;
   image: string;
   imageAlt: string;
+  imagePos?: string;
   date: string;
   dateLabel: string;
   minutes: number;
@@ -208,7 +209,7 @@ export default function BlogList({ items }: { items: BlogCard[] }) {
               >
                 <Link
                   href={`/blog/${p.slug}`}
-                  className="group flex h-full flex-col overflow-hidden rounded-[22px] border border-line bg-surface transition-all duration-500 hover:-translate-y-1.5 hover:border-[var(--card-accent)]/60 hover:shadow-xl"
+                  className="group flex h-full flex-col overflow-hidden rounded-[1.375rem] border border-line bg-surface transition-all duration-500 hover:-translate-y-1.5 hover:border-[var(--card-accent)]/60 hover:shadow-xl"
                   style={{ "--card-accent": PRISM_VAR[p.accent % 6] } as React.CSSProperties}
                 >
                   <div className="relative overflow-hidden">
@@ -219,6 +220,7 @@ export default function BlogList({ items }: { items: BlogCard[] }) {
                       loading="lazy"
                       decoding="async"
                       className="media-footage block aspect-[16/10] w-full object-cover transition-transform duration-[1.1s] group-hover:scale-[1.07]"
+                      style={{ objectPosition: p.imagePos }}
                     />
                     <span className={`absolute left-4 top-4 rounded-full px-3 py-1.5 mono-label text-white text-xs ${PRISM_BG[p.accent % 6]}`}>
                       {p.tag}

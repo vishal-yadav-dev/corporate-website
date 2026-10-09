@@ -101,7 +101,7 @@ export default function OurVisionPage() {
       {/* ---- from project to possibility ---- */}
       <section className="relative z-10 overflow-hidden bg-surface pt-10 sm:pt-12 pb-10 sm:pb-12">
         <SectionBackdrop from="bg-prism-violet" to="bg-prism-blue" />
-        <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="relative z-10 mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="max-w-3xl">
             <p className="mono-label label-accent mb-4">From project to possibility</p>
             <h2 className="display text-4xl sm:text-6xl text-ink leading-[1.05]">
@@ -135,7 +135,7 @@ export default function OurVisionPage() {
 
       {/* ---- our ambition ---- */}
       <section className="relative z-10 bg-paper py-10 sm:py-12">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-9 max-w-3xl">
             <p className="mono-label label-accent mb-4">Our ambition</p>
             <h2 className="display text-4xl sm:text-6xl text-ink">
@@ -164,7 +164,7 @@ export default function OurVisionPage() {
         <span aria-hidden className="pointer-events-none absolute inset-0 bg-paper-tint/60" />
         <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-paper to-transparent" />
         <span aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-paper to-transparent" />
-        <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-12 lg:gap-20">
+        <div className="relative z-10 mx-auto max-w-[87.5rem] px-5 sm:px-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-12 lg:gap-20">
           <Reveal>
             <p className="mono-label label-accent mb-4">A different partnership</p>
             <div className="space-y-2">
@@ -191,7 +191,7 @@ export default function OurVisionPage() {
 
       {/* ---- momentum: the two paths, side by side ---- */}
       <section className="relative z-10 bg-paper py-10 sm:py-12">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-9 max-w-3xl">
             <p className="mono-label label-accent mb-4">Technology should create momentum</p>
             <h2 className="display text-4xl sm:text-6xl text-ink">
@@ -237,7 +237,7 @@ export default function OurVisionPage() {
 
       {/* ---- the five ideas, each with its own picture ---- */}
       <section className="relative z-10 bg-surface/70 py-10 sm:py-12">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-9 max-w-3xl">
             <p className="mono-label label-accent mb-4">Our future is built around five ideas</p>
             <h2 className="display text-4xl sm:text-6xl text-ink">
@@ -273,7 +273,7 @@ export default function OurVisionPage() {
 
       {/* ---- the technology ahead, over a band ---- */}
       <section className="relative z-10 bg-paper py-6 sm:py-8">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal variant="rise" duration={0.8}>
             {/* Live, not a still: nodes drift, links form from proximity, and
                 packets actually travel along them. Masked at the edges so it
@@ -305,7 +305,7 @@ export default function OurVisionPage() {
 
       {/* ---- north star ---- */}
       <section className="relative z-10 bg-paper pb-10 sm:pb-12">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8 grid lg:grid-cols-[0.9fr_1.1fr] gap-12 lg:gap-20">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8 grid lg:grid-cols-[0.9fr_1.1fr] gap-12 lg:gap-20">
           <Reveal>
             <p className="mono-label label-accent mb-4">Our north star</p>
             <h2 className="display text-3xl sm:text-5xl text-ink leading-[1.1]">
@@ -328,7 +328,7 @@ export default function OurVisionPage() {
       {/* ---- the people, then the chain ---- */}
       <section className="relative z-10 overflow-hidden bg-paper-tint/55 py-10 sm:py-12">
         <SectionBackdrop from="bg-prism-blue" to="bg-prism-violet" />
-        <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="relative z-10 mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="max-w-3xl">
             <p className="mono-label label-accent mb-4">The people behind the technology</p>
             <h2 className="display text-4xl sm:text-6xl text-ink">
@@ -364,7 +364,7 @@ export default function OurVisionPage() {
 
       {/* ---- what success leaves behind ---- */}
       <section className="relative z-10 bg-paper py-10 sm:py-12">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-9 max-w-3xl">
             <p className="mono-label label-accent mb-4">What success looks like</p>
             <h2 className="display text-4xl sm:text-6xl text-ink">
@@ -390,7 +390,7 @@ export default function OurVisionPage() {
 
       {/* ---- tomorrow, and the promise ---- */}
       <section className="relative z-10 bg-surface/70 py-10 sm:py-12">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-12 lg:gap-20">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-12 lg:gap-20">
           <Reveal>
             <p className="mono-label label-accent mb-4">Looking beyond today</p>
             <h2 className="display text-3xl sm:text-5xl text-ink leading-[1.1]">
@@ -423,9 +423,9 @@ export default function OurVisionPage() {
 
       {/* ---- close ---- */}
       <section className="relative z-10 bg-paper py-10 sm:py-12">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal>
-            <div className="relative overflow-hidden rounded-[28px] border border-line-blue/60 bg-surface px-7 py-12 sm:px-14 sm:py-16">
+            <div className="relative overflow-hidden rounded-[1.75rem] border border-line-blue/60 bg-surface px-7 py-12 sm:px-14 sm:py-16">
               <span aria-hidden className="prism-wash-lg pointer-events-none absolute -right-28 -top-28 h-80 w-80 rounded-full bg-prism-violet blur-[120px]" />
               <span aria-hidden className="prism-wash-lg pointer-events-none absolute -left-24 -bottom-24 h-72 w-72 rounded-full bg-brand blur-[120px]" />
               <div className="relative max-w-3xl">

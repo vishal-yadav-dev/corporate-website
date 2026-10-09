@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import { q, one } from "@/lib/db";
 import { requireAdmin } from "@/lib/guard";
 import { cuid } from "@/lib/id";
-import { sendMail, onboardingEmail } from "@/lib/email";
+import { announcementHtml } from "@/lib/email-shell";
+import { mailFrom, sendMail, onboardingEmail, sortAddresses } from "@/lib/email";
 
 type Employee = {
   id: string; name: string; email: string; title: string | null;
@@ -39,6 +40,7 @@ export async function GET(req: Request) {
       employees,
       admins,
     },
+    from: mailFrom(),
   });
 }
 
@@ -49,17 +51,33 @@ export async function POST(req: Request) {
 
   const body = await req.json().catch(() => ({}));
   const employeeId = String(body.employeeId ?? "");
-  const recipients: string[] = Array.isArray(body.recipients)
-    ? body.recipients.map((r: unknown) => String(r).trim().toLowerCase()).filter(Boolean)
-    : [];
+  /* `recipients` is the ticked colleagues plus anyone typed in by hand. */
+  const toIn = sortAddresses(body.recipients);
+  const ccIn = sortAddresses(body.cc);
+  const bccIn = sortAddresses(body.bcc);
+  const invalid = [...toIn.bad, ...ccIn.bad, ...bccIn.bad];
+  if (invalid.length) {
+    return NextResponse.json({ error: `Not a valid email address: ${invalid.join(", ")}` }, { status: 422 });
+  }
+  const recipients = toIn.ok;
   const subject = String(body.subject ?? "").trim();
   const text = String(body.text ?? "");
-  const html = body.html ? String(body.html) : undefined;
+  /* Wrapped here from the text that was actually sent in. The modal used to
+     post the original HTML back, so an edited message went out with the
+     unedited wording in every mail client that shows HTML. */
+  const html = text.trim() ? announcementHtml(text) : undefined;
 
-  if (!recipients.length) return NextResponse.json({ error: "Pick at least one recipient." }, { status: 422 });
+  if (!recipients.length && !ccIn.ok.length && !bccIn.ok.length) {
+    return NextResponse.json({ error: "Pick at least one recipient." }, { status: 422 });
+  }
   if (!subject) return NextResponse.json({ error: "Subject required." }, { status: 422 });
 
-  const result = await sendMail({ to: recipients, subject, text, html });
+  /* With no Cc or Bcc this is the same blind-copy blast as before. Once either
+     is used the addressing is explicit, so colleagues go to Bcc alongside. */
+  const extras = ccIn.ok.length || bccIn.ok.length;
+  const result = extras
+    ? await sendMail({ to: [], cc: ccIn.ok, bcc: [...new Set([...recipients, ...bccIn.ok])], subject, text, html })
+    : await sendMail({ to: recipients, subject, text, html });
 
   const status = result.ok ? (result.mode === "json" ? "skipped" : "sent") : "failed";
   await q(

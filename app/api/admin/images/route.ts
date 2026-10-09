@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { q } from "@/lib/db";
 import { requireAdmin } from "@/lib/guard";
+import { canAccess } from "@/lib/permissions";
 import { cuid } from "@/lib/id";
 
 const MAX_BYTES = 20 * 1024 * 1024;
@@ -27,8 +28,21 @@ export async function GET(req: Request) {
   return NextResponse.json({ images });
 }
 
+/* Site content has upload buttons of its own, on a screen that is granted
+   separately from the media library. Requiring "images" alone refused the
+   upload for an editor who had been given the screen the button sits on. */
+async function guardUpload() {
+  const session = await requireAdmin();
+  if (session instanceof Response) return session;
+  const who = { role: session.role, perms: session.perms };
+  if (!["images", "site"].some((k) => canAccess(who, k))) {
+    return NextResponse.json({ error: "You don't have access to this area." }, { status: 403 });
+  }
+  return session;
+}
+
 export async function POST(req: Request) {
-  const guard = await requireAdmin("images");
+  const guard = await guardUpload();
   if (guard instanceof Response) return guard;
   const form = await req.formData();
   const file = form.get("file");

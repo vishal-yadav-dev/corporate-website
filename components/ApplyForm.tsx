@@ -98,7 +98,7 @@ export default function ApplyForm({ jobId, jobTitle }: { jobId?: string; jobTitl
       </div>
       <div>
         <label className="mono-label text-graphite block mb-2">Cover note <span className="text-graphite/50">(optional)</span></label>
-        <textarea className={`${field} min-h-[120px] resize-y`} value={form.cover_note} onChange={(e) => set("cover_note", e.target.value)} placeholder="A few lines on why this role fits." />
+        <textarea className={`${field} min-h-[7.5rem] resize-y`} value={form.cover_note} onChange={(e) => set("cover_note", e.target.value)} placeholder="A few lines on why this role fits." />
       </div>
 
       {status === "error" && <p className="text-sm text-accent-deep">{err}</p>}

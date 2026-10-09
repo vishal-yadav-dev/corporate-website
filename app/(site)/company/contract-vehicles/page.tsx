@@ -40,7 +40,7 @@ export default function ContractVehiclesPage() {
         <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-paper to-transparent" />
         <span aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-paper to-transparent" />
 
-        <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="relative z-10 mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-10 max-w-3xl">
             <p className="mono-label label-accent mb-4">The vehicles</p>
             <h2 className="display text-4xl sm:text-6xl text-ink">
@@ -53,7 +53,7 @@ export default function ContractVehiclesPage() {
               <Reveal key={v.id} delay={i * 0.08} variant={i ? "left" : "right"} duration={0.75}>
                 <Link
                   href={`/company/contract-vehicles/${v.id}`}
-                  className="card-lift group relative flex h-full flex-col overflow-hidden rounded-[28px] border border-line bg-surface p-8 sm:p-11 transition-colors hover:border-brand/50"
+                  className="card-lift group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-line bg-surface p-8 sm:p-11 transition-colors hover:border-brand/50"
                 >
                   <span
                     aria-hidden
@@ -99,7 +99,7 @@ export default function ContractVehiclesPage() {
       {/* Certifications are the second thing a procurement officer checks, after
           the vehicle itself. */}
       <section className="relative z-10 overflow-hidden bg-paper py-12 sm:py-16 border-t border-line">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-10 lg:gap-16">
             <div>
               <p className="mono-label label-accent mb-4">Certifications</p>

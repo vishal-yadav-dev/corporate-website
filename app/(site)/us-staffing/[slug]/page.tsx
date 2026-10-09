@@ -70,11 +70,11 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
 
       {/* ---- Opening: arrangement varies per solution ---- */}
       <section className="relative z-10 bg-surface/70 pt-12 sm:pt-16 pb-16 sm:pb-20">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           {variant === "split" && (
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-16">
               <Reveal delay={0.05}>
-                <div className="h-full bg-paper border border-line rounded-[28px] p-8 sm:p-12">
+                <div className="h-full bg-paper border border-line rounded-[1.75rem] p-8 sm:p-12">
                   <p className="mono-label label-accent mb-5">The business challenge</p>
                   <p className="text-xl sm:text-2xl text-ink leading-relaxed">
                     {CHALLENGE[solution.id] ?? "Technology plans move faster than the teams available to deliver them."}
@@ -82,7 +82,7 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
                 </div>
               </Reveal>
               <Reveal delay={0.14}>
-                <div className="relative h-full overflow-hidden bg-surface border border-line-blue/60 rounded-[28px] p-8 sm:p-12">
+                <div className="relative h-full overflow-hidden bg-surface border border-line-blue/60 rounded-[1.75rem] p-8 sm:p-12">
                   <span aria-hidden className={`pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full ${PRISM_BG[accent]} prism-wash-lg blur-[100px]`} />
                   <p className="relative mono-label label-accent mb-5">{d?.whatHeading ?? "Our solution"}</p>
                   <p className="relative text-lg text-ink/80 leading-relaxed">{d?.what ?? solution.body}</p>
@@ -111,7 +111,7 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
           {variant === "mosaic" && (
             <div className="grid lg:grid-cols-12 gap-6">
               <Reveal delay={0.05} className="lg:col-span-7">
-                <div className="h-full rounded-[28px] border border-line bg-paper p-8 sm:p-12">
+                <div className="h-full rounded-[1.75rem] border border-line bg-paper p-8 sm:p-12">
                   <p className="mono-label label-accent mb-5">The business challenge</p>
                   <p className="text-xl sm:text-2xl text-ink leading-relaxed">
                     {CHALLENGE[solution.id] ?? "Technology plans move faster than the teams available to deliver them."}
@@ -119,7 +119,7 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
                 </div>
               </Reveal>
               <Reveal delay={0.14} className="lg:col-span-5">
-                <div className={`relative h-full overflow-hidden rounded-[28px] ${PRISM_BG[accent]} p-8 sm:p-12`}>
+                <div className={`relative h-full overflow-hidden rounded-[1.75rem] ${PRISM_BG[accent]} p-8 sm:p-12`}>
                   <p className="mono-label text-white/70 mb-5">{d?.whatHeading ?? "Our solution"}</p>
                   <p className="text-lg text-white leading-relaxed">{d?.what ?? solution.body}</p>
                 </div>
@@ -185,7 +185,7 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
 
       {/* Capabilities */}
       <section className="relative z-10 bg-paper py-16 sm:py-20">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <div className="mb-10">
             <Reveal delay={0.05}><p className="mono-label label-accent mb-4">Capabilities</p></Reveal>
             <Reveal delay={0.12}>
@@ -226,7 +226,7 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
 
       {/* Proof strip */}
       <section className="relative z-10 bg-surface/70 py-14 sm:py-18">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-line-blue border border-line-blue rounded-2xl overflow-hidden">
             {STAFFING_STATS.map((s, i) => (
               <Reveal key={s.label} delay={(i % 4) * 0.06} className="bg-paper p-7 sm:p-9">
@@ -240,7 +240,7 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
 
       {/* Who we support */}
       <section className="relative z-10 bg-paper py-16 sm:py-20">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <div className="mb-10">
             <Reveal delay={0.05}><p className="mono-label label-accent mb-4">Who we support</p></Reveal>
             <Reveal delay={0.12}>
@@ -265,7 +265,7 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
       {/* Proof */}
       {proof.length > 0 && (
         <section className="relative z-10 bg-surface/70 py-16 sm:py-20">
-          <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+          <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
             <Reveal className="mb-10" delay={0.05}>
               <p className="mono-label label-accent mb-4">Proof &amp; case studies</p>
               <h2 className="display text-4xl sm:text-6xl text-ink max-w-3xl">
@@ -289,7 +289,7 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
 
       {/* Related solutions */}
       <section className="relative z-10 bg-paper py-14 sm:py-18">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-10"><p className="mono-label label-accent">Related solutions</p></Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {related.map((r, i) => (

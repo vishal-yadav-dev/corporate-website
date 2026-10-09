@@ -2,17 +2,21 @@
 
 import { useState } from "react";
 
-export default function ShareLinks({
-  title,
-  url,
-  bodyText,
-}: {
-  title: string;
-  url: string;
-  bodyText?: string;
-}) {
-  const [copiedLink, setCopiedLink] = useState(false);
-  const [copiedContent, setCopiedContent] = useState(false);
+/**
+ * Share buttons for an article.
+ *
+ * The URL is handed in rather than read from `window`: in development the
+ * address bar is localhost, and a localhost link is useless to whoever receives
+ * it. The copy button copies the same canonical address the share buttons send,
+ * so the two can never disagree.
+ *
+ * What each network accepts differs:
+ *  - X and Email take the headline as a parameter, so they fill in immediately.
+ *  - LinkedIn and Facebook accept only a URL and read the page's Open Graph
+ *    tags themselves, so they preview once that URL is publicly reachable.
+ */
+export default function ShareLinks({ title, url }: { title: string; url: string }) {
+  const [state, setState] = useState<"idle" | "copied" | "failed">("idle");
 
   const u = encodeURIComponent(url);
   const t = encodeURIComponent(title);
@@ -40,95 +44,92 @@ export default function ShareLinks({
     },
   ];
 
-  const handleCopyLink = async () => {
+  /* The Clipboard API is unavailable on an insecure origin and throws when the
+     browser refuses, so there is a selection-based fallback behind it. The
+     result is always reported: a silent failure looks identical to a success
+     and the reader pastes nothing. */
+  async function copy() {
+    let ok = false;
     try {
-      const linkToCopy = typeof window !== "undefined" ? window.location.href : url;
-      await navigator.clipboard.writeText(linkToCopy);
-      setCopiedLink(true);
-      setTimeout(() => setCopiedLink(false), 2000);
+      await navigator.clipboard.writeText(url);
+      ok = true;
     } catch {
-      /* fallback */
+      try {
+        const ta = document.createElement("textarea");
+        ta.value = url;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+      } catch {
+        ok = false;
+      }
     }
-  };
+    setState(ok ? "copied" : "failed");
+    setTimeout(() => setState("idle"), 2200);
+  }
 
-  const handleCopyContent = async () => {
-    try {
-      const textToCopy = bodyText || `${title}\n\n${url}`;
-      await navigator.clipboard.writeText(textToCopy);
-      setCopiedContent(true);
-      setTimeout(() => setCopiedContent(false), 2000);
-    } catch {
-      /* fallback */
-    }
-  };
+  const btn =
+    "grid h-8 w-8 place-items-center rounded-full border border-line bg-paper text-ink/70 transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--page-accent,var(--color-brand))]/60 hover:text-[var(--page-accent,var(--color-brand))]";
 
   return (
-    <div className="relative overflow-hidden rounded-[24px] border border-line bg-surface p-7 sm:p-8">
-      <span
-        aria-hidden
-        className="pointer-events-none absolute -left-20 -bottom-20 h-52 w-52 rounded-full opacity-[0.14] blur-[90px]"
-        style={{ background: "var(--page-accent, var(--color-brand))" }}
-      />
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+      <span className="mono-label text-graphite/80">Share</span>
 
-      <div className="relative flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-        <div>
-          <p className="mono-label label-accent">Share & Copy Article</p>
-          <p className="mt-2 text-sm text-graphite">Pass it on or copy the link/content for your team.</p>
-        </div>
-
-        <div className="flex flex-wrap items-center gap-2.5">
-          {targets.map((s) => (
-            <a
-              key={s.label}
-              href={s.href}
-              target={s.label === "Email" ? undefined : "_blank"}
-              rel="noopener noreferrer"
-              aria-label={`Share on ${s.label}`}
-              className="group inline-flex h-11 items-center gap-2.5 rounded-full border border-line bg-paper px-4 text-ink/75 transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--page-accent,var(--color-brand))]/60 hover:text-[var(--page-accent,var(--color-brand))] hover:shadow-card"
-            >
-              <svg viewBox="0 0 24 24" className="h-[17px] w-[17px] shrink-0" fill="currentColor" aria-hidden>
-                <path d={s.path} />
-              </svg>
-              <span className="mono-label text-xs">{s.label}</span>
-            </a>
-          ))}
-
-          {/* Copy Link Button */}
-          <button
-            type="button"
-            onClick={handleCopyLink}
-            aria-live="polite"
-            className={`inline-flex h-11 items-center gap-2 rounded-full border px-4 transition-all duration-300 hover:-translate-y-0.5 shadow-sm ${
-              copiedLink
-                ? "border-brand bg-brand/10 text-brand font-bold"
-                : "border-line bg-paper text-ink/75 hover:border-[var(--page-accent,var(--color-brand))]/60 hover:text-[var(--page-accent,var(--color-brand))]"
-            }`}
+      <div className="flex items-center gap-1.5">
+        {targets.map((s) => (
+          <a
+            key={s.label}
+            href={s.href}
+            target={s.label === "Email" ? undefined : "_blank"}
+            rel="noopener noreferrer"
+            aria-label={`Share on ${s.label}`}
+            title={`Share on ${s.label}`}
+            className={btn}
           >
-            <svg viewBox="0 0 24 24" className="h-[17px] w-[17px] shrink-0" fill="currentColor" aria-hidden>
-              <path d="M10.59 13.41a1 1 0 0 1 0-1.42l3.88-3.88a3 3 0 1 1 4.24 4.24l-2.83 2.83a1 1 0 0 1-1.42-1.42l2.83-2.83a1 1 0 0 0-1.42-1.42l-3.88 3.88a1 1 0 0 1-1.42 0zM13.41 10.59a1 1 0 0 1 0 1.42l-3.88 3.88a3 3 0 1 1-4.24-4.24l2.83-2.83a1 1 0 0 1 1.42 1.42L6.71 13.1a1 1 0 0 0 1.42 1.42l3.88-3.88a1 1 0 0 1 1.42 0z" />
+            <svg viewBox="0 0 24 24" className="h-[0.8125rem] w-[0.8125rem]" fill="currentColor" aria-hidden>
+              <path d={s.path} />
             </svg>
-            <span className="mono-label text-xs">{copiedLink ? "Link Copied! ✓" : "Copy Link"}</span>
-          </button>
+          </a>
+        ))}
 
-          {/* Copy Content Button */}
-          <button
-            type="button"
-            onClick={handleCopyContent}
-            aria-live="polite"
-            className={`inline-flex h-11 items-center gap-2 rounded-full border px-4 transition-all duration-300 hover:-translate-y-0.5 shadow-sm ${
-              copiedContent
-                ? "border-accent-deep bg-accent-deep/10 text-accent-deep font-bold"
-                : "border-line bg-paper text-ink/75 hover:border-brand/60 hover:text-brand"
-            }`}
-          >
-            <svg viewBox="0 0 24 24" className="h-[17px] w-[17px] shrink-0" fill="currentColor" aria-hidden>
-              <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
-            </svg>
-            <span className="mono-label text-xs">{copiedContent ? "Content Copied! ✓" : "Copy Content"}</span>
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={copy}
+          aria-label="Copy link"
+          title="Copy link"
+          className={
+            state === "copied"
+              ? "grid h-8 w-8 place-items-center rounded-full border border-brand bg-brand text-white transition-all duration-200"
+              : state === "failed"
+                ? "grid h-8 w-8 place-items-center rounded-full border border-prism-red text-prism-red transition-all duration-200"
+                : btn
+          }
+        >
+          <svg viewBox="0 0 24 24" className="h-[0.8125rem] w-[0.8125rem]" fill="currentColor" aria-hidden>
+            {state === "copied" ? (
+              <path d="M9.6 16.2 4.8 11.4l1.4-1.4 3.4 3.4 8-8 1.4 1.4-9.4 9.4Z" />
+            ) : (
+              <path d="M10.6 13.4a1 1 0 0 1 0-1.4l3.9-3.9a3 3 0 1 1 4.2 4.3l-2.8 2.8a1 1 0 0 1-1.4-1.4l2.8-2.8a1 1 0 0 0-1.4-1.4l-3.9 3.8a1 1 0 0 1-1.4 0Zm2.8-2.8a1 1 0 0 1 0 1.4l-3.9 3.9a3 3 0 1 1-4.2-4.3l2.8-2.8a1 1 0 1 1 1.4 1.4l-2.8 2.8a1 1 0 0 0 1.4 1.4l3.9-3.8a1 1 0 0 1 1.4 0Z" />
+            )}
+          </svg>
+        </button>
       </div>
+
+      {/* Announced to screen readers and shown to everyone else, so the click
+          is confirmed either way rather than appearing to do nothing. */}
+      <span
+        role="status"
+        aria-live="polite"
+        className={`mono-label transition-opacity duration-200 ${
+          state === "idle" ? "opacity-0" : "opacity-100"
+        } ${state === "failed" ? "text-prism-red" : "text-brand"}`}
+      >
+        {state === "copied" ? "Link copied" : state === "failed" ? "Could not copy" : ""}
+      </span>
     </div>
   );
 }
-

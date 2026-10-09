@@ -30,7 +30,7 @@ export default function CareersPage() {
       />
       <section id="why" className="relative z-10 bg-surface pt-12 sm:pt-16 pb-16 scroll-mt-14">
         <SectionBackdrop variant="quiet" />
-        <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="relative z-10 mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-12 lg:gap-20 lg:items-center">
             <div>
               <Reveal variant="right" duration={0.75}>
@@ -52,7 +52,7 @@ export default function CareersPage() {
                   aria-hidden
                   className="anim-drift pointer-events-none absolute -right-8 -top-10 h-56 w-56 rounded-full bg-brand opacity-[0.16] blur-[90px]"
                 />
-                <figure className="group relative overflow-hidden rounded-[26px] border border-line shadow-card">
+                <figure className="group relative overflow-hidden rounded-[1.625rem] border border-line shadow-card">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="/company/people-centered.jpg"
@@ -62,7 +62,7 @@ export default function CareersPage() {
                     className="media-footage anim-drift block aspect-[4/3] w-full scale-[1.06] object-cover transition-transform duration-[1.2s] group-hover:scale-[1.12]"
                   />
                 </figure>
-                <figure className="group absolute bottom-0 left-0 w-[46%] overflow-hidden rounded-[22px] border border-line shadow-card">
+                <figure className="group absolute bottom-0 left-0 w-[46%] overflow-hidden rounded-[1.375rem] border border-line shadow-card">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="/delivery/build.jpg"
@@ -81,7 +81,7 @@ export default function CareersPage() {
 
       <section id="benefits" className="relative z-10 bg-paper-tint py-16 sm:py-20 scroll-mt-14">
         <SectionBackdrop from="bg-prism-blue" to="bg-prism-violet" />
-        <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="relative z-10 mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-10">
             <p className="mono-label text-accent-deep mb-4">Benefits</p>
             <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">Life at Testsoft.</h2>
@@ -105,11 +105,11 @@ export default function CareersPage() {
 
       {/* Footage band: the page talks about working here, so it shows it. */}
       <section className="relative z-10 bg-surface pt-16 sm:pt-20">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal variant="rise" duration={0.8}>
-            <figure className="relative overflow-hidden rounded-[28px] border border-line">
+            <figure className="relative overflow-hidden rounded-[1.75rem] border border-line">
               <video
-                className="media-footage block w-full h-[clamp(220px,30vw,400px)] object-cover"
+                className="media-footage block w-full h-[clamp(13.75rem,30vw,25rem)] object-cover"
                 autoPlay
                 muted
                 loop
@@ -133,7 +133,7 @@ export default function CareersPage() {
 
       <section id="jobs" className="relative z-10 bg-surface py-16 sm:py-20 scroll-mt-14">
         <SectionBackdrop variant="quiet" />
-        <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="relative z-10 mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-9">
             <p className="mono-label text-accent-deep mb-4">Open roles</p>
             <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">Find your next opportunity.</h2>

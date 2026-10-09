@@ -87,7 +87,7 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
 
       {/* ---- Opening section: a different arrangement per practice ---- */}
       <section className="relative z-10 bg-surface/70 pt-12 sm:pt-16 pb-16 sm:pb-20">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           {variant === "split" && (
             <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-10 lg:gap-20 items-start">
               <div className="lg:sticky lg:top-28">
@@ -117,14 +117,14 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
           {variant === "mosaic" && (
             <div className="grid lg:grid-cols-12 gap-6 items-stretch">
               <Reveal delay={0.05} className="lg:col-span-5">
-                <div className={`relative h-full overflow-hidden rounded-[28px] border border-line bg-paper p-8 sm:p-10`}>
+                <div className={`relative h-full overflow-hidden rounded-[1.75rem] border border-line bg-paper p-8 sm:p-10`}>
                   <span aria-hidden className={`pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full ${PRISM_BG[accent]} opacity-[0.14] blur-[100px]`} />
                   <p className="relative mono-label label-accent mb-4">{d?.whatHeading}</p>
                   <h2 className="relative display text-4xl sm:text-5xl text-ink">{accentLast(practice.tag)}</h2>
                 </div>
               </Reveal>
               <Reveal delay={0.14} className="lg:col-span-7">
-                <div className="h-full rounded-[28px] border border-line bg-surface p-8 sm:p-10 flex items-center">
+                <div className="h-full rounded-[1.75rem] border border-line bg-surface p-8 sm:p-10 flex items-center">
                   <p className="text-lg sm:text-xl text-ink/80 leading-relaxed">{d?.what}</p>
                 </div>
               </Reveal>
@@ -185,7 +185,7 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
 
       {/* ---- Capabilities: column count varies with the variant ---- */}
       <section className="relative z-10 bg-surface/70 py-16 sm:py-20">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-10" delay={0.05}>
             <p className="mono-label label-accent">Capabilities</p>
           </Reveal>
@@ -208,7 +208,7 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
 
       {/* ---- Delivery approach ---- */}
       <section className="relative z-10 bg-paper py-16 sm:py-20">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <div className="mb-10">
             <Reveal delay={0.05}><p className="mono-label label-accent mb-4">Our delivery approach</p></Reveal>
             <Reveal delay={0.12}>
@@ -231,7 +231,7 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
 
       {/* ---- Relevant industries ---- */}
       <section className="relative z-10 bg-surface/70 py-16 sm:py-20">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <div className="mb-10">
             <Reveal delay={0.05}><p className="mono-label label-accent mb-4">Relevant industries</p></Reveal>
             <Reveal delay={0.12}>
@@ -258,7 +258,7 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
       {/* ---- Proof ---- */}
       {proof.length > 0 && (
         <section className="relative z-10 bg-paper py-16 sm:py-20">
-          <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+          <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
             <Reveal className="mb-10" delay={0.05}>
               <p className="mono-label label-accent mb-4">Case studies &amp; proof</p>
               <h2 className="display text-4xl sm:text-6xl text-ink max-w-3xl">
@@ -288,7 +288,7 @@ export default async function PracticePage({ params }: { params: Promise<{ slug:
 
       {/* ---- Related practices ---- */}
       <section className="relative z-10 bg-surface/70 py-14 sm:py-18">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-10"><p className="mono-label label-accent">Related practices</p></Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {related.map((r, i) => (

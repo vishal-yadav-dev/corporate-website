@@ -1,8 +1,9 @@
 import { q } from "@/lib/db";
 import { cuid } from "@/lib/id";
 import { bad } from "@/lib/http";
-import { sendMail } from "@/lib/email";
-import { getTemplate, renderTemplate } from "@/lib/email-templates";
+import { mailFrom, sendMail, sortAddresses } from "@/lib/email";
+import { DEFAULT_TEMPLATES, getTemplate, renderTemplate, type TemplateSlug } from "@/lib/email-templates";
+import { joinFrame, splitFrame } from "@/lib/email-shell";
 import { siteUrl } from "@/lib/jobs";
 
 const htmlToText = (html: string) =>
@@ -13,17 +14,30 @@ export async function history() {
     "SELECT id, subject, sent_count, status, created_at FROM newsletters ORDER BY created_at DESC LIMIT 50"
   );
   const audience = await q<{ n: string }>("SELECT COUNT(*)::int AS n FROM subscribers WHERE status = 'active'");
-  return { newsletters: rows, activeSubscribers: Number(audience[0]?.n ?? 0) };
+  const staff = await q<{ n: string }>("SELECT COUNT(*)::int AS n FROM employees WHERE status = 'active'");
+  return {
+    newsletters: rows,
+    activeSubscribers: Number(audience[0]?.n ?? 0),
+    activeEmployees: Number(staff[0]?.n ?? 0),
+    /* Shown in the composer, so the sender sees who the mail is from. */
+    from: mailFrom(),
+  };
 }
 
 /**
- * Send a newsletter. `to`:
- *  - "subscribers": all active newsletter subscribers (BCC)
- *  - "employees": all active employees (BCC)
- *  - explicit array of addresses
- * `cc` / `bcc` are extra addresses. `contentHtml` is wrapped in the newsletter template.
+ * Send an email from the composer.
+ *
+ *  - `to`: "subscribers" | "employees" | "custom". A list audience is always
+ *    blind-copied, so no subscriber sees another's address.
+ *  - `recipients`: addresses typed by hand. These are shown in To.
+ *  - `cc` / `bcc`: typed by hand, sent as Cc and Bcc.
+ *  - `replyTo`: where a reply goes, if not the From address.
+ *  - `test`: send only to `me` and keep it out of the history.
+ *
+ * `contentHtml` is wrapped in the newsletter template. A malformed address
+ * stops the send and is named, rather than being dropped without a word.
  */
-export async function send(input: Record<string, unknown>) {
+export async function send(input: Record<string, unknown>, me?: string) {
   const subject = String(input.subject ?? "").trim();
   const contentHtml = String(input.contentHtml ?? "").trim();
   if (!subject) throw bad("Subject is required.");
@@ -40,40 +54,60 @@ export async function send(input: Record<string, unknown>) {
   if (attBytes > 7 * 1024 * 1024) throw bad("Attachments exceed the 7MB total limit.");
 
   const audience = String(input.to ?? "subscribers");
-  let recipients: string[] = [];
+  const test = input.test === true;
+
+  const typed = sortAddresses(input.recipients);
+  const ccIn = sortAddresses(input.cc);
+  const bccIn = sortAddresses(input.bcc);
+  const reply = sortAddresses(input.replyTo ? [input.replyTo] : []);
+  const invalid = [...typed.bad, ...ccIn.bad, ...bccIn.bad, ...reply.bad];
+  if (invalid.length) throw bad(`Not a valid email address: ${invalid.join(", ")}`);
+
+  let list: string[] = [];
   if (audience === "subscribers") {
-    recipients = (await q<{ email: string }>("SELECT email FROM subscribers WHERE status = 'active'")).map((r) => r.email);
+    list = (await q<{ email: string }>("SELECT email FROM subscribers WHERE status = 'active'")).map((r) => r.email);
   } else if (audience === "employees") {
-    recipients = (await q<{ email: string }>("SELECT email FROM employees WHERE status = 'active'")).map((r) => r.email);
-  } else if (Array.isArray(input.recipients)) {
-    recipients = (input.recipients as unknown[]).map(String);
+    list = (await q<{ email: string }>("SELECT email FROM employees WHERE status = 'active'")).map((r) => r.email);
   }
-  const cc = Array.isArray(input.cc) ? (input.cc as unknown[]).map(String).filter(Boolean) : [];
-  const bcc = Array.isArray(input.bcc) ? (input.bcc as unknown[]).map(String).filter(Boolean) : [];
-  recipients = [...new Set([...recipients, ...bcc])].filter((e) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e));
 
-  if (!recipients.length && !cc.length) throw bad("No valid recipients.");
+  let to = typed.ok;
+  let cc = ccIn.ok;
+  let bcc = [...new Set([...list.map((e) => e.toLowerCase()), ...bccIn.ok])];
+  if (test) {
+    if (!me) throw bad("Your account has no email address to send a test to.");
+    to = [me]; cc = []; bcc = [];
+  }
+  if (!to.length && !cc.length && !bcc.length) throw bad("Add at least one recipient.");
 
-  const tpl = await getTemplate("newsletter");
-  const html = renderTemplate(tpl.html, {
-    content: contentHtml,
-    unsubscribe_url: `${siteUrl()}/`,
-  });
+  /* Sent in the frame of the template it was started from, when that template
+     has one; otherwise in the newsletter frame. Either way the message goes
+     where the frame marks its body. */
+  const frameSlug = String(input.frame ?? "");
+  const own = frameSlug in DEFAULT_TEMPLATES ? splitFrame((await getTemplate(frameSlug as TemplateSlug)).html) : null;
+  const wrapper = own ?? splitFrame((await getTemplate("newsletter")).html);
+  const html = renderTemplate(
+    wrapper ? joinFrame(wrapper, contentHtml) : contentHtml,
+    { content: contentHtml, unsubscribe_url: `${siteUrl()}/` }
+  );
 
   const result = await sendMail({
-    to: recipients.length ? recipients : cc,
+    to,
     cc,
-    subject,
+    bcc,
+    replyTo: reply.ok[0],
+    subject: test ? `[Test] ${subject}` : subject,
     text: htmlToText(contentHtml),
     html,
     attachments: attachments.length ? attachments : undefined,
   });
 
   const status = result.ok ? (result.mode === "json" ? "skipped" : "sent") : "failed";
-  await q(
-    "INSERT INTO newsletters (id, subject, html, sent_count, status) VALUES ($1,$2,$3,$4,$5)",
-    [cuid(), subject, html, result.accepted.length, status]
-  );
+  if (!test) {
+    await q(
+      "INSERT INTO newsletters (id, subject, html, sent_count, status) VALUES ($1,$2,$3,$4,$5)",
+      [cuid(), subject, html, result.accepted.length, status]
+    );
+  }
 
   return {
     ok: result.ok,

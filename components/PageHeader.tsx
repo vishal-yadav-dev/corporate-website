@@ -46,7 +46,7 @@ export default function PageHeader({
   logo?: { src: string; alt?: string };
 }) {
   return (
-    <section className="relative pt-[150px] sm:pt-[190px] pb-16 sm:pb-28 overflow-hidden">
+    <section className="relative pt-[9.375rem] sm:pt-[11.875rem] pb-16 sm:pb-28 overflow-hidden">
       {/* A topic video takes precedence over the generated background. It is
           muted, looping and inert, so it never competes for attention or
           autoplay permission. */}
@@ -91,9 +91,9 @@ export default function PageHeader({
         </>
       )}
       {logo && <HeaderLogo src={logo.src} />}
-      {!vanta && !video && !logo && !dome && !flow && <div className="pointer-events-none absolute -top-20 right-0 h-[360px] w-[360px] rounded-full bg-brand/8 blur-[120px]" />}
+      {!vanta && !video && !logo && !dome && !flow && <div className="pointer-events-none absolute -top-20 right-0 h-[22.5rem] w-[22.5rem] rounded-full bg-brand/8 blur-[120px]" />}
 
-      <div className="mx-auto max-w-[1400px] px-5 sm:px-8 relative z-10">
+      <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8 relative z-10">
         <Reveal>
           <p className="mono-label text-accent-deep mb-6">{eyebrow}</p>
           {/* Same treatment as the homepage carousel: the last word carries the

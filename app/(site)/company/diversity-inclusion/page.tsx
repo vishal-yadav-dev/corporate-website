@@ -113,7 +113,7 @@ export default function DiversityInclusionPage() {
       {/* ---- the belief, and the certifications behind it ---- */}
       <section className="relative z-10 overflow-hidden bg-surface pt-10 sm:pt-12 pb-10 sm:pb-12">
         <SectionBackdrop from="bg-prism-green" to="bg-prism-blue" />
-        <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="relative z-10 mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <div className="grid lg:grid-cols-[1fr_0.9fr] gap-12 lg:gap-20">
             <Reveal>
               <p className="mono-label label-accent mb-4">Our belief</p>
@@ -144,7 +144,7 @@ export default function DiversityInclusionPage() {
 
       {/* ---- the first conversation, as cards that turn ---- */}
       <section className="relative z-10 bg-paper py-10 sm:py-12">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-9 max-w-3xl">
             <p className="mono-label label-accent mb-4">Our commitment</p>
             <h2 className="display text-4xl sm:text-6xl text-ink">
@@ -162,7 +162,7 @@ export default function DiversityInclusionPage() {
                 {/* Turns on hover; on a touch screen there is no hover to reveal
                     it with, so those devices get both faces stacked instead. */}
                 <div className="flip h-full">
-                  <div className="flip-inner h-full min-h-[210px]">
+                  <div className="flip-inner h-full min-h-[13.125rem]">
                     {/* The picture is the card, with the title set over it —
                         the fronts were four empty boxes with a rule on them. */}
                     <div className="flip-face overflow-hidden rounded-2xl border border-line bg-surface">
@@ -201,7 +201,7 @@ export default function DiversityInclusionPage() {
         <span aria-hidden className="pointer-events-none absolute inset-0 bg-paper-tint/60" />
         <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-paper to-transparent" />
         <span aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-paper to-transparent" />
-        <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="relative z-10 mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-9 max-w-3xl">
             <p className="mono-label label-accent mb-4">Why inclusion matters</p>
             <h2 className="display text-4xl sm:text-6xl text-ink">
@@ -228,11 +228,11 @@ export default function DiversityInclusionPage() {
 
       {/* ---- the band ---- */}
       <section className="relative z-10 bg-paper py-6 sm:py-8">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal variant="rise" duration={0.8}>
-            <figure className="relative overflow-hidden rounded-[28px] border border-line">
+            <figure className="relative overflow-hidden rounded-[1.75rem] border border-line">
               <video
-                className="media-footage block w-full h-[clamp(220px,32vw,420px)] object-cover"
+                className="media-footage block w-full h-[clamp(13.75rem,32vw,26.25rem)] object-cover"
                 autoPlay
                 muted
                 loop
@@ -255,7 +255,7 @@ export default function DiversityInclusionPage() {
 
       {/* ---- every candidate matters ---- */}
       <section className="relative z-10 bg-paper pb-10 sm:pb-12">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-12 lg:gap-20">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-12 lg:gap-20">
           <Reveal>
             <p className="mono-label label-accent mb-4">Every candidate matters</p>
             <h2 className="display text-3xl sm:text-5xl text-ink leading-[1.1]">
@@ -289,7 +289,7 @@ export default function DiversityInclusionPage() {
 
       {/* ---- our people ---- */}
       <section className="relative z-10 bg-surface/70 py-10 sm:py-12">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-9 max-w-3xl">
             <p className="mono-label label-accent mb-4">Our people are our strength</p>
             <h2 className="display text-4xl sm:text-6xl text-ink">
@@ -312,7 +312,7 @@ export default function DiversityInclusionPage() {
 
       {/* ---- inclusion in action ---- */}
       <section className="relative z-10 bg-paper py-10 sm:py-12">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-9 max-w-3xl">
             <p className="mono-label label-accent mb-4">Inclusion in action</p>
             <h2 className="display text-4xl sm:text-6xl text-ink">
@@ -339,7 +339,7 @@ export default function DiversityInclusionPage() {
       {/* ---- the chain from talent to what gets built ---- */}
       <section className="relative z-10 overflow-hidden bg-paper-tint/55 py-10 sm:py-12">
         <SectionBackdrop from="bg-prism-violet" to="bg-prism-blue" />
-        <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="relative z-10 mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-9 max-w-3xl">
             <p className="mono-label label-accent mb-4">From talent to technology</p>
             <h2 className="display text-4xl sm:text-6xl text-ink">
@@ -371,7 +371,7 @@ export default function DiversityInclusionPage() {
 
       {/* ---- the certification as responsibility ---- */}
       <section className="relative z-10 bg-paper py-10 sm:py-12">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-12 lg:gap-20">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-12 lg:gap-20">
           <Reveal>
             <p className="mono-label label-accent mb-4">Our responsibility as an MBE</p>
             <h2 className="display text-3xl sm:text-5xl text-ink leading-[1.1]">
@@ -396,7 +396,7 @@ export default function DiversityInclusionPage() {
 
       {/* ---- opportunity through technology ---- */}
       <section className="relative z-10 bg-surface/70 py-10 sm:py-12">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="max-w-3xl">
             <p className="mono-label label-accent mb-4">Building opportunity through technology</p>
             <h2 className="display text-4xl sm:text-6xl text-ink">
@@ -421,7 +421,7 @@ export default function DiversityInclusionPage() {
 
       {/* ---- looking ahead ---- */}
       <section className="relative z-10 bg-paper py-10 sm:py-12">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-9 max-w-3xl">
             <p className="mono-label label-accent mb-4">Looking ahead</p>
             <h2 className="display text-4xl sm:text-6xl text-ink">
@@ -445,7 +445,7 @@ export default function DiversityInclusionPage() {
       {/* ---- the promise, stated as pairs ---- */}
       <section className="relative z-10 overflow-hidden bg-paper-tint/55 py-10 sm:py-12">
         <SectionBackdrop from="bg-prism-green" to="bg-prism-violet" />
-        <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="relative z-10 mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-9 max-w-3xl">
             <p className="mono-label label-accent mb-4">Our promise</p>
             <h2 className="display text-4xl sm:text-6xl text-ink">
@@ -469,9 +469,9 @@ export default function DiversityInclusionPage() {
 
       {/* ---- close ---- */}
       <section className="relative z-10 bg-paper py-10 sm:py-12">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal>
-            <div className="relative overflow-hidden rounded-[28px] border border-line-blue/60 bg-surface px-7 py-12 sm:px-14 sm:py-16">
+            <div className="relative overflow-hidden rounded-[1.75rem] border border-line-blue/60 bg-surface px-7 py-12 sm:px-14 sm:py-16">
               <span aria-hidden className="prism-wash-lg pointer-events-none absolute -right-28 -top-28 h-80 w-80 rounded-full bg-prism-green blur-[120px]" />
               <span aria-hidden className="prism-wash-lg pointer-events-none absolute -left-24 -bottom-24 h-72 w-72 rounded-full bg-prism-violet blur-[120px]" />
               <div className="relative max-w-3xl">

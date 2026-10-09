@@ -51,7 +51,7 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
       {/* The facts a procurement officer checks first, set as a record strip
           rather than as prose. */}
       <section className="relative z-10 bg-surface border-y border-line">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <FactStrip
             facts={[
               /* Never invent a number: buyers verify it with the awarding body
@@ -67,7 +67,7 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
 
       {/* What the vehicle actually buys from us. */}
       <section className="relative z-10 bg-surface py-16 sm:py-20 border-t border-line">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <div className="max-w-3xl mb-10">
             <p className="mono-label label-accent mb-4">Delivered under this vehicle</p>
             <h2 className="display text-3xl sm:text-5xl text-ink">
@@ -107,11 +107,11 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
           the page rather than a video dropped into a box. */}
       {v.band && (
         <section className="relative z-10 bg-surface pb-6 sm:pb-8">
-          <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+          <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
             <Reveal variant="rise" duration={0.8}>
-              <figure className="relative overflow-hidden rounded-[28px] border border-line">
+              <figure className="relative overflow-hidden rounded-[1.75rem] border border-line">
                 <video
-                  className="media-footage block w-full h-[clamp(200px,28vw,380px)] object-cover"
+                  className="media-footage block w-full h-[clamp(12.5rem,28vw,23.75rem)] object-cover"
                   autoPlay
                   muted
                   loop
@@ -140,9 +140,9 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
           rather than taking this page's word for it. */}
       {v.vendor && (
         <section className="relative z-10 bg-paper-tint/55 py-14 sm:py-18">
-          <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+          <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
             <Reveal>
-              <div className="relative overflow-hidden rounded-[28px] border border-line-blue/60 bg-surface px-7 py-11 sm:px-14 sm:py-14">
+              <div className="relative overflow-hidden rounded-[1.75rem] border border-line-blue/60 bg-surface px-7 py-11 sm:px-14 sm:py-14">
                 <span aria-hidden className={`pointer-events-none absolute -left-24 -bottom-24 h-72 w-72 rounded-full ${PRISM_BG[v.accent % 6]} opacity-[0.12] blur-[110px]`} />
                 <div
                   className={
@@ -178,7 +178,7 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
                         alt={v.image.alt}
                         loading="lazy"
                         decoding="async"
-                        className="block w-full max-w-[220px] h-auto"
+                        className="block w-full max-w-[13.75rem] h-auto"
                       />
                     </div>
                   ) : (
@@ -202,7 +202,7 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
       {/* Buyers rarely arrive knowing which vehicle applies to them, so every
           page offers the others. */}
       <section className="relative z-10 bg-paper py-14 sm:py-18 border-t border-line">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <div className="flex flex-wrap items-end justify-between gap-6 mb-10">
             <div>
               <p className="mono-label label-accent mb-4">Other vehicles</p>
@@ -249,7 +249,7 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
 function Breadcrumb({ group, name }: { group: string; name: string }) {
   return (
     <nav aria-label="Breadcrumb" className="relative z-10 bg-paper">
-      <div className="mx-auto max-w-[1400px] px-5 sm:px-8 pb-10">
+      <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8 pb-10">
         <ol className="flex flex-wrap items-center gap-2 mono-label text-graphite">
           <li><Link href="/company" className="hover:text-brand transition-colors">Who We Are</Link></li>
           <li aria-hidden>/</li>
@@ -271,7 +271,7 @@ function Breadcrumb({ group, name }: { group: string; name: string }) {
 function Dossier({ v }: { v: Vehicle }) {
   return (
     <section className="relative z-10 bg-paper py-16 sm:py-20">
-      <div className="mx-auto max-w-[1400px] px-5 sm:px-8 grid lg:grid-cols-[1.25fr_0.75fr] gap-12 lg:gap-20">
+      <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8 grid lg:grid-cols-[1.25fr_0.75fr] gap-12 lg:gap-20">
         <div>
           <p className="mono-label label-accent mb-6">How it works</p>
           {v.body.map((para, i) => (
@@ -316,7 +316,7 @@ function Dossier({ v }: { v: Vehicle }) {
 function Brief({ v }: { v: Vehicle }) {
   return (
     <section className="relative z-10 bg-paper py-16 sm:py-20">
-      <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+      <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
         <div className="grid md:grid-cols-2 gap-5 mb-10">
           <Reveal>
             <Panel title="Who can buy" accent={v.accent}>

@@ -76,7 +76,7 @@ export default async function CompanyPage() {
       />
 
       <section id="about" className="relative z-10 bg-surface/70 pt-12 sm:pt-16 pb-16 scroll-mt-14">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-24">
             <Reveal>
               <p className="mono-label label-accent mb-4">About</p>
@@ -103,7 +103,7 @@ export default async function CompanyPage() {
       </section>
 
       <section id="story" className="relative z-10 bg-paper py-14 sm:py-18 scroll-mt-14">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8 grid lg:grid-cols-[0.85fr_1.15fr] gap-12 lg:gap-20">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8 grid lg:grid-cols-[0.85fr_1.15fr] gap-12 lg:gap-20">
           <Reveal>
             <p className="mono-label label-accent mb-4">Our Story</p>
             <h2 className="display text-4xl sm:text-6xl text-ink leading-[1.05]">
@@ -120,7 +120,7 @@ export default async function CompanyPage() {
       </section>
 
       <section id="what-we-do" className="relative z-10 bg-surface/70 py-14 sm:py-18 scroll-mt-14">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-9 max-w-3xl">
             <p className="mono-label label-accent mb-4">What We Do</p>
             <h2 className="display text-4xl sm:text-6xl text-ink">
@@ -158,7 +158,7 @@ export default async function CompanyPage() {
           the dropdown reaches them directly, and so does a reader working down
           this page. */}
       <section className="relative z-10 bg-paper-tint/55 py-14 sm:py-18">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8 grid gap-5 md:grid-cols-2">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8 grid gap-5 md:grid-cols-2">
           {[
             {
               href: "/company/our-vision",
@@ -200,7 +200,7 @@ export default async function CompanyPage() {
       </section>
 
       <section id="leadership" className="relative z-10 bg-paper-tint/55 py-16 sm:py-20 scroll-mt-14">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-10">
             <p className="mono-label text-accent-deep mb-4">Leadership</p>
             <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">Meet the leaders behind the work.</h2>
@@ -210,7 +210,7 @@ export default async function CompanyPage() {
       </section>
 
       <section id="awards" className="relative z-10 bg-surface/70 py-16 sm:py-20 scroll-mt-14">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-10">
             <p className="mono-label text-accent-deep mb-4">Awards & Recognition</p>
             <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">Committed to responsible and inclusive business.</h2>
@@ -229,7 +229,7 @@ export default async function CompanyPage() {
                     )}
                     <div>
                       {a.image && <span className={`mono-label ${PRISM_TEXT[i % 6]}`}>{a.year}</span>}
-                      <p className="text-ink/90 text-[15px] leading-snug mt-1">{a.title}</p>
+                      <p className="text-ink/90 text-[0.9375rem] leading-snug mt-1">{a.title}</p>
                     </div>
                   </div>
                 </div>
@@ -241,7 +241,7 @@ export default async function CompanyPage() {
 
       {/* Our Approach — numbered process, per the blueprint */}
       <section id="approach" className="relative z-10 bg-surface/70 py-16 sm:py-20 scroll-mt-14">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-10">
             <p className="mono-label text-accent-deep mb-4">Our Approach</p>
             <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">Understand. Align. Deliver.</h2>
@@ -264,7 +264,7 @@ export default async function CompanyPage() {
       </section>
 
       <section id="different" className="relative z-10 bg-paper-tint/55 py-14 sm:py-18 scroll-mt-14">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-9 max-w-3xl">
             <p className="mono-label label-accent mb-4">What makes us different</p>
             <h2 className="display text-4xl sm:text-6xl text-ink">
@@ -296,7 +296,7 @@ export default async function CompanyPage() {
       </div>
 
       <section id="delivery" className="relative z-10 bg-paper-tint/55 py-16 sm:py-20 scroll-mt-14">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-10">
             <p className="mono-label text-accent-deep mb-4">Delivery Centers</p>
             <h2 className="display text-5xl sm:text-7xl text-ink max-w-3xl">Connected delivery, US-centered.</h2>
@@ -325,7 +325,7 @@ export default async function CompanyPage() {
         <span aria-hidden className="pointer-events-none absolute inset-0 bg-surface/55" />
         <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-surface to-transparent" />
         <span aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-surface to-transparent" />
-        <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="relative z-10 mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
             <Reveal>
               <p className="mono-label text-accent-deep mb-4">Corporate Social Responsibility</p>
@@ -346,7 +346,7 @@ export default async function CompanyPage() {
           section renders only when there is real material to show. */}
       {CASES.length > 0 && (
         <section id="success-stories" className="relative z-10 bg-paper py-14 sm:py-18 scroll-mt-14">
-          <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+          <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
             <div className="flex flex-wrap items-end justify-between gap-6 mb-10">
               <div>
                 <Reveal delay={0.05}><p className="mono-label label-accent mb-4">Partner Success Stories</p></Reveal>
@@ -369,7 +369,7 @@ export default async function CompanyPage() {
                 <Reveal key={c.id} delay={(i % 3) * 0.06} variant="rise">
                   <Link
                     href={`/success-stories/${c.id}`}
-                    className="card-lift group relative flex h-full flex-col overflow-hidden rounded-[22px] border border-line bg-surface transition-colors hover:border-brand/50"
+                    className="card-lift group relative flex h-full flex-col overflow-hidden rounded-[1.375rem] border border-line bg-surface transition-colors hover:border-brand/50"
                   >
                     {c.image && (
                       // eslint-disable-next-line @next/next/no-img-element
@@ -395,7 +395,7 @@ export default async function CompanyPage() {
 
       {CLIENT_QUOTES.length > 0 && (
         <section id="client-testimonials" className="relative z-10 bg-surface/70 py-16 sm:py-20 scroll-mt-14">
-          <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+          <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
             <div className="mb-10">
               <Reveal delay={0.05}><p className="mono-label label-accent mb-4">Client Testimonials</p></Reveal>
               <Reveal delay={0.12}>
@@ -425,7 +425,7 @@ export default async function CompanyPage() {
 
       {CANDIDATE_QUOTES.length > 0 && (
         <section id="candidate-testimonials" className="relative z-10 bg-paper py-16 sm:py-20 scroll-mt-14">
-          <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+          <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
             <div className="mb-10">
               <Reveal delay={0.05}><p className="mono-label text-accent-deep mb-4">Employee Testimonials</p></Reveal>
               <Reveal delay={0.12}>
@@ -458,7 +458,7 @@ export default async function CompanyPage() {
       )}
 
       <section id="whats-next" className="relative z-10 bg-paper-tint/55 py-14 sm:py-18 scroll-mt-14">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8 grid lg:grid-cols-[0.9fr_1.1fr] gap-12 lg:gap-20">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8 grid lg:grid-cols-[0.9fr_1.1fr] gap-12 lg:gap-20">
           <Reveal>
             <p className="mono-label label-accent mb-4">Built for what comes next</p>
             <h2 className="display text-4xl sm:text-6xl text-ink leading-[1.05]">
@@ -479,9 +479,9 @@ export default async function CompanyPage() {
       {/* Two routes on purpose: the supplied copy offers both "talk to us" and
           "see the solutions", and they are different readers. */}
       <section className="relative z-10 bg-paper-tint/55 py-14 sm:py-18">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal>
-            <div className="relative overflow-hidden rounded-[28px] border border-line-blue/60 bg-surface px-7 py-12 sm:px-14 sm:py-16">
+            <div className="relative overflow-hidden rounded-[1.75rem] border border-line-blue/60 bg-surface px-7 py-12 sm:px-14 sm:py-16">
               <span aria-hidden className="prism-wash-lg pointer-events-none absolute -right-28 -top-28 h-80 w-80 rounded-full bg-prism-blue blur-[120px]" />
               <span aria-hidden className="prism-wash-lg pointer-events-none absolute -left-24 -bottom-24 h-72 w-72 rounded-full bg-prism-violet blur-[120px]" />
               <div className="relative max-w-3xl">

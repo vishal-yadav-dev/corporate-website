@@ -96,13 +96,13 @@ export default function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.97 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed bottom-24 right-5 z-[70] w-[min(92vw,380px)] h-[min(70vh,560px)] flex flex-col rounded-2xl overflow-hidden border border-line-blue/60 bg-surface shadow-[0_40px_120px_-20px_rgba(0,0,0,0.9)]"
+            className="fixed bottom-24 right-5 z-[70] w-[min(92vw,23.75rem)] h-[min(70vh,35rem)] flex flex-col rounded-2xl overflow-hidden border border-line-blue/60 bg-surface shadow-[0_40px_120px_-20px_rgba(0,0,0,0.9)]"
           >
             <div className="flex items-center gap-3 px-4 py-3.5 border-b border-line bg-surface-2">
               <span className="h-8 w-8 grid place-items-center rounded-lg bg-brand text-white font-display font-bold text-sm">N</span>
               <div className="min-w-0">
                 <p className="text-sm font-medium text-ink leading-tight">Testsoft assistant</p>
-                <p className="text-[11px] text-graphite">Answers about Testsoft only</p>
+                <p className="text-[0.6875rem] text-graphite">Answers about Testsoft only</p>
               </div>
             </div>
 

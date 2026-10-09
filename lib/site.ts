@@ -2,7 +2,8 @@ import "server-only";
 import { cache } from "react";
 import { q } from "@/lib/db";
 import type { BlogPost, BlogSection } from "@/lib/blog";
-import { BLOG_POSTS as BLOG_FALLBACK } from "@/lib/blog";
+import { BLOG_POSTS as BLOG_FALLBACK, splitImage } from "@/lib/blog";
+import { LEGAL_SLUGS, legalDefault, legalKeys } from "@/lib/legal";
 import { PARTNERS as PARTNERS_FALLBACK, LOCATIONS, PRACTICES as PRACTICES_FALLBACK, PRACTICE_LOGOS, STAFFING as STAFFING_FALLBACK, AWARDS as AWARDS_FALLBACK, LEADERSHIP as LEADERSHIP_FALLBACK } from "@/lib/data";
 
 /* ------------------------------------------------------------------ *
@@ -425,13 +426,15 @@ function parseJson<T>(raw: string, fallback: T): T {
 }
 
 function toPost(r: BlogRow): BlogPost & { createdBy: string; updatedBy: string } {
+  const picture = splitImage(r.image_url || "");
   return {
     slug: r.slug,
     tag: r.tag || "Technology",
     title: r.title,
     excerpt: r.excerpt || "",
-    image: r.image_url || "/insights/platform.jpg",
+    image: picture.src || "/insights/platform.jpg",
     imageAlt: r.image_alt || "",
+    imagePos: picture.pos,
     date: r.published_at || "",
     author: { name: r.author_name || "", role: r.author_role || "" },
     accent: Number(r.accent) || 0,
@@ -460,4 +463,44 @@ export const getBlogPosts = cache(readBlogPosts);
 
 export async function getBlogPost(slug: string): Promise<BlogPost | undefined> {
   return (await getBlogPosts()).find((p) => p.slug === slug);
+}
+
+
+/* ------------------------------------------------------------------ *
+ * Policy pages
+ * ------------------------------------------------------------------ */
+
+export type LegalView = {
+  slug: string; title: string; body: string;
+  /** ISO timestamp of the last edit, or "" while the page is still the default */
+  updatedAt: string;
+};
+
+/* Stored in `content` under legal.<slug>.title / .body, so no table of its own.
+   With no row, or no database at all, the bundled text renders. */
+async function readLegal(slug: string): Promise<LegalView | undefined> {
+  const base = legalDefault(slug);
+  if (!base) return undefined;
+  const k = legalKeys(slug);
+  const out: LegalView = { ...base, updatedAt: "" };
+  try {
+    const rows = await q<{ key: string; value: string; updated_at: string | Date }>(
+      "SELECT key, value, updated_at FROM content WHERE key = $1 OR key = $2", [k.title, k.body]
+    );
+    for (const r of rows) {
+      if (!r.value.trim()) continue;
+      if (r.key === k.title) out.title = r.value;
+      else out.body = r.value;
+      const at = new Date(r.updated_at).toISOString();
+      if (at > out.updatedAt) out.updatedAt = at;
+    }
+  } catch { /* fallback */ }
+  return out;
+}
+
+export const getLegal = cache(readLegal);
+
+export async function getLegalPages(): Promise<LegalView[]> {
+  const all = await Promise.all(LEGAL_SLUGS.map((s) => getLegal(s)));
+  return all.filter((d): d is LegalView => Boolean(d));
 }

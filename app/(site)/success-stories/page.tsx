@@ -31,7 +31,7 @@ export default async function SuccessStoriesPage() {
       />
 
       <section className="relative z-10 bg-surface pt-12 sm:pt-16 pb-16 sm:pb-20">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           {stories.length === 0 ? (
             <p className="text-graphite">Stories are being prepared. Check back shortly.</p>
           ) : (
@@ -40,7 +40,7 @@ export default async function SuccessStoriesPage() {
                 <Reveal key={c.id} delay={(i % 3) * 0.06} variant="rise">
                   <Link
                     href={`/success-stories/${c.id}`}
-                    className="card-lift group relative flex h-full flex-col overflow-hidden rounded-[22px] border border-line bg-paper transition-colors hover:border-brand/50"
+                    className="card-lift group relative flex h-full flex-col overflow-hidden rounded-[1.375rem] border border-line bg-paper transition-colors hover:border-brand/50"
                   >
                     {/* The picture leads, the way a story card should. */}
                     {c.image ? (

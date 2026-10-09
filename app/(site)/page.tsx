@@ -37,11 +37,14 @@ export default async function Home() {
 
       {/* Metrics */}
       <section className="relative z-10 py-10 sm:py-12" style={{ "--page-accent": PRISM_VAR[3] } as React.CSSProperties}>
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-line-blue border border-line-blue rounded-2xl overflow-hidden surface-card">
             {METRICS.map((m, i) => (
-              <Reveal key={m.label} delay={i * 0.06} className="bg-surface p-8 sm:p-10">
-                <CountUp value={m.value} className={`display text-5xl sm:text-6xl ${PRISM_TEXT[i % 6]}`} />
+              /* The figure is sized off its own cell, not the viewport: "Inc.500"
+                 is seven characters in a half-width cell on a phone, and at a
+                 fixed size it ran past the edge and was clipped by the card. */
+              <Reveal key={m.label} delay={i * 0.06} className="@container bg-surface p-5 sm:p-10">
+                <CountUp value={m.value} className={`display text-[min(3.75rem,22cqw)] ${PRISM_TEXT[i % 6]}`} />
                 <p className="mt-3 text-sm text-graphite leading-relaxed">{m.label}</p>
               </Reveal>
             ))}
@@ -54,7 +57,7 @@ export default async function Home() {
           left to right in a single band, and the page they lead to carries the
           detail. */}
       <section className="relative z-10 py-10 sm:py-12" style={{ "--page-accent": PRISM_VAR[1] } as React.CSSProperties}>
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-6">
             <div>
               <Reveal delay={0.05}>
@@ -89,7 +92,7 @@ export default async function Home() {
               {PRACTICES.slice(0, 5).map((it, i) => (
                 <Reveal key={it.id} delay={i * 0.06} className="w-[72vw] shrink-0 sm:w-[46vw] lg:w-auto">
                   <Link href={`/practices/${it.id}`} className="flip group block h-full">
-                    <div className="flip-inner h-full min-h-[232px]">
+                    <div className="flip-inner h-full min-h-[14.5rem]">
                       {/* front */}
                       <div className="flip-face card-lift overflow-hidden rounded-2xl border border-line bg-surface p-6">
                         <span
@@ -99,7 +102,7 @@ export default async function Home() {
                         {it.logo ? (
                           <span className="relative inline-grid h-11 w-fit place-items-center rounded-lg bg-white px-3 ring-1 ring-black/5">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={it.logo} alt="" className="h-6 w-auto max-w-[104px] object-contain" />
+                            <img src={it.logo} alt="" className="h-6 w-auto max-w-[6.5rem] object-contain" />
                           </span>
                         ) : (
                           <span className={`prism-rule relative ${PRISM_BG[i % 6]}`} />
@@ -135,9 +138,9 @@ export default async function Home() {
       {/* Industries — brand tint band */}
       {/* SLED spotlight — the segment the business most wants to win work in */}
       <section className="relative z-10 bg-paper-tint/55 py-10 sm:py-12" style={{ "--page-accent": PRISM_VAR[4] } as React.CSSProperties}>
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal>
-            <div className="relative overflow-hidden rounded-[28px] border border-line-blue/60 bg-surface p-8 sm:p-14">
+            <div className="relative overflow-hidden rounded-[1.75rem] border border-line-blue/60 bg-surface p-8 sm:p-14">
               {/* The footage is the card's own background, bled to all four
                   edges and dissolved into the surface — it has no frame, no
                   border and no corners of its own, so it reads as part of the
@@ -199,7 +202,7 @@ export default async function Home() {
           rows of scrolling to say something the two group names already say.
           It now sends the reader to the page that holds them. */}
       <section className="relative z-10 py-10 sm:py-12" style={{ "--page-accent": PRISM_VAR[2] } as React.CSSProperties}>
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <div className="mb-8">
             <Reveal delay={0.05}>
               <p className="mono-label label-accent mb-4">{copy["home.workforce.eyebrow"]}</p>
@@ -278,7 +281,7 @@ export default async function Home() {
           section the reader had just passed. One band, every industry still one
           click away. */}
       <section className="relative z-10 bg-paper-tint py-10 sm:py-12" style={{ "--page-accent": PRISM_VAR[5] } as React.CSSProperties}>
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16 lg:items-center">
             <Reveal>
               <p className="mono-label label-accent mb-4">{copy["home.industries.eyebrow"]}</p>
@@ -330,9 +333,8 @@ export default async function Home() {
 
       {/* Blogs, between the delivery narrative and the logo wall. */}
       <section className="relative z-10 bg-surface py-14 sm:py-18" style={{ "--page-accent": PRISM_VAR[2] } as React.CSSProperties}>
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
-          <div className="flex flex-wrap items-end justify-between gap-6 mb-10">
-          <Reveal className="max-w-3xl">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
+          <Reveal className="max-w-3xl mb-10">
             <p className="mono-label label-accent mb-4">Blogs</p>
             <h2 className="display text-4xl sm:text-6xl text-ink leading-[1.05]">
               Ideas shaping technology, business, and the{" "}
@@ -342,20 +344,13 @@ export default async function Home() {
               A place for Testsoft&apos;s perspectives on the technologies, industries, and trends shaping organizations.
             </p>
           </Reveal>
-          <Reveal delay={0.1}>
-            <Link href="/blog" className="group mono-label label-accent inline-flex items-center gap-2 hover:text-brand transition-colors">
-              Explore all blogs
-              <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-            </Link>
-          </Reveal>
-          </div>
 
           <div className="grid gap-5 md:grid-cols-3">
             {posts.slice(0, 3).map((a, i) => (
               <Reveal key={a.title} delay={i * 0.07} variant="rise" duration={0.7}>
                 <Link
                   href={`/blog/${a.slug}`}
-                  className="group flex h-full flex-col overflow-hidden rounded-[22px] border border-line bg-paper transition-all duration-500 hover:-translate-y-1 hover:border-[var(--card-accent)]/50 hover:shadow-card"
+                  className="group flex h-full flex-col overflow-hidden rounded-[1.375rem] border border-line bg-paper transition-all duration-500 hover:-translate-y-1 hover:border-[var(--card-accent)]/50 hover:shadow-card"
                   style={{ "--card-accent": PRISM_VAR[(i * 2 + 1) % 6] } as React.CSSProperties}
                 >
                   <div className="relative overflow-hidden">
@@ -366,6 +361,7 @@ export default async function Home() {
                       loading="lazy"
                       decoding="async"
                       className="media-footage block aspect-[16/10] w-full object-cover transition-transform duration-[1.1s] group-hover:scale-[1.07]"
+                      style={{ objectPosition: a.imagePos }}
                     />
                     <span
                       className={`absolute left-4 top-4 rounded-full px-3 py-1.5 mono-label text-white ${PRISM_BG[(i * 2 + 1) % 6]}`}
@@ -392,6 +388,17 @@ export default async function Home() {
               </Reveal>
             ))}
           </div>
+
+          {/* Below the cards, not beside the heading: following it is what you
+              do after reading these three, not before. */}
+          <Reveal delay={0.1}>
+            <div className="mt-10 flex justify-end">
+              <Link href="/blog" className="group mono-label label-accent inline-flex items-center gap-2 hover:text-brand transition-colors">
+                Explore all blogs
+                <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+              </Link>
+            </div>
+          </Reveal>
         </div>
       </section>
 

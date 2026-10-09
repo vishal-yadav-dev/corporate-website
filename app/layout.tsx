@@ -2,9 +2,14 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-const spaceGrotesk = localFont({ src: "./fonts/SpaceGrotesk.ttf", variable: "--font-space-grotesk", display: "swap", weight: "300 700" });
-const inter = localFont({ src: "./fonts/Inter.ttf", variable: "--font-inter", display: "swap", weight: "100 900" });
-const jetbrains = localFont({ src: "./fonts/JetBrainsMono.ttf", variable: "--font-jetbrains", display: "swap", weight: "100 800" });
+/* Not preloaded. The theme reads these variables on `:root`, but they are set
+   on `<body>`, so they resolve to nothing and every page renders in the system
+   font. Preloading still fetched all three files, about 670 KB, at the front
+   of every first visit for text that never used them. Without the preload a
+   browser only fetches a font that something on the page is set in. */
+const spaceGrotesk = localFont({ src: "./fonts/SpaceGrotesk.ttf", variable: "--font-space-grotesk", display: "swap", weight: "300 700", preload: false });
+const inter = localFont({ src: "./fonts/Inter.ttf", variable: "--font-inter", display: "swap", weight: "100 900", preload: false });
+const jetbrains = localFont({ src: "./fonts/JetBrainsMono.ttf", variable: "--font-jetbrains", display: "swap", weight: "100 800", preload: false });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.testsoft.com"),

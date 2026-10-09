@@ -46,8 +46,8 @@ export default function Hero3D() {
         ref={ref}
         className="preserve-3d"
         style={{
-          width: "min(48vw, 480px)",
-          height: "min(48vw, 480px)",
+          width: "min(48vw, 30rem)",
+          height: "min(48vw, 30rem)",
           transform: "rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))",
           transition: "transform 0.4s ease-out",
         }}

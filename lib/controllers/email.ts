@@ -8,8 +8,8 @@ export const history = handler(async () => {
 });
 
 export const send = handler(async (req) => {
-  await auth("email");
-  return json(await newsletter.send(await body(req)));
+  const session = await auth("email");
+  return json(await newsletter.send(await body(req), session.email));
 });
 
 export const draft = handler(async (req) => {

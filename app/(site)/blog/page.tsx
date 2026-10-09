@@ -36,6 +36,7 @@ export default async function BlogIndexPage() {
     excerpt: p.excerpt,
     image: p.image,
     imageAlt: p.imageAlt,
+    imagePos: p.imagePos,
     date: p.date,
     dateLabel: formatDate(p.date),
     minutes: readMinutes(p),
@@ -54,7 +55,7 @@ export default async function BlogIndexPage() {
       {/* Modern 3D Glass Featured Article Card */}
       {lead && (
         <section className="relative z-10 bg-paper py-14 sm:py-20 border-b border-line">
-          <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+          <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
             <Reveal variant="rise" duration={0.8}>
               <FeaturedBlogCard
                 post={{
@@ -65,6 +66,7 @@ export default async function BlogIndexPage() {
                   excerpt: lead.excerpt,
                   image: lead.image,
                   imageAlt: lead.imageAlt,
+                  imagePos: lead.imagePos,
                   date: lead.date,
                   dateLabel: formatDate(lead.date),
                   minutes: readMinutes(lead),
@@ -78,7 +80,7 @@ export default async function BlogIndexPage() {
       )}
 
       <section className="relative z-10 bg-paper py-14 sm:py-18">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-10">
             <p className="mono-label label-accent mb-4">All articles</p>
             <h2 className="display text-3xl sm:text-5xl text-ink">

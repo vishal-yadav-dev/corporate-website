@@ -25,6 +25,8 @@ export type BlogPost = {
   excerpt: string;
   image: string;
   imageAlt: string;
+  /** `object-position` for a frame that crops the picture. Unset is centred. */
+  imagePos?: string;
   /** ISO, so it can go straight into <time dateTime> and the metadata. */
   date: string;
   author: { name: string; role: string };
@@ -34,6 +36,26 @@ export type BlogPost = {
   sections: BlogSection[];
   takeaways: string[];
 };
+
+/* Where a picture sits inside a frame that crops it, as a pair of percentages:
+   0,0 keeps its top-left corner in view and 100,100 its bottom-right. The pair
+   is written on the end of the image address as `#pos=50,30`. A browser drops
+   that part when it fetches the file, so a post needs no column of its own for
+   it, and an address without one sits centred as it always did. */
+const IMAGE_POS = /#pos=(\d{1,3}),(\d{1,3})$/;
+
+export function splitImage(url: string): { src: string; x: number; y: number; pos?: string } {
+  const m = IMAGE_POS.exec(url);
+  if (!m) return { src: url, x: 50, y: 50 };
+  const x = Math.min(100, Number(m[1]));
+  const y = Math.min(100, Number(m[2]));
+  return { src: url.slice(0, m.index), x, y, pos: `${x}% ${y}%` };
+}
+
+export function joinImage(src: string, x: number, y: number): string {
+  const clean = splitImage(src).src;
+  return x === 50 && y === 50 ? clean : `${clean}#pos=${Math.round(x)},${Math.round(y)}`;
+}
 
 export function getCategoryForTag(tag: string, existingCategory?: string): BlogCategory {
   if (existingCategory === "Industry" || existingCategory === "Technology" || existingCategory === "Solutions") {

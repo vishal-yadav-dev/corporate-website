@@ -70,7 +70,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
 
       {/* ---- Opening ---- */}
       <section className="relative z-10 bg-surface/70 pt-12 sm:pt-16 pb-16 sm:pb-20">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           {variant === "rail" ? (
             <div className="grid lg:grid-cols-[auto_1fr] gap-10 lg:gap-16">
               <Reveal delay={0.05}>
@@ -122,13 +122,13 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
           ) : variant === "mosaic" ? (
             <div className="grid lg:grid-cols-12 gap-6">
               <Reveal delay={0.05} className="lg:col-span-5">
-                <div className={`relative h-full overflow-hidden rounded-[28px] ${PRISM_BG[accent]} p-8 sm:p-12`}>
+                <div className={`relative h-full overflow-hidden rounded-[1.75rem] ${PRISM_BG[accent]} p-8 sm:p-12`}>
                   <p className="mono-label text-white/70 mb-5">{d?.whatHeading}</p>
                   <h2 className="display text-3xl sm:text-4xl text-white">{industry.line}</h2>
                 </div>
               </Reveal>
               <Reveal delay={0.14} className="lg:col-span-7">
-                <div className="h-full rounded-[28px] border border-line bg-paper p-8 sm:p-12 flex items-center">
+                <div className="h-full rounded-[1.75rem] border border-line bg-paper p-8 sm:p-12 flex items-center">
                   <p className="text-lg sm:text-xl text-ink/80 leading-relaxed">{d?.what}</p>
                 </div>
               </Reveal>
@@ -173,7 +173,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
 
       {/* ---- Industry capability chips ---- */}
       <section className="relative z-10 bg-surface/70 py-16 sm:py-20">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-10" delay={0.05}>
             <p className="mono-label label-accent mb-4">Capability areas</p>
             <h2 className="display text-4xl sm:text-6xl text-ink max-w-3xl">
@@ -195,7 +195,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
       {/* ---- Related practices ---- */}
       {practices.length > 0 && (
         <section className="relative z-10 bg-paper py-16 sm:py-20">
-          <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+          <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
             <Reveal className="mb-10" delay={0.05}>
               <p className="mono-label label-accent mb-4">Related practices</p>
               <h2 className="display text-4xl sm:text-6xl text-ink max-w-3xl">
@@ -220,7 +220,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
 
       {/* ---- Workforce ---- */}
       <section className="relative z-10 bg-surface/70 py-16 sm:py-20">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-10" delay={0.05}>
             <p className="mono-label label-accent mb-4">Workforce</p>
             <h2 className="display text-4xl sm:text-6xl text-ink max-w-3xl">
@@ -245,7 +245,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
       {/* ---- Proof ---- */}
       {proof.length > 0 && (
         <section className="relative z-10 bg-paper py-16 sm:py-20">
-          <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+          <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
             <Reveal className="mb-10" delay={0.05}>
               <p className="mono-label label-accent mb-4">Case studies</p>
               <h2 className="display text-4xl sm:text-6xl text-ink max-w-3xl">
@@ -269,7 +269,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
 
       {/* ---- Other industries ---- */}
       <section className="relative z-10 bg-surface/70 py-14 sm:py-18">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-10"><p className="mono-label label-accent">Other industries</p></Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {others.map((o, i) => (

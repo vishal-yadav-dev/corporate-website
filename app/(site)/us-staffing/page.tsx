@@ -40,7 +40,7 @@ export default async function UsStaffingPage() {
 
       {/* Stats */}
       <section className="relative z-10 py-8 sm:py-12">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-line-blue border border-line-blue rounded-2xl overflow-hidden surface-card">
             {STAFFING_STATS.map((s, i) => (
               <Reveal key={s.label} delay={i * 0.06} variant="zoom" className="bg-surface p-8 sm:p-10">
@@ -57,7 +57,7 @@ export default async function UsStaffingPage() {
         <VantaBg effect="topology" />
         <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-paper to-transparent" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-paper to-transparent" />
-        <div className="relative mx-auto max-w-[1400px] px-5 sm:px-8 space-y-20 scene">
+        <div className="relative mx-auto max-w-[87.5rem] px-5 sm:px-8 space-y-20 scene">
           {GROUPS.map((g) => {
             const rows = ALL.filter((x) => x.group === g.key);
             if (rows.length === 0) return null;

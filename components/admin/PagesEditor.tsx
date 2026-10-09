@@ -93,7 +93,7 @@ export default function PagesEditor({ fields }: { fields: CopyField[] }) {
 
   return (
     <div className="relative z-10 px-5 sm:px-8 py-10">
-      <div className="mx-auto max-w-[1500px]">
+      <div className="admin-wide mx-auto max-w-[1500px]">
         <header className="mb-8">
           <p className="mono-label text-accent-deep mb-3">Content</p>
           <h1 className="display text-4xl text-ink">Page text</h1>

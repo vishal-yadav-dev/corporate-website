@@ -28,7 +28,7 @@ export default async function PartnerStrip({
         <img
           src={logo}
           alt={name}
-          className={`w-auto object-contain opacity-85 transition-opacity duration-300 group-hover/tile:opacity-100 ${big ? "h-10 max-w-[200px]" : "h-7 max-w-[150px]"}`}
+          className={`w-auto object-contain opacity-85 transition-opacity duration-300 group-hover/tile:opacity-100 ${big ? "h-10 max-w-[12.5rem]" : "h-7 max-w-[9.375rem]"}`}
         />
       ) : (
         <span className="display text-lg text-[#17222E] text-center">{name}</span>
@@ -49,7 +49,7 @@ export default async function PartnerStrip({
       {/* depth glow */}
       <div className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 h-72 bg-brand/10 blur-[120px]" />
 
-      <div className="relative mx-auto max-w-[1400px] px-5 sm:px-8">
+      <div className="relative mx-auto max-w-[87.5rem] px-5 sm:px-8">
         {heading && <p className="mono-label text-accent-deep mb-3">{heading}</p>}
         {title && <h2 className="display text-4xl sm:text-6xl text-ink max-w-3xl mb-10">{title}</h2>}
       </div>

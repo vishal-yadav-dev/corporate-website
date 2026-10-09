@@ -47,7 +47,7 @@ export default function Nav() {
           scrolled ? "bg-paper/85 backdrop-blur-xl border-b border-line" : "bg-transparent"
         }`}
       >
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8 flex items-center justify-between h-[72px]">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8 flex items-center justify-between h-18">
           <Link href="/" className="flex items-center gap-2 group" onClick={() => setMobile(false)}>
             <Wordmark size="md" />
           </Link>
@@ -57,7 +57,7 @@ export default function Nav() {
               const rich = item.groups?.some((g) => g.items.some((c) => c.desc)) ?? false;
               return (
               <div key={item.label} className="relative" onMouseEnter={() => setOpen(item.label)}>
-                <Link href={item.href} className="px-4 py-2 text-sm text-ink/70 hover:text-brand transition-colors mono-label">
+                <Link href={item.href} className="px-4 py-2 text-ink/70 hover:text-brand transition-colors mono-label">
                   {item.label}
                 </Link>
                 <AnimatePresence>
@@ -97,7 +97,7 @@ export default function Nav() {
                            heading — the entry titles are the structure. */
                         <div
                           className="relative overflow-hidden rounded-2xl border border-line bg-surface p-2 shadow-xl shadow-brand/5"
-                          style={{ width: "min(1080px, calc(100vw - 3rem))" }}
+                          style={{ width: "min(67.5rem, calc(100vw - 3rem))" }}
                         >
                           <span aria-hidden className="prism-wash pointer-events-none absolute -left-16 -top-16 h-56 w-56 rounded-full bg-prism-blue blur-[80px]" />
                           <span aria-hidden className="prism-wash pointer-events-none absolute -right-20 -bottom-20 h-56 w-56 rounded-full bg-prism-violet blur-[80px]" />
@@ -135,7 +135,7 @@ export default function Nav() {
                            and a title that wrapped to two lines dropped its rule
                            below the others. */
                         <div
-                          className="relative overflow-hidden grid grid-flow-col auto-cols-[minmax(215px,1fr)] xl:auto-cols-[minmax(248px,1fr)] gap-x-14 xl:gap-x-16 gap-y-0 bg-surface border border-line rounded-2xl p-6 shadow-xl shadow-brand/5"
+                          className="relative overflow-hidden grid grid-flow-col auto-cols-[minmax(13.4375rem,1fr)] xl:auto-cols-[minmax(15.5rem,1fr)] gap-x-14 xl:gap-x-16 gap-y-0 bg-surface border border-line rounded-2xl p-6 shadow-xl shadow-brand/5"
                           style={{ gridTemplateRows: "auto 1fr" }}
                         >
                           {/* a little colour under the panel so it is not a flat
@@ -161,7 +161,7 @@ export default function Nav() {
                           ))}
                         </div>
                       ) : (
-                        <div className="min-w-[220px] bg-surface border border-line rounded-xl p-2 shadow-xl shadow-brand/5">
+                        <div className="min-w-[13.75rem] bg-surface border border-line rounded-xl p-2 shadow-xl shadow-brand/5">
                           {item.children.map((c) => (
                             <Link key={c.label} href={c.href} className="block px-3 py-2 text-[0.95rem] text-ink/70 hover:text-brand hover:bg-paper-tint rounded-lg transition-colors">
                               {c.label}
@@ -200,7 +200,7 @@ export default function Nav() {
 
       <AnimatePresence>
         {mobile && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-40 bg-paper pt-[72px] lg:hidden overflow-y-auto">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-40 bg-paper pt-18 lg:hidden overflow-y-auto">
             <div className="px-6 py-8 space-y-6">
               {NAV.map((item) => (
                 <div key={item.label} className="border-b border-line pb-5">

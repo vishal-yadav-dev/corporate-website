@@ -42,7 +42,7 @@ export default async function StoryPage({ params }: { params: Promise<{ slug: st
   return (
     <div style={{ "--page-accent": PRISM_VAR[accent] } as React.CSSProperties}>
       {/* ---- the picture carries the opening, the way a story should ---- */}
-      <section className="relative pt-[150px] sm:pt-[190px] pb-0 overflow-hidden">
+      <section className="relative pt-[9.375rem] sm:pt-[11.875rem] pb-0 overflow-hidden">
         {c.image && (
           <>
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -51,7 +51,7 @@ export default async function StoryPage({ params }: { params: Promise<{ slug: st
             <span aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-r from-paper via-paper/80 to-paper/40" />
           </>
         )}
-        <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8 pb-16 sm:pb-16">
+        <div className="relative z-10 mx-auto max-w-[87.5rem] px-5 sm:px-8 pb-16 sm:pb-16">
           <Reveal>
             <nav aria-label="Breadcrumb" className="mb-7">
               <ol className="flex flex-wrap items-center gap-2 mono-label text-graphite">
@@ -70,7 +70,7 @@ export default async function StoryPage({ params }: { params: Promise<{ slug: st
 
       {/* ---- the record strip a reader scans first ---- */}
       <section className="relative z-10 bg-surface border-y border-line">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <dl className="grid sm:grid-cols-2 lg:grid-cols-4 divide-y divide-line lg:divide-y-0 lg:divide-x lg:divide-line">
             {[
               { k: "Industry", v: c.industry },
@@ -91,7 +91,7 @@ export default async function StoryPage({ params }: { params: Promise<{ slug: st
 
       {/* ---- the story itself ---- */}
       <section className="relative z-10 bg-paper py-14 sm:py-18">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8 space-y-14">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8 space-y-14">
           {beats.map((b, n) => (
             <Reveal key={b.label} delay={n * 0.05}>
               <div className="grid lg:grid-cols-[0.3fr_0.7fr] gap-6 lg:gap-16 border-t border-line pt-10">
@@ -119,9 +119,9 @@ export default async function StoryPage({ params }: { params: Promise<{ slug: st
       {/* ---- the client's own words, given room ---- */}
       {c.quote && (
         <section className="relative z-10 bg-paper-tint/55 py-14 sm:py-18">
-          <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+          <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
             <Reveal variant="rise" duration={0.8}>
-              <figure className="relative overflow-hidden rounded-[28px] border border-line-blue/60 bg-surface px-7 py-12 sm:px-14 sm:py-16">
+              <figure className="relative overflow-hidden rounded-[1.75rem] border border-line-blue/60 bg-surface px-7 py-12 sm:px-14 sm:py-16">
                 <span aria-hidden className={`prism-wash-lg pointer-events-none absolute -right-28 -top-28 h-80 w-80 rounded-full ${PRISM_BG[accent]} blur-[120px]`} />
                 <blockquote className="relative display text-2xl sm:text-4xl text-ink leading-[1.25] max-w-4xl">
                   “{c.quote}”
@@ -136,7 +136,7 @@ export default async function StoryPage({ params }: { params: Promise<{ slug: st
       {/* ---- the other stories ---- */}
       {others.length > 0 && (
         <section className="relative z-10 bg-paper py-14 sm:py-18 border-t border-line">
-          <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+          <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
             <div className="flex flex-wrap items-end justify-between gap-6 mb-10">
               <h2 className="display text-3xl sm:text-5xl text-ink">More stories</h2>
               <Link href="/success-stories" className="mono-label label-accent hover:text-brand transition-colors">

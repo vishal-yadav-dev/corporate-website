@@ -30,8 +30,8 @@ export default function CtaBanner({
 
   return (
     <section className="relative z-10 bg-paper-tint/55 py-14 sm:py-18">
-      <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
-        <div className="group relative overflow-hidden rounded-[28px] border border-line-blue/60 bg-surface px-7 py-12 sm:px-14 sm:py-16">
+      <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
+        <div className="group relative overflow-hidden rounded-[1.75rem] border border-line-blue/60 bg-surface px-7 py-12 sm:px-14 sm:py-16">
           {/* a hairline in the page's colour along the top edge */}
           <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[3px]" style={{ background: `linear-gradient(90deg, ${accent}, transparent 70%)` }} />
           <span aria-hidden className="anim-drift pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full blur-[110px] opacity-[0.18]" style={{ background: accent }} />

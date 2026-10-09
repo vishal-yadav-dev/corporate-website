@@ -76,6 +76,20 @@
 * { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
 html { scroll-behavior: smooth; }
 
+/* ---- Laptop scale ------------------------------------------------------
+   The site was drawn on a ~1728px-wide viewport. A default-scaled laptop is
+   1280-1536px, and at a fixed 16px root everything on it ran a size too big:
+   the container filled the screen edge to edge, so the logo sat in the corner
+   and the hero copy ran under the carousel arrow.
+
+   Type, spacing and the container are all in rem, so the root size alone
+   carries the proportions down: 16px at 1728 and wider, easing to 13.5px on
+   the narrowest laptops. Phones and tablets keep 16px, and so does the admin,
+   which has no `.site-root`. */
+@media (min-width: 1024px) {
+  html:has(.site-root) { font-size: clamp(13.5px, 0.926vw, 16px); }
+}
+
 body {
   color: var(--foreground);
   font-family: var(--font-body), system-ui, sans-serif;
@@ -119,16 +133,38 @@ body {
   overflow-wrap: normal;
   hyphens: none;
 }
-.mono-label {
-  font-family: var(--font-mono), monospace;
-  text-transform: uppercase;
-  /* Tracking eases off as the weight goes up: 0.18em at 600 reads as spaced-out
-     rather than as a label. JetBrains Mono is a 100-800 variable face, so 600
-     is a drawn weight and not a synthesised one. */
-  letter-spacing: 0.13em;
-  font-size: 0.92rem;
-  font-weight: 600;
+@layer components {
+  /* The one label style the site uses: section eyebrows, nav links, fact-strip
+     keys, chips, breadcrumbs and meta lines.
+
+     It lives in `@layer components` on purpose. Unlayered CSS beats anything in
+     a cascade layer whatever the specificity, and `@import "tailwindcss"` puts
+     utilities in a layer — so while this rule sat unlayered, every
+     `mono-label text-xs` in the codebase silently rendered at the full size.
+     There were twenty of them. Inside the components layer the utilities win
+     again, which is what the people writing those classes expected.
+
+     Settled at 0.84rem: 0.72 was too quiet to read as a section label and 0.92
+     was too loud next to the headings underneath it. Tracking eases off as the
+     weight goes up, since 0.18em at 600 reads as spaced-out letters rather than
+     as a label. JetBrains Mono is a 100-800 variable face, so 600 is a drawn
+     weight and not a synthesised one. */
+  .mono-label {
+    font-family: var(--font-mono), monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.84rem;
+    font-weight: 600;
+  }
+
+  /* Named sizes, so a smaller label is a stated intent rather than a utility
+     fighting the base rule. Tracking loosens as the size drops, because small
+     uppercase text needs more of it, not less. */
+  .mono-label-sm { font-size: 0.75rem; letter-spacing: 0.15em; }
+  .mono-label-xs { font-size: 0.68rem; letter-spacing: 0.16em; }
+  .mono-label-lg { font-size: 1.05rem; letter-spacing: 0.1em; font-weight: 700; }
 }
+
 
 /* ---- Surfaces / depth ---- */
 .surface-card {
@@ -196,10 +232,15 @@ body {
 /* ---- Animations ---- */
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 .marquee-track { animation: marquee 28s linear infinite; }
-.marquee-track:hover { animation-play-state: paused; }
-/* Pausing is bound to the rail, not the track: between tiles the pointer is
-   over the gap, and a track-only rule lets the row stutter back into motion. */
-.marquee-rail:hover .marquee-track { animation-play-state: paused; }
+/* Pausing under the pointer is for a mouse. A touch screen keeps `:hover` set
+   after a tap until something else is tapped, so one touch on the row stopped
+   it and it never started again. */
+@media (hover: hover) {
+  .marquee-track:hover { animation-play-state: paused; }
+  /* Pausing is bound to the rail, not the track: between tiles the pointer is
+     over the gap, and a track-only rule lets the row stutter back into motion. */
+  .marquee-rail:hover .marquee-track { animation-play-state: paused; }
+}
 
 @keyframes float-y { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
 .anim-float { animation: float-y 7s ease-in-out infinite; }
@@ -273,6 +314,10 @@ body {
   * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
   .marquee-track, .anim-float, .anim-spin-3d, .anim-drift, .anim-grid, .anim-pulse-ring, .anim-sway { animation: none; }
   .card-3d:hover { transform: none; }
+  /* The logo row stands still here, so it can be swiped instead. Left clipped,
+     everything past the first screenful could not be reached at all. */
+  .marquee-rail { overflow-x: auto; scrollbar-width: none; }
+  .marquee-rail::-webkit-scrollbar { display: none; }
 }
 
 /* Theme-toggle glyphs: driven by the root attribute (set pre-paint by the
@@ -448,7 +493,7 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.5); }
 .menu-group-label {
   font-family: var(--font-mono), monospace;
   text-transform: uppercase;
-  /* Sized against the nav bar above it: the bar sits at 0.92rem, so a group
+  /* Sized against the nav bar above it: the bar sits at 0.84rem, so a group
      heading has to clear that to read as a heading rather than as another nav
      link. Tracking tightens as the size and weight go up. */
   font-size: 1.15rem;
@@ -568,4 +613,20 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.5); }
 
 @media (prefers-reduced-motion: reduce) {
   .plate-sheen { animation: none; opacity: 0; }
+}
+
+/* ---- Admin shell -------------------------------------------------------
+   The sidebar is either open (260px, labels) or a rail (68px, icons). The
+   sidebar component sets data-admin-nav on <html>; the content padding follows
+   it here, because the padding belongs to a server-rendered wrapper the
+   sidebar cannot reach.
+
+   Most admin screens are forms and read best at a fixed measure. A screen with
+   a side-by-side preview needs the room instead, and says so by putting
+   `admin-wide` on its root. */
+.admin-main { max-width: 1100px; }
+.admin-main:has(.admin-wide) { max-width: none; }
+@media (min-width: 1024px) {
+  .admin-shell { padding-left: 260px; transition: padding-left 0.25s cubic-bezier(0.22, 1, 0.36, 1); }
+  :root[data-admin-nav="rail"] .admin-shell { padding-left: 68px; }
 }

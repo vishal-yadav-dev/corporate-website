@@ -75,7 +75,7 @@ export default async function PracticesPage() {
         {/* only fade the very top & bottom so the animation stays visible */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-paper to-transparent" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-paper to-transparent" />
-        <div className="relative mx-auto max-w-[1400px] px-5 sm:px-8 py-14 sm:py-18">
+        <div className="relative mx-auto max-w-[87.5rem] px-5 sm:px-8 py-14 sm:py-18">
           <Reveal className="mb-10">
             <p className="mono-label text-accent-deep mb-4">Enterprise Platforms</p>
             <h2 className="display text-4xl sm:text-6xl text-ink max-w-2xl">The platforms your business runs on.</h2>
@@ -91,7 +91,7 @@ export default async function PracticesPage() {
                 <Link
                   href={`/practices/${p.id}`}
                   id={p.id}
-                  className={`card-3d scroll-mt-16 group relative grid lg:grid-cols-[0.85fr_1.15fr] gap-8 lg:gap-16 bg-surface/92 border border-line rounded-[28px] p-8 sm:p-12 overflow-hidden hover:border-brand/60 ${i % 2 ? "lg:[&>*:first-child]:order-2" : ""}`}
+                  className={`card-3d scroll-mt-16 group relative grid lg:grid-cols-[0.85fr_1.15fr] gap-8 lg:gap-16 bg-surface/92 border border-line rounded-[1.75rem] p-8 sm:p-12 overflow-hidden hover:border-brand/60 ${i % 2 ? "lg:[&>*:first-child]:order-2" : ""}`}
                 >
                   <div className={`prism-wash pointer-events-none absolute -right-24 -bottom-24 h-72 w-72 rounded-full ${PRISM_BG[i % 6]} blur-[110px] transition-opacity duration-500 group-hover:opacity-40`} />
                   <div className="relative">
@@ -99,7 +99,7 @@ export default async function PracticesPage() {
                     {p.logo && (
                       <div className="inline-grid place-items-center rounded-xl bg-white px-4 h-12 sm:h-14 mb-6 ring-1 ring-black/5 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.6)]">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={p.logo} alt={`${p.name} logo`} className="h-7 sm:h-8 w-auto max-w-[150px] object-contain" />
+                        <img src={p.logo} alt={`${p.name} logo`} className="h-7 sm:h-8 w-auto max-w-[9.375rem] object-contain" />
                       </div>
                     )}
                     <h3 className="display text-4xl sm:text-6xl text-ink group-hover:text-brand transition-colors">{p.name}</h3>
@@ -128,7 +128,7 @@ export default async function PracticesPage() {
 
       {/* Digital engineering + integration as capability grids */}
       <section className="relative z-10 bg-surface/70 py-14 sm:py-18">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-9">
             <p className="mono-label text-accent-deep mb-4">Digital Engineering</p>
             <h2 className="display text-4xl sm:text-6xl text-ink max-w-3xl">Engineering that moves business forward.</h2>

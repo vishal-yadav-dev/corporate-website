@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { PreviewLink, useDraftMirror } from "@/components/admin/preview";
 
 type Banner = {
   id: string;
@@ -59,6 +60,7 @@ export default function BannersPage() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [err, setErr] = useState("");
   const [busy, setBusy] = useState(false);
+  useDraftMirror("banner", { ...form, __id: editingId });
 
   const loadBanners = useCallback(() => {
     fetch("/api/admin/banners")
@@ -302,6 +304,7 @@ export default function BannersPage() {
               Cancel
             </button>
           )}
+          <PreviewLink kind="banner" className="self-center" />
         </div>
       </form>
 

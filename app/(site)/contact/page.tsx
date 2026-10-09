@@ -28,7 +28,7 @@ export default async function ContactPage() {
             the content instead of competing with it up there. */}
         <FlowField seed={1} />
         <div aria-hidden className="pointer-events-none absolute inset-0 bg-surface/70" />
-        <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="relative z-10 mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20">
             <Reveal>
               {/* The target every "Talk to an Expert" points at. scroll-mt
@@ -58,7 +58,7 @@ export default async function ContactPage() {
       <section className="relative z-10 bg-paper-tint py-14 sm:py-18">
         <SectionBackdrop from="bg-prism-violet" to="bg-prism-blue" />
         {/* positioned, so it paints over the absolutely-placed backdrop */}
-        <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8">
+        <div className="relative z-10 mx-auto max-w-[87.5rem] px-5 sm:px-8">
           <Reveal className="mb-9">
             <p className="mono-label text-accent-deep mb-3">Global locations</p>
             <h2 className="display text-4xl sm:text-6xl text-ink max-w-2xl">Find us on the ground.</h2>

@@ -34,7 +34,7 @@ export default function ProcurementRail({
 
   return (
     <section className="relative z-10 bg-surface py-16 sm:py-20">
-      <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
+      <div className="mx-auto max-w-[87.5rem] px-5 sm:px-8">
         <div className="max-w-3xl mb-10">
           <p className="mono-label text-accent-deep mb-4">{eyebrow}</p>
           <h2 className="display text-4xl sm:text-6xl text-ink">{heading}</h2>
@@ -83,7 +83,7 @@ function Step({ title, body, index }: { title: string; body: string; index: numb
           transform: "translateX(0)",
         }}
       >
-        <span className="mono-label text-[10px] sm:text-xs text-accent-deep">0{index + 1}</span>
+        <span className="mono-label text-[0.625rem] sm:text-xs text-accent-deep">0{index + 1}</span>
       </span>
       <h3 className="display text-2xl sm:text-4xl text-ink">{title}</h3>
       <p className="mt-4 max-w-2xl text-ink/75 leading-relaxed">{body}</p>

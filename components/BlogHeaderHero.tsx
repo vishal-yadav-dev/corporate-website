@@ -97,7 +97,7 @@ export default function BlogHeaderHero() {
           scale,
           transformStyle: "preserve-3d",
         }}
-        className="relative preserve-3d group cursor-pointer w-[420px] xl:w-[480px] h-[320px]"
+        className="relative preserve-3d group cursor-pointer w-[26.25rem] xl:w-[30rem] h-[20rem]"
       >
         {/* Prismatic Glowing Ambient Aura */}
         <div className="anim-pulse-glow absolute -inset-20 rounded-full bg-gradient-to-tr from-brand/30 via-accent/25 to-prism-blue/20 blur-[110px] pointer-events-none opacity-85 group-hover:opacity-100 transition-opacity duration-700" />

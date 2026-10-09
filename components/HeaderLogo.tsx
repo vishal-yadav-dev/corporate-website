@@ -26,7 +26,7 @@ export default function HeaderLogo({ src }: { src: string }) {
             {/* The official mark is a wide banner, so the plate follows its
                 shape rather than boxing it into a square. */}
             <div
-              className="relative overflow-hidden grid place-items-center rounded-2xl bg-white px-9 py-7 xl:px-12 xl:py-9 ring-1 ring-black/5 w-[420px] xl:w-[520px]"
+              className="relative overflow-hidden grid place-items-center rounded-2xl bg-white px-9 py-7 xl:px-12 xl:py-9 ring-1 ring-black/5 w-[26.25rem] xl:w-[32.5rem]"
               style={{ boxShadow: "0 55px 120px -45px rgba(0,0,0,0.9)" }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
